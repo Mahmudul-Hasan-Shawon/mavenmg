@@ -3,9 +3,11 @@ import { stats } from '../data/site'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 
 /**
- * Results — Maven's real numbers as huge editorial typography, not stat
- * cards. Counters animate once when the section enters; a fine top rule and
- * ghosted suffix numerals give it depth without decoration.
+ * Results — "luminous panels": three floating dark cards, each wrapped in a
+ * hairline gradient border that ignites to maven on hover. Inside, a
+ * mouse-tracked spotlight plus top-left ambient glow make the panel feel lit
+ * from within; numerals render in the brand gradient. Counters animate once
+ * when the section enters.
  */
 export function Results() {
   const rootRef = useRef<HTMLElement>(null)
@@ -15,11 +17,11 @@ export function Results() {
     () => {
       gsap.fromTo(
         '[data-stat]',
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 48 },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
+          duration: 1.1,
           ease: 'expo.out',
           stagger: 0.12,
           scrollTrigger: { trigger: rootRef.current, start: 'top 75%', once: true },
@@ -33,8 +35,8 @@ export function Results() {
         const obj = { v: 0 }
         gsap.to(obj, {
           v: target,
-          duration: 2,
-          ease: 'power2.out',
+          duration: 2.2,
+          ease: 'power3.out',
           scrollTrigger: { trigger: rootRef.current, start: 'top 75%', once: true },
           onUpdate: () => {
             el.textContent = decimals > 0 ? obj.v.toFixed(decimals) : Math.round(obj.v).toLocaleString()
@@ -59,20 +61,36 @@ export function Results() {
           <span className="mono-label !text-mist">The Maven impact</span>
         </div>
 
-        <div className="divide-y divide-line border-y border-line">
-          {stats.map((stat) => (
-            <div key={stat.label} data-stat className="group relative py-10 md:py-14">
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-12 px-2 md:px-6">
-                <div className="font-sora font-bold leading-none tracking-tight text-[clamp(3.4rem,10vw,8.5rem)] grad-text tabular-nums">
-                  {stat.prefix}
-                  <span data-counter={stat.value} data-decimals={stat.decimals}>
-                    0
-                  </span>
-                  <span className="text-maven-light">{stat.suffix}</span>
-                </div>
-                <div className="md:text-right md:pb-4 max-w-sm">
-                  <h3 className="display text-xl md:text-2xl text-white mb-2">{stat.label}</h3>
-                  <p className="text-mist-dim text-md leading-relaxed">{stat.description}</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {stats.map((stat, i) => (
+            <div
+              key={stat.label}
+              data-stat
+              className="group relative rounded-3xl transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_28px_80px_-28px_rgba(97,44,139,0.5)]"
+            >
+              {/* Gradient hairline border — ignites to maven on hover */}
+              <div className="rounded-3xl p-px h-full bg-line transition-colors duration-500 group-hover:bg-maven-light/50">
+                <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void p-8 md:p-10 h-full flex flex-col" onPointerMove={spotHandler}>
+                  <div className="flex items-center justify-between mb-10 md:mb-14">
+                    <span className="index-tag">{String(i + 1).padStart(2, '0')}</span>
+                    <span
+                      className="h-px w-8 bg-maven-light/30 transition-all duration-500 group-hover:w-14 group-hover:bg-maven-light/70"
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  <div className="display font-bold leading-[0.9] tracking-[-0.04em] tabular-nums mb-8 md:mb-10 text-[clamp(3.25rem,6vw,5.75rem)] text-transparent bg-clip-text bg-[image:var(--grad)]">
+                    {stat.prefix}
+                    <span data-counter={stat.value} data-decimals={stat.decimals}>
+                      0
+                    </span>
+                    <span className="text-[0.55em] tracking-tight ml-0.5">{stat.suffix}</span>
+                  </div>
+
+                  <div className="mt-auto">
+                    <h3 className="display text-lg md:text-xl text-white mb-2.5">{stat.label}</h3>
+                    <p className="text-mist-dim text-md leading-relaxed">{stat.description}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -81,4 +99,11 @@ export function Results() {
       </div>
     </section>
   )
+}
+
+function spotHandler(e: React.PointerEvent<HTMLElement>) {
+  const el = e.currentTarget
+  const rect = el.getBoundingClientRect()
+  el.style.setProperty('--spot-x', `${e.clientX - rect.left}px`)
+  el.style.setProperty('--spot-y', `${e.clientY - rect.top}px`)
 }
