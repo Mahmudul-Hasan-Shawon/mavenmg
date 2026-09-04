@@ -169,7 +169,20 @@ function Network({ count, flowCount, radius = 4.4 }: NetworkProps) {
   )
 
   const pointer = useRef({ x: 0, y: 0 })
+  const target = useRef({ x: 0, y: 0 })
+  const scrollSpin = useRef(0)
   const tmp = useMemo(() => new THREE.Vector3(), [])
+
+  // The canvas sits behind the hero copy and gradient scrims, so R3F pointer
+  // events never reach it — track the mouse at window level instead.
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      target.current.x = (e.clientX / window.innerWidth) * 2 - 1
+      target.current.y = -(e.clientY / window.innerHeight) * 2 + 1
+    }
+    window.addEventListener('pointermove', onMove, { passive: true })
+    return () => window.removeEventListener('pointermove', onMove)
+  }, [])
 
   // Theme retinting: additive glow on dark, deep violets + normal blending on light.
   useEffect(() => {
@@ -188,18 +201,25 @@ function Network({ count, flowCount, radius = 4.4 }: NetworkProps) {
     })
   }, [nodeMat, lineMat, flowMat])
 
-  useFrame((state, dt) => {
+  useFrame((state, rawDt) => {
+    // Clamp dt so tab-switches / hitched frames don't teleport the scene.
+    const dt = Math.min(rawDt, 0.05)
     const t = state.clock.elapsedTime
     nodeMat.uniforms.uTime.value = t
 
-    // Pointer easing (window-level listener keeps working over overlaid text)
-    pointer.current.x += (state.pointer.x - pointer.current.x) * Math.min(1, dt * 3)
-    pointer.current.y += (state.pointer.y - pointer.current.y) * Math.min(1, dt * 3)
+    // Pointer easing toward the window-level mouse position.
+    pointer.current.x += (target.current.x - pointer.current.x) * Math.min(1, dt * 2.5)
+    pointer.current.y += (target.current.y - pointer.current.y) * Math.min(1, dt * 2.5)
+
+    // Scroll influence: clamped + smoothed so fast flicks and the
+    // scroll-to-top on page navigation can't whip the network around.
+    scrollSpin.current +=
+      (THREE.MathUtils.clamp(scrollState.velocity, -30, 30) - scrollSpin.current) * Math.min(1, dt * 3)
 
     const g = groupRef.current
     if (g) {
-      g.rotation.y += dt * (0.05 + pointer.current.x * 0.15) + scrollState.velocity * 0.0004
-      g.rotation.x += (pointer.current.y * 0.14 + 0.12 - g.rotation.x) * dt * 1.2
+      g.rotation.y += dt * (0.05 + pointer.current.x * 0.22) + scrollSpin.current * 0.00018
+      g.rotation.x += (pointer.current.y * 0.16 + 0.12 - g.rotation.x) * dt * 1.2
       g.position.y = narrow ? 0.4 : 0
       g.scale.setScalar(narrow ? 0.72 : 1)
     }

@@ -227,6 +227,16 @@ textarea:focus {
   color: var(--maven-light);
 }
 
+/* Theme-aware logo swap: [data-logo="dark"] shows in dark theme,
+   [data-logo="light"] in light theme. */
+html:not([data-theme='light']) [data-logo='light'] {
+  display: none;
+}
+
+[data-theme='light'] [data-logo='dark'] {
+  display: none;
+}
+
 /* Gentle floating drift for hero brand visuals */
 @keyframes float-slow {
   0%, 100% { transform: translateY(0); }
