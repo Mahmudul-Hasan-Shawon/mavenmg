@@ -69,7 +69,19 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
             aria-label={`${siteData.name} — home`}
             data-cursor
           >
-            <img src="/images/logo.png" alt={siteData.name} className={cn('w-auto transition-all duration-500', scrolled ? 'h-7' : 'h-9')} />
+            <img
+              src="/images/logo.png"
+              alt={siteData.name}
+              data-logo="dark"
+              className={cn('w-auto transition-all duration-500', scrolled ? 'h-7' : 'h-9')}
+            />
+            <img
+              src="/images/mavenlogo_light.png"
+              alt=""
+              aria-hidden="true"
+              data-logo="light"
+              className={cn('w-auto transition-all duration-500', scrolled ? 'h-7' : 'h-9')}
+            />
           </a>
 
           <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
