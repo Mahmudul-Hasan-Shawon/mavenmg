@@ -74,14 +74,14 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
           </div>
 
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white font-dm mb-5">Services</h4>
+            <h4 className="text-sm uppercase footer-col-heading mb-5">Services</h4>
             <ul className="space-y-3">
               {footerServices.map((s) => (
                 <li key={s}>
                   <a
                     onClick={() => onNavigate('/services')}
                     data-cursor
-                    className="link-line text-sm text-mist hover:text-white cursor-pointer transition-colors"
+                    className="link-line text-sm text-mist-dim hover:text-white cursor-pointer transition-colors"
                   >
                     {s}
                   </a>
@@ -91,14 +91,14 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
           </div>
 
           <nav aria-label="Footer navigation">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white font-dm mb-5">Explore</h4>
+            <h4 className="text-sm uppercase footer-col-heading mb-5">Explore</h4>
             <ul className="space-y-3">
               {navigation.map((link) => (
                 <li key={link.href}>
                   <a
                     onClick={() => onNavigate(link.href)}
                     data-cursor
-                    className="link-line text-sm text-mist hover:text-white cursor-pointer transition-colors"
+                    className="link-line text-sm text-mist-dim hover:text-white cursor-pointer transition-colors"
                   >
                     {link.label}
                   </a>
@@ -108,7 +108,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
           </nav>
 
           <div className="col-span-2 md:col-span-1">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white font-dm mb-5">Contact</h4>
+            <h4 className="text-sm uppercase footer-col-heading mb-5">Contact</h4>
             <ul className="space-y-3 text-sm text-mist-dim">
               <li>
                 <a href={site.phoneHref} data-cursor className="flex items-start gap-2.5 whitespace-nowrap hover:text-mist transition-colors">
@@ -138,16 +138,6 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
               </li>
             </ul>
           </div>
-        </div>
-      </div>
-
-      {/* Giant wordmark */}
-      <div className="overflow-hidden select-none pointer-events-none" aria-hidden="true">
-        <div
-          className="font-sora font-bold text-center leading-[0.78] grad-text opacity-[0.16]"
-          style={{ fontSize: 'clamp(4rem, 16.5vw, 15rem)', marginBottom: '-0.14em', letterSpacing: '-0.04em' }}
-        >
-          MAVEN
         </div>
       </div>
 
