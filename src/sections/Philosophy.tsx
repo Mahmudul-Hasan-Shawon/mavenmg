@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
-import { philosophy } from '../data/content'
+import { useEffect, useRef, useState } from 'react'
+import { Code, Megaphone } from 'lucide-react'
+import { mavens, philosophy } from '../data/content'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 
 /**
@@ -59,11 +60,10 @@ export function Philosophy() {
               The <span className="text-white">Marketing</span>
               <span className="text-maven-light"> Mavens</span>
             </h3>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              At Maven, we bring together the finest minds in digital strategy and web design.
-              Our web masters craft powerhouse platforms optimized for SEO, and our online
-              marketers devise bespoke digital marketing campaigns that dominate industries.
+            <p className="text-mist text-base md:text-lg leading-relaxed mb-9">
+              {mavens.intro}
             </p>
+            <MavensTabs />
           </div>
           <div className="relative order-1 lg:order-2 flex justify-center lg:block">
             <div className="absolute -inset-3 bg-gradient-to-r from-[#DACAFF]/5 to-[#8B4FBF]/15 blur-2xl" aria-hidden="true" />
@@ -113,6 +113,92 @@ export function Philosophy() {
         </div>
       </div>
     </section>
+  )
+}
+
+/**
+ * Web Masters / Online Marketers toggle — pill buttons swap the active
+ * discipline copy with a blur/fade transition. Same content as the Mavens
+ * section's discipline switcher.
+ */
+function MavensTabs() {
+  const [mode, setMode] = useState(0)
+  const modeRef = useRef(0)
+  const animating = useRef(false)
+  const copyRef = useRef<HTMLDivElement>(null)
+
+  const disciplines = [
+    { ...mavens.webMasters, icon: Code },
+    { ...mavens.marketers, icon: Megaphone },
+  ]
+  const Active = disciplines[mode]
+
+  const select = (next: number) => {
+    if (next === modeRef.current || animating.current) return
+    modeRef.current = next
+    const el = copyRef.current
+    if (!el) {
+      setMode(next)
+      animating.current = false
+      return
+    }
+    animating.current = true
+    gsap.killTweensOf(el)
+    gsap.to(el, {
+      opacity: 0,
+      y: -16,
+      filter: 'blur(6px)',
+      duration: 0.35,
+      ease: 'power2.in',
+      onComplete: () => {
+        setMode(next)
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 24, filter: 'blur(6px)' },
+          {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: 0.5,
+            ease: 'power3.out',
+            onComplete: () => (animating.current = false),
+          }
+        )
+      },
+    })
+  }
+
+  return (
+    <div>
+      <div className="flex gap-3 mb-9">
+        {disciplines.map((d, i) => (
+          <button
+            key={d.label}
+            type="button"
+            data-cursor
+            onClick={() => select(i)}
+            aria-pressed={mode === i}
+            className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full border text-sm font-medium tracking-tight transition-all duration-400 cursor-pointer ${
+              mode === i
+                ? 'border-maven bg-maven text-white-solid'
+                : 'border-line text-mist-dim hover:text-mist hover:border-mist/30'
+            }`}
+          >
+            <d.icon size={15} aria-hidden="true" />
+            {d.label}
+          </button>
+        ))}
+      </div>
+
+      <div ref={copyRef}>
+        <p className="mono-label mb-4">{String(mode + 1).padStart(2, '0')} / Our {Active.label}</p>
+        <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-xl">{Active.body}</p>
+      </div>
+
+      <div className="mt-12 pt-8 border-t border-line max-w-xl">
+        <p className="text-maven-lighter/70 text-[15px] leading-relaxed italic">{mavens.callout}</p>
+      </div>
+    </div>
   )
 }
 
