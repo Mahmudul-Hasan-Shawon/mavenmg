@@ -225,6 +225,7 @@ textarea:focus {
 
 .grad-text {
   color: var(--maven-light);
+  text-shadow: 0 0 28px rgba(139, 79, 191, 0.3);
 }
 
 /* Theme-aware logo swap: [data-logo="dark"] shows in dark theme,
