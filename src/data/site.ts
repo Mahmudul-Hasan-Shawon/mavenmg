@@ -62,12 +62,12 @@ export const stats = [
 ] as const
 
 export const partners = [
-  { src: '/images/partner-woo.webp', alt: 'Certified WooCommerce Partner' },
-  { src: '/images/partner-google.png', alt: 'Google Partner' },
-  { src: '/images/partner-shopify.png', alt: 'Shopify Certified Partner' },
-  { src: '/images/partner-hubspot.webp', alt: 'HubSpot Platinum Partner' },
-  { src: '/images/partner-meta.png', alt: 'Meta Business Partner' },
-  { src: '/images/partner-bigcommerce.png', alt: 'BigCommerce Certified Partner' },
-  { src: '/images/partner-wordpress.png', alt: 'WordPress Partner' },
-  { src: '/images/partner-semrush.png', alt: 'Semrush Partner' },
+  { src: '/images/partners/woo.webp', alt: 'Certified WooCommerce Partner' },
+  { src: '/images/partners/google.png', alt: 'Google Partner' },
+  { src: '/images/partners/shopify.png', alt: 'Shopify Certified Partner' },
+  { src: '/images/partners/hubspot.webp', alt: 'HubSpot Platinum Partner' },
+  { src: '/images/partners/meta.png', alt: 'Meta Business Partner' },
+  { src: '/images/partners/bigcommerce.png', alt: 'BigCommerce Certified Partner' },
+  { src: '/images/partners/wordpress.png', alt: 'WordPress Partner' },
+  { src: '/images/partners/semrush.png', alt: 'Semrush Partner' },
 ]
