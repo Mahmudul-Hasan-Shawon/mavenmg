@@ -227,6 +227,22 @@ textarea:focus {
   color: var(--maven-light);
 }
 
+/* Gentle floating drift for hero brand visuals */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow {
+    animation: none;
+  }
+}
+
 /* ---------- Section chrome ---------- */
 
 .section {

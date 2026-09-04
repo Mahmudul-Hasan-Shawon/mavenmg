@@ -1,7 +1,7 @@
 import { values } from '../data/content'
 import { PageHero } from '../sections/PageHero'
 import { Story } from '../sections/Story'
-import { FinalCTA } from '../sections/FinalCTA'
+import { AboutStory } from '../sections/AboutStory'
 import { Reveal } from '../components/ui/Reveal'
 
 const valueIcons: Record<string, JSX.Element> = {
@@ -38,21 +38,23 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
   return (
     <>
       <PageHero
-        index="03"
+        index="01"
         eyebrow="About Maven"
         title="Who is"
         accent="Maven Marketing Group?"
         lede="A Chicago-based web design and digital marketing agency — founded in 2019 on the core principle of bringing small businesses into the digital age."
+        image="/images/3dlogomaven.png"
+        imageAlt="Maven Marketing Group 3D logo"
       />
 
-      <Story onNavigate={onNavigate} />
+      <Story onNavigate={onNavigate} index="02" />
 
       {/* Values */}
-      <section className="section py-24 md:py-32 border-t border-line" aria-label="Our values">
+      <section className="section pt-20 md:pt-24 pb-24 md:pb-32 border-t border-line" aria-label="Our values">
         <div className="container-maven">
           <Reveal>
             <div className="flex items-center gap-4 mb-14">
-              <span className="index-tag">09</span>
+              <span className="index-tag">03</span>
               <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
               <span className="mono-label !text-mist">Our values</span>
             </div>
@@ -73,7 +75,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
         </div>
       </section>
 
-      <FinalCTA onNavigate={onNavigate} />
+      <AboutStory onNavigate={onNavigate} />
     </>
   )
 }

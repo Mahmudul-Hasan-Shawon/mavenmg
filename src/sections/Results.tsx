@@ -71,15 +71,17 @@ export function Results() {
               {/* Gradient hairline border — ignites to maven on hover */}
               <div className="rounded-3xl p-px h-full bg-line transition-colors duration-500 group-hover:bg-maven-light/50">
                 <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void p-8 md:p-10 h-full flex flex-col justify-center text-center" onPointerMove={spotHandler}>
-                  <div className="display font-bold leading-[0.9] tracking-[-0.04em] tabular-nums mb-8 md:mb-10 text-[clamp(3rem,5.5vw,5.25rem)] text-transparent bg-clip-text bg-[image:var(--grad)]">
+                  <div className="font-dm font-[1000] leading-[0.75] tracking-[0.02em] tabular-nums mb-8 md:mb-10 text-[4.5rem] text-transparent bg-clip-text bg-[image:var(--grad)]">
                     {stat.prefix}
-                    <span data-counter={stat.value} data-decimals={stat.decimals}>
+                    <span data-counter={stat.value} data-decimals={stat.decimals} className="font-[1000]">
                       0
                     </span>
                     <span>{stat.suffix}</span>
                   </div>
 
-                  <div className="mt-auto">
+                  <span aria-hidden="true" className="block h-px w-24 bg-maven-light/40 mx-auto mb-6 md:mb-7" />
+
+                  <div>
                     <h3 className="font-dm font-bold text-lg md:text-xl text-white mb-2.5 tracking-[0.05em]">{stat.label}</h3>
                     <p className="text-mist-dim text-md leading-relaxed">{stat.description}</p>
                   </div>
