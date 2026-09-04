@@ -93,11 +93,13 @@ export function Testimonials() {
         <div ref={quoteRef} className="max-w-3xl mx-auto text-center">
           <Quote size={32} className="text-maven-lighter mx-auto mb-9" aria-hidden="true" />
           <blockquote
-            className="display text-[clamp(1.35rem,3.2vw,2.3rem)] leading-[1.35] font-medium text-white/90 text-balance"
+            className="flex flex-col justify-center min-h-[15rem] sm:min-h-[9rem] md:min-h-[11rem] lg:min-h-[16rem]"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => { setPaused(false); setCycle((c) => c + 1) }}
           >
-            “{highlightNames(t.quote)}”
+            <span className="font-dm font-semibold text-[clamp(1.05rem,2.2vw,1.6rem)] leading-[1.6] tracking-[0.01em] text-white text-balance">
+              “{highlightNames(t.quote)}”
+            </span>
           </blockquote>
           <figcaption className="mt-10 flex items-center justify-center gap-4">
             {t.image ? (
