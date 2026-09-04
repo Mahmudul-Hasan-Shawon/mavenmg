@@ -1,0 +1,349 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Theme variables — dark is the default, [data-theme="light"]
+   remaps the same semantic tokens. Tailwind color utilities
+   are generated with @theme inline so they follow the vars.
+   ============================================================ */
+
+:root,
+[data-theme="dark"] {
+  --bg: #08060d;
+  --surface: #0e0b16;
+  --surface-2: #14101f;
+  --surface-3: #1c1629;
+  --line: rgba(218, 202, 255, 0.09);
+  --line-hover: rgba(139, 79, 191, 0.35);
+  --fg: #ffffff;
+  --mist: #a89fc0;
+  --mist-dim: #6f6885;
+  --maven: #612c8b;
+  --maven-light: #8b4fbf;
+  --maven-lighter: #dacaff;
+  --maven-dark: #4a1f6b;
+  --scrim: rgba(8, 6, 13, 0.55);
+  --scrim-strong: rgba(8, 6, 13, 0.8);
+  --stroke: rgba(218, 202, 255, 0.28);
+  --stroke-faint: rgba(218, 202, 255, 0.13);
+  --grad: linear-gradient(100deg, #f2ecff 10%, #b98af0 55%, #8b4fbf 95%);
+  --panel-bg: linear-gradient(180deg, rgba(218, 202, 255, 0.028), rgba(218, 202, 255, 0.012));
+  --panel-bg-hover: linear-gradient(180deg, rgba(218, 202, 255, 0.045), rgba(218, 202, 255, 0.015));
+  --spot: rgba(139, 79, 191, 0.1);
+  --cursor-dot: #dacaff;
+}
+
+[data-theme="light"] {
+  --bg: #f5f3fa;
+  --surface: #ffffff;
+  --surface-2: #faf9fd;
+  --surface-3: #efebf8;
+  --line: rgba(24, 17, 43, 0.12);
+  --line-hover: rgba(109, 47, 165, 0.4);
+  --fg: #191327;
+  --mist: #57506e;
+  --mist-dim: #8a849e;
+  --maven: #6d2fa5;
+  --maven-light: #7b3cbe;
+  /* "lighter" flips to a deep violet in light mode: it is the highlight
+     text color AND the dark button background, so contrast holds. */
+  --maven-lighter: #2c1846;
+  --maven-dark: #efe9fb;
+  --scrim: rgba(245, 243, 250, 0.6);
+  --scrim-strong: rgba(245, 243, 250, 0.82);
+  --stroke: rgba(24, 17, 43, 0.3);
+  --stroke-faint: rgba(24, 17, 43, 0.14);
+  --grad: linear-gradient(100deg, #3b2461 0%, #7b3cbe 55%, #a06fdb 100%);
+  --panel-bg: linear-gradient(180deg, rgba(24, 17, 43, 0.025), rgba(24, 17, 43, 0.008));
+  --panel-bg-hover: linear-gradient(180deg, rgba(109, 47, 165, 0.05), rgba(24, 17, 43, 0.012));
+  --spot: rgba(109, 47, 165, 0.07);
+  --cursor-dot: #2c1846;
+}
+
+/* Semantic Tailwind tokens follow the theme vars (inline → utilities
+   reference the var directly, so switching data-theme retints everything). */
+@theme inline {
+  --color-void: var(--bg);
+  --color-ink: var(--surface);
+  --color-ink-2: var(--surface-2);
+  --color-ink-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-mist: var(--mist);
+  --color-mist-dim: var(--mist-dim);
+  --color-maven: var(--maven);
+  --color-maven-light: var(--maven-light);
+  --color-maven-lighter: var(--maven-lighter);
+  --color-maven-dark: var(--maven-dark);
+  --color-white: var(--fg);
+}
+
+@theme {
+  --font-sora: 'Sora', sans-serif;
+  --font-dm: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: auto;
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-dm);
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+::selection {
+  background: var(--maven);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  color-scheme: dark;
+  background: color-mix(in srgb, var(--maven-light) 55%, var(--bg));
+  border-radius: 3px;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--maven-light);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sora);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* ---------- Typography helpers ---------- */
+
+.display {
+  font-family: var(--font-sora);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mist-dim);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px var(--stroke);
+  color: transparent;
+}
+
+.text-stroke-faint {
+  -webkit-text-stroke: 1px var(--stroke-faint);
+  color: transparent;
+}
+
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Section chrome ---------- */
+
+.section {
+  position: relative;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-inline: 3rem;
+  }
+}
+
+.container-maven {
+  max-width: 84rem;
+  margin-inline: auto;
+}
+
+.hairline {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+}
+
+.index-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.25em;
+  color: var(--maven-light);
+}
+
+/* ---------- Surfaces ---------- */
+
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--line);
+}
+
+.panel-hover {
+  transition: border-color 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)), background 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.panel-hover:hover {
+  border-color: var(--line-hover);
+  background: var(--panel-bg-hover);
+}
+
+/* Mouse-tracked spotlight wash */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    520px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    var(--spot),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Overlay / texture ---------- */
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+[data-theme="light"] .noise-overlay {
+  opacity: 0.05;
+}
+
+/* ---------- Marquee ---------- */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-slow 16s linear infinite;
+}
+
+/* ---------- Custom cursor: dot only ---------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 120;
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: var(--cursor-dot);
+    mix-blend-mode: normal;
+  }
+}
+
+/* ---------- Link underline ---------- */
+
+.link-line {
+  position: relative;
+}
+
+.link-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.link-line:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .spin-slow {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

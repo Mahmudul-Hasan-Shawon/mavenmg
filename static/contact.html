@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Maven Marketing Group</title>
+  <meta name="description" content="Get in touch with Maven Marketing Group for custom website design, website management, SEO, and digital marketing services. Call (847) 558-9957 or visit us in Lake Zurich, IL." />
+  <link rel="icon" type="image/png" href="images/maven.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <div data-navbar></div>
+
+  <main>
+    <section class="py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center mb-16">
+          <span class="inline-block px-4 py-1.5 rounded-full border border-[#612C8B]/30 bg-[#612C8B]/10 text-[#DACAFF] text-xs font-semibold tracking-wider uppercase mb-6">Contact Us</span>
+          <h2 class="font-black mb-4 leading-[1.05] text-[clamp(2rem,8vw,3.4rem)] md:text-[clamp(2.5rem,5.5vw,4.5rem)]">How Can We <span class="bg-gradient-to-r from-[#DACAFF] to-[#8B4FBF] bg-clip-text text-transparent">Help You?</span></h2>
+          <p class="text-gray-400 max-w-2xl mx-auto text-lg">Elevate your website and supercharge your digital marketing results with Maven Marketing Group!</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          <div class="lg:col-span-3 reveal reveal-delay-1">
+            <form data-contact-form action="#" method="post" class="glass rounded-3xl p-8">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                <div>
+                  <label class="block text-sm font-semibold text-gray-300 mb-2">Your Name</label>
+                  <input name="name" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-[#1A1A25] border border-white/8 text-white text-sm focus:border-[#612C8B] focus:ring-2 focus:ring-[#612C8B]/20 outline-none transition-all placeholder:text-gray-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-300 mb-2">Your Email</label>
+                  <input name="email" type="email" required placeholder="john@company.com" class="w-full px-4 py-3 rounded-xl bg-[#1A1A25] border border-white/8 text-white text-sm focus:border-[#612C8B] focus:ring-2 focus:ring-[#612C8B]/20 outline-none transition-all placeholder:text-gray-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-300 mb-2">Phone Number</label>
+                  <input name="phone" placeholder="(555) 123-4567" class="w-full px-4 py-3 rounded-xl bg-[#1A1A25] border border-white/8 text-white text-sm focus:border-[#612C8B] focus:ring-2 focus:ring-[#612C8B]/20 outline-none transition-all placeholder:text-gray-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-300 mb-2">Company Name</label>
+                  <input name="company" placeholder="Acme Inc" class="w-full px-4 py-3 rounded-xl bg-[#1A1A25] border border-white/8 text-white text-sm focus:border-[#612C8B] focus:ring-2 focus:ring-[#612C8B]/20 outline-none transition-all placeholder:text-gray-600" />
+                </div>
+              </div>
+              <div class="mb-5">
+                <label class="block text-sm font-semibold text-gray-300 mb-2">Service Interested In</label>
+                <select name="service" required class="w-full px-4 py-3 rounded-xl bg-[#1A1A25] border border-white/8 text-white text-sm focus:border-[#612C8B] focus:ring-2 focus:ring-[#612C8B]/20 outline-none transition-all appearance-none" style="background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238E8E93' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 1rem center">
+                  <option value="" disabled>Select a service</option>
+                  <option value="Custom Website Build">Custom Website Build</option>
+                  <option value="Website Management">Website Management</option>
+                  <option value="SEO Services">SEO Services</option>
+                  <option value="Digital Marketing">Digital Marketing</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="mb-5">
+                <label class="block text-sm font-semibold text-gray-300 mb-2">Subject</label>
+                <input name="subject" placeholder="How can we help?" class="w-full px-4 py-3 rounded-xl bg-[#1A1A25] border border-white/8 text-white text-sm focus:border-[#612C8B] focus:ring-2 focus:ring-[#612C8B]/20 outline-none transition-all placeholder:text-gray-600" />
+              </div>
+              <div class="mb-6">
+                <label class="block text-sm font-semibold text-gray-300 mb-2">Tell us about your project</label>
+                <textarea name="message" rows="4" placeholder="Describe your project, goals, and budget..." class="w-full px-4 py-3 rounded-xl bg-[#1A1A25] border border-white/8 text-white text-sm focus:border-[#612C8B] focus:ring-2 focus:ring-[#612C8B]/20 outline-none transition-all resize-none placeholder:text-gray-600"></textarea>
+              </div>
+              <button type="submit" class="w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#612C8B] to-[#8B4FBF] rounded-xl font-semibold text-white hover:shadow-[0_8px_30px_rgba(97,44,139,0.4)] transition-all duration-300 hover:-translate-y-0.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                Submit
+              </button>
+            </form>
+          </div>
+
+          <div class="lg:col-span-2 space-y-5 reveal reveal-delay-2">
+            <div class="relative overflow-hidden rounded-2xl h-44">
+              <img src="images/office.jpg" alt="Maven Marketing Group office" class="w-full h-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div class="absolute bottom-3 left-4 text-white text-sm font-semibold">Maven HQ &middot; Lake Zurich, IL</div>
+            </div>
+
+            <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-[#612C8B]/30 transition-all duration-300">
+              <div class="w-11 h-11 rounded-xl bg-[#612C8B]/15 flex items-center justify-center flex-shrink-0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B4FBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.37 1.9.72 2.78a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.88.35 1.82.6 2.78.72A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-bold mb-1">Phone</div>
+                <a href="tel:+18475589957" class="text-gray-400 text-sm hover:text-[#8B4FBF] transition-colors">(847) 558-9957</a>
+              </div>
+            </div>
+
+            <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-[#612C8B]/30 transition-all duration-300">
+              <div class="w-11 h-11 rounded-xl bg-[#612C8B]/15 flex items-center justify-center flex-shrink-0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B4FBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-bold mb-1">Email</div>
+                <a href="mailto:info@mavenmarketinggroup.com" class="text-gray-400 text-sm hover:text-[#8B4FBF] transition-colors">info@mavenmarketinggroup.com</a>
+              </div>
+            </div>
+
+            <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-[#612C8B]/30 transition-all duration-300">
+              <div class="w-11 h-11 rounded-xl bg-[#612C8B]/15 flex items-center justify-center flex-shrink-0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B4FBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-bold mb-1">Address</div>
+                <span class="text-gray-400 text-sm whitespace-pre-line">715 Ela Rd.
+Lake Zurich, IL 60047</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>

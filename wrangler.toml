@@ -1,0 +1,7 @@
+# Cloudflare Pages configuration for the React app.
+# Deploy the built React app (dist/) with:
+#   npx wrangler pages deploy dist --project-name mavenmarketinggroup --branch main
+# For GitHub-integrated (auto-build) deploys these are also used by Cloudflare.
+name = "mavenmarketinggroup"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "./dist"
