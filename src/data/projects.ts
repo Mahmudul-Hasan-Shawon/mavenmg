@@ -17,7 +17,7 @@ export const projects: Project[] = [
     services: 'Website Design, Website Development, Website Management',
     color: '#E85D04',
     featured: true,
-    image: '/images/p1.jpg',
+    image: '/images/projects/p1.jpg',
     blurb: 'Started as a fun idea between a father and son, now a booming e-commerce brand.',
   },
   {
@@ -26,7 +26,7 @@ export const projects: Project[] = [
     category: 'Construction & Real Estate',
     services: 'Website Design, Website Development, Website Management',
     color: '#2D6A4F',
-    image: '/images/p2.jpg',
+    image: '/images/projects/p2.jpg',
     blurb: 'Showcasing featured projects with sharp townhome infrastructure craftsmanship.',
   },
   {
@@ -35,7 +35,7 @@ export const projects: Project[] = [
     category: 'Construction & Real Estate',
     services: 'Website Design, Website Development, Website Management',
     color: '#1A1A2E',
-    image: '/images/p3.jpg',
+    image: '/images/projects/p3.jpg',
     blurb: 'A functional, easy-to-update site for communicating modern developments.',
   },
   {
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     category: 'Manufacturing',
     services: 'Website Design, Website Development',
     color: '#3B82F6',
-    image: '/images/p4.jpg',
+    image: '/images/projects/p4.jpg',
     blurb: 'A tough, performance-focused site for an engine manufacturing brand.',
   },
   {
@@ -53,7 +53,7 @@ export const projects: Project[] = [
     category: 'Manufacturing',
     services: 'Website Design, Website Development, Website Management',
     color: '#0D7377',
-    image: '/images/p5.jpg',
+    image: '/images/projects/p5.jpg',
     blurb: 'Swooped in to save the brand with a tough, slick, all-American redesign.',
   },
   {
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     category: 'Other',
     services: 'Website Design, Website Development, Website Management',
     color: '#7B2CBF',
-    image: '/images/p6.jpg',
+    image: '/images/projects/p6.jpg',
     blurb: 'A custom web presence built to convert visitors into customers.',
   },
   {
@@ -71,7 +71,7 @@ export const projects: Project[] = [
     category: 'Law Firms',
     services: 'Website Design, Website Development, Website Management',
     color: '#C77DFF',
-    image: '/images/p7.jpg',
+    image: '/images/projects/p7.jpg',
     blurb: 'A professionalized site that cemented a top-tier presence in the industry.',
   },
   {
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     category: 'Other',
     services: 'Website Design, Website Development, Website Management, Digital Marketing',
     color: '#E85D04',
-    image: '/images/p8.jpg',
+    image: '/images/projects/p8.jpg',
     blurb: 'A bespoke site with full digital marketing to match standout branding.',
   },
   {
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     category: 'Law Firms',
     services: 'Website Design, Website Development, Website Management',
     color: '#612C8B',
-    image: '/images/p9.jpg',
+    image: '/images/projects/p9.jpg',
     blurb: 'Clean, trust-building design with ongoing management and maintenance.',
   },
   {
@@ -98,7 +98,7 @@ export const projects: Project[] = [
     category: 'E-Commerce',
     services: 'Website Design, Website Development, Website Management',
     color: '#FAA307',
-    image: '/images/p10.jpg',
+    image: '/images/projects/p10.jpg',
     blurb: 'A bold, cutting-edge crypto-savvy design with flawless management.',
   },
   {
@@ -107,7 +107,7 @@ export const projects: Project[] = [
     category: 'Other',
     services: 'Website Design, Website Development, Website Management',
     color: '#4A1F6B',
-    image: '/images/p11.jpg',
+    image: '/images/projects/p11.jpg',
     blurb: 'A sleek, futuristic DeFi experience that pulls the brand onto the screen.',
   },
 ]

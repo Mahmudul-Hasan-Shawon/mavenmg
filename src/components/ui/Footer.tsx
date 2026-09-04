@@ -35,14 +35,14 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
         <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr] gap-10 py-14">
           <div className="col-span-2 md:col-span-1 text-center md:text-left">
             <img
-              src="/images/logo.png"
+              src="/images/logos/logo.png"
               alt={site.name}
               data-logo="dark"
               className="h-11 w-auto mb-5 mx-auto md:mx-0"
               loading="lazy"
             />
             <img
-              src="/images/mavenlogo_light.png"
+              src="/images/logos/mavenlogo_light.png"
               alt=""
               aria-hidden="true"
               data-logo="light"
