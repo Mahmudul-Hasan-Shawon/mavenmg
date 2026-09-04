@@ -72,7 +72,7 @@ export function Results() {
                 </div>
                 <div className="md:text-right md:pb-4 max-w-sm">
                   <h3 className="display text-xl md:text-2xl text-white mb-2">{stat.label}</h3>
-                  <p className="text-mist-dim text-sm leading-relaxed">{stat.description}</p>
+                  <p className="text-mist-dim text-md leading-relaxed">{stat.description}</p>
                 </div>
               </div>
             </div>

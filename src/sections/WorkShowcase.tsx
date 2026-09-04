@@ -136,7 +136,7 @@ function Card({
       data-cursor-label="View"
       data-filter-card
       onClick={() => onNavigate('/work')}
-      className="panel panel-hover group relative cursor-pointer overflow-hidden"
+      className="panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -162,11 +162,11 @@ function Card({
       <div className="p-5">
         <p className="mono-label mb-2">{project.category}</p>
         <h3 className="display text-xl text-white mb-2">{project.name}</h3>
-        <p className="text-mist-dim text-sm leading-relaxed line-clamp-2">{project.blurb}</p>
+        <p className="text-mist-dim text-md leading-relaxed line-clamp-2">{project.blurb}</p>
       </div>
 
       {/* Accent edge in the project's colour */}
-      <span aria-hidden="true" className="absolute top-0 left-0 h-[2px] w-full opacity-60" style={{ background: project.color }} />
+      {/* <span aria-hidden="true" className="absolute top-0 left-0 h-[2px] w-full opacity-60" style={{ background: project.color }} /> */}
     </article>
   )
 }
