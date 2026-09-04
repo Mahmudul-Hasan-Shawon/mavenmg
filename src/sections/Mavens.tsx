@@ -84,7 +84,7 @@ export function Mavens() {
                   aria-pressed={mode === i}
                   className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full border text-sm font-medium tracking-tight transition-all duration-400 cursor-pointer ${
                     mode === i
-                      ? 'border-maven-light/60 bg-maven/25 text-maven-lighter'
+                      ? 'border-maven bg-maven text-white-solid'
                       : 'border-line text-mist-dim hover:text-mist hover:border-mist/30'
                   }`}
                 >
@@ -94,7 +94,7 @@ export function Mavens() {
               ))}
             </div>
 
-            <div key={mode} data-mavens-copy>
+            <div key={mode} data-mavens-copy className="mavens-copy-enter">
               <p className="mono-label mb-4">{String(mode + 1).padStart(2, '0')} / Our {Active.label}</p>
               <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-xl">{Active.body}</p>
             </div>

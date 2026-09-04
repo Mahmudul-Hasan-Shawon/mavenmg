@@ -1,6 +1,5 @@
 import { projects } from '../data/projects'
 import { PageHero } from '../sections/PageHero'
-import { WorkShowcase } from '../sections/WorkShowcase'
 import { FinalCTA } from '../sections/FinalCTA'
 import { Reveal } from '../components/ui/Reveal'
 
@@ -17,8 +16,6 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
         accent="purpose driven websites"
         lede="Every project below was designed, developed, and is actively managed by Maven — built to perform as good as it looks."
       />
-
-      <WorkShowcase onNavigate={onNavigate} />
 
       {/* Editorial index of all projects */}
       <section className="section py-24 md:py-32 border-t border-line" aria-label="Project index">

@@ -18,11 +18,11 @@ interface MagneticButtonProps {
 
 const styles: Record<NonNullable<MagneticButtonProps['variant']>, string> = {
   primary:
-    'bg-maven text-white hover:bg-maven-light border border-maven-light/40',
+    'bg-maven text-white-solid hover:bg-maven-light border border-maven-light/40',
   ghost:
     'bg-transparent text-white border border-line hover:border-maven-lighter/50 hover:bg-maven-lighter/[0.04]',
   light:
-    'bg-maven-lighter text-maven-dark border border-maven-lighter hover:bg-white',
+    'bg-maven text-white-solid border border-maven-light/40 hover:bg-maven-light',
 }
 
 /** Pill CTA with magnetic pointer attraction and a sliding label. */

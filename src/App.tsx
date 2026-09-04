@@ -68,6 +68,8 @@ export default function App() {
       if (target === path || transitioning.current) {
         if (href.includes('#')) {
           document.querySelector(href.split('#')[1] ? `#${href.split('#')[1]}` : 'body')?.scrollIntoView({ behavior: 'smooth' })
+        } else if (target === path) {
+          scrollToTop()
         }
         return
       }
