@@ -49,12 +49,12 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
         </div>
 
         {/* Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 py-14">
+        <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr] gap-10 py-14">
           <div className="col-span-2 md:col-span-1 text-center md:text-left">
             <img src="/images/logo.png" alt={site.name} className="h-9 w-auto mb-5 mx-auto md:mx-0" loading="lazy" />
-            <p className="text-mist-dim text-sm leading-relaxed max-w-[26ch] mx-auto md:mx-0">
-              Custom built websites and digital marketing, from {site.address.city}, {site.address.state} to clients
-              worldwide.
+            <p className="text-mist-dim text-sm leading-relaxed max-w-[34ch] mx-auto md:mx-0">
+              Custom built websites and digital marketing services for businesses of all sizes. Based in Lake Zurich,
+              IL — serving clients nationwide and worldwide.
             </p>
             <div className="flex gap-3 mt-6 justify-center md:justify-start">
               {site.social.map((s) => (
