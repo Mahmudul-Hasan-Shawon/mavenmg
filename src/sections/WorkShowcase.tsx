@@ -86,7 +86,7 @@ export function WorkShowcase({
         )}
 
         {showFilter && (
-          <div className="sticky top-4 z-30 mb-12 flex justify-center">
+          <div className="sticky top-4 z-30 mb-12 hidden md:flex justify-center">
             <div className="flex flex-wrap justify-center gap-2 p-2 rounded-full border border-line bg-ink/80 backdrop-blur-xl shadow-sm">
               {projectCategories.map((cat) => (
                 <button
