@@ -48,7 +48,7 @@ export const stats = [
     decimals: 1,
     label: 'Leads Generated',
     description:
-      'We have driven more than $1 billion in revenue for our clients through effective website management and digital marketing strategies.',
+      'Qualified leads delivered to businesses through data-driven SEO, PPC and conversion-focused campaigns.',
   },
   {
     value: 300,
@@ -57,7 +57,7 @@ export const stats = [
     decimals: 0,
     label: 'Businesses Helped',
     description:
-      'From startups to established enterprises, across the US and around the world.',
+      'From startups to established enterprises, across the US and around the world. We help every business grow its presence, its traffic and its revenue online.',
   },
 ] as const
 

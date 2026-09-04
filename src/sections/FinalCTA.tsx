@@ -17,16 +17,16 @@ export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void })
             src="/images/success.png"
             style={{ maskImage: 'linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 10%, rgb(0,0,0) 100%)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0F]/60 via-[#0A0A0F]/25 to-[#0A0A0F]/0" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0F]/10 via-[#8049ac ]/25 to-[#0A0A0F]/0" />
 
           <div className="relative z-10 text-left">
-            <h2 className="text-3xl md:text-5xl font-black mb-4">Start Your Success Story</h2>
-            <p className="text-white/70 text-lg mb-8 max-w-xl">
+            <h2 className="text-3xl md:text-5xl font-black mb-4 text-white-solid">Start Your Success Story</h2>
+            <p className="text-white-solid/70 text-lg mb-8 max-w-xl">
               Connect With A Marketing Maven Now. Elevate your website and supercharge your digital marketing results.
             </p>
             <a
               onClick={() => onNavigate('/contact')}
-              className="inline-flex items-center gap-2 px-10 py-4 bg-white text-[#4A1F6B] rounded-full font-bold text-lg hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)] transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+              className="inline-flex items-center gap-2 px-10 py-4 bg-white-solid text-[#4A1F6B] rounded-full font-bold text-lg hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)] transition-all duration-300 hover:-translate-y-1 cursor-pointer"
             >
               Start Your Project
               <ArrowRight size={20} />

@@ -6,7 +6,7 @@ import { Results } from '../sections/Results'
 import { Philosophy } from '../sections/Philosophy'
 import { WorkShowcase } from '../sections/WorkShowcase'
 import { Testimonials } from '../sections/Testimonials'
-import { Story } from '../sections/Story'
+import { MavensTeam } from '../sections/MavensTeam'
 import { FinalCTA } from '../sections/FinalCTA'
 
 /** The full narrative experience — Maven's home page. */
@@ -21,7 +21,7 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
       <Testimonials />
       <Philosophy />
       <WorkShowcase onNavigate={onNavigate} limit={6} />
-      <Story onNavigate={onNavigate} />
+      <MavensTeam />
       <FinalCTA onNavigate={onNavigate} />
     </>
   )
