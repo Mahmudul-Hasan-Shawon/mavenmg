@@ -89,12 +89,14 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
         onFilterChange={setFilter}
       />
 
-      <section className="py-32 px-6 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto">
+      <section className="section py-32 relative overflow-hidden">
+        <div className="container-maven">
           <div className="text-start mb-16" style={{ opacity: 1, transform: "none" }}>
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[#612C8B]/30 bg-[#612C8B]/10 text-[#DACAFF] text-xs font-semibold tracking-wider uppercase mb-6">
-              The Marketing Mavens
-            </span>
+            <div className="flex items-center gap-4 mb-6">
+              <span className="index-tag">06</span>
+              <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
+              <span className="mono-label !text-mist">The Marketing Mavens</span>
+            </div>
             <h2 className="font-black mb-4 leading-[1.05] text-[clamp(2rem,8vw,3.4rem)] md:text-[clamp(2.5rem,5.5vw,4.5rem)]">
               <span className="text-white">The Experts Behind</span>{" "}
               <span className="block text-[#612C8B]">Your Success</span>

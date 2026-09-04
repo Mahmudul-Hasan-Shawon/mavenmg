@@ -94,7 +94,7 @@ export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void 
               <p className="mono-label !text-mist">Ready to chat?</p>
               <MagneticButton
                 variant="ghost"
-                className="!bg-[#34164f] !border-[#34164f] hover:!bg-[#3d1a5c] hover:!border-[#3d1a5c]"
+                className="!text-white-solid !bg-maven-light !border-maven-light hover:!bg-[#5b2a86] hover:!border-[#5b2a86]"
                 onClick={() => onNavigate('/contact')}
               >
                 Start Your Project

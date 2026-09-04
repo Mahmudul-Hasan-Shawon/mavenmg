@@ -1,9 +1,8 @@
 import { Check } from 'lucide-react'
-import { services, packages } from '../data/services'
+import { services } from '../data/services'
 import { PageHero } from '../sections/PageHero'
-import { FinalCTA } from '../sections/FinalCTA'
+import { ManagementPlans } from '../sections/ManagementPlans'
 import { Reveal } from '../components/ui/Reveal'
-import { MagneticButton } from '../components/ui/MagneticButton'
 
 export default function ServicesPage({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
@@ -52,51 +51,8 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
         </div>
       </section>
 
-      {/* Packages */}
-      <section className="section py-24 md:py-32" aria-label="Packages">
-        <div className="container-maven">
-          <Reveal>
-            <div className="flex items-center gap-4 mb-14">
-              <span className="index-tag">A</span>
-              <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-              <span className="mono-label !text-mist">How we work with you</span>
-            </div>
-          </Reveal>
-          <div className="grid md:grid-cols-3 gap-px bg-line border border-line">
-            {packages.map((pkg, i) => (
-              <Reveal key={pkg.name} delay={i * 0.08} className="bg-void">
-                <div className="p-8 md:p-10 h-full flex flex-col spotlight glow-tl" onPointerMove={spotHandler}>
-                  <p className="index-tag mb-6">{String(i + 1).padStart(2, '0')}</p>
-                  <h3 className="display text-xl md:text-2xl text-white mb-3">{pkg.name}</h3>
-                  <p className="text-mist-dim text-md mb-7">{pkg.blurb}</p>
-                  <ul className="space-y-3 mb-10 flex-1">
-                    {pkg.features.map((f) => (
-                      <li key={f} className="flex items-center gap-3 text-md text-mist">
-                        <span className="w-4 h-4 rounded-full border border-maven-light/40 flex items-center justify-center shrink-0">
-                          <span className="w-1 h-1 rounded-full bg-maven-lighter" />
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <MagneticButton variant="ghost" className="w-full !justify-center !bg-[#34164f] !border-[#34164f] hover:!bg-[#3d1a5c] hover:!border-[#3d1a5c]" onClick={() => onNavigate('/contact')}>
-                    Get Started
-                  </MagneticButton>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <FinalCTA onNavigate={onNavigate} />
+      {/* Website Management Service Plans */}
+      <ManagementPlans onNavigate={onNavigate} />
     </>
   )
-}
-
-function spotHandler(e: React.PointerEvent<HTMLElement>) {
-  const el = e.currentTarget
-  const rect = el.getBoundingClientRect()
-  el.style.setProperty('--spot-x', `${e.clientX - rect.left}px`)
-  el.style.setProperty('--spot-y', `${e.clientY - rect.top}px`)
 }
