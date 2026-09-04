@@ -148,6 +148,13 @@ h1, h2, h3, h4 {
   text-wrap: balance;
 }
 
+.footer-col-heading {
+  font-family: var(--font-dm);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--mist);
+}
+
 /* ---------- Typography helpers ---------- */
 
 .display {
