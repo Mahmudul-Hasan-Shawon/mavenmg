@@ -67,7 +67,7 @@ export function WhyMaven() {
                       </h3>
                       <p
                         className={cn(
-                          'hidden md:block text-sm text-mist leading-relaxed max-w-md transition-all duration-500',
+                          'hidden md:block text-md text-mist leading-relaxed max-w-md transition-all duration-500',
                           isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
                         )}
                       >

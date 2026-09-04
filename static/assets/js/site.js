@@ -61,7 +61,7 @@ const portfolioItems = [
   { id: 4, name: 'CRX Engines', category: 'Manufacturing', image: 'images/p4.jpg', color: '#3B82F6' },
   { id: 5, name: 'Simpson Cleaning', category: 'Manufacturing', image: 'images/p5.jpg', color: '#0D7377' },
   { id: 6, name: 'GXC Inc', category: 'Other', image: 'images/p6.jpg', color: '#7B2CBF' },
-  { id: 7, name: 'TorHoerman Law', category: 'Law Firms', image: 'images/p1.jpg', color: '#C77DFF' },
+  { id: 7, name: 'TorHoerman Law', category: 'Law Firms', image: 'images/project_showcase/torhoerman-law.jpg', color: '#C77DFF' },
   { id: 8, name: 'Waggon', category: 'Other', image: 'images/p2.jpg', color: '#E85D04' },
   { id: 9, name: 'Kieth Law Group', category: 'Law Firms', image: 'images/p3.jpg', color: '#612C8B' },
   { id: 10, name: 'Crypto Cache', category: 'E-Commerce', image: 'images/p4.jpg', color: '#FAA307' },
