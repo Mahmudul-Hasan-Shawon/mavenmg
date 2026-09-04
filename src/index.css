@@ -155,6 +155,37 @@ h1, h2, h3, h4 {
   color: var(--mist);
 }
 
+.field {
+  position: relative;
+}
+
+.field::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--maven-light);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.field:focus-within::after {
+  transform: scaleX(1);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
 /* ---------- Typography helpers ---------- */
 
 .display {

@@ -28,7 +28,7 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
   }
 
   const fieldCls =
-    'w-full bg-transparent border-b border-line focus:border-maven-lighter py-3.5 text-white text-[15px] outline-none transition-colors duration-300 placeholder:text-mist-dim/70'
+    'w-full bg-transparent border-b border-line py-3.5 text-white text-[15px] outline-none focus:outline-none focus:ring-0 transition-colors duration-300 placeholder:text-mist-dim/70'
 
   return (
     <>
@@ -77,9 +77,6 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
                 </li>
               </ul>
             </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mono-label mt-10">{site.hours}</p>
-            </Reveal>
           </div>
 
           {/* Form */}
@@ -99,50 +96,62 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
                     <label htmlFor="cf-name" className="mono-label block mb-1">
                       Your name *
                     </label>
-                    <input id="cf-name" name="name" required placeholder="John Doe" className={fieldCls} />
+                    <div className="field">
+                      <input id="cf-name" name="name" required placeholder="John Doe" className={fieldCls} />
+                    </div>
                   </div>
                   <div>
                     <label htmlFor="cf-email" className="mono-label block mb-1">
                       Your email *
                     </label>
-                    <input id="cf-email" name="email" type="email" required placeholder="john@company.com" className={fieldCls} />
+                    <div className="field">
+                      <input id="cf-email" name="email" type="email" required placeholder="john@company.com" className={fieldCls} />
+                    </div>
                   </div>
                   <div>
                     <label htmlFor="cf-phone" className="mono-label block mb-1">
                       Phone number
                     </label>
-                    <input id="cf-phone" name="phone" placeholder="(555) 123-4567" className={fieldCls} />
+                    <div className="field">
+                      <input id="cf-phone" name="phone" placeholder="(555) 123-4567" className={fieldCls} />
+                    </div>
                   </div>
                   <div>
                     <label htmlFor="cf-company" className="mono-label block mb-1">
                       Company name
                     </label>
-                    <input id="cf-company" name="company" placeholder="Acme Inc" className={fieldCls} />
+                    <div className="field">
+                      <input id="cf-company" name="company" placeholder="Acme Inc" className={fieldCls} />
+                    </div>
                   </div>
                   <div className="sm:col-span-2">
                     <label htmlFor="cf-service" className="mono-label block mb-1">
                       Service interested in *
                     </label>
-                    <select id="cf-service" name="service" required defaultValue="" className={`${fieldCls} appearance-none cursor-pointer [&>option]:bg-ink`}>
-                      <option value="" disabled>
-                        Select a service
-                      </option>
-                      {serviceOptions.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
+                    <div className="field">
+                      <select id="cf-service" name="service" required defaultValue="" className={`${fieldCls} appearance-none cursor-pointer [&>option]:bg-ink`}>
+                        <option value="" disabled>
+                          Select a service
                         </option>
-                      ))}
-                    </select>
+                        {serviceOptions.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                   <div className="sm:col-span-2">
                     <label htmlFor="cf-message" className="mono-label block mb-1">
                       Tell us about your project
                     </label>
-                    <textarea id="cf-message" name="message" rows={4} placeholder="Describe your project, goals, and budget…" className={`${fieldCls} resize-none`} />
+                    <div className="field">
+                      <textarea id="cf-message" name="message" rows={4} placeholder="Describe your project, goals, and budget…" className={`${fieldCls} resize-none`} />
+                    </div>
                   </div>
                 </div>
 
-                <div className="mt-10 flex justify-end">
+                <div className="mt-10 flex justify-center md:justify-end">
                   <MagneticButton variant="primary" strength={0.3} type="submit">
                     Send Message
                     <ArrowRight size={16} />
