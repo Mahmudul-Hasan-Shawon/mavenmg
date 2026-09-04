@@ -1,7 +1,6 @@
 import { values } from '../data/content'
 import { PageHero } from '../sections/PageHero'
 import { Story } from '../sections/Story'
-import { Mavens } from '../sections/Mavens'
 import { FinalCTA } from '../sections/FinalCTA'
 import { Reveal } from '../components/ui/Reveal'
 
@@ -73,8 +72,6 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
           </div>
         </div>
       </section>
-
-      <Mavens />
 
       <FinalCTA onNavigate={onNavigate} />
     </>

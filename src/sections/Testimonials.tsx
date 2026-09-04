@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Quote } from 'lucide-react'
 import { testimonials } from '../data/testimonials'
 import { gsap, useGsapContext } from '../hooks/useGsap'
-import { cn } from '../utils/cn'
 
 /**
  * Testimonials — one large editorial quote at a time with smooth GSAP
@@ -12,6 +11,8 @@ import { cn } from '../utils/cn'
 export function Testimonials() {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
+  // Bumped on resume so the progress bar restarts in sync with the timer.
+  const [cycle, setCycle] = useState(0)
   const quoteRef = useRef<HTMLDivElement>(null)
   const animating = useRef(false)
 
@@ -75,33 +76,45 @@ export function Testimonials() {
     <section
       className="section py-28 md:py-36 border-t border-line relative overflow-hidden"
       aria-label="Client testimonials"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute -bottom-32 left-1/4 w-[600px] h-[400px] rounded-full bg-maven/8 blur-[150px]" />
+        <div className="absolute top-0 right-1/4 w-[400px] h-[300px] rounded-full bg-maven-light/8 blur-[140px]" />
       </div>
 
       <div className="container-maven relative">
-        <div className="flex items-center gap-4 mb-14">
-          <span className="index-tag">07</span>
+        <div className="flex items-center justify-center gap-4 mb-14 md:mb-16">
           <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
+          <span className="index-tag">07</span>
           <span className="mono-label !text-mist">Client words</span>
+          <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
         </div>
 
-        <div ref={quoteRef} className="max-w-4xl">
-          <Quote size={36} className="text-maven-light/50 mb-8" aria-hidden="true" />
-          <blockquote className="display text-[clamp(1.35rem,3.2vw,2.3rem)] leading-[1.35] font-medium text-white/90">
+        <div ref={quoteRef} className="max-w-3xl mx-auto text-center">
+          <Quote size={32} className="text-maven-lighter mx-auto mb-9" aria-hidden="true" />
+          <blockquote
+            className="display text-[clamp(1.35rem,3.2vw,2.3rem)] leading-[1.35] font-medium text-white/90 text-balance"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => { setPaused(false); setCycle((c) => c + 1) }}
+          >
             “{t.quote}”
           </blockquote>
-          <figcaption className="mt-9 flex items-center gap-5">
-            <span
-              aria-hidden="true"
-              className="w-11 h-11 rounded-full bg-maven flex items-center justify-center font-sora font-bold text-sm text-white-solid"
-            >
-              {t.name.charAt(0)}
-            </span>
-            <span>
+          <figcaption className="mt-10 flex items-center justify-center gap-4">
+            {t.image ? (
+              <img
+                src={t.image}
+                alt=""
+                className="w-12 h-12 rounded-full object-contain p-1.5 bg-white-solid ring-2 ring-maven-light shadow-[0_0_18px_rgba(139,79,191,0.8),0_0_36px_rgba(139,79,191,0.45)] shrink-0"
+              />
+            ) : (
+              <span
+                aria-hidden="true"
+                className="w-12 h-12 rounded-full bg-gradient-to-br from-maven to-maven-light flex items-center justify-center font-sora font-bold text-sm text-white-solid ring-1 ring-maven-light/40 shadow-[0_0_28px_rgba(139,79,191,0.45)] shrink-0"
+              >
+                {t.name.charAt(0)}
+              </span>
+            )}
+            <span className="text-left">
               <span className="block text-white font-medium">{t.name}</span>
               <span className="block text-mist-dim text-sm mt-0.5">
                 {t.role}
@@ -112,7 +125,7 @@ export function Testimonials() {
         </div>
 
         {/* Controls + progress */}
-        <div className="mt-14 flex items-center gap-6">
+        <div className="mt-12 flex items-center justify-center gap-6">
           <div className="flex gap-2">
             <button
               type="button"
@@ -133,13 +146,13 @@ export function Testimonials() {
               <ArrowRight size={16} />
             </button>
           </div>
-          <div className="flex-1 max-w-xs h-px bg-line relative overflow-hidden">
+          <div className="w-40 h-px bg-line relative overflow-hidden">
             <div
-              key={index}
-              className={cn('absolute inset-y-0 left-0 bg-maven-lighter/70')}
+              key={`${index}-${cycle}`}
+              className="absolute inset-y-0 left-0 bg-maven-lighter/70"
               style={{
-                animation: paused ? 'none' : 'progress 7s linear forwards',
-                width: paused ? '100%' : undefined,
+                animation: 'progress 7s linear forwards',
+                animationPlayState: paused ? 'paused' : 'running',
               }}
             />
           </div>
