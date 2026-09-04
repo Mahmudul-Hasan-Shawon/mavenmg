@@ -20,7 +20,7 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
       <WhyMaven />
       <Results />
       <Philosophy />
-      <WorkShowcase onNavigate={onNavigate} />
+      <WorkShowcase onNavigate={onNavigate} limit={6} />
       <Mavens />
       <Testimonials />
       <Story onNavigate={onNavigate} />

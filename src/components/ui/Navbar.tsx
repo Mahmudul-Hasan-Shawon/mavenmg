@@ -207,7 +207,7 @@ function MobileMenu({
           <a
             onClick={() => onNavigate('/contact')}
             data-cursor
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-maven text-white text-sm font-medium cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-maven text-white-solid text-sm font-medium cursor-pointer"
           >
             Start Your Project
           </a>
