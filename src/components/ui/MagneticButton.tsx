@@ -18,11 +18,11 @@ interface MagneticButtonProps {
 
 const styles: Record<NonNullable<MagneticButtonProps['variant']>, string> = {
   primary:
-    'bg-maven text-white-solid hover:bg-maven-light border border-maven-light/40',
+    'bg-maven text-white-solid hover:bg-maven-light border border-maven-light/40 shadow-[0_10px_32px_-10px_rgba(139,79,191,0.55)] hover:shadow-[0_0_36px_-4px_rgba(139,79,191,0.6)]',
   ghost:
     'bg-transparent text-white border border-line hover:border-maven-lighter/50 hover:bg-maven-lighter/[0.04]',
   light:
-    'bg-maven text-white-solid border border-maven-light/40 hover:bg-maven-light',
+    'bg-maven text-white-solid border border-maven-light/40 hover:bg-maven-light shadow-[0_10px_32px_-10px_rgba(139,79,191,0.55)] hover:shadow-[0_0_36px_-4px_rgba(139,79,191,0.6)]',
 }
 
 /** Pill CTA with magnetic pointer attraction and a sliding label. */
@@ -59,7 +59,7 @@ export function MagneticButton({
   }
 
   const cls = cn(
-    'group relative inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-[15px] font-medium tracking-tight overflow-hidden cursor-pointer select-none',
+    'group relative inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-[15px] font-medium tracking-tight overflow-hidden cursor-pointer select-none transition-shadow duration-300',
     styles[variant],
     className
   )

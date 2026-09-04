@@ -62,7 +62,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.06}>
-                <div className="group rounded-2xl border border-line bg-white/[0.02] p-8 h-full hover:border-maven-light/40 transition-colors duration-300 text-center">
+                <div className="group rounded-2xl border border-line bg-white/[0.02] p-8 h-full hover:border-maven-light/40 hover:shadow-[0_20px_50px_-26px_rgba(97,44,139,0.55)] transition-all duration-300 text-center">
                   <div className="w-14 h-14 rounded-2xl bg-maven/15 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
                     {valueIcons[v.title]}
                   </div>
