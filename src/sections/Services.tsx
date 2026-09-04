@@ -73,7 +73,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                 <span
                   aria-hidden="true"
                   className={cn(
-                    'absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-maven-light to-maven-lighter transition-transform duration-500 origin-top',
+                    'absolute left-0 top-0 bottom-0 w-[2px] bg-maven-light transition-transform duration-500 origin-top',
                     isActive ? 'scale-y-100' : 'scale-y-0'
                   )}
                 />

@@ -1,7 +1,7 @@
-import { lazy, useRef, useState } from 'react'
+import { lazy, useRef, useState, useCallback } from 'react'
 import { Code, Megaphone } from 'lucide-react'
 import { mavens } from '../data/content'
-import { useGsapContext } from '../hooks/useGsap'
+import { gsap, useGsapContext } from '../hooks/useGsap'
 import { Reveal } from '../components/ui/Reveal'
 import { AnimatedText } from '../components/text/AnimatedText'
 import { LazyCanvas } from '../three/LazyCanvas'
@@ -16,8 +16,52 @@ const MavenNetwork = reducedMotion ? null : lazy(() => import('../three/MavenNet
  */
 export function Mavens() {
   const [mode, setMode] = useState(0)
+  const [displayMode, setDisplayMode] = useState(0)
   const modeRef = useRef(0)
   const rootRef = useRef<HTMLElement>(null)
+  const copyRef = useRef<HTMLDivElement>(null)
+  const animating = useRef(false)
+
+  // Smooth blur/fade transition on the copy, mirroring the client-quote swap.
+  const go = useCallback(
+    (next: number) => {
+      if (next === modeRef.current || animating.current) return
+      modeRef.current = next
+      const el = copyRef.current
+      if (!el) {
+        setDisplayMode(next)
+        setMode(next)
+        animating.current = false
+        return
+      }
+      animating.current = true
+      gsap.killTweensOf(el)
+      gsap.to(el, {
+        opacity: 0,
+        y: -16,
+        filter: 'blur(6px)',
+        duration: 0.35,
+        ease: 'power2.in',
+        onComplete: () => {
+          setDisplayMode(next)
+          setMode(next)
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 24, filter: 'blur(6px)' },
+            {
+              opacity: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              duration: 0.5,
+              ease: 'power3.out',
+              onComplete: () => (animating.current = false),
+            }
+          )
+        },
+      })
+    },
+    []
+  )
 
   // Scroll drives the mode at the halfway point.
   useGsapContext(
@@ -29,21 +73,22 @@ export function Mavens() {
         end: 'bottom 45%',
         onUpdate: (self) => {
           const next = self.progress > 0.5 ? 1 : 0
-          if (next !== modeRef.current) {
-            modeRef.current = next
-            setMode(next)
-          }
+          go(next)
         },
       })
     },
-    []
+    [go]
   )
 
   const disciplines = [
     { ...mavens.webMasters, icon: Code },
     { ...mavens.marketers, icon: Megaphone },
   ]
-  const Active = disciplines[mode]
+  const Active = disciplines[displayMode]
+
+  const select = (i: number) => {
+    go(i)
+  }
 
   return (
     <section ref={rootRef} id="mavens" className="section py-28 md:py-40 border-t border-line" aria-label="The Marketing Mavens">
@@ -80,7 +125,7 @@ export function Mavens() {
                   key={d.label}
                   type="button"
                   data-cursor
-                  onClick={() => setMode(i)}
+                  onClick={() => select(i)}
                   aria-pressed={mode === i}
                   className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full border text-sm font-medium tracking-tight transition-all duration-400 cursor-pointer ${
                     mode === i
@@ -94,8 +139,8 @@ export function Mavens() {
               ))}
             </div>
 
-            <div key={mode} data-mavens-copy className="mavens-copy-enter">
-              <p className="mono-label mb-4">{String(mode + 1).padStart(2, '0')} / Our {Active.label}</p>
+            <div ref={copyRef} data-mavens-copy>
+              <p className="mono-label mb-4">{String(displayMode + 1).padStart(2, '0')} / Our {Active.label}</p>
               <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-xl">{Active.body}</p>
             </div>
 
@@ -110,7 +155,7 @@ export function Mavens() {
               <LazyCanvas
                 Scene={MavenNetwork}
                 className="absolute inset-0"
-                sceneProps={{ mode }}
+                sceneProps={{ mode: displayMode }}
                 fallback={
                   <div className="absolute inset-0" aria-hidden="true">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-maven/20 blur-[100px]" />
