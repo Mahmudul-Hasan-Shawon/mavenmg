@@ -17,9 +17,9 @@ export function MavensTeam() {
             </div>
             <h2 className="font-black mb-4 leading-[1.05] text-[clamp(2rem,8vw,3.4rem)] md:text-[clamp(2.5rem,5.5vw,4.5rem)]">
               <span className="text-white">The Experts Behind</span>{' '}
-              <span className="block text-[#612C8B]">Your Success</span>
+              <span className="block text-maven-light">Your Success</span>
             </h2>
-            <p className="text-gray-400 max-w-2xl text-lg leading-relaxed">
+            <p className="text-mist max-w-2xl text-lg leading-relaxed">
               At Maven, we bring together the finest minds in digital strategy and web design — our
               team known as the Marketing Mavens. These elite online marketers and web masters are
               your gateway to transcending the ordinary and achieving the extraordinary in the
@@ -33,7 +33,7 @@ export function MavensTeam() {
             <div className="absolute -inset-3 bg-gradient-to-r from-[#612C8B]/30 to-[#8B4FBF]/30 blur-2xl" aria-hidden="true" />
             <img
               alt="The Maven Marketing team collaborating in the studio"
-              className="relative rounded-3xl w-full h-full min-h-[420px] object-cover border border-white/10"
+              className="relative rounded-3xl w-full h-full min-h-[420px] object-cover border border-line"
               loading="lazy"
               src="/images/team.jpg"
             />
@@ -41,9 +41,9 @@ export function MavensTeam() {
 
           <div className="space-y-5">
             <Reveal delay={0.1}>
-              <div className="glass rounded-3xl p-8 hover:border-[#612C8B]/30 transition-all duration-500">
+              <div className="glass rounded-3xl p-8 hover:border-maven-light/30 transition-all duration-500">
                 <div className="flex items-center gap-4 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-[#612C8B]/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-maven/20 flex items-center justify-center flex-shrink-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -54,7 +54,7 @@ export function MavensTeam() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="lucide lucide-code text-[#8B4FBF]"
+                      className="lucide lucide-code text-maven-light"
                       aria-hidden="true"
                     >
                       <path d="m16 18 6-6-6-6"></path>
@@ -63,7 +63,7 @@ export function MavensTeam() {
                   </div>
                   <h3 className="text-xl font-black">Our Web Masters</h3>
                 </div>
-                <p className="text-gray-400 leading-relaxed text-base">
+                <p className="text-mist leading-relaxed text-base">
                   Commanding the latest in technology and design trends, our web masters don't just
                   build websites; they craft powerhouse platforms that are optimized for SEO and
                   designed to convert visitors into customers, setting the stage for sustainable
@@ -73,9 +73,9 @@ export function MavensTeam() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <div className="glass rounded-3xl p-8 hover:border-[#612C8B]/30 transition-all duration-500">
+              <div className="glass rounded-3xl p-8 hover:border-maven-light/30 transition-all duration-500">
                 <div className="flex items-center gap-4 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-[#8B4FBF]/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-maven-light/20 flex items-center justify-center flex-shrink-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -86,7 +86,7 @@ export function MavensTeam() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="lucide lucide-megaphone text-[#8B4FBF]"
+                      className="lucide lucide-megaphone text-maven-light"
                       aria-hidden="true"
                     >
                       <path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"></path>
@@ -96,7 +96,7 @@ export function MavensTeam() {
                   </div>
                   <h3 className="text-xl font-black">Our Online Marketers</h3>
                 </div>
-                <p className="text-gray-400 leading-relaxed text-base">
+                <p className="text-mist leading-relaxed text-base">
                   With precision, our online marketers devise and execute bespoke digital marketing
                   campaigns. Utilizing a mix of SEO, content marketing, and targeted social media
                   strategies, they ensure that your brand doesn't just participate but dominates in

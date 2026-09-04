@@ -161,7 +161,7 @@ function Card({
       {/* Meta */}
       <div className="p-5">
         <p className="mono-label mb-2">{project.category}</p>
-        <h3 className="display text-xl text-white mb-2">{project.name}</h3>
+        <h3 className="display text-xl text-maven-light mb-2">{project.name}</h3>
         <p className="text-mist-dim text-md leading-relaxed line-clamp-2">{project.blurb}</p>
       </div>
 
