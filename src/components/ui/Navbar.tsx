@@ -59,7 +59,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
           className={cn(
             'mx-auto flex items-center justify-between gap-6 transition-all duration-500',
             scrolled
-              ? 'max-w-5xl mt-3 px-5 py-2.5 rounded-full bg-void/70 backdrop-blur-xl border border-line shadow-[0_18px_60px_rgba(0,0,0,0.5)]'
+              ? 'max-w-5xl mt-3 px-5 py-2.5 rounded-full bg-void/70 backdrop-blur-xl border border-line shadow-sm'
               : 'max-w-7xl mt-0 px-6 md:px-10 py-5 border-b border-transparent'
           )}
         >
