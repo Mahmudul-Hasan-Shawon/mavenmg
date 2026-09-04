@@ -5,10 +5,11 @@ export interface NavLink {
 }
 
 export const navigation: NavLink[] = [
-  { label: 'Work', href: '/work', index: '01' },
-  { label: 'Services', href: '/services', index: '02' },
-  { label: 'About', href: '/about', index: '03' },
-  { label: 'Contact', href: '/contact', index: '04' },
+  { label: 'HOME', href: '/', index: '01' },
+  { label: 'WORK', href: '/work', index: '02' },
+  { label: 'SERVICES', href: '/services', index: '03' },
+  { label: 'ABOUT', href: '/about', index: '04' },
+  { label: 'CONTACT', href: '/contact', index: '05' },
 ]
 
 export const legalLinks = [

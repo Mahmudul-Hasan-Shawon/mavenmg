@@ -97,7 +97,7 @@ export function Testimonials() {
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => { setPaused(false); setCycle((c) => c + 1) }}
           >
-            “{t.quote}”
+            “{highlightNames(t.quote)}”
           </blockquote>
           <figcaption className="mt-10 flex items-center justify-center gap-4">
             {t.image ? (
@@ -164,5 +164,24 @@ export function Testimonials() {
 
       <style>{`@keyframes progress { from { width: 0% } to { width: 100% } }`}</style>
     </section>
+  )
+}
+
+/**
+ * Wraps brand mentions ("Maven Marketing Group", "Maven", "Connor") in
+ * maven-light so they stand out inside the quote copy.
+ */
+const NAME_SPLIT = /(Maven Marketing Group|Maven|Connor)/gi
+const NAMES = new Set(['maven marketing group', 'maven', 'connor'])
+
+function highlightNames(text: string): React.ReactNode[] {
+  return text.split(NAME_SPLIT).map((part, i) =>
+    NAMES.has(part.toLowerCase()) ? (
+      <span key={i} className="text-maven-light">
+        {part}
+      </span>
+    ) : (
+      part
+    )
   )
 }
