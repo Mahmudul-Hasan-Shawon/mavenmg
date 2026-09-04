@@ -48,7 +48,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                   rel="noopener noreferrer"
                   aria-label={s.label}
                   data-cursor
-                  className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:bg-maven hover:text-white-solid transition-all duration-300 hover:-translate-y-1"
+                  className="w-10 h-10 rounded-xl bg-mist/10 flex items-center justify-center text-mist hover:bg-maven hover:text-white-solid transition-all duration-300 hover:-translate-y-1"
                 >
                   {socialSvg[s.label]}
                 </a>
