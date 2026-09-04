@@ -5,7 +5,6 @@ import { WhyMaven } from '../sections/WhyMaven'
 import { Results } from '../sections/Results'
 import { Philosophy } from '../sections/Philosophy'
 import { WorkShowcase } from '../sections/WorkShowcase'
-import { Mavens } from '../sections/Mavens'
 import { Testimonials } from '../sections/Testimonials'
 import { Story } from '../sections/Story'
 import { FinalCTA } from '../sections/FinalCTA'
@@ -19,10 +18,9 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
       <Services onNavigate={onNavigate} />
       <Results />
       <WhyMaven />
+      <Testimonials />
       <Philosophy />
       <WorkShowcase onNavigate={onNavigate} limit={6} />
-      <Mavens />
-      <Testimonials />
       <Story onNavigate={onNavigate} />
       <FinalCTA onNavigate={onNavigate} />
     </>
