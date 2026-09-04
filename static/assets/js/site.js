@@ -495,6 +495,18 @@ function initPortfolioFilters() {
     })
     const items = filter === 'All' ? portfolioItems : portfolioItems.filter((p) => p.category === filter)
     grid.innerHTML = items.map(portfolioCard).join('')
+    // Smooth staggered fade-in of the freshly rendered cards.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      ;[...grid.children].forEach((card, i) => {
+        card.animate(
+          [
+            { opacity: 0, transform: 'translateY(24px)' },
+            { opacity: 1, transform: 'translateY(0)' },
+          ],
+          { duration: 500, delay: i * 60, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' }
+        )
+      })
+    }
   })
 }
 

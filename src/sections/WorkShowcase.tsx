@@ -1,46 +1,116 @@
+import { useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { projects } from '../data/projects'
+import { projects, projectCategories } from '../data/projects'
 import { Reveal } from '../components/ui/Reveal'
+import { gsap, useIsoLayoutEffect } from '../hooks/useGsap'
+import { reducedMotion } from '../utils/motion'
 
 /**
  * WorkShowcase — Maven's featured projects as a clean responsive grid on the
  * homepage. Up to `limit` projects, each card fully visible with image,
  * title and category. The full index lives on the Work page.
  */
-export function WorkShowcase({ onNavigate, limit }: { onNavigate: (href: string) => void; limit?: number }) {
-  const shown = limit ? projects.slice(0, limit) : projects
+export function WorkShowcase({
+  onNavigate,
+  limit,
+  hideHeader,
+  items,
+  showFilter,
+  filter,
+  onFilterChange,
+}: {
+  onNavigate: (href: string) => void
+  limit?: number
+  hideHeader?: boolean
+  items?: typeof projects
+  showFilter?: boolean
+  filter?: string
+  onFilterChange?: (category: string) => void
+}) {
+  const shown = (items ?? projects).slice(0, limit)
+  const gridRef = useRef<HTMLDivElement>(null)
+  const prevFilter = useRef(filter)
+
+  // Smooth re-entry when the active filter changes (skips first mount).
+  useIsoLayoutEffect(() => {
+    if (!showFilter || prevFilter.current === filter) return
+    prevFilter.current = filter
+    const cards = gridRef.current?.querySelectorAll<HTMLElement>('[data-filter-card]')
+    if (reducedMotion || !cards?.length) return
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 28, scale: 0.98 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        ease: 'power3.out',
+        stagger: 0.06,
+        overwrite: 'auto',
+        clearProps: 'all',
+      }
+    )
+  }, [filter, showFilter])
 
   return (
-    <section className="section py-24 md:py-32 border-t border-line" aria-label="Featured work">
+    <section className="section py-24 md:py-32 border-t border-line" style={{ position: 'static' }} aria-label="Featured work">
       <div className="container-maven">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-          <Reveal>
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <span className="index-tag">05</span>
-                <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-                <span className="mono-label !text-mist">Featured work</span>
-              </div>
-              <h2 className="display text-[clamp(2rem,5vw,3.8rem)]">
-                Websites built with <span className="grad-text">purpose</span>
-              </h2>
-            </div>
-          </Reveal>
-          {onNavigate && (
+        {!hideHeader && (
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
             <Reveal>
-              <button
-                type="button"
-                onClick={() => onNavigate('/work')}
-                data-cursor
-                className="mono-label !text-mist hover:!text-maven-lighter transition-colors cursor-pointer"
-              >
-                View all projects →
-              </button>
+              <div>
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="index-tag">05</span>
+                  <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
+                  <span className="mono-label !text-mist">Featured work</span>
+                </div>
+                <h2 className="display text-[clamp(2rem,5vw,3.8rem)]">
+                  Websites built with <span className="grad-text">purpose</span>
+                </h2>
+              </div>
             </Reveal>
-          )}
-        </div>
+            {onNavigate && (
+              <Reveal>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('/work')}
+                  data-cursor
+                  className="mono-label !text-mist hover:!text-maven-lighter transition-colors cursor-pointer"
+                >
+                  View all projects →
+                </button>
+              </Reveal>
+            )}
+          </div>
+        )}
 
-        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {showFilter && (
+          <div className="sticky top-4 z-30 mb-12 flex justify-center">
+            <div className="flex flex-wrap justify-center gap-2 p-2 rounded-full border border-line bg-ink/80 backdrop-blur-xl shadow-sm">
+              {projectCategories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => onFilterChange?.(cat)}
+                  data-cursor
+                  className={`px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                    filter === cat
+                      ? 'bg-maven text-white-solid shadow-[0_4px_20px_rgba(97,44,139,0.5)]'
+                      : 'text-mist-dim hover:text-mist hover:bg-ink-2'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div
+          ref={gridRef}
+          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {shown.map((p, i) => (
             <Reveal key={p.id} delay={(i % 3) * 0.06} className="shrink-0 w-[80vw] max-w-[340px] md:w-auto md:max-w-none snap-center">
               <Card project={p} index={i} onNavigate={onNavigate} />
@@ -64,6 +134,7 @@ function Card({
   return (
     <article
       data-cursor-label="View"
+      data-filter-card
       onClick={() => onNavigate('/work')}
       className="panel panel-hover group relative cursor-pointer overflow-hidden"
     >

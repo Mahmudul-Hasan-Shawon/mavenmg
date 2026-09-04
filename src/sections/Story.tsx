@@ -22,7 +22,7 @@ export function Story({ onNavigate }: { onNavigate?: (href: string) => void }) {
 
         <ol className="relative">
           {/* Timeline rail */}
-          <span aria-hidden="true" className="absolute left-[7px] md:left-[99px] top-2 bottom-2 w-px bg-gradient-to-b from-maven-light/50 via-line to-transparent" />
+          <span aria-hidden="true" className="absolute left-[7px] md:left-[99px] top-2 bottom-2 w-px bg-maven-light/50" />
 
           {story.map((entry, i) => (
             <Reveal as="li" key={entry.title} delay={i * 0.06}>
