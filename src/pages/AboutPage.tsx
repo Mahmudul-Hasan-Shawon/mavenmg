@@ -45,6 +45,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
         lede="A Chicago-based web design and digital marketing agency — founded in 2019 on the core principle of bringing small businesses into the digital age."
         image="/images/logos/3dlogomaven.png"
         imageAlt="Maven Marketing Group 3D logo"
+        logo3d
       />
 
       <Story onNavigate={onNavigate} index="02" />
