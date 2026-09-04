@@ -43,7 +43,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
         title="Who is"
         accent="Maven Marketing Group?"
         lede="A Chicago-based web design and digital marketing agency — founded in 2019 on the core principle of bringing small businesses into the digital age."
-        image="/images/3dlogomaven.png"
+        image="/images/logos/3dlogomaven.png"
         imageAlt="Maven Marketing Group 3D logo"
       />
 

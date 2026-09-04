@@ -70,13 +70,13 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
             data-cursor
           >
             <img
-              src="/images/logo.png"
+              src="/images/logos/logo.png"
               alt={siteData.name}
               data-logo="dark"
               className={cn('w-auto transition-all duration-500', scrolled ? 'h-7' : 'h-9')}
             />
             <img
-              src="/images/mavenlogo_light.png"
+              src="/images/logos/mavenlogo_light.png"
               alt=""
               aria-hidden="true"
               data-logo="light"
