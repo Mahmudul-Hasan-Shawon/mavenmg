@@ -79,7 +79,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
                 onClick={() => go(link.href)}
                 data-cursor
                 className={cn(
-                  'link-line text-[13.5px] tracking-wide cursor-pointer transition-colors duration-300',
+                  'link-line text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
                   isActive(link.href) ? 'text-maven-lighter' : 'text-mist hover:text-white'
                 )}
                 aria-current={isActive(link.href) ? 'page' : undefined}

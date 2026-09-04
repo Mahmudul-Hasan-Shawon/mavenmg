@@ -71,7 +71,7 @@ export const projects: Project[] = [
     category: 'Law Firms',
     services: 'Website Design, Website Development, Website Management',
     color: '#C77DFF',
-    image: '/images/p1.jpg',
+    image: '/images/p7.jpg',
     blurb: 'A professionalized site that cemented a top-tier presence in the industry.',
   },
   {
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     category: 'Other',
     services: 'Website Design, Website Development, Website Management, Digital Marketing',
     color: '#E85D04',
-    image: '/images/p2.jpg',
+    image: '/images/p8.jpg',
     blurb: 'A bespoke site with full digital marketing to match standout branding.',
   },
   {
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     category: 'Law Firms',
     services: 'Website Design, Website Development, Website Management',
     color: '#612C8B',
-    image: '/images/p3.jpg',
+    image: '/images/p9.jpg',
     blurb: 'Clean, trust-building design with ongoing management and maintenance.',
   },
   {
@@ -98,7 +98,7 @@ export const projects: Project[] = [
     category: 'E-Commerce',
     services: 'Website Design, Website Development, Website Management',
     color: '#FAA307',
-    image: '/images/p4.jpg',
+    image: '/images/p10.jpg',
     blurb: 'A bold, cutting-edge crypto-savvy design with flawless management.',
   },
   {
@@ -107,7 +107,7 @@ export const projects: Project[] = [
     category: 'Other',
     services: 'Website Design, Website Development, Website Management',
     color: '#4A1F6B',
-    image: '/images/p5.jpg',
+    image: '/images/p11.jpg',
     blurb: 'A sleek, futuristic DeFi experience that pulls the brand onto the screen.',
   },
 ]
