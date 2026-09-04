@@ -65,7 +65,7 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
           <div className="grid md:grid-cols-3 gap-px bg-line border border-line">
             {packages.map((pkg, i) => (
               <Reveal key={pkg.name} delay={i * 0.08} className="bg-void">
-                <div className="p-8 md:p-10 h-full flex flex-col spotlight" onPointerMove={spotHandler}>
+                <div className="p-8 md:p-10 h-full flex flex-col spotlight glow-tl" onPointerMove={spotHandler}>
                   <p className="index-tag mb-6">{String(i + 1).padStart(2, '0')}</p>
                   <h3 className="display text-xl md:text-2xl text-white mb-3">{pkg.name}</h3>
                   <p className="text-mist-dim text-md mb-7">{pkg.blurb}</p>
@@ -79,7 +79,7 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
                       </li>
                     ))}
                   </ul>
-                  <MagneticButton variant="ghost" className="w-full !justify-center" onClick={() => onNavigate('/contact')}>
+                  <MagneticButton variant="ghost" className="w-full !justify-center !bg-[#34164f] !border-[#34164f] hover:!bg-[#3d1a5c] hover:!border-[#3d1a5c]" onClick={() => onNavigate('/contact')}>
                     Get Started
                   </MagneticButton>
                 </div>

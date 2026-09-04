@@ -29,6 +29,8 @@
   --panel-bg: linear-gradient(180deg, rgba(218, 202, 255, 0.028), rgba(218, 202, 255, 0.012));
   --panel-bg-hover: linear-gradient(180deg, rgba(218, 202, 255, 0.045), rgba(218, 202, 255, 0.015));
   --spot: rgba(139, 79, 191, 0.1);
+  --glow-tl: rgba(139, 79, 191, 0.14);
+  --edge-tl: rgba(218, 202, 255, 0.07);
   --cursor-dot: #dacaff;
 }
 
@@ -56,6 +58,8 @@
   --panel-bg: linear-gradient(180deg, rgba(24, 17, 43, 0.025), rgba(24, 17, 43, 0.008));
   --panel-bg-hover: linear-gradient(180deg, rgba(109, 47, 165, 0.05), rgba(24, 17, 43, 0.012));
   --spot: rgba(109, 47, 165, 0.07);
+  --glow-tl: rgba(109, 47, 165, 0.09);
+  --edge-tl: rgba(255, 255, 255, 0.65);
   --cursor-dot: #2c1846;
 }
 
@@ -286,6 +290,21 @@ textarea:focus {
 
 .spotlight:hover::before {
   opacity: 1;
+}
+
+/* Soft top-left light source — ambient glow + faint edge catch,
+   gives flush grid cards a premium raised feel. Requires the
+   positioned/overflow-hidden context .spotlight provides. */
+.glow-tl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 0% 0%, var(--glow-tl), transparent 55%);
+  pointer-events: none;
+}
+
+.glow-tl {
+  box-shadow: inset 1px 1px 0 0 var(--edge-tl);
 }
 
 /* ---------- Overlay / texture ---------- */
