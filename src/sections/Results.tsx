@@ -62,7 +62,7 @@ export function Results() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {stats.map((stat, i) => (
+          {stats.map((stat) => (
             <div
               key={stat.label}
               data-stat
@@ -70,25 +70,17 @@ export function Results() {
             >
               {/* Gradient hairline border — ignites to maven on hover */}
               <div className="rounded-3xl p-px h-full bg-line transition-colors duration-500 group-hover:bg-maven-light/50">
-                <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void p-8 md:p-10 h-full flex flex-col" onPointerMove={spotHandler}>
-                  <div className="flex items-center justify-between mb-10 md:mb-14">
-                    <span className="index-tag">{String(i + 1).padStart(2, '0')}</span>
-                    <span
-                      className="h-px w-8 bg-maven-light/30 transition-all duration-500 group-hover:w-14 group-hover:bg-maven-light/70"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <div className="display font-bold leading-[0.9] tracking-[-0.04em] tabular-nums mb-8 md:mb-10 text-[clamp(3.25rem,6vw,5.75rem)] text-transparent bg-clip-text bg-[image:var(--grad)]">
+                <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void p-8 md:p-10 h-full flex flex-col justify-center text-center" onPointerMove={spotHandler}>
+                  <div className="display font-bold leading-[0.9] tracking-[-0.04em] tabular-nums mb-8 md:mb-10 text-[clamp(3rem,5.5vw,5.25rem)] text-transparent bg-clip-text bg-[image:var(--grad)]">
                     {stat.prefix}
                     <span data-counter={stat.value} data-decimals={stat.decimals}>
                       0
                     </span>
-                    <span className="text-[0.55em] tracking-tight ml-0.5">{stat.suffix}</span>
+                    <span>{stat.suffix}</span>
                   </div>
 
                   <div className="mt-auto">
-                    <h3 className="display text-lg md:text-xl text-white mb-2.5">{stat.label}</h3>
+                    <h3 className="font-dm font-bold text-lg md:text-xl text-white mb-2.5 tracking-[0.05em]">{stat.label}</h3>
                     <p className="text-mist-dim text-md leading-relaxed">{stat.description}</p>
                   </div>
                 </div>

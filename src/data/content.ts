@@ -122,14 +122,10 @@ export const story: StoryEntry[] = [
 
 export const philosophy = {
   eyebrow: 'Our Philosophy',
-  statement: 'We Build Websites With A Purpose',
-  body: 'At Maven, we provide premier website design and marketing services. Our expertise covers website management, conversion rate optimization, SEO, and UI/UX design — a comprehensive approach that consistently delivers results.',
-  callout:
-    'We excel in crafting custom websites and marketing strategies that truly connect with your audience.',
   vision:
     'We excel in crafting custom websites and marketing strategies that truly connect with your audience. Every design decision is made with your audience in mind — blending aesthetics with performance to create digital experiences that resonate and convert.',
   mission:
-    'To empower businesses with purpose-driven websites and data-backed marketing strategies that generate real, measurable growth.',
+    'As a leading website management and digital marketing agency, our expertise covers website management, conversion rate optimization, SEO, and UI/UX design — offering a comprehensive approach that consistently delivers results.',
 }
 
 export const visionMission = {

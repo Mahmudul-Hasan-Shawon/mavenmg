@@ -31,27 +31,10 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
     <footer className="relative border-t border-line bg-ink" aria-label="Footer">
       <div className="container-maven px-6 md:px-10 pt-16 md:pt-20">
-        {/* Top row: CTA-ish contact strip */}
-        <div className="flex flex-col md:flex-row md:items-end items-center md:text-left text-center justify-between gap-8 pb-14 border-b border-line">
-          <div>
-            <p className="mono-label mb-4 text-white">Get in touch</p>
-            <a
-              href={`mailto:${site.email}`}
-              data-cursor
-              className="display text-[clamp(1.25rem,4.5vw,2.6rem)] break-words text-white hover:text-maven-lighter transition-colors link-line"
-            >
-              {site.email}
-            </a>
-          </div>
-          <MagneticButton variant="primary" onClick={() => onNavigate('/contact')}>
-            Start Your Project
-          </MagneticButton>
-        </div>
-
         {/* Columns */}
         <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr] gap-10 py-14">
           <div className="col-span-2 md:col-span-1 text-center md:text-left">
-            <img src="/images/logo.png" alt={site.name} className="h-9 w-auto mb-5 mx-auto md:mx-0" loading="lazy" />
+            <img src="/images/logo.png" alt={site.name} className="h-11 w-auto mb-5 mx-auto md:mx-0" loading="lazy" />
             <p className="text-mist-dim text-sm leading-relaxed max-w-[34ch] mx-auto md:mx-0">
               Custom built websites and digital marketing services for businesses of all sizes. Based in Lake Zurich,
               IL — serving clients nationwide and worldwide.
