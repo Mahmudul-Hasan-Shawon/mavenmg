@@ -97,7 +97,7 @@ export function Testimonials() {
           <figcaption className="mt-9 flex items-center gap-5">
             <span
               aria-hidden="true"
-              className="w-11 h-11 rounded-full bg-gradient-to-br from-maven to-maven-light flex items-center justify-center font-sora font-bold text-sm"
+              className="w-11 h-11 rounded-full bg-gradient-to-br from-maven to-maven-light flex items-center justify-center font-sora font-bold text-sm text-white-solid"
             >
               {t.name.charAt(0)}
             </span>

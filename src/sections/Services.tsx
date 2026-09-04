@@ -180,7 +180,7 @@ function Icon({ children, active }: { children: React.ReactNode; active: boolean
       aria-hidden="true"
       className={cn(
         'inline-flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-500',
-        active ? 'border-maven-light/50 text-maven-lighter bg-maven/20' : 'border-line text-mist-dim'
+        active ? 'border-maven bg-maven text-white-solid' : 'border-line text-mist-dim'
       )}
     >
       {children}
