@@ -42,35 +42,6 @@ export function Story({ onNavigate }: { onNavigate?: (href: string) => void }) {
             </Reveal>
           ))}
         </ol>
-
-        {/* Location strip */}
-        <Reveal delay={0.1}>
-          <div className="mt-16 flex flex-col md:flex-row md:items-center justify-between gap-6 panel rounded-2xl px-7 py-6">
-            <div className="flex items-center gap-4">
-              <span className="relative flex h-2 w-2" aria-hidden="true">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-              </span>
-              <div>
-                <p className="text-white text-sm font-medium">
-                  Based in {site.address.city}, {site.address.state}
-                </p>
-                <p className="text-mist-dim text-xs mt-0.5">
-                  {site.address.street} · {site.hours}
-                </p>
-              </div>
-            </div>
-            {onNavigate && (
-              <a
-                onClick={() => onNavigate('/contact')}
-                data-cursor
-                className="link-line text-sm text-maven-lighter cursor-pointer"
-              >
-                Work with us
-              </a>
-            )}
-          </div>
-        </Reveal>
       </div>
     </section>
   )
