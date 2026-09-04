@@ -37,7 +37,7 @@ export function Story({ onNavigate }: { onNavigate?: (href: string) => void }) {
 
                 <span className="index-tag md:text-right md:pr-0">{entry.year}</span>
                 <h3 className="display text-lg md:text-xl text-white">{entry.title}</h3>
-                <p className="text-mist text-sm md:text-[15px] leading-relaxed max-w-xl">{entry.body}</p>
+                <p className="text-mist text-md md:text-[15px] leading-relaxed max-w-xl">{entry.body}</p>
               </div>
             </Reveal>
           ))}
