@@ -1,5 +1,10 @@
+import { lazy } from 'react'
 import { AnimatedText } from '../components/text/AnimatedText'
 import { Reveal } from '../components/ui/Reveal'
+import { LazyCanvas } from '../three/LazyCanvas'
+import { reducedMotion } from '../utils/motion'
+
+const AboutLogo = reducedMotion ? null : lazy(() => import('../three/AboutLogo'))
 
 interface PageHeroProps {
   index: string
@@ -10,10 +15,12 @@ interface PageHeroProps {
   /** Optional brand visual — shown right of the copy on desktop. */
   image?: string
   imageAlt?: string
+  /** Render the image as an interactive Three.js hologram scene. */
+  logo3d?: boolean
 }
 
 /** Compact editorial hero for secondary pages. */
-export function PageHero({ index, eyebrow, title, accent, lede, image, imageAlt }: PageHeroProps) {
+export function PageHero({ index, eyebrow, title, accent, lede, image, imageAlt, logo3d }: PageHeroProps) {
   const copy = (
     <>
       <Reveal>
@@ -57,11 +64,28 @@ export function PageHero({ index, eyebrow, title, accent, lede, image, imageAlt 
                 aria-hidden="true"
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 lg:w-96 lg:h-96 rounded-full bg-maven/25 blur-[100px]"
               />
-              <img
-                src={image}
-                alt={imageAlt || ''}
-                className="relative w-48 sm:w-60 lg:w-full lg:max-w-md object-contain animate-float-slow drop-shadow-[0_0_48px_rgba(139,79,191,0.45)]"
-              />
+              {logo3d ? (
+                <div className="relative w-64 sm:w-80 lg:w-full lg:max-w-md aspect-square">
+                  <LazyCanvas
+                    Scene={AboutLogo}
+                    className="absolute inset-0"
+                    sceneProps={{ src: image }}
+                    fallback={
+                      <img
+                        src={image}
+                        alt={imageAlt || ''}
+                        className="absolute inset-0 w-full h-full object-contain animate-float-slow drop-shadow-[0_0_48px_rgba(139,79,191,0.45)]"
+                      />
+                    }
+                  />
+                </div>
+              ) : (
+                <img
+                  src={image}
+                  alt={imageAlt || ''}
+                  className="relative w-48 sm:w-60 lg:w-full lg:max-w-md object-contain animate-float-slow drop-shadow-[0_0_48px_rgba(139,79,191,0.45)]"
+                />
+              )}
             </div>
           </div>
         ) : (
