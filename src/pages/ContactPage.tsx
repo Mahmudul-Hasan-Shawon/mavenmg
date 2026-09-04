@@ -49,6 +49,19 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
                 Elevate your website and supercharge your digital marketing results
               </h2>
             </Reveal>
+            <Reveal delay={0.05}>
+              <div className="space-y-5 text-mist leading-relaxed mb-8">
+                <p>
+                  Our custom-built websites and web management services enhance user experiences through strategic, brand-focused storytelling while driving high conversions.
+                </p>
+                <p>
+                  Discover a fresh approach to digital marketing: websites designed with purpose drive leads, boost engagement, and propel your sales to new heights.
+                </p>
+                <p>
+                  Contact Maven Marketing Group today to discuss our web design packages, website management services, or freelance digital marketing services!
+                </p>
+              </div>
+            </Reveal>
             <Reveal delay={0.1}>
               <ul className="space-y-6">
                 <li>
