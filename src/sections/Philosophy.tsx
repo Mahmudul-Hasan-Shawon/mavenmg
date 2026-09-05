@@ -91,7 +91,7 @@ export function Philosophy() {
           </div>
 
           {/* Mission — image first on mobile, numeral left on desktop */}
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" index="02" className="order-1" />
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" index="02" className="order-1" floatClass="animate-float-drift-alt" />
             <div data-phil-block className="order-2">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
                 Our <span className="text-maven-light">Mission</span>
@@ -250,11 +250,15 @@ function Phil({
   label,
   index,
   className = '',
+  floatClass = 'animate-float-drift',
 }: {
   image: string
   label: string
   index: string
   className?: string
+  /** Float animation variant — alternate it between rows so their images
+      drift out of phase instead of mirroring each other. */
+  floatClass?: string
 }) {
   return (
     <div data-phil-block className={`relative flex flex-col items-center py-6 ${className}`}>
@@ -269,13 +273,13 @@ function Phil({
           <img
             src={image}
             alt=""
-            className="duotone-maven w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain blur-2xl opacity-40 select-none"
+            className={`duotone-maven ${floatClass} w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain blur-2xl opacity-40 select-none`}
           />
         </div>
         <img
           src={image}
           alt={label}
-          className="duotone-maven relative w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain"
+          className={`duotone-maven ${floatClass} relative w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain`}
           loading="lazy"
         />
       </div>
