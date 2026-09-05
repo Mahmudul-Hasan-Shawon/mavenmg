@@ -9,6 +9,8 @@ interface SectionHeadingProps {
   title: string
   /** Optional highlighted final word(s) rendered with grad-text */
   accent?: string
+  /** Words (case-insensitive) in the title to render in solid maven-light */
+  highlight?: string[]
   lede?: string
   align?: 'left' | 'center'
   className?: string
@@ -21,6 +23,7 @@ export function SectionHeading({
   eyebrow,
   title,
   accent,
+  highlight,
   lede,
   align = 'left',
   className,
@@ -36,12 +39,19 @@ export function SectionHeading({
         </div>
       </Reveal>
       <h2 className="display text-[clamp(2.1rem,5.4vw,4.3rem)] max-w-4xl" style={centered ? { marginInline: 'auto' } : undefined}>
-        <AnimatedText mode="words" stagger={0.055}>
+        <AnimatedText mode="words" stagger={0.055} highlight={highlight}>
           {title}
         </AnimatedText>
         {accent && (
           <span className="block">
-            <AnimatedText mode="words" stagger={0.055} delay={0.18} blur gradient>
+            <AnimatedText
+              mode="words"
+              stagger={0.055}
+              delay={0.18}
+              blur
+              gradient={!highlight}
+              highlight={highlight}
+            >
               {accent}
             </AnimatedText>
           </span>
