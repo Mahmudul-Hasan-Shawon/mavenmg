@@ -74,7 +74,7 @@ const nodeShader = () =>
     `,
   })
 
-function System({ mode, count }: { mode: number; count: number }) {
+function System({ mode, count, showCore }: { mode: number; count: number; showCore: boolean }) {
   const groupRef = useRef<THREE.Group>(null)
   const modeRef = useRef(mode)
   modeRef.current = mode
@@ -150,16 +150,18 @@ function System({ mode, count }: { mode: number; count: number }) {
     <group ref={groupRef}>
       <points geometry={rings.outer} material={rings.outerMat} />
       <points geometry={rings.inner} material={rings.innerMat} />
-      <mesh geometry={rings.coreGeo} material={rings.coreMat} />
+      {showCore && <mesh geometry={rings.coreGeo} material={rings.coreMat} />}
     </group>
   )
 }
 
 export default function MavenNetworkCanvas({
   mode = 0,
+  showCore = true,
   frameloop = 'always',
 }: {
   mode?: number
+  showCore?: boolean
   frameloop?: 'always' | 'never'
 }) {
   const mobile = isMobileWidth()
@@ -171,7 +173,7 @@ export default function MavenNetworkCanvas({
       gl={{ antialias: quality.tier === 'high', alpha: true, powerPreference: 'high-performance' }}
       style={{ position: 'absolute', inset: 0 }}
     >
-      <System mode={mode} count={quality.mavenNodes} />
+      <System mode={mode} count={quality.mavenNodes} showCore={showCore} />
     </Canvas>
   )
 }
