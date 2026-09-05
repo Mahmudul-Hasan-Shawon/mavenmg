@@ -118,12 +118,12 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
       </div>
 
       {/* Scroll indicator */}
-      <div className="relative z-10 pb-8 flex justify-center">
+      {/* <div className="relative z-10 pb-8 flex justify-center">
         <div className="flex flex-col items-center gap-2 text-mist-dim">
           <span className="mono-label !text-[10px]">Scroll</span>
           <ArrowDown size={14} className="animate-bounce" aria-hidden="true" />
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }
