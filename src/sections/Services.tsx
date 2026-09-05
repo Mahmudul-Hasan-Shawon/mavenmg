@@ -4,6 +4,7 @@ import { services } from '../data/services'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { Reveal } from '../components/ui/Reveal'
+import { MagneticButton } from '../components/ui/MagneticButton'
 import { cn } from '../utils/cn'
 
 const serviceIcons = {
@@ -48,8 +49,9 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
         <SectionHeading
           index="01"
           eyebrow="What we do"
-          title="Everything your business needs"
+          title="Everything your Business needs"
           accent="to win online"
+          highlight={['business', 'win']}
           lede="Affordable web design services and digital marketing that fit your business needs — from first design to daily management."
         />
 
@@ -144,14 +146,10 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
           })}
         </div>
 
-        <Reveal delay={0.1} className="mt-10 flex justify-center md:justify-end">
-          <a
-            onClick={() => onNavigate('/contact')}
-            data-cursor
-            className="link-line inline-flex items-center gap-2 text-[15px] font-medium text-maven-lighter cursor-pointer"
-          >
+        <Reveal delay={0.1} className="mt-10 flex justify-center">
+          <MagneticButton variant="primary" onClick={() => onNavigate('/contact')}>
             Discuss your project <ArrowUpRight size={16} />
-          </a>
+          </MagneticButton>
         </Reveal>
       </div>
     </section>
