@@ -24,7 +24,7 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
       {/* Featured project hero */}
       {featured && (
         <Reveal>
-          <section className="py-24 lg:pt-10 lg:pb-24 px-6" aria-label="Featured project">
+          <section className="pt-4 pb-24 lg:pt-10 lg:pb-24 px-6" aria-label="Featured project">
             <div className="max-w-6xl mx-auto">
               <div className="relative overflow-hidden rounded-[2rem]">
                 <div className="absolute inset-0">
@@ -34,8 +34,9 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0F]/95 via-[#0A0A0F]/20 to-[#0A0A0F]/0" />
+                  <div className="absolute inset-0 bg-[#0A0A0F]/60 md:hidden" />
                 </div>
-                <div className="relative p-8 md:p-14 max-w-xl">
+                <div className="relative p-8 md:p-14 max-w-xl text-center md:text-left">
                   <div
                     className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6"
                     style={{ background: `${featured.color}15`, border: `1px solid ${featured.color}30`, color: '#FF9B42' }}
@@ -48,13 +49,13 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
                     <br />
                     Pickleball
                   </h3>
-                  <p className="text-mist text-base leading-relaxed mb-6">
+                  <p className="text-maven-lighter text-base leading-relaxed mb-6">
                     The HAQ Pickle Pickleball started as a fun idea between a father and son, two avid pickleball players.
                     <br />
                     <br />
                     After &#34;dinking&#34; around a few ideas to create something unique that picklers had never seen before, an idea started coming to life.
                   </p>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                     <button
                       type="button"
                       onClick={() => onNavigate('/#contact')}
