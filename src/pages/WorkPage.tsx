@@ -88,6 +88,7 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
         showFilter
         filter={filter}
         onFilterChange={setFilter}
+        mobileTag="02 Our Projects"
       />
 
       <section className="section py-32 relative overflow-hidden">
