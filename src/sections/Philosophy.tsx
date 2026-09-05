@@ -196,7 +196,7 @@ function MavensTabs() {
       </div>
 
       <div className="mt-12 pt-8 border-t border-line max-w-xl">
-        <p className="text-maven-lighter/70 text-[15px] leading-relaxed italic">{mavens.callout}</p>
+        <p className="text-maven-lighter/70 text-base leading-relaxed italic">{mavens.callout}</p>
       </div>
     </div>
   )
