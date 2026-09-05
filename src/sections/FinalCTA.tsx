@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react'
 
 export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
-    <section className="pt-16 pb-32 px-6">
+    <section className="pt-4 pb-20 px-6 md:pt-16 md:pb-32">
       <div className="max-w-5xl mx-auto">
         <div
           className="relative overflow-hidden rounded-[2rem] p-10 md:p-16 text-center"

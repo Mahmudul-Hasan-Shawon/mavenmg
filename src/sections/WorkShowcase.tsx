@@ -19,6 +19,7 @@ export function WorkShowcase({
   showFilter,
   filter,
   onFilterChange,
+  mobileTag,
 }: {
   onNavigate: (href: string) => void
   limit?: number
@@ -27,6 +28,8 @@ export function WorkShowcase({
   showFilter?: boolean
   filter?: string
   onFilterChange?: (category: string) => void
+  /** "NN Label" index tag rendered only on mobile inside the section. */
+  mobileTag?: string
 }) {
   const shown = (items ?? projects).slice(0, limit)
   const gridRef = useRef<HTMLDivElement>(null)
@@ -57,6 +60,13 @@ export function WorkShowcase({
   return (
     <section className="section py-24 md:py-32 border-t border-line" style={{ position: 'static' }} aria-label="Featured work">
       <div className="container-maven">
+        {mobileTag && (
+          <div className="flex items-center justify-center gap-4 mb-8 md:hidden">
+            <span className="index-tag">{mobileTag.split(' ')[0]}</span>
+            <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
+            <span className="mono-label !text-mist">{mobileTag.split(' ').slice(1).join(' ')}</span>
+          </div>
+        )}
         {!hideHeader && (
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
             <Reveal>

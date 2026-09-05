@@ -6,7 +6,7 @@ import { Reveal } from '../components/ui/Reveal'
  */
 export function MavensTeam() {
   return (
-    <section className="section pt-32 pb-16 relative overflow-hidden" aria-label="The Marketing Mavens team">
+    <section className="section pt-32 pb-8 md:pb-16 relative overflow-hidden" aria-label="The Marketing Mavens team">
       <div className="container-maven">
         <Reveal>
           <div className="text-start mb-16">
@@ -28,7 +28,7 @@ export function MavensTeam() {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mb-8 md:mb-14">
           <Reveal className="relative">
             <div className="absolute -inset-3 bg-gradient-to-r from-[#612C8B]/30 to-[#8B4FBF]/30 blur-2xl" aria-hidden="true" />
             <img

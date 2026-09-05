@@ -283,6 +283,23 @@ html:not([data-theme='light']) [data-logo='light'] {
   padding-inline: 1.5rem;
 }
 
+/* Tighten the big section gaps on mobile only — heroes keep their top
+   clearance (pt-40) since they clear the fixed navbar, and asymmetric
+   pt/pb sections keep their layout. */
+@media (max-width: 767px) {
+  .section.py-24,
+  .section.py-28,
+  .section.py-32 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .section.pt-28,
+  .section.pt-32 {
+    padding-top: 3rem;
+  }
+}
+
 @media (min-width: 768px) {
   .section {
     padding-inline: 3rem;
