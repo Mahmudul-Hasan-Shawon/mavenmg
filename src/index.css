@@ -8,7 +8,8 @@
 
 :root,
 [data-theme="dark"] {
-  --bg: #150c1f;
+  --bg: #0e0b18;
+  /* --bg: #08060d; */
   --surface: #0e0b16;
   --surface-2: #14101f;
   --surface-3: #1c1629;
