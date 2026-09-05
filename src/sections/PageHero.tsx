@@ -51,7 +51,7 @@ export function PageHero({ index, eyebrow, title, accent, lede, image, imageAlt,
   )
 
   return (
-    <section className="section pt-40 pb-16 md:pt-52 md:pb-20 relative overflow-hidden" aria-label={`${eyebrow} introduction`}>
+    <section className="section pt-40 pb-8 md:pt-52 md:pb-20 relative overflow-hidden" aria-label={`${eyebrow} introduction`}>
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 right-[8%] w-[560px] h-[420px] rounded-full bg-maven/12 blur-[140px]" />
       </div>
