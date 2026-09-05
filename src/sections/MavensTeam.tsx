@@ -6,7 +6,7 @@ import { Reveal } from '../components/ui/Reveal'
  */
 export function MavensTeam() {
   return (
-    <section className="section py-32 relative overflow-hidden" aria-label="The Marketing Mavens team">
+    <section className="section pt-32 pb-16 relative overflow-hidden" aria-label="The Marketing Mavens team">
       <div className="container-maven">
         <Reveal>
           <div className="text-start mb-16">
