@@ -11,8 +11,6 @@ import { gsap, useGsapContext } from '../hooks/useGsap'
 export function Testimonials() {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
-  // Bumped on resume so the progress bar restarts in sync with the timer.
-  const [cycle, setCycle] = useState(0)
   const quoteRef = useRef<HTMLDivElement>(null)
   const animating = useRef(false)
 
@@ -95,7 +93,7 @@ export function Testimonials() {
           <blockquote
             className="flex flex-col justify-center min-h-[15rem] sm:min-h-[9rem] md:min-h-[11rem] lg:min-h-[16rem]"
             onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => { setPaused(false); setCycle((c) => c + 1) }}
+            onMouseLeave={() => setPaused(false)}
           >
             <span className="font-dm font-semibold text-[clamp(1.05rem,2.2vw,1.6rem)] leading-[1.6] tracking-[0.01em] text-white text-balance">
               “{highlightNames(t.quote)}”
@@ -126,9 +124,9 @@ export function Testimonials() {
           </figcaption>
         </div>
 
-        {/* Controls + progress */}
-        <div className="mt-12 flex items-center justify-center gap-6">
-          <div className="flex gap-2">
+        {/* Controls */}
+        <div className="mt-12 flex justify-center">
+          <div className="flex gap-6">
             <button
               type="button"
               onClick={() => go(-1)}
@@ -148,23 +146,8 @@ export function Testimonials() {
               <ArrowRight size={16} />
             </button>
           </div>
-          <div className="w-40 h-px bg-line relative overflow-hidden">
-            <div
-              key={`${index}-${cycle}`}
-              className="absolute inset-y-0 left-0 bg-maven-lighter/70"
-              style={{
-                animation: 'progress 7s linear forwards',
-                animationPlayState: paused ? 'paused' : 'running',
-              }}
-            />
-          </div>
-          <span className="mono-label !text-mist-dim">
-            {String(index + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
-          </span>
         </div>
       </div>
-
-      <style>{`@keyframes progress { from { width: 0% } to { width: 100% } }`}</style>
     </section>
   )
 }
