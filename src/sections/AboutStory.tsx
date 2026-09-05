@@ -48,12 +48,12 @@ export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void 
             <Eyebrow label="Services we offer" className="mb-14 md:mb-20" />
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-px bg-line border border-line">
+          <div className="grid md:grid-cols-3 gap-5">
             {offerings.map((o, i) => {
               const Icon = o.icon
               return (
-                <Reveal key={o.title} delay={i * 0.08} className="bg-void">
-                  <div className="spotlight glow-tl h-full flex flex-col" onPointerMove={trackSpotlight}>
+                <Reveal key={o.title} delay={i * 0.08}>
+                  <div className="spotlight glow-tl h-full flex flex-col rounded-2xl border border-line bg-void overflow-hidden" onPointerMove={trackSpotlight}>
                     <div className="relative overflow-hidden">
                       <img
                         src={o.image}
@@ -62,7 +62,7 @@ export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void 
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-void via-void/20 to-transparent" aria-hidden="true" />
-                      <span className="absolute top-5 left-5 w-10 h-10 rounded-full bg-void/80 backdrop-blur-md border border-line flex items-center justify-center text-maven-lighter">
+                      <span className="absolute top-5 left-5 w-10 h-10 rounded-full bg-void/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-maven-light">
                         <Icon size={17} aria-hidden="true" />
                       </span>
                     </div>
