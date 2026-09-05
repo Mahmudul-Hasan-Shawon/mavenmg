@@ -13,7 +13,7 @@ function lazyScene(
   return lazy(load)
 }
 
-const NodeNetwork = reducedMotion ? null : lazyScene(() => import('../three/NodeNetwork'))
+const MavenNetwork = reducedMotion ? null : lazyScene(() => import('../three/MavenNetwork'))
 
 export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
   const rootRef = useRef<HTMLElement>(null)
@@ -40,10 +40,11 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
 
   return (
     <section ref={rootRef} className="relative min-h-svh flex flex-col overflow-hidden" aria-label="Introduction">
-      {/* WebGL digital growth system */}
+      {/* WebGL orbital ring system */}
       <div data-hero-canvas className="absolute inset-0 will-change-transform">
         <LazyCanvas
-          Scene={NodeNetwork}
+          Scene={MavenNetwork}
+          sceneProps={{ showCore: false }}
           className="absolute inset-0"
           fallback={<HeroFallback />}
         />
@@ -59,10 +60,6 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
       >
         <div className="max-w-4xl">
           <div className="flex items-center gap-3 mb-8">
-            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-maven-lighter opacity-60" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-maven-lighter" />
-            </span>
             <span className="mono-label !text-mist">{site.tagline}</span>
           </div>
 
