@@ -46,11 +46,6 @@ export function Story() {
                 </Reveal>
               ))}
             </ol>
-
-            <p className="mt-8 pt-8 border-t border-line flex items-start gap-4 text-maven-lighter/80 text-lg leading-relaxed italic max-w-lg">
-              <span aria-hidden="true" className="mt-2.5 h-px w-8 bg-maven-light/60 shrink-0" />
-              Your vision mixed with our creative skills will always drive the best results.
-            </p>
           </div>
 
           <div className="relative order-1 lg:order-2" data-cursor>
