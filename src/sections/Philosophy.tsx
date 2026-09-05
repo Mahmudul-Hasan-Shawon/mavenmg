@@ -82,7 +82,9 @@ export function Philosophy() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/vision.png" label="Vision" index="01" className="order-1 lg:order-2" />
             <div data-phil-block className="order-2 lg:order-1">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
-                Our <span className="text-maven-light">Vision</span>
+                Our <span className="text-maven-light text-[clamp(3rem,4vw,7rem)]">
+  Vision
+</span>
               </h3>
               <p className="text-mist text-center text-base md:text-lg leading-relaxed max-w-xl">
                 {philosophy.vision}
@@ -94,7 +96,9 @@ export function Philosophy() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" index="02" className="order-1" floatClass="animate-float-drift-alt" />
             <div data-phil-block className="order-2">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
-                Our <span className="text-maven-light">Mission</span>
+                Our <span className="text-maven-light text-[clamp(3rem,4vw,7rem)]">
+  Mission
+</span>
               </h3>
               <p className="text-mist text-center text-base md:text-lg leading-relaxed max-w-xl">
                 {philosophy.mission}
