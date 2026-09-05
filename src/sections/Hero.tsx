@@ -1,5 +1,5 @@
 import { lazy, useRef, type LazyExoticComponent, type ComponentType } from 'react'
-import { ArrowDown, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 import { site, badges } from '../data/site'
 import { AnimatedText } from '../components/text/AnimatedText'
@@ -39,7 +39,7 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
   )
 
   return (
-    <section ref={rootRef} className="relative min-h-svh flex flex-col overflow-hidden" aria-label="Introduction">
+    <section ref={rootRef} id="hero" className="relative min-h-svh flex flex-col overflow-hidden" aria-label="Introduction">
       {/* WebGL orbital ring system */}
       <div data-hero-canvas className="absolute inset-0 will-change-transform">
         <LazyCanvas
@@ -116,14 +116,6 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
           </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      {/* <div className="relative z-10 pb-8 flex justify-center">
-        <div className="flex flex-col items-center gap-2 text-mist-dim">
-          <span className="mono-label !text-[10px]">Scroll</span>
-          <ArrowDown size={14} className="animate-bounce" aria-hidden="true" />
-        </div>
-      </div> */}
     </section>
   )
 }

@@ -47,7 +47,6 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
     <section ref={rootRef} id="services" className="section py-28 md:py-36" aria-label="Services">
       <div className="container-maven">
         <SectionHeading
-          index="01"
           eyebrow="What we do"
           title="Everything your Business needs"
           accent="to win online"

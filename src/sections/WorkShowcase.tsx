@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { projects, projectCategories } from '../data/projects'
 import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import { Eyebrow } from '../components/text/Eyebrow'
 import { gsap, useIsoLayoutEffect } from '../hooks/useGsap'
 import { reducedMotion } from '../utils/motion'
 
@@ -28,7 +29,7 @@ export function WorkShowcase({
   showFilter?: boolean
   filter?: string
   onFilterChange?: (category: string) => void
-  /** "NN Label" index tag rendered only on mobile inside the section. */
+  /** Label-only mobile eyebrow rendered inside the section header spot. */
   mobileTag?: string
 }) {
   const shown = (items ?? projects).slice(0, limit)
@@ -58,24 +59,18 @@ export function WorkShowcase({
   }, [filter, showFilter])
 
   return (
-    <section className="section py-24 md:py-32 border-t border-line" style={{ position: 'static' }} aria-label="Featured work">
+    <section id="featured-work" className="section py-28 md:py-36 border-t border-line" style={{ position: 'static' }} aria-label="Featured work">
       <div className="container-maven">
         {mobileTag && (
-          <div className="flex items-center justify-center gap-4 mb-8 md:hidden">
-            <span className="index-tag">{mobileTag.split(' ')[0]}</span>
-            <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-            <span className="mono-label !text-mist">{mobileTag.split(' ').slice(1).join(' ')}</span>
+          <div className="mb-8 md:hidden">
+            <Eyebrow label={mobileTag} className="justify-center" />
           </div>
         )}
         {!hideHeader && (
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
             <Reveal>
               <div>
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="index-tag">05</span>
-                  <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-                  <span className="mono-label !text-mist">Featured work</span>
-                </div>
+                <Eyebrow label="Featured work" className="mb-6" />
                 <h2 className="display text-[clamp(2rem,5vw,3.8rem)]">
                   Websites built with <span className="grad-text">purpose</span>
                 </h2>
@@ -142,7 +137,6 @@ function Card({
 }) {
   return (
     <article
-      data-cursor-label="View"
       data-filter-card
       onClick={() => onNavigate('/work')}
       className="panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
@@ -171,11 +165,8 @@ function Card({
       <div className="p-5">
         <p className="mono-label mb-2">{project.category}</p>
         <h3 className="display text-xl text-maven-light mb-2">{project.name}</h3>
-        <p className="text-mist-dim text-md leading-relaxed line-clamp-2">{project.blurb}</p>
+        <p className="text-mist-dim text-base leading-relaxed line-clamp-2">{project.blurb}</p>
       </div>
-
-      {/* Accent edge in the project's colour */}
-      {/* <span aria-hidden="true" className="absolute top-0 left-0 h-[2px] w-full opacity-60" style={{ background: project.color }} /> */}
     </article>
   )
 }

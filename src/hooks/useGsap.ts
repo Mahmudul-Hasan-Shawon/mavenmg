@@ -27,11 +27,3 @@ export function useGsapContext(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }
-
-/** ScrollTrigger.refresh() after fonts/images settle. */
-export function useRefreshOnLoad() {
-  useEffect(() => {
-    const t = setTimeout(() => ScrollTrigger.refresh(), 400)
-    return () => clearTimeout(t)
-  }, [])
-}

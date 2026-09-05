@@ -1,8 +1,9 @@
 import { ArrowRight } from 'lucide-react'
+import { MagneticButton } from '../components/ui/MagneticButton'
 
 export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
-    <section className="pt-4 pb-20 px-6 md:pt-16 md:pb-32">
+    <section id="final-cta" className="pt-4 pb-20 px-6 md:pt-16 md:pb-32">
       <div className="max-w-5xl mx-auto">
         <div
           className="relative overflow-hidden rounded-[2rem] p-10 md:p-16 text-center"
@@ -24,13 +25,16 @@ export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void })
             <p className="text-white-solid/70 text-lg mb-8 max-w-xl">
               Connect With A Marketing Maven Now. Elevate your website and supercharge your digital marketing results.
             </p>
-            <a
+            <MagneticButton
+              variant="frost"
+              size="lg"
+              fullWidth
+              className="w-full sm:w-auto"
               onClick={() => onNavigate('/contact')}
-              className="flex w-full items-center justify-center gap-2 px-8 py-4 bg-[#ffffff14] backdrop-blur-[10px] text-white rounded-full font-bold text-base sm:inline-flex sm:w-auto sm:px-10 sm:text-lg hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)] transition-all duration-300 hover:-translate-y-1 cursor-pointer"
             >
               Start Your Project
               <ArrowRight size={20} />
-            </a>
+            </MagneticButton>
           </div>
         </div>
       </div>

@@ -17,7 +17,6 @@ export function WhyMaven() {
     <section className="section py-28 md:py-36 border-t border-line" aria-label="Why Maven">
       <div className="container-maven">
         <SectionHeading
-          index="02"
           eyebrow="Why Maven"
           title="A partner invested in"
           accent="your bottom line"

@@ -105,7 +105,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
             <div className="hidden md:block">
               <MagneticButton
                 variant={scrolled ? 'primary' : 'ghost'}
-                className="!px-5 !py-2.5 !text-[13.5px]"
+                size="sm"
                 onClick={() => go('/contact')}
               >
                 Start Your Project
@@ -216,13 +216,9 @@ function MobileMenu({
         </nav>
 
         <div data-menu-foot className="mt-12 pt-8 border-t border-line flex items-center justify-between gap-4">
-          <a
-            onClick={() => onNavigate('/contact')}
-            data-cursor
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-maven text-white-solid text-sm font-medium cursor-pointer"
-          >
+          <MagneticButton variant="primary" size="md" onClick={() => onNavigate('/contact')}>
             Start Your Project
-          </a>
+          </MagneticButton>
           <button
             type="button"
             onClick={onClose}
