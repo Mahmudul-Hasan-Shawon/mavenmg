@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Code, Megaphone } from 'lucide-react'
 import { mavens, philosophy } from '../data/content'
 import { gsap, useGsapContext } from '../hooks/useGsap'
+import { reducedMotion } from '../utils/motion'
 
 /**
  * Philosophy — a zigzag of Vision and Mission. Each row pairs an editorial
@@ -126,6 +127,53 @@ function MavensTabs() {
   const modeRef = useRef(0)
   const animating = useRef(false)
   const copyRef = useRef<HTMLDivElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const resetScrollAcc = useRef<() => void>(() => {})
+
+  // Scroll-driven switching with hysteresis: while the block is in view, a
+  // *sustained* scroll of THRESHOLD px in one direction switches tabs — down
+  // advances to "Online Marketers", up returns to "Web Masters" (the default).
+  // Jitter and tiny adjustments never flip the tab, and one gesture switches
+  // at most once.
+  useEffect(() => {
+    if (reducedMotion) return
+    const root = rootRef.current
+    if (!root) return
+
+    const THRESHOLD = 140
+    let lastY = window.scrollY
+    let acc = 0
+    let inView = false
+
+    // Only switch while the block is clearly visible (at least half on screen).
+    const io = new IntersectionObserver(([entry]) => (inView = entry.intersectionRatio >= 0.5), {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    })
+    io.observe(root)
+
+    const onScroll = () => {
+      const y = window.scrollY
+      const dy = y - lastY
+      lastY = y
+      if (!inView || dy === 0) return
+      // Changing direction wipes accumulated distance.
+      if (Math.sign(dy) !== Math.sign(acc)) acc = 0
+      acc += dy
+      if (Math.abs(acc) >= THRESHOLD) {
+        const up = acc < 0
+        acc = 0
+        select(up ? 0 : 1)
+      }
+    }
+
+    resetScrollAcc.current = () => (acc = 0)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      io.disconnect()
+      window.removeEventListener('scroll', onScroll)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const disciplines = [
     { ...mavens.webMasters, icon: Code },
@@ -135,6 +183,7 @@ function MavensTabs() {
 
   const select = (next: number) => {
     if (next === modeRef.current || animating.current) return
+    resetScrollAcc.current()
     modeRef.current = next
     const el = copyRef.current
     if (!el) {
@@ -169,7 +218,7 @@ function MavensTabs() {
   }
 
   return (
-    <div>
+    <div ref={rootRef}>
       <div className="flex gap-3 mb-9">
         {disciplines.map((d, i) => (
           <button
