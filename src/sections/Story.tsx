@@ -8,7 +8,7 @@ import { Reveal } from '../components/ui/Reveal'
  */
 export function Story({ onNavigate, index = '08' }: { onNavigate?: (href: string) => void; index?: string }) {
   return (
-    <section className="section pt-28 md:pt-36 pb-16 md:pb-20 border-t border-line" aria-label="Company story">
+    <section className="section pt-28 md:pt-36 pb-8 md:pb-12 border-t border-line" aria-label="Company story">
       <div className="container-maven">
         <Reveal>
           <div className="flex items-center gap-4 mb-8">
@@ -18,7 +18,7 @@ export function Story({ onNavigate, index = '08' }: { onNavigate?: (href: string
           </div>
         </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20 md:mb-28">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-8 md:mb-12">
           <div className="order-2 lg:order-1">
             <h2 className="display text-[clamp(2rem,4.6vw,3.8rem)] text-white mb-12">
               Bringing small businesses <span className="grad-text">into the digital age</span>

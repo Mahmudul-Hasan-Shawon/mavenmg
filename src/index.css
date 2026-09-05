@@ -290,8 +290,8 @@ html:not([data-theme='light']) [data-logo='light'] {
   .section.py-24,
   .section.py-28,
   .section.py-32 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
   .section.pt-28,

@@ -162,7 +162,7 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                     <MagneticButton
                       variant="ghost"
                       className={cn(
-                        'w-full !justify-center !text-white-solid shadow-[0_10px_32px_-10px_rgba(139,79,191,0.55)] hover:shadow-[0_0_36px_-4px_rgba(139,79,191,0.6)]',
+                        'w-full !justify-center !text-white-solid',
                         plan.featured
                           ? '!bg-maven-light !border-maven-light hover:!bg-[#5b2a86] hover:!border-[#5b2a86]'
                           : '!bg-[#34164f] !border-[#34164f] hover:!bg-[#5b2a86] hover:!border-[#5b2a86]'
