@@ -71,6 +71,9 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
               </Reveal>
             ))}
           </div>
+          <p className="mt-10 text-center text-maven-lighter/80 text-lg leading-relaxed italic max-w-lg mx-auto">
+            Your vision mixed with our creative skills will always drive the best results.
+          </p>
         </div>
       </section>
 
