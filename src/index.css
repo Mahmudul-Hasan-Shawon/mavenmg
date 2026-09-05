@@ -248,8 +248,30 @@ html:not([data-theme='light']) [data-logo='light'] {
   animation: float-slow 6s ease-in-out infinite;
 }
 
+/* Gentle drift for editorial illustrations (vision/mission) — bobs up/down
+   and side to side with a whisper of tilt, pure transform. */
+@keyframes float-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  25% { transform: translate3d(10px, -12px, 0) rotate(0.7deg); }
+  50% { transform: translate3d(0, -18px, 0) rotate(0deg); }
+  75% { transform: translate3d(-10px, -12px, 0) rotate(-0.7deg); }
+}
+
+.animate-float-drift {
+  animation: float-drift 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Counter-phase variant — different duration + negative delay so multiple
+   drifting images never move in the same direction at the same time. */
+.animate-float-drift-alt {
+  animation: float-drift 9s ease-in-out -3.5s infinite;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-float-slow {
+  .animate-float-slow,
+  .animate-float-drift {
     animation: none;
   }
 }
@@ -299,6 +321,16 @@ html:not([data-theme='light']) [data-logo='light'] {
 .panel-hover:hover {
   border-color: var(--line-hover);
   background: var(--panel-bg-hover);
+}
+
+/* Frosted card container — follows the theme vars, so the hover border
+   utilities attached to it (hover:border-maven-light/30) have a border to
+   transition. */
+.glass {
+  background: var(--panel-bg);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 /* Mouse-tracked spotlight wash */
