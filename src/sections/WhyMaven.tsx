@@ -75,7 +75,7 @@ export function WhyMaven() {
                       </p>
                     </div>
                     {/* Mobile description */}
-                    <p className="md:hidden px-2 pt-3 text-[13px] text-mist-dim leading-relaxed pl-[3.4rem]">
+                    <p className="md:hidden px-2 pt-3 text-base text-mist-dim leading-relaxed pl-[3.4rem]">
                       {reason.description}
                     </p>
                   </div>
