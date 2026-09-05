@@ -122,7 +122,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                   >
                     <div className="overflow-hidden">
                       <div className="pt-5 pb-1 pl-9 md:pl-[4.5rem] max-w-3xl">
-                        <p className="text-mist text-[15px] md:text-base leading-relaxed">
+                        <p className="text-mist text-base md:text-base leading-relaxed">
                           {service.description}
                         </p>
                         <div className="mt-4 flex flex-wrap gap-2">
