@@ -3,11 +3,11 @@ import { stats } from '../data/site'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 
 /**
- * Results — "luminous panels": three floating dark cards, each wrapped in a
- * hairline gradient border that ignites to maven on hover. Inside, a
- * mouse-tracked spotlight plus top-left ambient glow make the panel feel lit
- * from within; numerals render in the brand gradient. Counters animate once
- * when the section enters.
+ * Results — "luminous panel": a single dark card holding all stats side by
+ * side (hairline dividers between them), wrapped in a gradient hairline
+ * border that ignites to maven on hover. Inside, a mouse-tracked spotlight
+ * plus top-left ambient glow make the panel feel lit from within; numerals
+ * render in the brand gradient. Counters animate once when the section enters.
  */
 export function Results() {
   const rootRef = useRef<HTMLElement>(null)
@@ -61,16 +61,29 @@ export function Results() {
           <span className="mono-label !text-mist">The Maven impact</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              data-stat
-              className="group relative rounded-3xl transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_28px_80px_-28px_rgba(97,44,139,0.5)]"
-            >
-              {/* Gradient hairline border — ignites to maven on hover */}
-              <div className="rounded-3xl p-px h-full bg-line transition-colors duration-500 group-hover:bg-maven-light/50">
-                <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void p-8 md:p-10 h-full flex flex-col justify-center text-center" onPointerMove={spotHandler}>
+        {/* One panel, three stats — hairline dividers between them */}
+        <div
+          data-stat
+          className="border-beam group relative rounded-3xl transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_28px_80px_-28px_rgba(97,44,139,0.5)]"
+        >
+          {/* Orbiting border beam — blurred halo underneath, sharp core on top */}
+          <div aria-hidden="true" className="beam-viewport beam-viewport-halo">
+            <div className="beam-rotator beam-rotator-halo" />
+          </div>
+          <div aria-hidden="true" className="beam-viewport">
+            <div className="beam-rotator beam-rotator-core" />
+          </div>
+
+          {/* Gradient hairline border — ignites to maven on hover */}
+          <div className="rounded-3xl p-px bg-line transition-colors duration-500 group-hover:bg-maven-light/50">
+            <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void grid grid-cols-1 md:grid-cols-3" onPointerMove={spotHandler}>
+              {stats.map((stat, i) => (
+                <div
+                  key={stat.label}
+                  className={`flex flex-col justify-center items-center text-center px-8 py-12 md:px-10 md:py-16 ${
+                    i > 0 ? 'border-t border-line md:border-t-0 md:border-l' : ''
+                  }`}
+                >
                   <div className="font-dm font-[1000] leading-[0.75] tracking-[0.02em] tabular-nums mb-8 md:mb-10 text-[4.5rem] text-transparent bg-clip-text bg-[image:var(--grad)]">
                     {stat.prefix}
                     <span data-counter={stat.value} data-decimals={stat.decimals} className="font-[1000]">
@@ -83,12 +96,12 @@ export function Results() {
 
                   <div>
                     <h3 className="font-dm font-bold text-lg md:text-xl text-white mb-2.5 tracking-[0.05em]">{stat.label}</h3>
-                    <p className="text-mist-dim text-md leading-relaxed">{stat.description}</p>
+                    <p className="text-mist-dim text-md leading-relaxed max-w-xs">{stat.description}</p>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
