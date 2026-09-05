@@ -196,7 +196,7 @@ textarea:focus {
   font-family: var(--font-sora);
   font-weight: 700;
   letter-spacing: -0.035em;
-  line-height: 1.02;
+  line-height: 1.05;
 }
 
 .mono-label {
@@ -420,6 +420,95 @@ html:not([data-theme='light']) [data-logo='light'] {
 .link-line:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+/* ---------- Border beam ---------- */
+
+/* A comet streak orbits the card border. Each layer is an oversized square
+   spinning about the card's center (pure transform → compositor-only, no
+   gradient repaints) while a ring mask confines its conic-gradient streak to
+   the border hairline, so the beam follows the exact rounded path. Two layers:
+   a sharp bright core riding the border line, plus a blurred, wider halo that
+   reads as ambient glow illuminating the edge around it. Linear timing keeps
+   the orbit constant and loop-seamless (the gradient is periodic in 360deg). */
+.border-beam {
+  /* --beam-radius must match the host's border-radius (rounded-3xl). */
+  --beam-radius: 1.5rem;
+  --beam-reach: 16px;
+  position: relative;
+}
+
+.beam-viewport {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+/* The halo's ring extends past the border so its glow wraps the edge. */
+.beam-viewport-halo {
+  inset: calc(-1 * var(--beam-reach));
+  border-radius: calc(var(--beam-radius) + var(--beam-reach));
+  padding: calc(var(--beam-reach) + 3px);
+}
+
+.beam-rotator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* Side must cover the card's diagonal at every rotation angle. Wide card on
+     md+: 150% is ample; stacked card below md: a tall diagonal needs far more,
+     capped so the GPU layer stays bounded. */
+  width: 150%;
+  aspect-ratio: 1;
+  /* `translate` composes with the keyframed transform — rotate spins the
+     square about its own (card-centered) middle. */
+  translate: -50% -50%;
+  animation: beam-orbit 7s linear infinite;
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .beam-rotator {
+    width: min(430%, 1150px);
+  }
+}
+
+.beam-rotator-core {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0turn 0.74turn,
+    rgba(218, 202, 255, 0.06) 0.82turn,
+    rgba(218, 202, 255, 0.6) 0.93turn,
+    #ffffff 0.985turn,
+    var(--maven-light, #8b4fbf) 1turn
+  );
+}
+
+.beam-rotator-halo {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0turn 0.62turn,
+    rgba(139, 79, 191, 0.12) 0.84turn,
+    rgba(218, 202, 255, 0.35) 1turn
+  );
+  filter: blur(14px);
+}
+
+@keyframes beam-orbit {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beam-viewport {
+    display: none;
+  }
 }
 
 /* ---------- Reduced motion ---------- */
