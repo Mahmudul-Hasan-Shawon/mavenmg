@@ -30,9 +30,9 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
 
   return (
     <footer className="relative border-t border-line bg-ink" aria-label="Footer">
-      <div className="container-maven px-6 md:px-10 pt-16 md:pt-20">
+      <div className="container-maven px-6 md:px-10 pt-8 md:pt-12">
         {/* Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr] gap-10 py-14">
+        <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr] gap-10 pt-2 pb-14 md:pt-6 md:pb-16">
           <div className="col-span-2 md:col-span-1 text-center md:text-left">
             <img
               src="/images/logos/logo.png"
