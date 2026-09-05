@@ -33,14 +33,14 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
   return (
     <>
       <PageHero
-        index="04"
+        id="contact-hero"
         eyebrow="Contact"
         title="Let's build something"
         accent="extraordinary"
         lede="Tell us about your project — we'll get back to you within one business day."
       />
 
-      <section className="section pb-28 md:pb-36" aria-label="Contact form">
+      <section id="contact" className="section pb-28 md:pb-36" aria-label="Contact form">
         <div className="container-maven grid lg:grid-cols-[1fr_1.3fr] gap-14 lg:gap-20">
           {/* Info column */}
           <div>

@@ -8,7 +8,7 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
   return (
     <>
       <PageHero
-        index="02"
+        id="services-hero"
         eyebrow="Services"
         title="Digital marketing services"
         accent="that increase sales"
@@ -16,7 +16,7 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
       />
 
       {/* Service detail rows */}
-      <section className="section pb-8" aria-label="Service details">
+      <section id="service-details" className="section pb-8" aria-label="Service details">
         <div className="container-maven divide-y divide-line border-y border-line">
           {services.map((s, i) => (
             <Reveal key={s.id} delay={i * 0.05}>

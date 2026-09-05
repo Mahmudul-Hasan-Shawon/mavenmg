@@ -1,10 +1,9 @@
-import type { ReactNode } from 'react'
 import { cn } from '../../utils/cn'
 import { Reveal } from './Reveal'
 import { AnimatedText } from '../text/AnimatedText'
+import { Eyebrow } from '../text/Eyebrow'
 
 interface SectionHeadingProps {
-  index: string
   eyebrow: string
   title: string
   /** Optional highlighted final word(s) rendered with grad-text */
@@ -14,12 +13,10 @@ interface SectionHeadingProps {
   lede?: string
   align?: 'left' | 'center'
   className?: string
-  children?: ReactNode
 }
 
-/** Numbered editorial section header: mono index, eyebrow, split heading, lede. */
+/** Editorial section header: eyebrow, split heading, lede. */
 export function SectionHeading({
-  index,
   eyebrow,
   title,
   accent,
@@ -32,11 +29,7 @@ export function SectionHeading({
   return (
     <div className={cn('mb-14 md:mb-20', centered && 'text-center', className)}>
       <Reveal>
-        <div className={cn('flex items-center gap-4 mb-7', centered && 'justify-center')}>
-          <span className="index-tag">{index}</span>
-          <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-          <span className="mono-label !text-mist">{eyebrow}</span>
-        </div>
+        <Eyebrow label={eyebrow} align={centered ? 'center' : 'left'} className="mb-7" />
       </Reveal>
       <h2 className="display text-[clamp(2.1rem,5.4vw,4.3rem)] max-w-4xl" style={centered ? { marginInline: 'auto' } : undefined}>
         <AnimatedText mode="words" stagger={0.055} highlight={highlight}>

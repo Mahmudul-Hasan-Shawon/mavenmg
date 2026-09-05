@@ -1,21 +1,18 @@
 import { story } from '../data/content'
 import { Reveal } from '../components/ui/Reveal'
+import { Eyebrow } from '../components/text/Eyebrow'
 
 /**
  * Story — Maven's history as an elegant vertical timeline: founding, the
  * move into design, management, and full-stack marketing. Editorial rows,
  * no cards.
  */
-export function Story({ onNavigate, index = '08' }: { onNavigate?: (href: string) => void; index?: string }) {
+export function Story() {
   return (
-    <section className="section pt-28 md:pt-36 pb-8 md:pb-12 border-t border-line" aria-label="Company story">
+    <section id="story" className="section pt-28 md:pt-36 pb-8 md:pb-12 border-t border-line" aria-label="Company story">
       <div className="container-maven">
         <Reveal>
-          <div className="flex items-center gap-4 mb-8">
-            <span className="index-tag">{index}</span>
-            <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-            <span className="mono-label !text-mist">Our story</span>
-          </div>
+          <Eyebrow label="Our story" className="mb-8" />
         </Reveal>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-8 md:mb-12">

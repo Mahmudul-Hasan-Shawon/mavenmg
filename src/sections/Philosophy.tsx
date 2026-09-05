@@ -3,6 +3,7 @@ import { Code, Megaphone } from 'lucide-react'
 import { mavens, philosophy } from '../data/content'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 import { reducedMotion } from '../utils/motion'
+import { Eyebrow } from '../components/text/Eyebrow'
 
 /**
  * Philosophy — a zigzag of Vision and Mission. Each row pairs an editorial
@@ -35,7 +36,8 @@ export function Philosophy() {
   return (
     <section
       ref={rootRef}
-      className="section py-32 md:py-44 border-t border-line relative overflow-hidden"
+      id="philosophy"
+      className="section py-28 md:py-36 border-t border-line relative overflow-hidden"
       aria-label="Our philosophy"
       style={{ background: 'linear-gradient(180deg, var(--bg) 0%, var(--surface) 50%, var(--bg) 100%)' }}
     >
@@ -47,20 +49,15 @@ export function Philosophy() {
       </div>
 
       <div className="container-maven relative">
-        <div className="flex items-center justify-center gap-4 mb-16 md:mb-24">
-          <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-          <span className="index-tag">04</span>
-          <span className="mono-label !text-mist">{philosophy.eyebrow}</span>
-          <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-        </div>
+        <Eyebrow label={philosophy.eyebrow} align="center" className="mb-16 md:mb-24" />
 
         {/* Intro — The Marketing Mavens */}
         <div data-phil-block className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <div className="order-2 lg:order-1">
-            <h3 className="text-2xl md:text-8xl font-black mb-6">
+            <h2 className="text-2xl md:text-8xl font-black mb-6">
               The <span className="text-white">Marketing</span>
               <span className="text-maven-light"> Mavens</span>
-            </h3>
+            </h2>
             <p className="text-mist text-base md:text-lg leading-relaxed mb-9">
               {mavens.intro}
             </p>
@@ -79,7 +76,7 @@ export function Philosophy() {
 
         <div className="space-y-24 lg:space-y-0">
           {/* Vision — image first on mobile, text left on desktop */}
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/vision.png" label="Vision" index="01" className="order-1 lg:order-2" />
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/vision.png" label="Vision" className="order-1 lg:order-2" />
             <div data-phil-block className="order-2 lg:order-1">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
                 Our <span className="text-maven-light text-[clamp(3rem,4vw,7rem)]">
@@ -93,7 +90,7 @@ export function Philosophy() {
           </div>
 
           {/* Mission — image first on mobile, numeral left on desktop */}
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" index="02" className="order-1" floatClass="animate-float-drift-alt" />
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" className="order-1" floatClass="animate-float-drift-alt" />
             <div data-phil-block className="order-2">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
                 Our <span className="text-maven-light text-[clamp(3rem,4vw,7rem)]">
@@ -252,13 +249,11 @@ function MavensTabs() {
 function Phil({
   image,
   label,
-  index,
   className = '',
   floatClass = 'animate-float-drift',
 }: {
   image: string
   label: string
-  index: string
   className?: string
   /** Float animation variant — alternate it between rows so their images
       drift out of phase instead of mirroring each other. */
@@ -266,11 +261,7 @@ function Phil({
 }) {
   return (
     <div data-phil-block className={`relative flex flex-col items-center py-6 ${className}`}>
-      <div className="flex items-center gap-4 mb-8 self-center lg:hidden">
-        <span className="index-tag">{index}</span>
-        <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-        <span className="mono-label !text-mist">Our {label}</span>
-      </div>
+      <Eyebrow label={`Our ${label}`} className="mb-8 self-center lg:hidden" />
       <div className="relative flex items-center justify-center w-full">
         <div aria-hidden="true" className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-maven/15 blur-[110px]" />
         <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none">

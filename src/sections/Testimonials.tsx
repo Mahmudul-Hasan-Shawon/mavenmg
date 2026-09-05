@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Quote } from 'lucide-react'
 import { testimonials } from '../data/testimonials'
 import { gsap, useGsapContext } from '../hooks/useGsap'
+import { Eyebrow } from '../components/text/Eyebrow'
 
 /**
  * Testimonials — one large editorial quote at a time with smooth GSAP
@@ -72,6 +73,7 @@ export function Testimonials() {
 
   return (
     <section
+      id="testimonials"
       className="section py-28 md:py-36 border-t border-line relative overflow-hidden"
       aria-label="Client testimonials"
     >
@@ -81,12 +83,7 @@ export function Testimonials() {
       </div>
 
       <div className="container-maven relative">
-        <div className="flex items-center justify-center gap-4 mb-14 md:mb-16">
-          <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-          <span className="index-tag">07</span>
-          <span className="mono-label !text-mist">Client words</span>
-          <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-        </div>
+        <Eyebrow label="Client words" align="center" className="mb-14 md:mb-16" />
 
         <div ref={quoteRef} className="max-w-3xl mx-auto text-center">
           <Quote size={32} className="text-maven-lighter mx-auto mb-9" aria-hidden="true" />
@@ -127,24 +124,21 @@ export function Testimonials() {
         {/* Controls */}
         <div className="mt-12 flex justify-center">
           <div className="flex gap-6">
-            <button
-              type="button"
-              onClick={() => go(-1)}
-              data-cursor
-              aria-label="Previous testimonial"
-              className="w-11 h-11 rounded-full border border-line flex items-center justify-center text-mist hover:text-white hover:border-maven-light/50 transition-colors cursor-pointer"
-            >
-              <ArrowLeft size={16} />
-            </button>
-            <button
-              type="button"
-              onClick={() => go(1)}
-              data-cursor
-              aria-label="Next testimonial"
-              className="w-11 h-11 rounded-full border border-line flex items-center justify-center text-mist hover:text-white hover:border-maven-light/50 transition-colors cursor-pointer"
-            >
-              <ArrowRight size={16} />
-            </button>
+            {[
+              { dir: -1 as const, Icon: ArrowLeft, label: 'Previous testimonial' },
+              { dir: 1 as const, Icon: ArrowRight, label: 'Next testimonial' },
+            ].map(({ dir, Icon, label }) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => go(dir)}
+                data-cursor
+                aria-label={label}
+                className="w-11 h-11 rounded-full border border-line flex items-center justify-center text-mist hover:text-white hover:border-maven-light/50 transition-colors cursor-pointer"
+              >
+                <Icon size={16} />
+              </button>
+            ))}
           </div>
         </div>
       </div>

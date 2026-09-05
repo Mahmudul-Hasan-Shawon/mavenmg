@@ -1,6 +1,8 @@
 import { useRef } from 'react'
 import { stats } from '../data/site'
 import { gsap, useGsapContext } from '../hooks/useGsap'
+import { Eyebrow } from '../components/text/Eyebrow'
+import { trackSpotlight } from '../utils/motion'
 
 /**
  * Results — "luminous panel": a single dark card holding all stats side by
@@ -48,18 +50,14 @@ export function Results() {
   )
 
   return (
-    <section ref={rootRef} className="section py-28 md:py-40 relative overflow-hidden" aria-label="Results">
+    <section ref={rootRef} id="results" className="section py-28 md:py-36 relative overflow-hidden" aria-label="Results">
       {/* Ambient wash */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[420px] rounded-full bg-maven/10 blur-[160px]" />
       </div>
 
       <div className="container-maven relative">
-        <div className="flex items-center gap-4 mb-14 md:mb-20">
-          <span className="index-tag">03</span>
-          <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-          <span className="mono-label !text-mist">The Maven impact</span>
-        </div>
+        <Eyebrow label="The Maven impact" className="mb-14 md:mb-20" />
 
         {/* One panel, three stats — hairline dividers between them */}
         <div
@@ -76,7 +74,7 @@ export function Results() {
 
           {/* Gradient hairline border — always lit to maven */}
           <div className="rounded-3xl p-px bg-maven-light/50">
-            <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void grid grid-cols-1 md:grid-cols-3" onPointerMove={spotHandler}>
+            <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void grid grid-cols-1 md:grid-cols-3" onPointerMove={trackSpotlight}>
               {stats.map((stat, i) => (
                 <div
                   key={stat.label}
@@ -96,7 +94,7 @@ export function Results() {
 
                   <div>
                     <h3 className="font-dm font-bold text-lg md:text-xl text-white mb-2.5 tracking-[0.05em]">{stat.label}</h3>
-                    <p className="text-mist-dim text-md leading-relaxed max-w-xs">{stat.description}</p>
+                    <p className="text-mist-dim text-base leading-relaxed max-w-xs">{stat.description}</p>
                   </div>
                 </div>
               ))}
@@ -106,11 +104,4 @@ export function Results() {
       </div>
     </section>
   )
-}
-
-function spotHandler(e: React.PointerEvent<HTMLElement>) {
-  const el = e.currentTarget
-  const rect = el.getBoundingClientRect()
-  el.style.setProperty('--spot-x', `${e.clientX - rect.left}px`)
-  el.style.setProperty('--spot-y', `${e.clientY - rect.top}px`)
 }

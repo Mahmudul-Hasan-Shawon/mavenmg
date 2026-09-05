@@ -8,7 +8,16 @@ interface MagneticButtonProps {
   onClick?: () => void
   href?: string
   external?: boolean
-  variant?: 'primary' | 'ghost' | 'light'
+  /**
+   * Visual spec. `primary` = solid brand violet; `ghost` = hairline outline;
+   * `accent` = brighter solid violet; `deep` = quiet dark-violet tier;
+   * `frost` = translucent frosted pill for use over imagery.
+   */
+  variant?: 'primary' | 'ghost' | 'accent' | 'deep' | 'frost'
+  /** Pill size — carries padding, font size and weight as one spec. */
+  size?: 'default' | 'sm' | 'md' | 'lg'
+  /** Stretch the pill to fill its container (e.g. full-width on mobile). */
+  fullWidth?: boolean
   className?: string
   strength?: number
   ariaLabel?: string
@@ -21,8 +30,19 @@ const styles: Record<NonNullable<MagneticButtonProps['variant']>, string> = {
     'bg-maven text-white-solid hover:bg-maven-light border border-maven-light/40 shadow-[0_10px_32px_-10px_rgba(139,79,191,0.55)] hover:shadow-[0_0_36px_-4px_rgba(139,79,191,0.6)]',
   ghost:
     'bg-transparent text-white border border-line hover:border-maven-lighter/50 hover:bg-maven-lighter/[0.04]',
-  light:
-    'bg-maven text-white-solid border border-maven-light/40 hover:bg-maven-light shadow-[0_10px_32px_-10px_rgba(139,79,191,0.55)] hover:shadow-[0_0_36px_-4px_rgba(139,79,191,0.6)]',
+  accent:
+    'bg-maven-light text-white-solid border border-maven-light hover:bg-maven-light-hover hover:border-maven-light-hover',
+  deep:
+    'bg-maven-deep text-white-solid border border-maven-deep hover:bg-maven-light-hover hover:border-maven-light-hover',
+  frost:
+    'bg-white/15 text-white-solid border border-white/40 backdrop-blur-md hover:bg-white/25',
+}
+
+const sizes: Record<NonNullable<MagneticButtonProps['size']>, string> = {
+  default: 'px-7 py-3.5 text-[15px] font-medium',
+  sm: 'px-5 py-2.5 text-[13.5px]',
+  md: 'px-6 py-3 text-sm font-semibold',
+  lg: 'px-8 py-4 text-base sm:px-10 sm:text-lg font-bold',
 }
 
 /** Pill CTA with magnetic pointer attraction and a sliding label. */
@@ -32,6 +52,8 @@ export function MagneticButton({
   href,
   external,
   variant = 'primary',
+  size = 'default',
+  fullWidth = false,
   className,
   strength = 0.35,
   ariaLabel,
@@ -59,8 +81,10 @@ export function MagneticButton({
   }
 
   const cls = cn(
-    'group relative inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-[15px] font-medium tracking-tight overflow-hidden cursor-pointer select-none transition-shadow duration-300',
+    'group relative inline-flex items-center justify-center gap-2.5 rounded-full tracking-tight overflow-hidden cursor-pointer select-none transition-shadow duration-300',
     styles[variant],
+    sizes[size],
+    fullWidth && 'w-full',
     className
   )
 
@@ -71,7 +95,12 @@ export function MagneticButton({
   )
 
   return (
-    <span ref={wrapRef} onMouseMove={onMove} onMouseLeave={onLeave} className="inline-block">
+    <span
+      ref={wrapRef}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className={cn('inline-block', fullWidth && 'w-full')}
+    >
       {href ? (
         <a
           href={href}
@@ -89,35 +118,5 @@ export function MagneticButton({
         </button>
       )}
     </span>
-  )
-}
-
-/** Understated text link with sliding underline + arrow. */
-export function TextLink({
-  children,
-  onClick,
-  href,
-  className,
-}: {
-  children: ReactNode
-  onClick?: () => void
-  href?: string
-  className?: string
-}) {
-  const cls = cn(
-    'link-line inline-flex items-center gap-2 text-[15px] font-medium text-maven-lighter cursor-pointer',
-    className
-  )
-  if (href) {
-    return (
-      <a href={href} className={cls} data-cursor>
-        {children}
-      </a>
-    )
-  }
-  return (
-    <button type="button" onClick={onClick} className={cls} data-cursor>
-      {children}
-    </button>
   )
 }
