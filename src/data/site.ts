@@ -71,3 +71,15 @@ export const partners = [
   { src: '/images/partners/wordpress.png', alt: 'WordPress Partner' },
   { src: '/images/partners/semrush.png', alt: 'Semrush Partner' },
 ]
+
+export const badges = [
+  { src: '/images/badges/google-reviews.png', alt: 'Google 5-Star Reviews' },
+  { src: '/images/badges/manifest-badge.webp', alt: 'Manifest Featured Company' },
+  { src: '/images/badges/webby-winner.png', alt: 'Webby Award Winner' },
+  { src: '/images/badges/clutch-dev.png', alt: 'Clutch Top Developer' },
+  { src: '/images/badges/horizon-award.png', alt: 'Horizon Interactive Award' },
+  { src: '/images/badges/cssdesignawards.png', alt: 'CSS Design Awards' },
+  { src: '/images/badges/clutch-award.png', alt: 'Clutch Award' },
+  { src: '/images/badges/top-conversion.png', alt: 'Top Conversion Optimization Company' },
+  { src: '/images/badges/fwa-awards.png', alt: 'FWA Award' },
+]
