@@ -144,7 +144,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
           })}
         </div>
 
-        <Reveal delay={0.1} className="mt-10 flex justify-end">
+        <Reveal delay={0.1} className="mt-10 flex justify-center md:justify-end">
           <a
             onClick={() => onNavigate('/contact')}
             data-cursor
