@@ -17,6 +17,9 @@ interface AnimatedTextProps {
   /** Apply the Maven gradient fill to every word/char unit. Applied per-unit
    *  (not on a parent) because transforms break parent-level background-clip. */
   gradient?: boolean
+  /** Words (case-insensitive) to render in solid maven-light instead of the
+   *  inherited color. Only applies in words mode. */
+  highlight?: string[]
   /** Trigger on mount (hero) vs when scrolled into view (default). */
   trigger?: Trigger
   /** for a11y: visual splits get aria-hidden, parent keeps a label */
@@ -37,6 +40,7 @@ export function AnimatedText({
   duration = 0.9,
   blur = false,
   gradient = false,
+  highlight,
   trigger = 'scroll',
   style,
 }: AnimatedTextProps) {
@@ -86,7 +90,7 @@ export function AnimatedText({
             /^\s+$/.test(piece) ? (
               <span key={key++}> </span>
             ) : (
-              <Mask key={key++} gradient={gradient}>
+              <Mask key={key++} gradient={gradient} highlight={highlight?.includes(piece.toLowerCase())}>
                 {piece}
               </Mask>
             )
@@ -114,15 +118,21 @@ function Mask({
   children,
   preserveSpace = false,
   gradient = false,
+  highlight = false,
 }: {
   children: ReactNode
   preserveSpace?: boolean
   gradient?: boolean
+  highlight?: boolean
 }) {
   return (
     <span
       data-unit
-      className={cn('inline-block will-change-transform', gradient && 'grad-text')}
+      className={cn(
+        'inline-block will-change-transform',
+        gradient && 'grad-text',
+        highlight && 'text-maven-light'
+      )}
       style={preserveSpace && children === ' ' ? { whiteSpace: 'pre' } : undefined}
     >
       {children}
