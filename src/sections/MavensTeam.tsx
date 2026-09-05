@@ -1,20 +1,30 @@
+import { Code, Megaphone } from 'lucide-react'
 import { Reveal } from '../components/ui/Reveal'
+import { Eyebrow } from '../components/text/Eyebrow'
+import { cn } from '../utils/cn'
+
+interface MavensTeamProps {
+  /** Unique section id — anchors and CSS scoping stay unambiguous. */
+  id: string
+  /**
+   * Section spacing classes, owned by the call site (cn() is a plain joiner,
+   * so the component ships no default padding that could conflict).
+   */
+  className: string
+}
 
 /**
  * MavensTeam — "The Experts Behind Your Success". Team photo beside two glass
- * discipline cards (Web Masters / Online Marketers).
+ * discipline cards (Web Masters / Online Marketers). Shared by the Home and
+ * Work pages; each page supplies its own id and vertical spacing.
  */
-export function MavensTeam() {
+export function MavensTeam({ id, className }: MavensTeamProps) {
   return (
-    <section className="section pt-16 md:pt-24 pb-8 md:pb-16 relative overflow-hidden" aria-label="The Marketing Mavens team">
+    <section id={id} className={cn('section relative overflow-hidden', className)} aria-label="The Marketing Mavens team">
       <div className="container-maven">
         <Reveal>
           <div className="text-start mb-16">
-            <div className="flex items-center gap-4 mb-6">
-              <span className="index-tag">06</span>
-              <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-              <span className="mono-label !text-mist">The Marketing Mavens</span>
-            </div>
+            <Eyebrow label="The Marketing Mavens" className="mb-6" />
             <h2 className="font-black mb-4 leading-[1.05] text-[clamp(2rem,8vw,3.4rem)] md:text-[clamp(2.5rem,5.5vw,4.5rem)]">
               <span className="text-white">The Experts Behind</span>{' '}
               <span className="block text-maven-light">Your Success</span>
@@ -44,22 +54,7 @@ export function MavensTeam() {
               <div className="glass rounded-3xl p-8 hover:border-maven-light/30 transition-all duration-500">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 rounded-2xl bg-maven/20 flex items-center justify-center flex-shrink-0">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-code text-maven-light"
-                      aria-hidden="true"
-                    >
-                      <path d="m16 18 6-6-6-6"></path>
-                      <path d="m8 6-6 6 6 6"></path>
-                    </svg>
+                    <Code size={24} className="text-maven-light" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-black">Our Web Masters</h3>
                 </div>
@@ -76,23 +71,7 @@ export function MavensTeam() {
               <div className="glass rounded-3xl p-8 hover:border-maven-light/30 transition-all duration-500">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 rounded-2xl bg-maven-light/20 flex items-center justify-center flex-shrink-0">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-megaphone text-maven-light"
-                      aria-hidden="true"
-                    >
-                      <path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"></path>
-                      <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"></path>
-                      <path d="M8 6v8"></path>
-                    </svg>
+                    <Megaphone size={24} className="text-maven-light" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-black">Our Online Marketers</h3>
                 </div>

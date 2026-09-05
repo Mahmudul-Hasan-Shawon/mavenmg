@@ -1,10 +1,12 @@
+import type { ReactElement } from 'react'
 import { values } from '../data/content'
 import { PageHero } from '../sections/PageHero'
 import { Story } from '../sections/Story'
 import { AboutStory } from '../sections/AboutStory'
 import { Reveal } from '../components/ui/Reveal'
+import { Eyebrow } from '../components/text/Eyebrow'
 
-const valueIcons: Record<string, JSX.Element> = {
+const valueIcons: Record<string, ReactElement> = {
   Innovation: (
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8B4FBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M9 18h6" />
@@ -38,7 +40,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
   return (
     <>
       <PageHero
-        index="01"
+        id="about-hero"
         eyebrow="About Maven"
         title="Who is"
         accent="Maven Marketing Group?"
@@ -48,17 +50,13 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
         logo3d
       />
 
-      <Story onNavigate={onNavigate} index="02" />
+      <Story />
 
       {/* Values */}
-      <section className="section pt-20 md:pt-24 pb-24 md:pb-32 border-t border-line" aria-label="Our values">
+      <section id="values" className="section pt-20 md:pt-24 pb-24 md:pb-32 border-t border-line" aria-label="Our values">
         <div className="container-maven">
           <Reveal>
-            <div className="flex items-center gap-4 mb-14">
-              <span className="index-tag">03</span>
-              <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-              <span className="mono-label !text-mist">Our values</span>
-            </div>
+            <Eyebrow label="Our values" className="mb-14" />
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v, i) => (

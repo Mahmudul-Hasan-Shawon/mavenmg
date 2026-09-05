@@ -21,6 +21,9 @@
   --maven-light: #8b4fbf;
   --maven-lighter: #dacaff;
   --maven-dark: #4a1f6b;
+  /* Solid-button ramp: "light" idle + its pressed hover, and the quiet deep tier. */
+  --maven-light-hover: #5b2a86;
+  --maven-deep: #34164f;
   --scrim: rgba(8, 6, 13, 0.55);
   --scrim-strong: rgba(8, 6, 13, 0.8);
   --stroke: rgba(218, 202, 255, 0.28);
@@ -50,6 +53,8 @@
      text color AND the dark button background, so contrast holds. */
   --maven-lighter: #2c1846;
   --maven-dark: #efe9fb;
+  --maven-light-hover: #5b2a86;
+  --maven-deep: #34164f;
   --scrim: rgba(245, 243, 250, 0.6);
   --scrim-strong: rgba(245, 243, 250, 0.82);
   --stroke: rgba(24, 17, 43, 0.3);
@@ -77,6 +82,8 @@
   --color-maven-light: var(--maven-light);
   --color-maven-lighter: var(--maven-lighter);
   --color-maven-dark: var(--maven-dark);
+  --color-maven-light-hover: var(--maven-light-hover);
+  --color-maven-deep: var(--maven-deep);
   --color-white: var(--fg);
   --color-white-solid: #ffffff;
 }
@@ -285,9 +292,9 @@ html:not([data-theme='light']) [data-logo='light'] {
 
 /* Tighten the big section gaps on mobile only — heroes keep their top
    clearance (pt-40) since they clear the fixed navbar, and asymmetric
-   pt/pb sections keep their layout. */
+   pt/pb sections keep their layout. Standard sections use the shared
+   rhythm py-28 md:py-36 (see CLAUDE.md). */
 @media (max-width: 767px) {
-  .section.py-24,
   .section.py-28,
   .section.py-32 {
     padding-top: 3rem;
@@ -309,12 +316,6 @@ html:not([data-theme='light']) [data-logo='light'] {
 .container-maven {
   max-width: 84rem;
   margin-inline: auto;
-}
-
-.hairline {
-  height: 1px;
-  background: var(--line);
-  border: 0;
 }
 
 .index-tag {
@@ -418,16 +419,6 @@ html:not([data-theme='light']) [data-logo='light'] {
 
 .marquee-track:hover {
   animation-play-state: paused;
-}
-
-/* ---------- Mavens copy transition ---------- */
-
-@keyframes spin-slow {
-  to { transform: rotate(360deg); }
-}
-
-.spin-slow {
-  animation: spin-slow 16s linear infinite;
 }
 
 /* ---------- Custom cursor: dot only ---------- */
@@ -563,8 +554,7 @@ html:not([data-theme='light']) [data-logo='light'] {
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .spin-slow {
+  .marquee-track {
     animation: none;
   }
 

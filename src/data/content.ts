@@ -127,10 +127,3 @@ export const philosophy = {
   mission:
     'As a leading website management and digital marketing agency, our expertise covers website management, conversion rate optimization, SEO, and UI/UX design — offering a comprehensive approach that consistently delivers results.',
 }
-
-export const visionMission = {
-  title: 'The Best Web Design & Digital Marketing Agency',
-  body: 'At Maven, we provide premier website design and marketing services. As a leading website management and digital marketing agency, our expertise covers website management, conversion rate optimization, SEO, and UI/UX design — offering a comprehensive approach that consistently delivers results.',
-  callout:
-    'We excel in crafting custom websites and marketing strategies that truly connect with your audience.',
-}

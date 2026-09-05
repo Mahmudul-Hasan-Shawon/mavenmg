@@ -39,3 +39,15 @@ export const quality = {
   fieldCount: { high: 6500, mid: 3200, low: 1200 }[tier],
   mavenNodes: { high: 88, mid: 60, low: 34 }[tier],
 }
+
+/**
+ * Pointer handler for the `.spotlight` utility: feeds the cursor position
+ * into the CSS vars the radial wash reads. Attach via onPointerMove on the
+ * spotlight host element.
+ */
+export function trackSpotlight(e: React.PointerEvent<HTMLElement>) {
+  const el = e.currentTarget
+  const rect = el.getBoundingClientRect()
+  el.style.setProperty('--spot-x', `${e.clientX - rect.left}px`)
+  el.style.setProperty('--spot-y', `${e.clientY - rect.top}px`)
+}

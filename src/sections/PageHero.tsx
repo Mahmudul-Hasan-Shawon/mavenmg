@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 import { AnimatedText } from '../components/text/AnimatedText'
+import { Eyebrow } from '../components/text/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
 import { LazyCanvas } from '../three/LazyCanvas'
 import { reducedMotion } from '../utils/motion'
@@ -7,7 +8,8 @@ import { reducedMotion } from '../utils/motion'
 const AboutLogo = reducedMotion ? null : lazy(() => import('../three/AboutLogo'))
 
 interface PageHeroProps {
-  index: string
+  /** Unique per-page section id, e.g. "about-hero". */
+  id: string
   eyebrow: string
   title: string
   accent?: string
@@ -20,15 +22,11 @@ interface PageHeroProps {
 }
 
 /** Compact editorial hero for secondary pages. */
-export function PageHero({ index, eyebrow, title, accent, lede, image, imageAlt, logo3d }: PageHeroProps) {
+export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d }: PageHeroProps) {
   const copy = (
     <>
       <Reveal>
-        <div className="flex items-center gap-4 mb-8">
-          <span className="index-tag">{index}</span>
-          <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-          <span className="mono-label !text-mist">{eyebrow}</span>
-        </div>
+        <Eyebrow label={eyebrow} className="mb-8" />
       </Reveal>
       <h1 className="display text-[clamp(2.4rem,6.6vw,5.4rem)] text-white max-w-5xl">
         <AnimatedText trigger="load" mode="words" stagger={0.07} duration={1}>
@@ -51,7 +49,7 @@ export function PageHero({ index, eyebrow, title, accent, lede, image, imageAlt,
   )
 
   return (
-    <section className="section pt-40 pb-8 md:pt-52 md:pb-20 relative overflow-hidden" aria-label={`${eyebrow} introduction`}>
+    <section id={id} className="section pt-40 pb-8 md:pt-52 md:pb-20 relative overflow-hidden" aria-label={`${eyebrow} introduction`}>
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 right-[8%] w-[560px] h-[420px] rounded-full bg-maven/12 blur-[140px]" />
       </div>

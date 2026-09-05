@@ -1,6 +1,8 @@
 import { Check, Crown, Layers, ShieldCheck } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
+import { Eyebrow } from '../components/text/Eyebrow'
+import { trackSpotlight } from '../utils/motion'
 import { cn } from '../utils/cn'
 
 /**
@@ -68,14 +70,10 @@ const plans = [
 
 export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
-    <section className="section py-24 md:py-32 relative overflow-hidden" aria-label="Website Management Service Plans">
+    <section id="management-plans" className="section py-28 md:py-36 relative overflow-hidden" aria-label="Website Management Service Plans">
       <div className="container-maven">
         <Reveal>
-          <div className="flex items-center gap-4 mb-8">
-            <span className="index-tag">A</span>
-            <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-            <span className="mono-label !text-mist">Management plans</span>
-          </div>
+          <Eyebrow label="Management plans" className="mb-8" />
           <h2 className="display text-[clamp(2rem,4.6vw,3.6rem)] text-white max-w-2xl">
             Website Management <span className="grad-text">Service Plans</span>
           </h2>
@@ -110,7 +108,7 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                 >
                   <div
                     className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void p-8 md:p-9 h-full flex flex-col"
-                    onPointerMove={spotHandler}
+                    onPointerMove={trackSpotlight}
                   >
                     {/* Icon + tier */}
                     <div className="flex items-center justify-between mb-7">
@@ -160,13 +158,8 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                     </ul>
 
                     <MagneticButton
-                      variant="ghost"
-                      className={cn(
-                        'w-full !justify-center !text-white-solid',
-                        plan.featured
-                          ? '!bg-maven-light !border-maven-light hover:!bg-[#5b2a86] hover:!border-[#5b2a86]'
-                          : '!bg-[#34164f] !border-[#34164f] hover:!bg-[#5b2a86] hover:!border-[#5b2a86]'
-                      )}
+                      variant={plan.featured ? 'accent' : 'deep'}
+                      className="w-full"
                       onClick={() => onNavigate('/contact')}
                     >
                       Get Started
@@ -180,11 +173,4 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
       </div>
     </section>
   )
-}
-
-function spotHandler(e: React.PointerEvent<HTMLElement>) {
-  const el = e.currentTarget
-  const rect = el.getBoundingClientRect()
-  el.style.setProperty('--spot-x', `${e.clientX - rect.left}px`)
-  el.style.setProperty('--spot-y', `${e.clientY - rect.top}px`)
 }
