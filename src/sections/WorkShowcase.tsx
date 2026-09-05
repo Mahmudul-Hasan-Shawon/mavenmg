@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { projects, projectCategories } from '../data/projects'
 import { Reveal } from '../components/ui/Reveal'
+import { MagneticButton } from '../components/ui/MagneticButton'
 import { gsap, useIsoLayoutEffect } from '../hooks/useGsap'
 import { reducedMotion } from '../utils/motion'
 
@@ -109,14 +110,9 @@ export function WorkShowcase({
         {onNavigate && !hideHeader && (
           <Reveal>
             <div className="mt-12 flex justify-center">
-              <button
-                type="button"
-                onClick={() => onNavigate('/work')}
-                data-cursor
-                className="mono-label !text-mist hover:!text-maven-lighter transition-colors cursor-pointer"
-              >
-                View all projects →
-              </button>
+              <MagneticButton variant="primary" onClick={() => onNavigate('/work')}>
+                View all projects <ArrowUpRight size={16} />
+              </MagneticButton>
             </div>
           </Reveal>
         )}
