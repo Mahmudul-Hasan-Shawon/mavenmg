@@ -24,7 +24,7 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
       {/* Featured project hero */}
       {featured && (
         <Reveal>
-          <section className="pt-4 pb-24 lg:pt-10 lg:pb-24 px-6" aria-label="Featured project">
+          <section className="pt-4 pb-10 lg:pt-10 lg:pb-24 px-6" aria-label="Featured project">
             <div className="max-w-6xl mx-auto">
               <div className="relative overflow-hidden rounded-[2rem]">
                 <div className="absolute inset-0">
@@ -91,7 +91,7 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
         mobileTag="02 Our Projects"
       />
 
-      <section className="section py-32 relative overflow-hidden">
+      <section className="section pt-10 md:py-32 pb-4 md:pb-16 relative overflow-hidden">
         <div className="container-maven">
           <div className="text-start mb-16" style={{ opacity: 1, transform: "none" }}>
             <div className="flex items-center gap-4 mb-6">
