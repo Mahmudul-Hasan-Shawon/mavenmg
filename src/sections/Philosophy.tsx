@@ -77,36 +77,26 @@ export function Philosophy() {
           </div>
         </div>
 
-        <div className="space-y-24 md:space-y-36">
+        <div className="space-y-24 lg:space-y-0">
           {/* Vision — image first on mobile, text left on desktop */}
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
-            <Phil image="/images/vision.png" label="Vision" className="order-1 lg:order-2" />
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/vision.png" label="Vision" index="01" className="order-1 lg:order-2" />
             <div data-phil-block className="order-2 lg:order-1">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="index-tag">01</span>
-                <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-              </div>
-              <h3 className="display text-3xl md:text-5xl text-white mb-5">
+              <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
                 Our <span className="text-maven-light">Vision</span>
               </h3>
-              <p className="text-mist text-base md:text-lg leading-relaxed max-w-xl">
+              <p className="text-mist text-center text-base md:text-lg leading-relaxed max-w-xl">
                 {philosophy.vision}
               </p>
             </div>
           </div>
 
           {/* Mission — image first on mobile, numeral left on desktop */}
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
-            <Phil image="/images/mission.png" label="Mission" className="order-1" />
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" index="02" className="order-1" />
             <div data-phil-block className="order-2">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="index-tag">02</span>
-                <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
-              </div>
-              <h3 className="display text-3xl md:text-5xl text-white mb-5">
+              <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
                 Our <span className="text-maven-light">Mission</span>
               </h3>
-              <p className="text-mist text-base md:text-lg leading-relaxed max-w-xl">
+              <p className="text-mist text-center text-base md:text-lg leading-relaxed max-w-xl">
                 {philosophy.mission}
               </p>
             </div>
@@ -244,7 +234,7 @@ function MavensTabs() {
         <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-xl">{Active.body}</p>
       </div>
 
-      <div className="mt-12 pt-8 border-t border-line max-w-xl">
+      <div className="mt-12 pt-8 pb-8 border-t border-b border-line max-w-xl">
         <p className="text-maven-lighter/70 text-base leading-relaxed italic">{mavens.callout}</p>
       </div>
     </div>
@@ -255,22 +245,40 @@ function MavensTabs() {
  * The visual half of a zigzag row — an illustration floating over a blurred
  * echo of itself and a soft glow.
  */
-function Phil({ image, label, className = '' }: { image: string; label: string; className?: string }) {
+function Phil({
+  image,
+  label,
+  index,
+  className = '',
+}: {
+  image: string
+  label: string
+  index: string
+  className?: string
+}) {
   return (
-    <div data-phil-block className={`relative flex items-center justify-center py-6 ${className}`}>
-      <div aria-hidden="true" className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-maven/15 blur-[110px]" />
-      <img
-        aria-hidden="true"
-        src={image}
-        alt=""
-        className="duotone-maven absolute w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain blur-2xl opacity-40 select-none"
-      />
-      <img
-        src={image}
-        alt={label}
-        className="duotone-maven relative w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain"
-        loading="lazy"
-      />
+    <div data-phil-block className={`relative flex flex-col items-center py-6 ${className}`}>
+      <div className="flex items-center gap-4 mb-8 self-center lg:hidden">
+        <span className="index-tag">{index}</span>
+        <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
+        <span className="mono-label !text-mist">Our {label}</span>
+      </div>
+      <div className="relative flex items-center justify-center w-full">
+        <div aria-hidden="true" className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-maven/15 blur-[110px]" />
+        <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img
+            src={image}
+            alt=""
+            className="duotone-maven w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain blur-2xl opacity-40 select-none"
+          />
+        </div>
+        <img
+          src={image}
+          alt={label}
+          className="duotone-maven relative w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain"
+          loading="lazy"
+        />
+      </div>
     </div>
   )
 }

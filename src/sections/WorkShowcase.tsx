@@ -70,18 +70,6 @@ export function WorkShowcase({
                 </h2>
               </div>
             </Reveal>
-            {onNavigate && (
-              <Reveal>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/work')}
-                  data-cursor
-                  className="mono-label !text-mist hover:!text-maven-lighter transition-colors cursor-pointer"
-                >
-                  View all projects →
-                </button>
-              </Reveal>
-            )}
           </div>
         )}
 
@@ -117,6 +105,21 @@ export function WorkShowcase({
             </Reveal>
           ))}
         </div>
+
+        {onNavigate && !hideHeader && (
+          <Reveal>
+            <div className="mt-12 flex justify-center">
+              <button
+                type="button"
+                onClick={() => onNavigate('/work')}
+                data-cursor
+                className="mono-label !text-mist hover:!text-maven-lighter transition-colors cursor-pointer"
+              >
+                View all projects →
+              </button>
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   )
