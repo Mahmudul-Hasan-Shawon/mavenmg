@@ -1,62 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="https://mavenmarketinggroup.com/wp-content/uploads/2020/10/cropped-final-150x150.png" sizes="32x32" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maven Marketing Group | Custom Built Websites With A Purpose</title>
-    <meta
-      name="description"
-      content="Maven Marketing Group is a Chicago-based web design and digital marketing agency serving clients across the US & worldwide. Custom websites, website management, SEO and digital marketing that drive measurable growth."
-    />
-    <meta name="theme-color" content="#08060d" />
-    <script>
-      // Set theme before first paint to avoid a flash of the wrong theme.
-      (function () {
-        try {
-          var t = localStorage.getItem('maven-theme')
-          if (t !== 'light' && t !== 'dark') {
-            t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-          }
-          document.documentElement.dataset.theme = t
-        } catch (e) {
-          document.documentElement.dataset.theme = 'dark'
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="https://mavenmarketinggroup.com/wp-content/uploads/2020/10/cropped-final-150x150.png"
+    sizes="32x32" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maven Marketing Group | Custom Built Websites With A Purpose</title>
+  <meta name="description"
+    content="Maven Marketing Group is a Chicago-based web design and digital marketing agency serving clients across the US & worldwide. Custom websites, website management, SEO and digital marketing that drive measurable growth." />
+  <meta name="theme-color" content="#08060d" />
+  <script>
+    // Set theme before first paint to avoid a flash of the wrong theme.
+    (function () {
+      try {
+        var t = localStorage.getItem('maven-theme')
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
         }
-      })()
-    </script>
-    <link rel="canonical" href="https://mavenmg.pages.dev/" />
+        document.documentElement.dataset.theme = t
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    })()
+  </script>
+  <link rel="canonical" href="https://mavenmg.pages.dev/" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Maven Marketing Group" />
-    <meta property="og:title" content="Home | Maven" />
-    <meta
-      property="og:description"
-      content="Maven design custom websites, website management, SEO and digital marketing."
-    />
-    <meta property="og:url" content="https://mavenmg.pages.dev/" />
-    <meta property="og:image" content="https://mavenmg.pages.dev/images/og/maven_og.png" />
+  <!-- Open Graph -->
+  ```html
+  <!-- ================================
+     SEO / Social Media Metadata
+================================ -->
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Maven Marketing Group | We Build Websites With A Purpose" />
-    <meta
-      name="twitter:description"
-      content="Custom websites, website management, SEO and digital marketing. Chicago-based, clients worldwide."
-    />
+  <title>Home | Maven Marketing Group</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+  <meta name="description"
+    content="Maven designs custom websites and delivers website management, SEO, and digital marketing solutions that help businesses grow." />
 
-    <script type="application/ld+json">
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp / Discord -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Maven Marketing Group" />
+  <meta property="og:title" content="Home | Maven" />
+  <meta property="og:description"
+    content="Maven designs custom websites and delivers website management, SEO, and digital marketing solutions that help businesses grow." />
+  <meta property="og:url" content="https://mavenmg.pages.dev/" />
+  <meta property="og:image" content="https://mavenmg.pages.dev/images/og/maven_og.png" />
+  <meta property="og:image:alt" content="Maven Marketing Group" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Home | Maven" />
+  <meta name="twitter:description"
+    content="Maven designs custom websites and delivers website management, SEO, and digital marketing solutions that help businesses grow." />
+  <meta name="twitter:image" content="https://mavenmg.pages.dev/images/og/maven_og.png" />
+  <meta name="twitter:image:alt" content="Maven Marketing Group" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
@@ -82,10 +91,12 @@
         ]
       }
     </script>
-  </head>
-  <body>
-    
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+</head>
+
+<body>
+
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
