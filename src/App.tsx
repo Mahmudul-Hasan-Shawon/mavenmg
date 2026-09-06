@@ -5,7 +5,6 @@ import { scrollState, reducedMotion } from './utils/motion'
 import { getLenis, setLenis } from './utils/lenis'
 import { Navbar } from './components/ui/Navbar'
 import { Footer } from './components/ui/Footer'
-import { Preloader } from './components/ui/Preloader'
 import Home from './pages/Home'
 import ServicesPage from './pages/ServicesPage'
 import WorkPage from './pages/WorkPage'
@@ -123,7 +122,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <Preloader />
       <Navbar activePath={path} onNavigate={navigate} />
 
       <main key={pageKey} id="main">
