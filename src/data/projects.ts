@@ -12,7 +12,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    name: 'HAQ Pickleball',
+    name: 'HAQ Pickle\nPickleball',
     category: 'E-Commerce',
     services: 'Website Design, Website Development, Website Management',
     color: '#E85D04',

@@ -8,7 +8,7 @@ import { gsap, useIsoLayoutEffect } from '../hooks/useGsap'
 import { reducedMotion } from '../utils/motion'
 
 /**
- * WorkShowcase — Maven's featured projects as a clean responsive grid on the
+ * WorkShowcase, Maven's featured projects as a clean responsive grid on the
  * homepage. Up to `limit` projects, each card fully visible with image,
  * title and category. The full index lives on the Work page.
  */
@@ -145,12 +145,12 @@ function Card({
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={project.image}
-          alt={`${project.name} — ${project.category} website by Maven Marketing Group`}
+          alt={`${project.name.replace(/\n/g, ' ')}, ${project.category} website by Maven Marketing Group`}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1.2s] ease-out"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
-        <span className="absolute top-4 left-5 font-sora font-bold text-4xl text-stroke select-none" aria-hidden="true">
+        <span className="absolute top-4 left-5 font-poppins font-bold text-4xl text-stroke select-none" aria-hidden="true">
           {String(index + 1).padStart(2, '0')}
         </span>
         <span
@@ -163,8 +163,8 @@ function Card({
 
       {/* Meta */}
       <div className="p-5">
-        <p className="mono-label mb-2">{project.category}</p>
-        <h3 className="display text-xl text-maven-light mb-2">{project.name}</h3>
+        <p className="card-tag mb-2">{project.category}</p>
+        <h3 className="display font-semibold text-xl text-white mb-2 tracking-[0.03em]">{project.name.replace(/\n/g, ' ')}</h3>
         <p className="text-mist-dim text-base leading-relaxed line-clamp-2">{project.blurb}</p>
       </div>
     </article>

@@ -65,7 +65,7 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
 
           <h1
             className="text-[clamp(2.5rem,11vw,6.8rem)] text-white"
-            style={{ fontFamily: 'var(--font-dm)', fontWeight: 900, letterSpacing: '0.02em', lineHeight: 1.05 }}
+            style={{ fontFamily: 'var(--font-poppins)', fontWeight: 700, letterSpacing: '0.02em', lineHeight: 1.14 }}
           >
             <AnimatedText trigger="load" mode="words" stagger={0.09} duration={1.1}>
               We Build

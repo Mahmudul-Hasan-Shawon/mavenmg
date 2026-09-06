@@ -78,11 +78,11 @@ export function Results() {
               {stats.map((stat, i) => (
                 <div
                   key={stat.label}
-                  className={`flex flex-col justify-center items-center text-center px-8 py-12 md:px-10 md:py-16 ${
+                  className={`flex flex-col justify-start items-center text-center px-8 py-12 md:px-10 md:py-16 ${
                     i > 0 ? 'border-t border-line md:border-t-0 md:border-l' : ''
                   }`}
                 >
-                  <div className="font-dm font-[1000] leading-[0.75] tracking-[0.02em] tabular-nums mb-8 md:mb-10 text-[4.5rem] text-transparent bg-clip-text bg-[image:var(--grad)]">
+                  <div className="font-dm font-[1000] leading-[0.75] tracking-[0.02em] tabular-nums mb-4 md:mb-5 text-[4.5rem] text-transparent bg-clip-text bg-[image:var(--grad)]">
                     {stat.prefix}
                     <span data-counter={stat.value} data-decimals={stat.decimals} className="font-[1000]">
                       0
@@ -90,12 +90,9 @@ export function Results() {
                     <span>{stat.suffix}</span>
                   </div>
 
-                  <span aria-hidden="true" className="block h-px w-24 bg-maven-light/40 mx-auto mb-6 md:mb-7" />
+                  <h3 className="font-poppins font-semibold text-xl md:text-2xl text-white mb-4 md:mb-5 tracking-[0.03em]">{stat.label}</h3>
 
-                  <div>
-                    <h3 className="font-dm font-bold text-lg md:text-xl text-white mb-2.5 tracking-[0.05em]">{stat.label}</h3>
-                    <p className="text-mist-dim text-base leading-relaxed max-w-xs">{stat.description}</p>
-                  </div>
+                  <p className="text-mist-dim text-base pt-4 leading-relaxed max-w-xs">{stat.description}</p>
                 </div>
               ))}
             </div>

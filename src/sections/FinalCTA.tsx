@@ -21,14 +21,13 @@ export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void })
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0F]/10 via-[#8049ac ]/25 to-[#0A0A0F]/0" />
 
           <div className="relative z-10 text-left">
-            <h2 className="text-3xl md:text-5xl font-black mb-4 text-white-solid">Start Your Success Story</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white-solid">Start Your Success Story</h2>
             <p className="text-white-solid/70 text-lg mb-8 max-w-xl">
               Connect With A Marketing Maven Now. Elevate your website and supercharge your digital marketing results.
             </p>
             <MagneticButton
               variant="frost"
               size="lg"
-              fullWidth
               className="w-full sm:w-auto"
               onClick={() => onNavigate('/contact')}
             >

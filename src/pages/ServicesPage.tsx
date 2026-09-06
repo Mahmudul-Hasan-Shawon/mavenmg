@@ -10,9 +10,10 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
       <PageHero
         id="services-hero"
         eyebrow="Services"
-        title="Digital marketing services"
-        accent="that increase sales"
-        lede="Companies all around the world use our freelance digital marketing services to generate leads, land new clients and — most importantly — increase sales."
+        title="Digital marketing
+services that"
+        accent="increase sales"
+        lede="Companies all around the world use our freelance digital marketing services to generate leads, land new clients and most importantly increase sales."
       />
 
       {/* Service detail rows */}
@@ -23,7 +24,7 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
               <article className="grid md:grid-cols-[1fr_1.4fr] gap-6 md:gap-16 py-12 md:py-16">
                 <div>
                   <span className="index-tag block mb-4">{s.index}</span>
-                  <h2 className="display text-2xl md:text-3xl text-white mb-5">{s.title}</h2>
+                  <h2 className="display font-semibold text-2xl md:text-3xl text-white mb-5">{s.title}</h2>
                   <div className="flex flex-wrap gap-2">
                     {s.features.map((f) => (
                       <span key={f} className="px-3 py-1 rounded-full border border-line text-[11px] tracking-wide text-mist">

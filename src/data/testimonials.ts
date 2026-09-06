@@ -13,7 +13,7 @@ export const testimonials: Testimonial[] = [
     company: 'Blueberry',
     image: '/images/testimonials/slater-heil.jpg',
     quote:
-      "When we at Blueberry needed a site to match our next-gen DeFi vision, Maven delivered something unreal. Their design is unmatched in this cutting-edge space—sleek, futuristic, and screaming innovation, it's like they pulled our protocol's soul straight onto the screen.",
+      "When we at Blueberry needed a site to match our next-gen DeFi vision, Maven delivered something unreal. Their design is unmatched in this cutting-edge space, sleek, futuristic, and screaming innovation, it's like they pulled our protocol's soul straight onto the screen.",
   },
   {
     name: 'Edric Bol',
@@ -29,7 +29,7 @@ export const testimonials: Testimonial[] = [
     company: 'Simpson Cleaning',
     image: '/images/testimonials/mike-wall.png',
     quote:
-      'Before maven we were on BigCommerce — high fees eating us alive. Maven swooped in, got us off that mess, and saved us a ton on monthly costs. The site they built? Tough, slick, and all-American, just like our breachers.',
+      'Before maven we were on BigCommerce, high fees eating us alive. Maven swooped in, got us off that mess, and saved us a ton on monthly costs. The site they built? Tough, slick, and all-American, just like our breachers.',
   },
   {
     name: 'Jason Collicot',
@@ -37,7 +37,7 @@ export const testimonials: Testimonial[] = [
     company: 'Crypto Cache',
     image: '/images/testimonials/jason-collicot.png',
     quote:
-      "Maven's management of our Crypto Cache website has been phenomenal. They've transformed it with a bold, cutting-edge design — sharp visuals, seamless flow, and a crypto-savvy vibe that grabs attention.",
+      "Maven's management of our Crypto Cache website has been phenomenal. They've transformed it with a bold, cutting-edge design, sharp visuals, seamless flow, and a crypto-savvy vibe that grabs attention.",
   },
   {
     name: 'Quam Opere',
