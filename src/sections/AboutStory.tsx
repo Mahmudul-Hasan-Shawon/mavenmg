@@ -53,7 +53,7 @@ export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void 
               const Icon = o.icon
               return (
                 <Reveal key={o.title} delay={i * 0.08}>
-                  <div className="spotlight glow-tl h-full flex flex-col rounded-2xl border border-line bg-void overflow-hidden" onPointerMove={trackSpotlight}>
+                  <div className="spotlight glow-tl h-full flex flex-col rounded-2xl border border-line bg-void overflow-hidden shadow-[0_24px_60px_-24px_rgba(97,44,139,0.45)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500" onPointerMove={trackSpotlight}>
                     <div className="relative overflow-hidden">
                       <img
                         src={o.image}
