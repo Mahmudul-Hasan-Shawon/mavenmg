@@ -9,6 +9,25 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
   useEffect(() => {
     // Sync module state + dataset with whatever the pre-paint script decided.
     applyTheme(theme, false)
+
+    // Follow the OS theme live — but only while the user hasn't made a
+    // manual choice; a stored preference always wins.
+    const mq = window.matchMedia?.('(prefers-color-scheme: light)')
+    if (!mq?.addEventListener) return
+    const onChange = (e: MediaQueryListEvent) => {
+      let stored: string | null = null
+      try {
+        stored = localStorage.getItem('maven-theme')
+      } catch {
+        /* private mode */
+      }
+      if (stored === 'light' || stored === 'dark') return
+      const next: ThemeName = e.matches ? 'light' : 'dark'
+      setTheme(next)
+      applyTheme(next, false)
+    }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
