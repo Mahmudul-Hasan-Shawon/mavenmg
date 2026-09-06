@@ -18,7 +18,7 @@ export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void })
             src="/images/success.png"
             style={{ maskImage: 'linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 10%, rgb(0,0,0) 100%)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0F]/10 via-[#8049ac ]/25 to-[#0A0A0F]/0" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0F]/50 via-[#8049ac ]/25 to-[#0A0A0F]/0" />
 
           <div className="relative z-10 text-left">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white-solid">Start Your Success Story</h2>
