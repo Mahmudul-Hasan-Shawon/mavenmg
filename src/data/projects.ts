@@ -7,6 +7,7 @@ export interface Project {
   featured?: boolean
   image: string
   blurb: string
+  url?: string
 }
 
 export const projects: Project[] = [
@@ -19,6 +20,7 @@ export const projects: Project[] = [
     featured: true,
     image: '/images/projects/p1.jpg',
     blurb: 'Started as a fun idea between a father and son, now a booming e-commerce brand.',
+    url: 'https://haqpickle.com/',
   },
   {
     id: 2,
@@ -37,6 +39,7 @@ export const projects: Project[] = [
     color: '#1A1A2E',
     image: '/images/projects/p3.jpg',
     blurb: 'A functional, easy-to-update site for communicating modern developments.',
+    url: 'https://lscdevelopment.com/',
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ export const projects: Project[] = [
     color: '#3B82F6',
     image: '/images/projects/p4.jpg',
     blurb: 'A tough, performance-focused site for an engine manufacturing brand.',
+    url: 'https://crxengines.com/',
   },
   {
     id: 5,
@@ -55,6 +59,7 @@ export const projects: Project[] = [
     color: '#0D7377',
     image: '/images/projects/p5.jpg',
     blurb: 'Swooped in to save the brand with a tough, slick, all-American redesign.',
+    url: 'https://simpsoncleaning.com/',
   },
   {
     id: 6,
@@ -64,6 +69,7 @@ export const projects: Project[] = [
     color: '#7B2CBF',
     image: '/images/projects/p6.jpg',
     blurb: 'A custom web presence built to convert visitors into customers.',
+    url: 'https://gxc-inc.com/',
   },
   {
     id: 7,
@@ -73,6 +79,7 @@ export const projects: Project[] = [
     color: '#C77DFF',
     image: '/images/projects/p7.jpg',
     blurb: 'A professionalized site that cemented a top-tier presence in the industry.',
+    url: 'https://www.torhoermanlaw.com/',
   },
   {
     id: 8,
@@ -82,6 +89,7 @@ export const projects: Project[] = [
     color: '#E85D04',
     image: '/images/projects/p8.jpg',
     blurb: 'A bespoke site with full digital marketing to match standout branding.',
+    url: 'https://waggon.io/',
   },
   {
     id: 9,
@@ -91,6 +99,7 @@ export const projects: Project[] = [
     color: '#612C8B',
     image: '/images/projects/p9.jpg',
     blurb: 'Clean, trust-building design with ongoing management and maintenance.',
+    url: 'https://keithlawgroup.com/',
   },
   {
     id: 10,
@@ -100,6 +109,7 @@ export const projects: Project[] = [
     color: '#FAA307',
     image: '/images/projects/p10.jpg',
     blurb: 'A bold, cutting-edge crypto-savvy design with flawless management.',
+    url: 'https://cryptocache.tech/',
   },
   {
     id: 11,
@@ -109,6 +119,7 @@ export const projects: Project[] = [
     color: '#4A1F6B',
     image: '/images/projects/p11.jpg',
     blurb: 'A sleek, futuristic DeFi experience that pulls the brand onto the screen.',
+    url: 'https://www.blueberry.garden/',
   },
 ]
 
