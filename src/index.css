@@ -215,7 +215,7 @@
     font-family: var(--font-dm);
     font-weight: 900;
     letter-spacing: 0.05em;
-    color: var(--mist);
+    color: #a89fc0;
     /* Poppins' h4 base pulls the gap back with a negative margin; this
        restores standard column-heading breathing room. */
     margin-bottom: 1.5rem;
