@@ -643,3 +643,24 @@ html:not([data-theme='light']) [data-logo='light'] {
     display: none;
   }
 }
+
+/* Project-card corner arrow: on light theme the frosted circle flips to white
+   and the arrow picks up the brand violet so it stays visible. On hover the
+   circle fills maven and the arrow returns to white. */
+[data-theme="light"] .project-arrow-circle {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-color: rgba(109, 47, 165, 0.3);
+}
+
+[data-theme="light"] .project-arrow-circle svg {
+  color: var(--maven-light);
+}
+
+[data-theme="light"] [data-filter-card]:hover .project-arrow-circle {
+  background-color: var(--maven);
+  border-color: var(--maven-light);
+}
+
+[data-theme="light"] [data-filter-card]:hover .project-arrow-circle svg {
+  color: #ffffff;
+}
