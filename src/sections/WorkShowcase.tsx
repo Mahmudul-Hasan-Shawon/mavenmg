@@ -103,7 +103,7 @@ export function WorkShowcase({
 
         <div
           ref={gridRef}
-          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible py-8 md:py-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {shown.map((p, i) => (
             <Reveal key={p.id} delay={(i % 3) * 0.06} className="shrink-0 w-[80vw] max-w-[340px] md:w-auto md:max-w-none snap-center">
@@ -139,7 +139,7 @@ function Card({
     <article
       data-filter-card
       onClick={() => onNavigate('/work')}
-      className="panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
+      className="panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -155,7 +155,7 @@ function Card({
         </span>
         <span
           aria-hidden="true"
-          className="absolute bottom-4 right-4 w-10 h-10 rounded-full border border-white/20 bg-ink/40 backdrop-blur flex items-center justify-center text-white-solid group-hover:bg-maven group-hover:border-maven-light group-hover:rotate-45 transition-all duration-500"
+          className="project-arrow-circle absolute bottom-4 right-4 w-10 h-10 rounded-full border border-white/20 bg-ink/40 backdrop-blur flex items-center justify-center text-white-solid group-hover:bg-maven group-hover:border-maven-light group-hover:rotate-45 transition-all duration-500"
         >
           <ArrowUpRight size={16} />
         </span>
