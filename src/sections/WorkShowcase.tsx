@@ -135,17 +135,14 @@ function Card({
   index: number
   onNavigate: (href: string) => void
 }) {
-  return (
-    <article
-      data-filter-card
-      onClick={() => onNavigate('/work')}
-      className="panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
-    >
+  const name = project.name.replace(/\n/g, ' ')
+  const body = (
+    <>
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={project.image}
-          alt={`${project.name.replace(/\n/g, ' ')}, ${project.category} website by Maven Marketing Group`}
+          alt={`${name}, ${project.category} website by Maven Marketing Group`}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1.2s] ease-out"
         />
@@ -164,9 +161,36 @@ function Card({
       {/* Meta */}
       <div className="p-5">
         <p className="card-tag mb-2">{project.category}</p>
-        <h3 className="display font-semibold text-xl text-white mb-2 tracking-[0.03em]">{project.name.replace(/\n/g, ' ')}</h3>
+        <h3 className="display font-semibold text-xl text-white mb-2 tracking-[0.03em]">{name}</h3>
         <p className="text-mist-dim text-base leading-relaxed line-clamp-2">{project.blurb}</p>
       </div>
+    </>
+  )
+
+  // Projects with a live URL open the client's site; the rest route to /work.
+  if (project.url) {
+    return (
+      <a
+        data-filter-card
+        href={project.url}
+        target="_blank"
+        rel="noreferrer"
+        data-cursor
+        aria-label={`Visit the ${name} website`}
+        className="panel panel-hover group relative block cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
+      >
+        {body}
+      </a>
+    )
+  }
+
+  return (
+    <article
+      data-filter-card
+      onClick={() => onNavigate('/work')}
+      className="panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
+    >
+      {body}
     </article>
   )
 }
