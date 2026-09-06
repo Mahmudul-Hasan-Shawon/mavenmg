@@ -61,7 +61,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                 key={service.id}
                 data-service-row
                 className={cn(
-                  'group relative flex flex-col overflow-hidden rounded-2xl border border-line md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,42%)] md:rounded-none md:border-0 md:border-b md:border-line transition-colors duration-500 bg-ink/60',
+                  'group relative flex flex-col overflow-hidden rounded-2xl border border-line md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,42%)] md:rounded-none md:border-0 md:border-b md:border-line transition-colors duration-500 bg-ink/60 shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] md:shadow-none',
                   isActive ? 'md:bg-maven-lighter/[0.025]' : 'md:hover:bg-maven-lighter/[0.015]'
                 )}
                 onMouseEnter={() => setActive(i)}
