@@ -48,7 +48,12 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
           lede="Affordable web design services and digital marketing that fit your business needs, from first design to daily management."
         />
 
-        <div data-service-list className="border-t border-line">
+        <div
+                data-service-list
+                className={cn(
+                  'flex flex-col gap-4 md:grid md:gap-0 border-t border-line'
+                )}
+              >
           {services.map((service, i) => {
             const isActive = active === i
             return (
@@ -56,8 +61,8 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                 key={service.id}
                 data-service-row
                 className={cn(
-                  'group relative grid md:grid-cols-[minmax(0,1fr)_minmax(0,42%)] border-b border-line transition-colors duration-500',
-                  isActive ? 'bg-maven-lighter/[0.025]' : 'hover:bg-maven-lighter/[0.015]'
+                  'group relative flex flex-col overflow-hidden rounded-2xl border border-line md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,42%)] md:rounded-none md:border-0 md:border-b md:border-line transition-colors duration-500 bg-ink/60',
+                  isActive ? 'md:bg-maven-lighter/[0.025]' : 'md:hover:bg-maven-lighter/[0.015]'
                 )}
                 onMouseEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
@@ -67,7 +72,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                 <span
                   aria-hidden="true"
                   className={cn(
-                    'absolute left-0 top-0 bottom-0 w-[2px] bg-maven-light transition-transform duration-500 origin-top z-10',
+                    'hidden md:block absolute left-0 top-0 bottom-0 w-[2px] bg-maven-light transition-transform duration-500 origin-top z-10',
                     isActive ? 'scale-y-100' : 'scale-y-0'
                   )}
                 />
@@ -76,31 +81,38 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                   type="button"
                   data-cursor
                   aria-expanded={isActive}
-                  className="w-full text-left px-5 md:px-10 py-7 md:py-9 cursor-pointer"
+                  className="w-full text-left px-5 md:px-10 py-6 md:py-9 cursor-pointer"
                 >
                   <div className="flex items-baseline gap-5 md:gap-10 min-w-0">
-                    <span className={cn('index-tag transition-colors duration-300', isActive && '!text-maven-lighter')}>
+                    <span
+                      className={cn(
+                        'hidden md:inline-block index-tag transition-colors duration-300',
+                        isActive && '!text-maven-lighter'
+                      )}
+                    >
                       {service.index}
                     </span>
                     <h3
                       className={cn(
-                        'display font-semibold tracking-[0.98px] text-[clamp(1.125rem,3.4vw,2.6rem)] transition-all duration-500 md:truncate',
-                        isActive ? 'text-white translate-x-1 md:translate-x-2' : 'text-mist group-hover:text-white'
+                        'display font-semibold tracking-[0.98px] text-[clamp(1.125rem,3.4vw,2.6rem)] md:transition-all md:duration-500 md:truncate text-white',
+                        isActive ? 'md:translate-x-2' : 'md:text-mist md:group-hover:text-white'
                       )}
                     >
                       {service.title}
                     </h3>
                   </div>
 
-                  {/* Expanding detail */}
+                  {/* Expanding detail — always visible on mobile, hover-expands on desktop */}
                   <div
                     className={cn(
-                      'grid transition-[grid-template-rows,opacity] duration-500 ease-out',
-                      isActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      'grid grid-rows-[1fr] opacity-100 md:transition-[grid-template-rows,opacity] md:duration-500 md:ease-out',
+                      isActive
+                        ? 'md:grid-rows-[1fr] md:opacity-100'
+                        : 'md:grid-rows-[0fr] md:opacity-0'
                     )}
                   >
                     <div className="overflow-hidden">
-                      <div className="pt-5 pb-1 pl-9 md:pl-[4.5rem]">
+                      <div className="pt-5 pb-1 pl-0 md:pl-[4.5rem]">
                         <p className="text-mist text-base md:text-base leading-relaxed max-w-3xl">
                           {service.description}
                         </p>
@@ -119,12 +131,14 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                   </div>
                 </button>
 
-                {/* Full-bleed service image — right column */}
+{/* Service image — card banner on mobile, gradient-reveal right column on desktop */}
                 <div
-className={cn(
-                      'relative hidden md:block overflow-hidden border-l border-line transition-all duration-700 ease-out [mask-image:linear-gradient(90deg,transparent,#000_35%)] [-webkit-mask-image:linear-gradient(90deg,transparent,#000_35%)]',
-                      isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-                    )}
+                  className={cn(
+                    'relative order-first md:order-none w-full h-44 md:h-auto overflow-hidden transition-all duration-700 ease-out',
+                    'border-b border-line md:border-b-0 md:border-l',
+                    'md:[mask-image:linear-gradient(90deg,transparent,#000_35%)] md:[-webkit-mask-image:linear-gradient(90deg,transparent,#000_35%)]',
+                    isActive ? 'md:opacity-100 md:translate-x-0' : 'md:opacity-0 md:translate-x-8'
+                  )}
                 >
                   <img
                     src={service.image}
