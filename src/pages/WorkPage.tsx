@@ -20,7 +20,7 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
         eyebrow="Our work"
         title="Grow your business online"
         accent="purpose driven websites"
-        lede="Every project below was designed, developed, and is actively managed by Maven — built to perform as good as it looks."
+        lede="Every project below was designed, developed, and is actively managed by Maven, built to perform as good as it looks."
       />
 
       {/* Featured project hero */}
@@ -46,12 +46,10 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
                     <Star size={14} aria-hidden="true" />
                     Featured Project
                   </div>
-                  <h3 className="text-4xl md:text-6xl font-black mb-3 leading-tight text-white-solid">
-                    HAQ Pickle
-                    <br />
-                    Pickleball
+                  <h3 className="text-4xl md:text-6xl font-bold mb-3 leading-tight text-white-solid whitespace-pre-line">
+                    {featured.name}
                   </h3>
-                  <p className="text-maven-lighter text-base leading-relaxed mb-6">
+                  <p className="text-white-solid/85 text-base leading-relaxed mb-6">
                     The HAQ Pickle Pickleball started as a fun idea between a father and son, two avid pickleball players.
                     <br />
                     <br />
@@ -83,7 +81,7 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
         mobileTag="Our Projects"
       />
 
-      {/* Team — shared section, this page supplies its own spacing */}
+      {/* Team, shared section, this page supplies its own spacing */}
       <MavensTeam id="work-team" className="pt-10 md:pt-32 pb-4 md:pb-16" />
 
       <FinalCTA onNavigate={onNavigate} />

@@ -90,170 +90,478 @@
 }
 
 @theme {
-  --font-sora: 'Sora', sans-serif;
   --font-dm: 'DM Sans', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
-* {
-  box-sizing: border-box;
-  border-color: var(--line);
+/* Element-level rules live in @layer base so Tailwind utilities
+   (mb-*, pb-*, text-*, font-*, …) can still override them. Unlayered
+   element selectors would silently beat every utility site-wide. */
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: auto;
+    overflow-x: clip;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    font-family: var(--font-dm);
+    background: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  ::selection {
+    background: var(--maven);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    color-scheme: dark;
+    background: color-mix(in srgb, var(--maven-light) 55%, var(--bg));
+    border-radius: 3px;
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--maven-light);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Poppins heading system — weight ramps down with scope:
+     800 hero-scale h1, 700 section h2, 600 card/inline h3.
+     Explicit font-* utilities and .display (700) still win over these. */
+  h1, h2, h3 {
+    font-family: var(--font-poppins);
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+
+  h1 {
+    font-weight: 800;
+  }
+
+  h2 {
+    font-weight: 700;
+  }
+
+  h3 {
+    font-weight: 600;
+  }
+
+  h3.display {
+    font-weight: 700;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none !important;
+    outline-offset: 0 !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+  }
 }
 
-html {
-  scroll-behavior: auto;
-  overflow-x: clip;
+/* Shared component classes live in @layer components: they define the base
+   look, while Tailwind utilities (mb-*, leading-*, colors) stay free to
+   override individual properties at the call site. */
+@layer components {
+  /* Project-card category label — DM Sans semibold brand violet, replaces the
+     mono label typography inside project cards only. */
+  .card-tag {
+    font-family: var(--font-dm);
+    font-weight: 600;
+    line-height: 1rem;
+    font-size: 0.75rem;
+    color: var(--maven-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-col-heading {
+    font-family: var(--font-dm);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: var(--mist);
+    /* Poppins' h4 base pulls the gap back with a negative margin; this
+       restores standard column-heading breathing room. */
+    margin-bottom: 1.5rem;
+  }
+
+  .field {
+    position: relative;
+  }
+
+  .field::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: var(--maven-light);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .field:focus-within::after {
+    transform: scaleX(1);
+  }
+
+  /* Contact form select — custom chevron for the boxed input style. */
+  #contact .contact-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238E8E93' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+  }
+
+  /* ---------- Typography helpers ---------- */
+
+  .display {
+    font-family: var(--font-poppins);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.14;
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+  }
+
+  /* h1 keeps the heavier hero weight even when the .display class is applied. */
+  h1.display {
+    font-weight: 800;
+  }
+
+  /* Services page hero uses 700 instead of the heavier 800 ramp. */
+  #services-hero h1.display {
+    font-weight: 700;
+  }
+
+  /* About page hero uses 700 instead of the heavier 800 ramp. */
+  #about-hero h1.display {
+    font-weight: 700;
+  }
+
+  /* Contact page hero uses 700 instead of the heavier 800 ramp. */
+  #contact-hero h1.display {
+    font-weight: 700;
+  }
+
+  /* Work page hero uses 700 instead of the heavier 800 ramp. */
+  #work-hero h1.display {
+    font-weight: 700;
+  }
+
+  /* Contact page hero — centered copy. */
+  #contact-hero .flex.items-center.gap-4 {
+    justify-content: center;
+  }
+
+  #contact-hero h1,
+  #contact-hero p {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  /* Contact hero — tighter top spacing on desktop (overrides md:pt-52). */
+  @media (min-width: 768px) {
+    #contact-hero.section {
+      padding-top: 8rem;
+    }
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--mist-dim);
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 1px var(--stroke);
+    color: transparent;
+  }
+
+  .text-stroke-faint {
+    -webkit-text-stroke: 1px var(--stroke-faint);
+    color: transparent;
+  }
+
+  /* Brand duotone — forces artwork into the maven violet range so mixed-source
+     illustrations share one palette. */
+  .duotone-maven {
+    filter: grayscale(1) sepia(1) hue-rotate(225deg) saturate(3.2) brightness(0.9);
+  }
+
+  .grad-text {
+    color: var(--maven-light);
+    text-shadow: 0 0 28px rgba(139, 79, 191, 0.3);
+  }
+
+  /* ---------- Section chrome ---------- */
+
+  .section {
+    position: relative;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding-inline: 3rem;
+    }
+  }
+
+  .container-maven {
+    max-width: 84rem;
+    margin-inline: auto;
+  }
+
+  .index-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.25em;
+    color: var(--maven-light);
+  }
+
+  /* ---------- Surfaces ---------- */
+
+  .panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--line);
+  }
+
+  .panel-hover {
+    transition: border-color 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)), background 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  .panel-hover:hover {
+    border-color: var(--line-hover);
+    background: var(--panel-bg-hover);
+  }
+
+  /* Frosted card container — follows the theme vars, so the hover border
+     utilities attached to it (hover:border-maven-light/30) have a border to
+     transition. */
+  .glass {
+    background: var(--panel-bg);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Mouse-tracked spotlight wash */
+  .spotlight {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      520px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      var(--spot),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    pointer-events: none;
+  }
+
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* Soft top-left light source — ambient glow + faint edge catch,
+     gives flush grid cards a premium raised feel. Requires the
+     positioned/overflow-hidden context .spotlight provides. */
+  .glow-tl::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 90% at 0% 0%, var(--glow-tl), transparent 55%);
+    pointer-events: none;
+  }
+
+  .glow-tl {
+    box-shadow: inset 1px 1px 0 0 var(--edge-tl);
+  }
+
+  /* ---------- Overlay / texture ---------- */
+
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  [data-theme="light"] .noise-overlay {
+    opacity: 0.05;
+  }
+
+  /* ---------- Marquee ---------- */
+
+  .marquee-track {
+    animation: marquee 36s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* ---------- Custom cursor: dot only ---------- */
+
+  @media (hover: hover) and (pointer: fine) {
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 120;
+      width: 7px;
+      height: 7px;
+      border-radius: 9999px;
+      background: var(--cursor-dot);
+      mix-blend-mode: normal;
+    }
+  }
+
+  /* ---------- Border beam ---------- */
+
+  /* A comet streak orbits the card border. Each layer is an oversized square
+     spinning about the card's center (pure transform → compositor-only, no
+     gradient repaints) while a ring mask confines its conic-gradient streak to
+     the border hairline, so the beam follows the exact rounded path. Two layers:
+     a sharp bright core riding the border line, plus a blurred, wider halo that
+     reads as ambient glow illuminating the edge around it. Linear timing keeps
+     the orbit constant and loop-seamless (the gradient is periodic in 360deg). */
+  .border-beam {
+    /* --beam_radius must match the host's border-radius (rounded-3xl). */
+    --beam-radius: 1.5rem;
+    --beam-reach: 16px;
+    position: relative;
+  }
+
+  .beam-viewport {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  /* The halo's ring extends past the border so its glow wraps the edge. */
+  .beam-viewport-halo {
+    inset: calc(-1 * var(--beam-reach));
+    border-radius: calc(var(--beam-radius) + var(--beam-reach));
+    padding: calc(var(--beam-reach) + 3px);
+  }
+
+  .beam-rotator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* Side must cover the card's diagonal at every rotation angle. Wide card on
+       md+: 150% is ample; stacked card below md: a tall diagonal needs far more,
+       capped so the GPU layer stays bounded. */
+    width: 150%;
+    aspect-ratio: 1;
+    /* `translate` composes with the keyframed transform — rotate spins the
+       square about its own (card-centered) middle. */
+    translate: -50% -50%;
+    animation: beam-orbit 7s linear infinite;
+    will-change: transform;
+  }
+
+  @media (max-width: 767px) {
+    .beam-rotator {
+      width: min(430%, 1150px);
+    }
+  }
+
+  .beam-rotator-core {
+    background: conic-gradient(
+      from 0deg,
+      transparent 0turn 0.74turn,
+      rgba(218, 202, 255, 0.06) 0.82turn,
+      rgba(218, 202, 255, 0.6) 0.93turn,
+      #ffffff 0.985turn,
+      var(--maven-light, #8b4fbf) 1turn
+    );
+  }
+
+  .beam-rotator-halo {
+    background: conic-gradient(
+      from 0deg,
+      transparent 0turn 0.62turn,
+      rgba(139, 79, 191, 0.12) 0.84turn,
+      rgba(218, 202, 255, 0.35) 1turn
+    );
+    filter: blur(14px);
+  }
 }
 
-html.lenis,
-html.lenis body {
-  height: auto;
+/* ---------- Keyframes & global motion (unlayered on purpose) ---------- */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-body {
-  font-family: var(--font-dm);
-  background: var(--bg);
-  color: var(--fg);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  font-size: 16px;
-}
-
-::selection {
-  background: var(--maven);
-  color: #fff;
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  color-scheme: dark;
-  background: color-mix(in srgb, var(--maven-light) 55%, var(--bg));
-  border-radius: 3px;
-}
-
-:focus-visible {
-  outline: 1.5px solid var(--maven-light);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-h1, h2, h3, h4 {
-  font-family: var(--font-sora);
-  letter-spacing: -0.025em;
-  text-wrap: balance;
-}
-
-.footer-col-heading {
-  font-family: var(--font-dm);
-  font-weight: 900;
-  letter-spacing: 0.05em;
-  color: var(--mist);
-}
-
-.field {
-  position: relative;
-}
-
-.field::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1.5px;
-  background: var(--maven-light);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-.field:focus-within::after {
-  transform: scaleX(1);
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: none !important;
-  outline-offset: 0 !important;
-  box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-}
-
-/* ---------- Typography helpers ---------- */
-
-.display {
-  font-family: var(--font-sora);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-}
-
-.mono-label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--mist-dim);
-}
-
-.text-stroke {
-  -webkit-text-stroke: 1px var(--stroke);
-  color: transparent;
-}
-
-.text-stroke-faint {
-  -webkit-text-stroke: 1px var(--stroke-faint);
-  color: transparent;
-}
-
-/* Brand duotone — forces artwork into the maven violet range so mixed-source
-   illustrations share one palette. */
-.duotone-maven {
-  filter: grayscale(1) sepia(1) hue-rotate(225deg) saturate(3.2) brightness(0.9);
-}
-
-.grad-text {
-  color: var(--maven-light);
-  text-shadow: 0 0 28px rgba(139, 79, 191, 0.3);
-}
-
-/* Theme-aware logo swap: [data-logo="dark"] shows in dark theme,
-   [data-logo="light"] in light theme. */
-html:not([data-theme='light']) [data-logo='light'] {
-  display: none;
-}
-
-[data-theme='light'] [data-logo='dark'] {
-  display: none;
+@keyframes beam-orbit {
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 /* Gentle floating drift for hero brand visuals */
 @keyframes float-slow {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-14px); }
-}
-
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
 }
 
 /* Gentle drift for editorial illustrations (vision/mission) — bobs up/down
@@ -265,36 +573,39 @@ html:not([data-theme='light']) [data-logo='light'] {
   75% { transform: translate3d(-10px, -12px, 0) rotate(-0.7deg); }
 }
 
-.animate-float-drift {
-  animation: float-drift 7s ease-in-out infinite;
-  will-change: transform;
-}
+@layer components {
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
 
-/* Counter-phase variant — different duration + negative delay so multiple
-   drifting images never move in the same direction at the same time. */
-.animate-float-drift-alt {
-  animation: float-drift 9s ease-in-out -3.5s infinite;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-float-slow,
   .animate-float-drift {
-    animation: none;
+    animation: float-drift 7s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Counter-phase variant — different duration + negative delay so multiple
+     drifting images never move in the same direction at the same time. */
+  .animate-float-drift-alt {
+    animation: float-drift 9s ease-in-out -3.5s infinite;
+    will-change: transform;
   }
 }
 
-/* ---------- Section chrome ---------- */
+/* Theme-aware logo swap: [data-logo="dark"] shows in dark theme,
+   [data-logo="light"] in light theme. Unlayered so it always wins. */
+html:not([data-theme='light']) [data-logo='light'] {
+  display: none;
+}
 
-.section {
-  position: relative;
-  padding-inline: 1.5rem;
+[data-theme='light'] [data-logo='dark'] {
+  display: none;
 }
 
 /* Tighten the big section gaps on mobile only — heroes keep their top
    clearance (pt-40) since they clear the fixed navbar, and asymmetric
    pt/pb sections keep their layout. Standard sections use the shared
-   rhythm py-28 md:py-36 (see CLAUDE.md). */
+   rhythm py-28 md:py-36 (see CLAUDE.md). Unlayered so it beats the
+   py-* utilities it targets. */
 @media (max-width: 767px) {
   .section.py-28,
   .section.py-32 {
@@ -308,253 +619,14 @@ html:not([data-theme='light']) [data-logo='light'] {
   }
 }
 
-@media (min-width: 768px) {
-  .section {
-    padding-inline: 3rem;
-  }
-}
-
-.container-maven {
-  max-width: 84rem;
-  margin-inline: auto;
-}
-
-.index-tag {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.25em;
-  color: var(--maven-light);
-}
-
-/* ---------- Surfaces ---------- */
-
-.panel {
-  background: var(--panel-bg);
-  border: 1px solid var(--line);
-}
-
-.panel-hover {
-  transition: border-color 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)), background 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
-}
-
-.panel-hover:hover {
-  border-color: var(--line-hover);
-  background: var(--panel-bg-hover);
-}
-
-/* Frosted card container — follows the theme vars, so the hover border
-   utilities attached to it (hover:border-maven-light/30) have a border to
-   transition. */
-.glass {
-  background: var(--panel-bg);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* Mouse-tracked spotlight wash */
-.spotlight {
-  position: relative;
-  overflow: hidden;
-}
-
-.spotlight::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    520px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    var(--spot),
-    transparent 45%
-  );
-  opacity: 0;
-  transition: opacity 0.45s ease;
-  pointer-events: none;
-}
-
-.spotlight:hover::before {
-  opacity: 1;
-}
-
-/* Soft top-left light source — ambient glow + faint edge catch,
-   gives flush grid cards a premium raised feel. Requires the
-   positioned/overflow-hidden context .spotlight provides. */
-.glow-tl::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120% 90% at 0% 0%, var(--glow-tl), transparent 55%);
-  pointer-events: none;
-}
-
-.glow-tl {
-  box-shadow: inset 1px 1px 0 0 var(--edge-tl);
-}
-
-/* ---------- Overlay / texture ---------- */
-
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 95;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-
-[data-theme="light"] .noise-overlay {
-  opacity: 0.05;
-}
-
-/* ---------- Marquee ---------- */
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.marquee-track {
-  animation: marquee 36s linear infinite;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-/* ---------- Custom cursor: dot only ---------- */
-
-@media (hover: hover) and (pointer: fine) {
-  .cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 120;
-    width: 7px;
-    height: 7px;
-    border-radius: 9999px;
-    background: var(--cursor-dot);
-    mix-blend-mode: normal;
-  }
-}
-
-/* ---------- Link underline ---------- */
-
-.link-line {
-  position: relative;
-}
-
-.link-line::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.45s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
-}
-
-.link-line:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* ---------- Border beam ---------- */
-
-/* A comet streak orbits the card border. Each layer is an oversized square
-   spinning about the card's center (pure transform → compositor-only, no
-   gradient repaints) while a ring mask confines its conic-gradient streak to
-   the border hairline, so the beam follows the exact rounded path. Two layers:
-   a sharp bright core riding the border line, plus a blurred, wider halo that
-   reads as ambient glow illuminating the edge around it. Linear timing keeps
-   the orbit constant and loop-seamless (the gradient is periodic in 360deg). */
-.border-beam {
-  /* --beam-radius must match the host's border-radius (rounded-3xl). */
-  --beam-radius: 1.5rem;
-  --beam-reach: 16px;
-  position: relative;
-}
-
-.beam-viewport {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-}
-
-/* The halo's ring extends past the border so its glow wraps the edge. */
-.beam-viewport-halo {
-  inset: calc(-1 * var(--beam-reach));
-  border-radius: calc(var(--beam-radius) + var(--beam-reach));
-  padding: calc(var(--beam-reach) + 3px);
-}
-
-.beam-rotator {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  /* Side must cover the card's diagonal at every rotation angle. Wide card on
-     md+: 150% is ample; stacked card below md: a tall diagonal needs far more,
-     capped so the GPU layer stays bounded. */
-  width: 150%;
-  aspect-ratio: 1;
-  /* `translate` composes with the keyframed transform — rotate spins the
-     square about its own (card-centered) middle. */
-  translate: -50% -50%;
-  animation: beam-orbit 7s linear infinite;
-  will-change: transform;
-}
-
-@media (max-width: 767px) {
-  .beam-rotator {
-    width: min(430%, 1150px);
-  }
-}
-
-.beam-rotator-core {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0turn 0.74turn,
-    rgba(218, 202, 255, 0.06) 0.82turn,
-    rgba(218, 202, 255, 0.6) 0.93turn,
-    #ffffff 0.985turn,
-    var(--maven-light, #8b4fbf) 1turn
-  );
-}
-
-.beam-rotator-halo {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0turn 0.62turn,
-    rgba(139, 79, 191, 0.12) 0.84turn,
-    rgba(218, 202, 255, 0.35) 1turn
-  );
-  filter: blur(14px);
-}
-
-@keyframes beam-orbit {
-  to {
-    transform: rotate(1turn);
-  }
-}
+/* ---------- Reduced motion (unlayered so it beats every animation) ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .beam-viewport {
-    display: none;
+  .animate-float-slow,
+  .animate-float-drift {
+    animation: none;
   }
-}
 
-/* ---------- Reduced motion ---------- */
-
-@media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;
   }
@@ -564,5 +636,11 @@ html:not([data-theme='light']) [data-logo='light'] {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beam-viewport {
+    display: none;
   }
 }

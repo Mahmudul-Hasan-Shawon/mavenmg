@@ -1,4 +1,4 @@
-import { Check, Crown, Layers, ShieldCheck } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 import { Eyebrow } from '../components/text/Eyebrow'
@@ -20,7 +20,7 @@ const plans = [
     price: '500',
     perMonth: true,
     note: '',
-    icon: ShieldCheck,
+    icon: 'fas fa-shield-halved',
     features: [
       'Maintenance & Hosting',
       'Website Speed Optimization',
@@ -39,7 +39,7 @@ const plans = [
     price: '1500',
     perMonth: true,
     note: 'Includes everything in Essential Maintenance.',
-    icon: Layers,
+    icon: 'fas fa-rocket',
     features: [
       'Website Edits',
       'Designers',
@@ -57,7 +57,7 @@ const plans = [
     price: 'Custom Quote',
     perMonth: false,
     note: 'Builds on Proactive Management.',
-    icon: Crown,
+    icon: 'fas fa-crown',
     features: [
       'Unlimited Website Projects',
       'Dedicated Project Manager',
@@ -73,17 +73,17 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
     <section id="management-plans" className="section py-28 md:py-36 relative overflow-hidden" aria-label="Website Management Service Plans">
       <div className="container-maven">
         <Reveal>
-          <Eyebrow label="Management plans" className="mb-8" />
-          <h2 className="display text-[clamp(2rem,4.6vw,3.6rem)] text-white max-w-2xl">
-            Website Management <span className="grad-text">Service Plans</span>
+          <Eyebrow label="Management plans" className="mb-8 justify-center" />
+          <h2 className="display text-[clamp(1.8rem,4.2vw,3.6rem)] text-white max-w-2xl text-center mx-auto">
+            Website Management <span className="grad-text block">Service Plans</span>
           </h2>
-          <p className="mt-5 text-mist text-base md:text-lg leading-relaxed max-w-xl">
+          <p className="mt-5 text-mist text-base md:text-lg leading-relaxed max-w-xl text-center mx-auto">
             Select the plan that best fits your business needs. Switch to Maven without any risks
             with our website migration service.
           </p>
         </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-6 mt-14">
+        <div className="grid md:grid-cols-3 gap-6 mt-14 md:mt-24">
           {plans.map((plan, i) => (
             <Reveal key={plan.name} delay={i * 0.1}>
               <div
@@ -119,13 +119,13 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                           plan.featured ? 'bg-maven-light/20 text-maven-lighter' : 'bg-maven/15 text-maven-lighter'
                         )}
                       >
-                        <plan.icon size={22} />
+                        <i className={plan.icon} aria-hidden="true" />
                       </span>
                       <span className="mono-label !text-mist-dim">{plan.tier}</span>
                     </div>
 
-                    <h3 className="display text-xl text-white mb-2">{plan.name}</h3>
-                    <p className="text-mist-dim text-sm leading-relaxed mb-7 min-h-[3.75rem]">{plan.tagline}</p>
+                    <h3 className="display font-semibold tracking-[0.98px] text-2xl text-white mb-2">{plan.name}</h3>
+                    <p className="text-mist-dim text-md leading-relaxed mb-7 min-h-[3.75rem]">{plan.tagline}</p>
 
                     {/* Price */}
                     <div className="pb-6 border-b border-line mb-6">

@@ -15,7 +15,7 @@ const serviceIcons = {
 } as const
 
 /**
- * ServiceExplorer — a large vertical index of Maven's services.
+ * ServiceExplorer, a large vertical index of Maven's services.
  * Hovering (desktop) or tapping (mobile) a row expands its description and
  * highlights, with a numbered editorial treatment instead of cards.
  */
@@ -48,10 +48,10 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
       <div className="container-maven">
         <SectionHeading
           eyebrow="What we do"
-          title="Everything your Business needs"
-          accent="to win online"
+          title="Everything your Business"
+          accent="needs to win online"
           highlight={['business', 'win']}
-          lede="Affordable web design services and digital marketing that fit your business needs — from first design to daily management."
+          lede="Affordable web design services and digital marketing that fit your business needs, from first design to daily management."
         />
 
         <div data-service-list className="border-t border-line">
@@ -92,7 +92,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                       </span>
                       <h3
                         className={cn(
-                          'display text-[clamp(1.4rem,3.4vw,2.6rem)] transition-all duration-500 truncate',
+                          'display font-semibold tracking-[0.98px] text-[clamp(1.125rem,3.4vw,2.6rem)] transition-all duration-500 md:truncate',
                           isActive ? 'text-white translate-x-1 md:translate-x-2' : 'text-mist group-hover:text-white'
                         )}
                       >

@@ -10,6 +10,10 @@ interface SectionHeadingProps {
   accent?: string
   /** Words (case-insensitive) in the title to render in solid maven-light */
   highlight?: string[]
+  /** Render the accent line in solid maven-light instead of the gradient */
+  accentLight?: boolean
+  /** Words in a maven-light accent line to render in solid white */
+  accentWhite?: string[]
   lede?: string
   align?: 'left' | 'center'
   className?: string
@@ -21,6 +25,8 @@ export function SectionHeading({
   title,
   accent,
   highlight,
+  accentLight,
+  accentWhite,
   lede,
   align = 'left',
   className,
@@ -36,14 +42,15 @@ export function SectionHeading({
           {title}
         </AnimatedText>
         {accent && (
-          <span className="block">
+          <span className={cn('block', accentLight && 'text-maven-light')}>
             <AnimatedText
               mode="words"
               stagger={0.055}
               delay={0.18}
               blur
-              gradient={!highlight}
-              highlight={highlight}
+              gradient={!accentLight && !highlight}
+              highlight={accentLight ? undefined : highlight}
+              highlightWhite={accentLight ? accentWhite : undefined}
             >
               {accent}
             </AnimatedText>

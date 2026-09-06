@@ -20,6 +20,9 @@ interface AnimatedTextProps {
   /** Words (case-insensitive) to render in solid maven-light instead of the
    *  inherited color. Only applies in words mode. */
   highlight?: string[]
+  /** Words (case-insensitive) to render in solid white instead of the
+   *  inherited color. Only applies in words mode. */
+  highlightWhite?: string[]
   /** Trigger on mount (hero) vs when scrolled into view (default). */
   trigger?: Trigger
   /** for a11y: visual splits get aria-hidden, parent keeps a label */
@@ -41,6 +44,7 @@ export function AnimatedText({
   blur = false,
   gradient = false,
   highlight,
+  highlightWhite,
   trigger = 'scroll',
   style,
 }: AnimatedTextProps) {
@@ -84,13 +88,13 @@ export function AnimatedText({
   let key = 0
 
   const renderLine = (line: string, li: number) => (
-    <span key={li} className="block" style={{ overflow: 'hidden', paddingBottom: '0.08em', marginBottom: '-0.08em' }}>
+    <span key={li} className="block" style={{ overflow: 'hidden', paddingBottom: '0.18em', marginBottom: '-0.18em' }}>
       {mode === 'words'
         ? line.split(/(\s+)/).map((piece) =>
             /^\s+$/.test(piece) ? (
               <span key={key++}> </span>
             ) : (
-              <Mask key={key++} gradient={gradient} highlight={highlight?.includes(piece.toLowerCase())}>
+              <Mask key={key++} gradient={gradient} highlight={highlight?.includes(piece.toLowerCase())} highlightWhite={highlightWhite?.includes(piece.toLowerCase())}>
                 {piece}
               </Mask>
             )
@@ -119,11 +123,13 @@ function Mask({
   preserveSpace = false,
   gradient = false,
   highlight = false,
+  highlightWhite = false,
 }: {
   children: ReactNode
   preserveSpace?: boolean
   gradient?: boolean
   highlight?: boolean
+  highlightWhite?: boolean
 }) {
   return (
     <span
@@ -131,7 +137,8 @@ function Mask({
       className={cn(
         'inline-block will-change-transform',
         gradient && 'grad-text',
-        highlight && 'text-maven-light'
+        highlight && 'text-maven-light',
+        highlightWhite && 'text-white'
       )}
       style={preserveSpace && children === ' ' ? { whiteSpace: 'pre' } : undefined}
     >

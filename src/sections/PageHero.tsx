@@ -19,22 +19,38 @@ interface PageHeroProps {
   imageAlt?: string
   /** Render the image as an interactive Three.js hologram scene. */
   logo3d?: boolean
+  /** Words (case-insensitive) in the accent line to render in solid maven-light. */
+  accentHighlight?: string[]
+  /** Words in the accent line to render in solid white. */
+  accentWhite?: string[]
+  /** Words (case-insensitive) in the title to render in solid maven-light. */
+  titleHighlight?: string[]
 }
 
 /** Compact editorial hero for secondary pages. */
-export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d }: PageHeroProps) {
+export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight }: PageHeroProps) {
   const copy = (
     <>
       <Reveal>
-        <Eyebrow label={eyebrow} className="mb-8" />
+        <Eyebrow label={eyebrow} className="mb-8 hidden lg:flex" />
       </Reveal>
       <h1 className="display text-[clamp(2.4rem,6.6vw,5.4rem)] text-white max-w-5xl">
-        <AnimatedText trigger="load" mode="words" stagger={0.07} duration={1}>
+        <AnimatedText trigger="load" mode="words" stagger={0.07} duration={1} highlight={titleHighlight}>
           {title}
         </AnimatedText>
         {accent && (
           <span className="block mt-1">
-            <AnimatedText trigger="load" mode="words" stagger={0.07} delay={0.25} duration={1} blur gradient>
+            <AnimatedText
+              trigger="load"
+              mode="words"
+              stagger={0.07}
+              delay={0.25}
+              duration={1}
+              blur
+              gradient={!accentHighlight && !accentWhite}
+              highlight={accentHighlight}
+              highlightWhite={accentWhite}
+            >
               {accent}
             </AnimatedText>
           </span>
@@ -49,7 +65,7 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
   )
 
   return (
-    <section id={id} className="section pt-40 pb-8 md:pt-52 md:pb-20 relative overflow-hidden" aria-label={`${eyebrow} introduction`}>
+    <section id={id} className="section pt-24 pb-8 md:pt-52 md:pb-20 relative overflow-hidden" aria-label={`${eyebrow} introduction`}>
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 right-[8%] w-[560px] h-[420px] rounded-full bg-maven/12 blur-[140px]" />
       </div>
@@ -57,12 +73,13 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
         {image ? (
           <div className="grid lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-16 items-center">
             <div>{copy}</div>
-            <div className="relative flex justify-center lg:justify-end order-first lg:order-last">
-              <div
-                aria-hidden="true"
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 lg:w-96 lg:h-96 rounded-full bg-maven/25 blur-[100px]"
-              />
-              {logo3d ? (
+            <div className="relative flex flex-col items-center justify-center gap-6 order-first lg:order-last lg:justify-end">
+              <div className="relative flex justify-center lg:justify-end w-full">
+                <div
+                  aria-hidden="true"
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 lg:w-96 lg:h-96 rounded-full bg-maven/25 blur-[100px]"
+                />
+                {logo3d ? (
                 <div className="relative w-64 sm:w-80 lg:w-full lg:max-w-md aspect-square">
                   <LazyCanvas
                     Scene={AboutLogo}
@@ -84,6 +101,7 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
                   className="relative w-48 sm:w-60 lg:w-full lg:max-w-md object-contain animate-float-slow drop-shadow-[0_0_48px_rgba(139,79,191,0.45)]"
                 />
               )}
+              </div>
             </div>
           </div>
         ) : (

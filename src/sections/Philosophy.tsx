@@ -54,11 +54,12 @@ export function Philosophy() {
         {/* Intro — The Marketing Mavens */}
         <div data-phil-block className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <div className="order-2 lg:order-1">
-            <h2 className="text-2xl md:text-8xl font-black mb-6">
-              The <span className="text-white">Marketing</span>
-              <span className="text-maven-light"> Mavens</span>
+            <h2 className="text-5xl md:text-8xl font-bold mb-6">
+              <span className="block">The</span>
+              <span className="block text-white">Marketing</span>
+              <span className="block text-maven-light">Mavens</span>
             </h2>
-            <p className="text-mist text-base md:text-lg leading-relaxed mb-9">
+            <p className="text-mist text-base pt-2 md:text-lg leading-relaxed mb-9">
               {mavens.intro}
             </p>
             <MavensTabs />
@@ -232,7 +233,7 @@ function MavensTabs() {
 
       <div ref={copyRef}>
         <p className="mono-label mb-4">{String(mode + 1).padStart(2, '0')} / Our {Active.label}</p>
-        <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-xl">{Active.body}</p>
+        <p className="text-white/70 text-md md:text-lg leading-relaxed max-w-xl">{Active.body}</p>
       </div>
 
       <div className="mt-12 pt-8 pb-8 border-t border-b border-line max-w-xl">
@@ -264,11 +265,11 @@ function Phil({
       <Eyebrow label={`Our ${label}`} className="mb-8 self-center lg:hidden" />
       <div className="relative flex items-center justify-center w-full">
         <div aria-hidden="true" className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-maven/15 blur-[110px]" />
-        <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none blur-2xl opacity-40 select-none">
           <img
             src={image}
             alt=""
-            className={`duotone-maven ${floatClass} w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain blur-2xl opacity-40 select-none`}
+            className={`duotone-maven ${floatClass} w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain`}
           />
         </div>
         <img
