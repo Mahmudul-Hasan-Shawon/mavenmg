@@ -42,7 +42,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
               loading="lazy"
             />
             <img
-              src="/images/logos/mavenlogo_light.png"
+              src="/images/logos/logo.png"
               alt=""
               aria-hidden="true"
               data-logo="light"
