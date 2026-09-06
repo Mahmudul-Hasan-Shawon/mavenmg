@@ -7,6 +7,7 @@ export interface Service {
   description: string
   longDescription: string
   highlights: string[]
+  image: string
 }
 
 export const services: Service[] = [
@@ -21,6 +22,7 @@ export const services: Service[] = [
     longDescription:
       'Whether you need a personal website designer or an enterprise-level website, Maven Marketing Group will provide affordable web design services that fit your business needs.',
     highlights: ['Responsive on all devices', 'Custom designed', 'E-commerce Capabilities'],
+    image: '/images/service/web-design.jpg',
   },
   {
     id: 'management',
@@ -38,6 +40,7 @@ export const services: Service[] = [
       'Website plugin updates',
       'Routine content updates',
     ],
+    image: '/images/service/management.jpg',
   },
   {
     id: 'seo',
@@ -50,6 +53,7 @@ export const services: Service[] = [
     longDescription:
       'Maven Marketing Group provides digital marketing services to companies all over the world who are needing to generate more inbound traffic to their websites.',
     highlights: ['On-page SEO', 'Technical SEO', 'Link building', 'Analytics & reporting'],
+    image: '/images/service/seo.jpg',
   },
   {
     id: 'marketing',
@@ -62,6 +66,7 @@ export const services: Service[] = [
     longDescription:
       'Companies all around the world use our freelance digital marketing services to generate leads, land new clients, & increase sales!',
     highlights: ['Logo Design', 'Social Media Marketing', 'Google Ads', 'SEO', 'Lead Generation'],
+    image: '/images/service/marketing.jpg',
   },
 ]
 
