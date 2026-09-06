@@ -18,8 +18,11 @@ export function WhyMaven() {
       <div className="container-maven">
         <SectionHeading
           eyebrow="Why Maven"
-          title="A partner invested in"
-          accent="your bottom line"
+          title="Why Choose Maven"
+          accent={'For Web Design &\nMarketing Services?'}
+          highlight={['maven']}
+          accentLight
+          accentWhite={['&']}
           lede="Seven reasons businesses across the US and beyond trust Maven with their digital presence."
         />
 
@@ -27,7 +30,7 @@ export function WhyMaven() {
           {/* Giant ghosted numeral that follows the active row */}
           <div
             aria-hidden="true"
-            className="hidden lg:flex pointer-events-none absolute -top-10 right-0 font-sora font-bold text-stroke-faint select-none items-center justify-center transition-all duration-500"
+            className="hidden lg:flex pointer-events-none absolute -top-10 right-0 font-poppins font-bold text-stroke-faint select-none items-center justify-center transition-all duration-500"
             style={{ fontSize: 'clamp(10rem, 22vw, 20rem)', lineHeight: 1 }}
           >
             {active !== null ? reasons[active].index : '07'}
@@ -56,14 +59,20 @@ export function WhyMaven() {
                       >
                         {reason.index}
                       </span>
-                      <h3
-                        className={cn(
-                          'display flex-1 text-[clamp(1.15rem,2.6vw,1.9rem)] transition-all duration-500',
-                          isActive ? 'text-white translate-x-2' : 'text-mist'
-                        )}
-                      >
-                        {reason.title}
-                      </h3>
+                      <div className="flex-1">
+                        <h3
+                          className={cn(
+                            'display font-semibold tracking-[0px] text-[clamp(1.15rem,2.6vw,1.9rem)] transition-all duration-500',
+                            isActive ? 'text-white translate-x-2' : 'text-mist'
+                          )}
+                        >
+                          {reason.title}
+                        </h3>
+                        {/* Mobile description */}
+                        <p className="md:hidden pt-3 text-base text-mist-dim leading-relaxed">
+                          {reason.description}
+                        </p>
+                      </div>
                       <p
                         className={cn(
                           'hidden md:block text-base text-mist leading-relaxed max-w-md transition-all duration-500',
@@ -73,10 +82,6 @@ export function WhyMaven() {
                         {reason.description}
                       </p>
                     </div>
-                    {/* Mobile description */}
-                    <p className="md:hidden px-2 pt-3 text-base text-mist-dim leading-relaxed pl-[3.4rem]">
-                      {reason.description}
-                    </p>
                   </div>
                 </Reveal>
               )

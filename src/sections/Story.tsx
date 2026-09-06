@@ -3,7 +3,7 @@ import { Reveal } from '../components/ui/Reveal'
 import { Eyebrow } from '../components/text/Eyebrow'
 
 /**
- * Story — Maven's history as an elegant vertical timeline: founding, the
+ * Story, Maven's history as an elegant vertical timeline: founding, the
  * move into design, management, and full-stack marketing. Editorial rows,
  * no cards.
  */
@@ -12,15 +12,17 @@ export function Story() {
     <section id="story" className="section pt-28 md:pt-36 pb-8 md:pb-12 border-t border-line" aria-label="Company story">
       <div className="container-maven">
         <Reveal>
-          <Eyebrow label="Our story" className="mb-8" />
+          <Eyebrow label="Our story" className="mb-8 justify-center" />
         </Reveal>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-8 md:mb-12">
-          <div className="order-2 lg:order-1">
-            <h2 className="display text-[clamp(2rem,4.6vw,3.8rem)] text-white mb-12">
-              Bringing small businesses <span className="grad-text">into the digital age</span>
-            </h2>
+        <h2 className="display text-[clamp(2rem,4.6vw,3.8rem)] text-white mb-8 md:mb-14 text-center">
+          Bringing small businesses
+          <br />
+          into <span className="grad-text">the digital age</span>
+        </h2>
 
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div>
             <ol className="relative">
               {/* Rail */}
               <span aria-hidden="true" className="absolute left-[5px] top-3 bottom-3 w-px bg-gradient-to-b from-maven-light/60 via-line to-transparent" />
@@ -36,7 +38,7 @@ export function Story() {
                       <span className="absolute inset-[2.5px] rounded-full bg-maven-light transition-transform duration-500 group-hover:scale-110" />
                     </span>
 
-                    <h3 className="display text-lg text-white transition-colors duration-500 group-hover:text-maven-lighter">
+                    <h3 className="display font-semibold tracking-[0.98px] text-lg text-white transition-colors duration-500 group-hover:text-maven-lighter">
                       {entry.title}
                     </h3>
                     <p className="mt-2.5 text-mist-dim text-[15px] leading-relaxed max-w-lg transition-colors duration-500 group-hover:text-mist">
@@ -48,14 +50,14 @@ export function Story() {
             </ol>
           </div>
 
-          <div className="relative order-1 lg:order-2" data-cursor>
+          <div className="relative order-first lg:order-none" data-cursor>
             <div
               aria-hidden="true"
               className="absolute -inset-3 bg-gradient-to-br from-maven-lighter/8 to-maven-light/15 blur-2xl"
             />
             <img
               src="/images/about/chicago.jpg"
-              alt="Chicago — home of Maven Marketing Group"
+              alt="Chicago, home of Maven Marketing Group"
               className="relative rounded-3xl w-full aspect-[4/3] object-cover border border-line shadow-[0_32px_80px_-32px_rgba(97,44,139,0.5)]"
               loading="lazy"
             />

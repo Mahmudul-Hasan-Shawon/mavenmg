@@ -42,9 +42,11 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
       <PageHero
         id="about-hero"
         eyebrow="About Maven"
-        title="Who is"
-        accent="Maven Marketing Group?"
-        lede="A Chicago-based web design and digital marketing agency — founded in 2019 on the core principle of bringing small businesses into the digital age."
+        title="Who is Maven"
+        titleHighlight={['maven']}
+        accent="Marketing Group?"
+        accentHighlight={['maven']}
+        lede="A Chicago-based web design and digital marketing agency, founded in 2019 on the core principle of bringing small businesses into the digital age."
         image="/images/logos/3dlogomaven.png"
         imageAlt="Maven Marketing Group 3D logo"
         logo3d
@@ -65,7 +67,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
                   <div className="w-14 h-14 rounded-2xl bg-maven/15 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
                     {valueIcons[v.title]}
                   </div>
-                  <h3 className="display text-lg md:text-xl text-white mb-2">{v.title}</h3>
+                  <h3 className="display font-semibold tracking-[0.98px] text-lg md:text-xl text-white mb-2">{v.title}</h3>
                   <p className="text-mist-dim text-md leading-relaxed">{v.description}</p>
                 </div>
               </Reveal>

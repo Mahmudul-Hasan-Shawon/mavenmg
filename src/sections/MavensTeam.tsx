@@ -4,7 +4,7 @@ import { Eyebrow } from '../components/text/Eyebrow'
 import { cn } from '../utils/cn'
 
 interface MavensTeamProps {
-  /** Unique section id — anchors and CSS scoping stay unambiguous. */
+  /** Unique section id, anchors and CSS scoping stay unambiguous. */
   id: string
   /**
    * Section spacing classes, owned by the call site (cn() is a plain joiner,
@@ -14,7 +14,7 @@ interface MavensTeamProps {
 }
 
 /**
- * MavensTeam — "The Experts Behind Your Success". Team photo beside two glass
+ * MavensTeam, "The Experts Behind Your Success". Team photo beside two glass
  * discipline cards (Web Masters / Online Marketers). Shared by the Home and
  * Work pages; each page supplies its own id and vertical spacing.
  */
@@ -25,12 +25,12 @@ export function MavensTeam({ id, className }: MavensTeamProps) {
         <Reveal>
           <div className="text-start mb-16">
             <Eyebrow label="The Marketing Mavens" className="mb-6" />
-            <h2 className="font-black mb-4 leading-[1.05] text-[clamp(2rem,8vw,3.4rem)] md:text-[clamp(2.5rem,5.5vw,4.5rem)]">
+            <h2 className="font-bold mb-4 leading-[1.05] text-[clamp(2rem,8vw,3.4rem)] md:text-[clamp(2.5rem,5.5vw,4.5rem)]">
               <span className="text-white">The Experts Behind</span>{' '}
               <span className="block text-maven-light">Your Success</span>
             </h2>
             <p className="text-mist max-w-2xl text-lg leading-relaxed">
-              At Maven, we bring together the finest minds in digital strategy and web design — our
+              At Maven, we bring together the finest minds in digital strategy and web design, our
               team known as the Marketing Mavens. These elite online marketers and web masters are
               your gateway to transcending the ordinary and achieving the extraordinary in the
               digital realm.
@@ -56,7 +56,7 @@ export function MavensTeam({ id, className }: MavensTeamProps) {
                   <div className="w-12 h-12 rounded-2xl bg-maven/20 flex items-center justify-center flex-shrink-0">
                     <Code size={24} className="text-maven-light" aria-hidden="true" />
                   </div>
-                  <h3 className="text-xl font-black">Our Web Masters</h3>
+                  <h3 className="text-xl font-semibold">Our Web Masters</h3>
                 </div>
                 <p className="text-mist leading-relaxed text-base">
                   Commanding the latest in technology and design trends, our web masters don't just
@@ -73,7 +73,7 @@ export function MavensTeam({ id, className }: MavensTeamProps) {
                   <div className="w-12 h-12 rounded-2xl bg-maven-light/20 flex items-center justify-center flex-shrink-0">
                     <Megaphone size={24} className="text-maven-light" aria-hidden="true" />
                   </div>
-                  <h3 className="text-xl font-black">Our Online Marketers</h3>
+                  <h3 className="text-xl font-semibold">Our Online Marketers</h3>
                 </div>
                 <p className="text-mist leading-relaxed text-base">
                   With precision, our online marketers devise and execute bespoke digital marketing

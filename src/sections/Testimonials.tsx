@@ -5,7 +5,7 @@ import { gsap, useGsapContext } from '../hooks/useGsap'
 import { Eyebrow } from '../components/text/Eyebrow'
 
 /**
- * Testimonials — one large editorial quote at a time with smooth GSAP
+ * Testimonials, one large editorial quote at a time with smooth GSAP
  * transitions, auto-advance, and a fine progress rail. Client identity is
  * presented separately from the quote for a magazine feel.
  */
@@ -115,7 +115,7 @@ export function Testimonials() {
               <span className="block text-white font-medium">{t.name}</span>
               <span className="block text-mist-dim text-sm mt-0.5">
                 {t.role}
-                {t.company ? ` — ${t.company}` : ''}
+                {t.company ? `, ${t.company}` : ''}
               </span>
             </span>
           </figcaption>

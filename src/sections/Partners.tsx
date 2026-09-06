@@ -5,9 +5,9 @@ import { Reveal } from '../components/ui/Reveal'
 export function Partners() {
   return (
     <div>
-      <div className="container-maven px-6 md:px-12 pb-10">
+      <div className="container-maven px-6 md:px-12 py-10">
         <Reveal>
-          <p className="mono-label text-center">Trusted by startups, creatives, and suits alike</p>
+          <p className="card-tag text-white text-center">Trusted by startups, creatives, and suits alike</p>
         </Reveal>
       </div>
       <section id="partners" className="pt-12 pb-12 border-y border-line" aria-label="Partners">

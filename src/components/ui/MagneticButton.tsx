@@ -59,14 +59,13 @@ export function MagneticButton({
   ariaLabel,
   type = 'button',
 }: MagneticButtonProps) {
-  const wrapRef = useRef<HTMLSpanElement>(null)
   const innerRef = useRef<HTMLSpanElement>(null)
   const fine = useFinePointer()
   const reduced = useReducedMotion()
 
   const onMove = (e: MouseEvent) => {
     if (!fine || reduced) return
-    const el = wrapRef.current
+    const el = e.currentTarget as HTMLElement
     const inner = innerRef.current
     if (!el || !inner) return
     const rect = el.getBoundingClientRect()
@@ -94,29 +93,21 @@ export function MagneticButton({
     </span>
   )
 
-  return (
-    <span
-      ref={wrapRef}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      className={cn('inline-block', fullWidth && 'w-full')}
-    >
-      {href ? (
-        <a
-          href={href}
-          target={external ? '_blank' : undefined}
-          rel={external ? 'noreferrer' : undefined}
-          aria-label={ariaLabel}
-          className={cls}
-          data-cursor
-        >
-          {inner}
-        </a>
-      ) : (
-        <button type={type} onClick={onClick} aria-label={ariaLabel} className={cls} data-cursor>
-          {inner}
-        </button>
-      )}
-    </span>
+  const baseProps = {
+    onMouseMove: onMove,
+    onMouseLeave: onLeave,
+    className: cls,
+    'aria-label': ariaLabel,
+    'data-cursor': true,
+  }
+
+  return href ? (
+    <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} {...baseProps}>
+      {inner}
+    </a>
+  ) : (
+    <button type={type} onClick={onClick} {...baseProps}>
+      {inner}
+    </button>
   )
 }

@@ -66,7 +66,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
           <a
             onClick={() => go('/')}
             className="cursor-pointer shrink-0"
-            aria-label={`${siteData.name} — home`}
+            aria-label={`${siteData.name}, home`}
             data-cursor
           >
             <img
@@ -91,8 +91,8 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
                 onClick={() => go(link.href)}
                 data-cursor
                 className={cn(
-                  'link-line text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
-                  isActive(link.href) ? 'text-maven-lighter' : 'text-mist hover:text-white'
+                  'text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
+                  isActive(link.href) ? 'text-white' : 'text-mist hover:text-white'
                 )}
                 aria-current={isActive(link.href) ? 'page' : undefined}
               >
@@ -142,6 +142,7 @@ function MenuButton({ open, onToggle }: { open: boolean; onToggle: () => void })
 
 function MobileMenu({
   open,
+  activePath,
   onNavigate,
   onClose,
 }: {
@@ -152,6 +153,11 @@ function MobileMenu({
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const tlRef = useRef<gsap.core.Timeline | null>(null)
+
+  const isActive = (href: string) => {
+    const base = href.split('#')[0]
+    return base !== '/' && activePath.startsWith(base)
+  }
 
   useGsapContext(
     rootRef,
@@ -206,7 +212,11 @@ function MobileMenu({
                 data-menu-link
                 onClick={() => onNavigate(link.href)}
                 data-cursor
-                className="group flex items-baseline gap-4 py-2.5 cursor-pointer display text-[clamp(2rem,9vw,3.2rem)] text-white/85 hover:text-maven-lighter transition-colors"
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={cn(
+                  'group flex items-baseline gap-4 py-2.5 cursor-pointer display text-[clamp(2rem,9vw,3.2rem)] transition-colors',
+                  isActive(link.href) ? 'text-white' : 'text-white/85 hover:text-maven-lighter'
+                )}
               >
                 <span className="font-mono text-xs text-maven-light w-8">{link.index}</span>
                 <span className="group-hover:translate-x-2 transition-transform duration-400">{link.label}</span>
