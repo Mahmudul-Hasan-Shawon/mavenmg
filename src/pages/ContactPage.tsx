@@ -28,7 +28,7 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
   }
 
   const inputCls =
-    'w-full px-4 py-3.5 rounded-xl bg-[#1A1A25] border border-white/8 text-white-solid text-sm focus:border-maven focus:ring-2 focus:ring-maven/20 outline-none transition-all placeholder:text-gray-600'
+    'w-full px-4 py-3.5 rounded-xl bg-ink-2 border border-line text-white text-sm focus:border-maven focus:ring-2 focus:ring-maven/20 outline-none transition-all placeholder:text-mist-dim'
 
   return (
     <>
@@ -97,17 +97,17 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
                 </MagneticButton>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-[#0e0b16] rounded-3xl p-8 md:p-10 h-full flex flex-col" aria-label="Project inquiry">
+              <form onSubmit={handleSubmit} className="bg-ink rounded-3xl p-8 md:p-10 h-full flex flex-col shadow-[0_28px_80px_-28px_rgba(97,44,139,0.4)]" aria-label="Project inquiry">
                 <div className="space-y-5 flex-1">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label htmlFor="cf-name" className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="cf-name" className="block text-sm font-semibold text-mist mb-2">
                         Your name
                       </label>
                       <input id="cf-name" name="name" required placeholder="John Doe" className={inputCls} />
                     </div>
                     <div>
-                      <label htmlFor="cf-email" className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="cf-email" className="block text-sm font-semibold text-mist mb-2">
                         Your email
                       </label>
                       <input id="cf-email" name="email" type="email" required placeholder="john@company.com" className={inputCls} />
@@ -116,13 +116,13 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label htmlFor="cf-phone" className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="cf-phone" className="block text-sm font-semibold text-mist mb-2">
                         Phone number
                       </label>
                       <input id="cf-phone" name="phone" placeholder="(555) 123-4567" className={inputCls} />
                     </div>
                     <div>
-                      <label htmlFor="cf-company" className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="cf-company" className="block text-sm font-semibold text-mist mb-2">
                         Company name
                       </label>
                       <input id="cf-company" name="company" placeholder="Acme Inc" className={inputCls} />
@@ -130,10 +130,10 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
                   </div>
 
                   <div>
-                    <label htmlFor="cf-service" className="block text-sm font-semibold text-gray-300 mb-2">
+                    <label htmlFor="cf-service" className="block text-sm font-semibold text-mist mb-2">
                       Service interested in *
                     </label>
-                    <select id="cf-service" name="service" required defaultValue="" className={`${inputCls} appearance-none cursor-pointer contact-select [&>option]:bg-[#1A1A25]`}>
+                    <select id="cf-service" name="service" required defaultValue="" className={`${inputCls} appearance-none cursor-pointer contact-select [&>option]:bg-ink-2`}>
                       <option value="" disabled>
                         Select a service
                       </option>
@@ -146,7 +146,7 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
                   </div>
 
                   <div>
-                    <label htmlFor="cf-message" className="block text-sm font-semibold text-gray-300 mb-2">
+                    <label htmlFor="cf-message" className="block text-sm font-semibold text-mist mb-2">
                       Tell us about your project
                     </label>
                     <textarea id="cf-message" name="message" rows={4} placeholder="Describe your project, goals, and budget…" className={`${inputCls} resize-none`} />
