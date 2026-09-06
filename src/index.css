@@ -93,6 +93,7 @@
   --font-dm: 'DM Sans', sans-serif;
   --font-poppins: 'Poppins', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: 'Playfair Display', Georgia, serif;
 }
 
 /* Element-level rules live in @layer base so Tailwind utilities
