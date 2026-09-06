@@ -1,4 +1,4 @@
-import { Check, Layout, Megaphone, Server } from 'lucide-react'
+import { ArrowRight, Check, Layout, Megaphone, Server } from 'lucide-react'
 import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Eyebrow } from '../components/text/Eyebrow'
@@ -91,7 +91,7 @@ export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void 
             <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-6">
               <p className="mono-label !text-mist">Ready to chat?</p>
               <MagneticButton variant="accent" onClick={() => onNavigate('/contact')}>
-                Start Your Project
+                Start Your Project <ArrowRight size={16} />
               </MagneticButton>
             </div>
           </Reveal>
