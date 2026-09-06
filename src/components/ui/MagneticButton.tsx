@@ -35,7 +35,7 @@ const styles: Record<NonNullable<MagneticButtonProps['variant']>, string> = {
   deep:
     'bg-maven-deep text-white-solid border border-maven-deep hover:bg-maven-light-hover hover:border-maven-light-hover',
   frost:
-    'bg-white/15 text-white-solid border border-white/40 backdrop-blur-md hover:bg-white/25',
+    'bg-white-solid text-maven border border-line hover:bg-[#efeafb] backdrop-blur-md',
 }
 
 const sizes: Record<NonNullable<MagneticButtonProps['size']>, string> = {
