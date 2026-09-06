@@ -6,7 +6,7 @@ export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void })
     <section id="final-cta" className="pt-4 pb-20 px-6 md:pt-16 md:pb-32">
       <div className="max-w-5xl mx-auto">
         <div
-          className="relative overflow-hidden rounded-[2rem] p-10 md:p-16 text-center"
+          className="relative overflow-hidden rounded-[2rem] p-10 md:p-16 text-center shadow-[0_20px_50px_-20px_rgba(97,44,139,0.5)]"
           style={{
             background: 'linear-gradient(135deg, rgba(74,31,107,0.96) 0%, rgba(97,44,139,0.92) 40%, rgba(139,79,191,0.9) 100%)',
           }}
