@@ -173,13 +173,7 @@ function MobileMenu({
         '[data-menu-link]',
         { yPercent: 120, opacity: 0 },
         { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'expo.out' },
-        '-=0.25'
-      )
-      tl.fromTo(
-        '[data-menu-foot]',
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
-        '-=0.4'
+        '-=0.2'
       )
       tl.eventCallback('onReverseComplete', () => {
         gsap.set(rootRef.current, { visibility: 'hidden' })
@@ -196,47 +190,46 @@ function MobileMenu({
     else tl.timeScale(1.6).reverse()
   }, [open])
 
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open, onClose])
+
   return (
     <div
       ref={rootRef}
       role="dialog"
       aria-modal="true"
       aria-label="Menu"
-      className="fixed inset-0 z-[90] bg-void/98 backdrop-blur-2xl invisible"
+      className="fixed inset-0 z-[90] bg-void/98 backdrop-blur-2xl invisible overflow-y-auto"
     >
-      <div className="h-full flex flex-col justify-center px-8 pt-20">
+      <div className="min-h-full flex flex-col justify-center px-8 pt-24 pb-12">
         <nav aria-label="Mobile" className="flex flex-col">
-          {navigation.map((link) => (
-            <div key={link.href} style={{ overflow: 'hidden' }}>
-              <a
-                data-menu-link
-                onClick={() => onNavigate(link.href)}
-                data-cursor
-                aria-current={isActive(link.href) ? 'page' : undefined}
-                className={cn(
-                  'group flex items-baseline gap-4 py-2.5 cursor-pointer display text-[clamp(2rem,9vw,3.2rem)] transition-colors',
-                  isActive(link.href) ? 'text-white' : 'text-white/85 hover:text-maven-lighter'
-                )}
-              >
-                <span className="font-mono text-xs text-maven-light w-8">{link.index}</span>
-                <span className="group-hover:translate-x-2 transition-transform duration-400">{link.label}</span>
-              </a>
-            </div>
-          ))}
+          {navigation.map((link) => {
+            const active = isActive(link.href)
+            return (
+              <div key={link.href} style={{ overflow: 'hidden' }}>
+                <a
+                  data-menu-link
+                  onClick={() => onNavigate(link.href)}
+                  data-cursor
+                  aria-current={active ? 'page' : undefined}
+                  className={cn(
+                    'group flex items-baseline gap-4 py-2.5 cursor-pointer display text-[clamp(2rem,9vw,3rem)] transition-colors duration-300',
+                    active ? 'text-white' : 'text-mist hover:text-white'
+                  )}
+                >
+                  <span className="font-mono text-[11px] text-maven-light/70 w-7">{link.index}</span>
+                  <span className="group-hover:translate-x-1.5 transition-transform duration-400">{link.label}</span>
+                </a>
+              </div>
+            )
+          })}
         </nav>
-
-        <div data-menu-foot className="mt-12 pt-8 border-t border-line flex items-center justify-between gap-4">
-          <MagneticButton variant="primary" size="md" onClick={() => onNavigate('/contact')}>
-            Start Your Project
-          </MagneticButton>
-          <button
-            type="button"
-            onClick={onClose}
-            className="mono-label cursor-pointer hover:text-maven-lighter transition-colors"
-          >
-            Close
-          </button>
-        </div>
       </div>
     </div>
   )
