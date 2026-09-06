@@ -130,8 +130,8 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                     {/* Price */}
                     <div className="pb-6 border-b border-line mb-6">
                       {plan.perMonth ? (
-                        <p className="flex items-baseline gap-1.5">
-                          <span className="display text-xl text-maven-lighter self-start mt-1.5">$</span>
+                        <p className="flex items-center gap-1.5">
+                          <span className="display text-[2rem] leading-none text-maven-lighter">$</span>
                           <span className="display font-bold text-[2.75rem] leading-none tabular-nums tracking-tight text-white">
                             {plan.price}
                           </span>
