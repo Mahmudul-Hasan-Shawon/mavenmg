@@ -37,7 +37,7 @@ export const quality = {
   heroNodes: { high: 110, mid: 70, low: 40 }[tier],
   heroFlow: { high: 260, mid: 140, low: 60 }[tier],
   fieldCount: { high: 6500, mid: 3200, low: 1200 }[tier],
-  mavenNodes: { high: 88, mid: 60, low: 34 }[tier],
+  mavenNodes: { high: 140, mid: 90, low: 52 }[tier],
 }
 
 /**
