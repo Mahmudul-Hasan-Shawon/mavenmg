@@ -60,6 +60,21 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
           <Reveal>
             <Eyebrow label="Our values" className="mb-14" />
           </Reveal>
+          <Reveal>
+            <blockquote className="relative max-w-2xl mx-auto text-center mb-16">
+              <p className="font-serif italic relative text-[clamp(1.5rem,3.2vw,2.1rem)] leading-normal text-white">
+                <span
+                  aria-hidden="true"
+                  className="font-serif inline-block h-[0.55em] overflow-visible align-[-0.12em] mr-1.5 text-[1.9em] leading-[0] text-white/90 select-none"
+                >
+                  &ldquo;
+                </span>
+                Your vision mixed with our creative skills will always drive the best results.
+                <span className="font-serif text-white/90">&rdquo;</span>
+              </p>
+              <footer className="mono-label mt-4 text-white/90">— Maven Marketing Group</footer>
+            </blockquote>
+          </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.06}>
@@ -73,9 +88,6 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
               </Reveal>
             ))}
           </div>
-          <p className="mt-10 text-center text-maven-lighter/80 text-lg leading-relaxed italic max-w-lg mx-auto">
-            Your vision mixed with our creative skills will always drive the best results.
-          </p>
         </div>
       </section>
 
