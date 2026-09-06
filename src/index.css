@@ -331,7 +331,6 @@
 
   .grad-text {
     color: var(--maven-light);
-    text-shadow: 0 0 28px rgba(139, 79, 191, 0.3);
   }
 
   /* ---------- Section chrome ---------- */
