@@ -85,7 +85,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                       <span
                         aria-hidden="true"
                         className={cn(
-                          'absolute top-0 -right-0 hidden lg:block font-poppins font-bold leading-none text-stroke-faint select-none pointer-events-none',
+                          'absolute top-0 -right-0 block font-poppins font-bold leading-none text-stroke-faint select-none pointer-events-none',
                           featured ? 'text-[8rem]' : 'text-[5rem]'
                         )}
                       >
