@@ -1,92 +1,159 @@
-import { useState } from 'react'
+import {
+  ArrowRight,
+  GraduationCap,
+  Gem,
+  HeartHandshake,
+  PenTool,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  type LucideIcon,
+} from 'lucide-react'
 import { reasons } from '../data/content'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { Reveal } from '../components/ui/Reveal'
+import { MagneticButton } from '../components/ui/MagneticButton'
+import { trackSpotlight } from '../utils/motion'
 import { cn } from '../utils/cn'
 
-/**
- * WhyMaven — the seven reasons as one interactive editorial index.
- * A giant ghosted numeral follows the hovered row; hovering a row shifts its
- * typography and reveals the supporting statement. One central statement
- * anchors the section.
- */
-export function WhyMaven() {
-  const [active, setActive] = useState<number | null>(null)
+const reasonIcons: Record<string, LucideIcon> = {
+  '01': PenTool,
+  '02': GraduationCap,
+  '03': TrendingUp,
+  '04': HeartHandshake,
+  '05': ShieldCheck,
+  '06': Sparkles,
+  '07': Gem,
+}
 
+/**
+ * WhyMaven — "Why Choose Maven" as a premium bento index. The flagship
+ * "01" reason spans two columns with a ghosted numeral; every card carries
+ * a mouse-tracked spotlight, a glow-tl lift, an icon tile and a gradient
+ * hairline border that ignites to maven on hover. A deep-violet CTA card
+ * closes the grid.
+ */
+export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }) {
   return (
-    <section className="section py-28 md:py-36 border-t border-line" aria-label="Why Maven">
-      <div className="container-maven">
+    <section
+      id="why-maven"
+      className="section py-28 md:py-36 border-t border-line relative overflow-hidden"
+      aria-label="Why Maven"
+    >
+      {/* Ambient wash */}
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[420px] rounded-full bg-maven/10 blur-[160px]" />
+      </div>
+
+      <div className="container-maven relative">
         <SectionHeading
           eyebrow="Why Maven"
           title="Why Choose Maven"
           accent={'For Web Design &\nMarketing Services?'}
           highlight={['maven']}
           accentLight
-          accentWhite={['&']}
+          accentWhite={['&', 'for']}
           lede="Seven reasons businesses across the US and beyond trust Maven with their digital presence."
         />
 
-        <div className="relative">
-          {/* Giant ghosted numeral that follows the active row */}
-          <div
-            aria-hidden="true"
-            className="hidden lg:flex pointer-events-none absolute -top-10 right-0 font-poppins font-bold text-stroke-faint select-none items-center justify-center transition-all duration-500"
-            style={{ fontSize: 'clamp(10rem, 22vw, 20rem)', lineHeight: 1 }}
-          >
-            {active !== null ? reasons[active].index : '07'}
-          </div>
-
-          <ul className="border-t border-line">
-            {reasons.map((reason, i) => {
-              const isActive = active === i
-              return (
-                <Reveal as="li" key={reason.index} delay={i * 0.04}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          {reasons.map((reason, i) => {
+            const Icon = reasonIcons[reason.index]
+            const featured = i === 0
+            return (
+              <Reveal
+                key={reason.index}
+                delay={i * 0.07}
+                className={cn('h-full', featured && 'sm:col-span-2 lg:col-span-2')}
+              >
+                <div className="group relative h-full rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5">
+                  {/* Gradient hairline border — ignites to maven on hover */}
                   <div
-                    data-cursor
-                    onMouseEnter={() => setActive(i)}
-                    onMouseLeave={() => setActive(null)}
                     className={cn(
-                      'group relative border-b border-line py-6 md:py-7 transition-colors duration-500',
-                      isActive ? 'bg-maven-lighter/[0.02]' : ''
+                      'rounded-3xl p-px h-full transition-colors duration-500',
+                      featured ? 'bg-maven-light/40 group-hover:bg-maven-light/70' : 'bg-line group-hover:bg-maven-light/50'
                     )}
                   >
-                    <div className="flex items-center gap-6 md:gap-12 px-2 md:px-6">
+                    <div
+                      className={cn(
+                        'spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void h-full flex flex-col overflow-hidden',
+                        featured ? 'p-8 md:p-10' : 'p-7 md:p-8'
+                      )}
+                      onPointerMove={trackSpotlight}
+                    >
+                      {/* Ghosted numeral — top-right watermark */}
                       <span
+                        aria-hidden="true"
                         className={cn(
-                          'index-tag transition-colors duration-400',
-                          isActive && '!text-maven-lighter'
+                          'absolute top-0 -right-0 hidden lg:block font-poppins font-bold leading-none text-stroke-faint select-none pointer-events-none',
+                          featured ? 'text-[8rem]' : 'text-[5rem]'
                         )}
                       >
                         {reason.index}
                       </span>
-                      <div className="flex-1">
-                        <h3
+
+                      {/* Icon */}
+                      <div className="mb-6">
+                        <span
                           className={cn(
-                            'display font-semibold tracking-[0px] text-[clamp(1.15rem,2.6vw,1.9rem)] transition-all duration-500',
-                            isActive ? 'text-white translate-x-2' : 'text-mist'
+                            'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:scale-110',
+                            featured ? 'bg-maven-light/20 text-maven-lighter' : 'bg-maven/15 text-maven-lighter'
                           )}
                         >
-                          {reason.title}
-                        </h3>
-                        {/* Mobile description */}
-                        <p className="md:hidden pt-3 text-base text-mist-dim leading-relaxed">
-                          {reason.description}
-                        </p>
+                          {Icon && <Icon size={20} />}
+                        </span>
                       </div>
+
+                      <h3
+                        className={cn(
+                          'display font-semibold leading-snug tracking-[0.01em]',
+                          featured ? 'text-2xl md:text-[1.75rem]' : 'text-xl'
+                        )}
+                      >
+                        {reason.title}
+                      </h3>
+
                       <p
                         className={cn(
-                          'hidden md:block text-base text-mist leading-relaxed max-w-md transition-all duration-500',
-                          isActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                          'mt-3 text-mist-dim leading-relaxed',
+                          featured ? 'max-w-xl text-base md:text-lg' : 'text-[15px]'
                         )}
                       >
                         {reason.description}
                       </p>
                     </div>
                   </div>
-                </Reveal>
-              )
-            })}
-          </ul>
+                </div>
+              </Reveal>
+            )
+          })}
+
+          {/* CTA card */}
+          {onNavigate && (
+            <Reveal delay={reasons.length * 0.07} className="h-full sm:col-span-2 lg:col-span-1">
+              <div className="group relative h-full rounded-3xl transition-transform duration-500 ease-out hover:-translate-y-1.5">
+                <div className="spotlight glow-tl rounded-3xl bg-maven-deep p-8 md:p-9 flex flex-col justify-end gap-6 h-full overflow-hidden">
+                  <div aria-hidden="true" className="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-white-solid/10" />
+                  <div aria-hidden="true" className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-white-solid/10" />
+
+                  <div className="relative">
+                    <span className="mono-label !text-white-solid/70 mb-4 block">Next step</span>
+                    <p className="display font-semibold text-2xl md:text-[1.75rem] leading-tight text-white-solid">
+                      Ready to build a website that converts?
+                    </p>
+                    <p className="mt-3 text-white-solid/70 text-[15px] leading-relaxed max-w-xs">
+                      Tell us about your project — we'll craft a digital presence that drives real results.
+                    </p>
+                  </div>
+
+                  <MagneticButton variant="primary" className="relative" onClick={() => onNavigate('/contact')}>
+                    Start Your Project
+                    <ArrowRight size={16} />
+                  </MagneticButton>
+                </div>
+              </div>
+            </Reveal>
+          )}
         </div>
       </div>
     </section>
