@@ -29,6 +29,31 @@ export function Philosophy() {
           }
         )
       })
+
+      // Parallax — images drift down while text drifts up, scrubbed across the
+      // whole section for a gentle depth separation.
+      gsap.utils.toArray<HTMLElement>('[data-phil-visual]').forEach((el) => {
+        gsap.fromTo(
+          el,
+          { yPercent: -8 },
+          {
+            yPercent: 8,
+            ease: 'none',
+            scrollTrigger: { trigger: rootRef.current, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+          }
+        )
+      })
+      gsap.utils.toArray<HTMLElement>('[data-phil-copy]').forEach((el) => {
+        gsap.fromTo(
+          el,
+          { yPercent: 5 },
+          {
+            yPercent: -5,
+            ease: 'none',
+            scrollTrigger: { trigger: rootRef.current, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+          }
+        )
+      })
     },
     []
   )
@@ -53,7 +78,7 @@ export function Philosophy() {
 
         {/* Intro — The Marketing Mavens */}
         <div data-phil-block className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          <div className="order-2 lg:order-1">
+          <div data-phil-copy className="order-2 lg:order-1">
             <h2 className="text-5xl md:text-8xl font-bold mb-6">
               <span className="block">The</span>
               <span className="block text-white">Marketing</span>
@@ -64,7 +89,7 @@ export function Philosophy() {
             </p>
             <MavensTabs />
           </div>
-          <div className="relative order-1 lg:order-2 flex justify-center lg:block">
+          <div data-phil-visual className="relative order-1 lg:order-2 flex justify-center lg:block">
             <div className="absolute -inset-3 bg-gradient-to-r from-[#DACAFF]/5 to-[#8B4FBF]/15 blur-2xl" aria-hidden="true" />
             <img
               alt="The Marketing Mavens"
@@ -78,7 +103,7 @@ export function Philosophy() {
         <div className="space-y-24 lg:space-y-0">
           {/* Vision — image first on mobile, text left on desktop */}
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/vision.png" label="Vision" className="order-1 lg:order-2" />
-            <div data-phil-block className="order-2 lg:order-1">
+            <div data-phil-block data-phil-copy className="order-2 lg:order-1">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
                 Our <span className="text-maven-light text-[clamp(3rem,4vw,7rem)]">
   Vision
@@ -92,7 +117,7 @@ export function Philosophy() {
 
           {/* Mission — image first on mobile, numeral left on desktop */}
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" className="order-1" floatClass="animate-float-drift-alt" />
-            <div data-phil-block className="order-2">
+            <div data-phil-block data-phil-copy className="order-2">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
                 Our <span className="text-maven-light text-[clamp(3rem,4vw,7rem)]">
   Mission
@@ -263,7 +288,7 @@ function Phil({
   return (
     <div data-phil-block className={`relative flex flex-col items-center py-6 ${className}`}>
       <Eyebrow label={`Our ${label}`} className="mb-8 self-center lg:hidden" />
-      <div className="relative flex items-center justify-center w-full">
+      <div className="relative flex items-center justify-center w-full" data-phil-visual>
         <div aria-hidden="true" className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-maven/15 blur-[110px]" />
         <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none blur-2xl opacity-40 select-none">
           <img
