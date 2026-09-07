@@ -601,6 +601,11 @@ html:not([data-theme='light']) [data-logo='light'] {
   display: none;
 }
 
+/* Hero marquee badges: inverted in dark theme, natural in light theme. */
+html:not([data-theme='light']) .marquee-badge {
+  filter: grayscale(1) invert(1) brightness(1.2);
+}
+
 /* Tighten the big section gaps on mobile only — heroes keep their top
    clearance (pt-40) since they clear the fixed navbar, and asymmetric
    pt/pb sections keep their layout. Standard sections use the shared

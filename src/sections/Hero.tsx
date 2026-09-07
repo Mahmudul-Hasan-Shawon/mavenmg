@@ -97,8 +97,7 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
                     src={b.src}
                     alt=""
                     loading="lazy"
-                    className="max-h-full max-w-full object-contain opacity-95"
-                    style={{ filter: 'grayscale(1) invert(1) brightness(1.2)' }}
+                    className="max-h-full max-w-full object-contain opacity-95 marquee-badge"
                   />
                 </div>
               ))}
