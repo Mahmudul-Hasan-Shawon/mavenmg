@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import { useState, type FormEvent, type ReactElement } from 'react'
 import { site } from '../../data/site'
 import { footerServices, legalLinks, navigation } from '../../data/navigation'
 
@@ -27,6 +27,12 @@ const socialSvg: Record<string, ReactElement> = {
 
 export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
   const year = new Date().getFullYear()
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setSubscribed(true)
+  }
 
   return (
     <footer className="relative border-t border-line bg-[#170a24]" aria-label="Footer">
@@ -134,6 +140,37 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                 {site.hours}
               </li>
             </ul>
+
+            {/* Maven Digest newsletter */}
+            <div className="mt-8 pt-8 border-t border-line">
+              <p className="display font-semibold text-white-solid text-lg mb-1">Maven Digest</p>
+              <p className="text-mist-dim text-sm leading-relaxed mb-4">Sign up to receive the latest industry news.</p>
+              {subscribed ? (
+                <p className="text-sm text-white-solid/80">
+                  You're on the list — welcome to the Digest.
+                </p>
+              ) : (
+                <form onSubmit={handleSubscribe} className="flex flex-row">
+                  <label htmlFor="footer-email" className="sr-only">
+                    Email address
+                  </label>
+                  <input
+                    id="footer-email"
+                    type="email"
+                    required
+                    placeholder="Enter Your Email"
+                    className="flex-1 min-w-0 px-4 py-3 bg-white-solid/5 border border-line text-white-solid text-sm focus:border-maven focus:ring-2 focus:ring-maven/20 outline-none transition-all placeholder:text-white-solid/40 rounded-l-xl rounded-r-none"
+                  />
+                  <button
+                    type="submit"
+                    data-cursor
+                    className="shrink-0 px-4 py-3 bg-maven hover:bg-maven-light text-white-solid text-sm font-medium whitespace-nowrap transition-all duration-300 rounded-r-xl rounded-l-none"
+                  >
+                    Subscribe
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </div>
