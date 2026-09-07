@@ -49,8 +49,8 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
           fallback={<HeroFallback />}
         />
         {/* Readability gradients over the canvas */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,transparent_0%,var(--scrim)_75%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-void" />
+        <div className="hero-scrim absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,transparent_0%,var(--scrim)_75%)]" />
+        <div className="hero-fade-void absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-void" />
       </div>
 
       {/* Content */}
@@ -88,8 +88,8 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
 
           {/* Award badges marquee */}
           <div className="relative mt-14 mb-6 -mx-6 md:mx-0 overflow-hidden" aria-hidden="true">
-            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-void via-void/70 to-transparent z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-void via-void/70 to-transparent z-10" />
+            <div className="hero-marquee-fade hero-marquee-fade-left absolute left-0 top-0 bottom-0 w-16 z-10" />
+            <div className="hero-marquee-fade hero-marquee-fade-right absolute right-0 top-0 bottom-0 w-16 z-10" />
             <div className="marquee-track flex items-center w-max" style={{ animationDuration: '28s' }}>
               {[...badges, ...badges].map((b, i) => (
                 <div key={i} className="flex items-center justify-center mx-7 h-14 w-20 shrink-0">
