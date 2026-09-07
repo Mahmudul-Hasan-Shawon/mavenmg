@@ -45,13 +45,13 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
           {/* Why Maven panel */}
           <Reveal className="h-full">
             <div
-              className="rounded-3xl p-10 relative overflow-hidden h-full"
+              className="-mx-6 lg:mx-0 rounded-none lg:rounded-3xl p-10 relative overflow-hidden h-full"
               style={{ background: 'linear-gradient(135deg, #4A1F6B 0%, #431E61 50%, #4A2668 100%)' }}
             >
               <div aria-hidden="true" className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white-solid/10" />
               <div aria-hidden="true" className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-white-solid/10" />
               <div className="relative">
-                <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-2xl bg-white-solid/15 flex items-center justify-center backdrop-blur-sm">
                     <Sparkles size={22} className="text-white-solid" aria-hidden="true" />
                   </div>
