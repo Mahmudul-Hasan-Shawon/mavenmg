@@ -606,13 +606,6 @@ html:not([data-theme='light']) .marquee-badge {
   filter: grayscale(1) invert(1) brightness(1.2);
 }
 
-/* Hero readability veil: dark theme only — light mode shows the network
-   unobscured. */
-[data-theme='light'] .hero-scrim,
-[data-theme='light'] .hero-fade-void {
-  display: none;
-}
-
 /* Hero marquee edge fades — theme-aware so the band matches the page
    background. Light theme uses a gentler stop so it never reads as a
    hard white strip over the network. */

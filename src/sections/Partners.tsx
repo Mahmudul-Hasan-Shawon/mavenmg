@@ -4,7 +4,7 @@ import { Reveal } from '../components/ui/Reveal'
 /** Partner strip — fine editorial ticker with hairline borders. */
 export function Partners() {
   return (
-    <div>
+    <div className="bg-void">
       <div className="container-maven px-6 md:px-12 py-10">
         <Reveal>
           <p className="card-tag text-white text-center">Trusted by startups, creatives, and suits alike</p>

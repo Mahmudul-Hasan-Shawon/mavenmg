@@ -5,7 +5,7 @@ import { site, badges } from '../data/site'
 import { AnimatedText } from '../components/text/AnimatedText'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { LazyCanvas } from '../three/LazyCanvas'
-import { reducedMotion } from '../utils/motion'
+import { reducedMotion, skipWebGL } from '../utils/motion'
 
 function lazyScene(
   load: () => Promise<{ default: ComponentType<any> }>
@@ -46,11 +46,8 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
           Scene={MavenNetwork}
           sceneProps={{ showCore: false }}
           className="absolute inset-0"
-          fallback={<HeroFallback />}
+          fallback={MavenNetwork && !skipWebGL ? undefined : <HeroFallback />}
         />
-        {/* Readability gradients over the canvas */}
-        <div className="hero-scrim absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,transparent_0%,var(--scrim)_75%)]" />
-        <div className="hero-fade-void absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-void" />
       </div>
 
       {/* Content */}
