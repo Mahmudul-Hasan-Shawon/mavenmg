@@ -135,15 +135,11 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                   {site.address.street}, {site.address.city}, {site.address.state} {site.address.zip}
                 </span>
               </li>
-              <li className="flex items-start gap-2.5 text-mist-dim">
-                <i className="fa-regular fa-clock mt-0.5 shrink-0 text-mist-dim text-[15px]" aria-hidden="true" />
-                {site.hours}
-              </li>
             </ul>
 
             {/* Maven Digest newsletter */}
             <div className="mt-8 pt-8 border-t border-line">
-              <p className="display font-semibold text-white-solid text-lg mb-1">Maven Digest</p>
+              <p className="display font-semibold text-maven-digest text-lg mb-1">Maven Digest</p>
               <p className="text-mist-dim text-sm leading-relaxed mb-4">Sign up to receive the latest industry news.</p>
               {subscribed ? (
                 <p className="text-sm text-white-solid/80">
