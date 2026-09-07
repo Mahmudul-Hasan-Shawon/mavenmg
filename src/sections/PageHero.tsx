@@ -75,10 +75,6 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
             <div>{copy}</div>
             <div className="relative flex flex-col items-center justify-center gap-6 order-first lg:order-last lg:justify-end">
               <div className="relative flex justify-center lg:justify-end w-full">
-                <div
-                  aria-hidden="true"
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 lg:w-96 lg:h-96 rounded-full bg-maven/25 blur-[100px]"
-                />
                 {logo3d ? (
                 <div className="relative w-64 sm:w-80 lg:w-full lg:max-w-md aspect-square">
                   <LazyCanvas
@@ -89,7 +85,7 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
                       <img
                         src={image}
                         alt={imageAlt || ''}
-                        className="absolute inset-0 w-full h-full object-contain animate-float-slow drop-shadow-[0_0_48px_rgba(139,79,191,0.45)]"
+                        className="absolute inset-0 w-full h-full object-contain animate-float-slow"
                       />
                     }
                   />
@@ -98,7 +94,7 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
                 <img
                   src={image}
                   alt={imageAlt || ''}
-                  className="relative w-48 sm:w-60 lg:w-full lg:max-w-md object-contain animate-float-slow drop-shadow-[0_0_48px_rgba(139,79,191,0.45)]"
+                  className="relative w-48 sm:w-60 lg:w-full lg:max-w-md object-contain animate-float-slow"
                 />
               )}
               </div>
