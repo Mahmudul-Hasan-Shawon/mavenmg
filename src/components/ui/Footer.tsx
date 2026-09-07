@@ -78,7 +78,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                   <a
                     onClick={() => onNavigate('/services')}
                     data-cursor
-                    className="text-sm text-mist-dim hover:text-white cursor-pointer transition-colors"
+                    className="text-sm text-mist-dim hover:text-white-solid cursor-pointer transition-colors"
                   >
                     {s}
                   </a>
@@ -95,7 +95,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                   <a
                     onClick={() => onNavigate(link.href)}
                     data-cursor
-                    className="text-sm text-mist-dim hover:text-white cursor-pointer transition-colors"
+                    className="text-sm text-mist-dim hover:text-white-solid cursor-pointer transition-colors"
                   >
                     {link.label}
                   </a>
@@ -108,7 +108,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
             <h4 className="text-sm uppercase footer-col-heading">Contact</h4>
             <ul className="space-y-3 text-sm text-mist-dim">
               <li>
-                <a href={site.phoneHref} data-cursor className="flex items-start gap-2.5 hover:text-mist transition-colors">
+                <a href={site.phoneHref} data-cursor className="flex items-start gap-2.5 hover:text-white-solid transition-colors">
                   <i className="fa-solid fa-phone mt-0.5 shrink-0 text-mist-dim text-[15px]" aria-hidden="true" />
                   {site.phone}
                 </a>
@@ -117,7 +117,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                 <a
                   href={`mailto:${site.email}`}
                   data-cursor
-                  className="flex items-start gap-2.5 hover:text-mist transition-colors"
+                  className="flex items-start gap-2.5 hover:text-white-solid transition-colors"
                 >
                   <i className="fa-regular fa-envelope mt-0.5 shrink-0 text-mist-dim text-[15px]" aria-hidden="true" />
                   {site.email}
@@ -145,7 +145,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
           </p>
           <div className="flex items-center gap-5">
             {legalLinks.map((l) => (
-              <a key={l.name} href={l.href} className="text-xs text-mist-dim hover:text-mist transition-colors">
+              <a key={l.name} href={l.href} className="text-xs text-mist-dim hover:text-white-solid transition-colors">
                 {l.name}
               </a>
             ))}
