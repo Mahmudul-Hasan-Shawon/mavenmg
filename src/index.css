@@ -606,6 +606,32 @@ html:not([data-theme='light']) .marquee-badge {
   filter: grayscale(1) invert(1) brightness(1.2);
 }
 
+/* Hero readability veil: dark theme only — light mode shows the network
+   unobscured. */
+[data-theme='light'] .hero-scrim,
+[data-theme='light'] .hero-fade-void {
+  display: none;
+}
+
+/* Hero marquee edge fades — theme-aware so the band matches the page
+   background. Light theme uses a gentler stop so it never reads as a
+   hard white strip over the network. */
+.hero-marquee-fade-left {
+  background-image: linear-gradient(to right, var(--bg), color-mix(in srgb, var(--bg) 70%, transparent), transparent);
+}
+
+.hero-marquee-fade-right {
+  background-image: linear-gradient(to left, var(--bg), color-mix(in srgb, var(--bg) 70%, transparent), transparent);
+}
+
+[data-theme='light'] .hero-marquee-fade-left {
+  background-image: linear-gradient(to right, var(--bg), color-mix(in srgb, var(--bg) 30%, transparent), transparent);
+}
+
+[data-theme='light'] .hero-marquee-fade-right {
+  background-image: linear-gradient(to left, var(--bg), color-mix(in srgb, var(--bg) 30%, transparent), transparent);
+}
+
 /* WorkShowcase mobile pagination: the center number rises smoothly into
    its fixed circle with a blur-to-sharp focus and a gentle 3D twist; the
    side numbers swap text in place. The circle itself gets a soft pop. */
