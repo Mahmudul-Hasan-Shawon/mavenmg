@@ -9,13 +9,13 @@ export const reasons: Reason[] = [
     index: '01',
     title: 'Custom Website Solutions',
     description:
-      'Every business is unique. We craft tailor-made web design and marketing strategies that align perfectly with your specific business goals and brand identity.',
+      'Every business is unique. We craft tailor-made web design and marketing strategies that align perfectly with your specific business goals and brand identity. Every site is designed around your business and the customers you are actually trying to reach.'
   },
   {
     index: '02',
     title: 'Expertise and Experience',
     description:
-      'With years of experience in web development and digital marketing, Maven has a deep understanding of the digital landscape and the latest technologies and trends.',
+      'With years of experience in web development and digital marketing, Maven has a deep understanding of the digital landscape and the latest technologies and trends. ',
   },
   {
     index: '03',

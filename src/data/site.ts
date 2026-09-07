@@ -39,7 +39,7 @@ export const stats = [
     decimals: 0,
     label: 'Revenue Generated',
     description:
-      'We have driven more than $1 billion in revenue for our clients through effective website management and digital marketing strategies.',
+      'We have helped generate more than $500 million in revenue for our clients through website management and digital marketing.',
   },
   {
     value: 3.6,
