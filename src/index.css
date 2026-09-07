@@ -21,6 +21,9 @@
   --maven: #612c8b;
   --maven-light: #8b4fbf;
   --maven-lighter: #dacaff;
+  /* Fixed lavender for the always-dark footer digest — same in both themes,
+     since maven-lighter flips to a deep violet in light mode. */
+  --maven-digest: #dacaff;
   --maven-dark: #4a1f6b;
   /* Solid-button ramp: "light" idle + its pressed hover, and the quiet deep tier. */
   --maven-light-hover: #5b2a86;
@@ -53,6 +56,7 @@
   /* "lighter" flips to a deep violet in light mode: it is the highlight
      text color AND the dark button background, so contrast holds. */
   --maven-lighter: #2c1846;
+  --maven-digest: #dacaff;
   --maven-dark: #efe9fb;
   --maven-light-hover: #5b2a86;
   --maven-deep: #34164f;
@@ -82,6 +86,7 @@
   --color-maven: var(--maven);
   --color-maven-light: var(--maven-light);
   --color-maven-lighter: var(--maven-lighter);
+  --color-maven-digest: var(--maven-digest);
   --color-maven-dark: var(--maven-dark);
   --color-maven-light-hover: var(--maven-light-hover);
   --color-maven-deep: var(--maven-deep);
