@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { projects, projectCategories } from '../data/projects'
 import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
@@ -35,11 +35,51 @@ export function WorkShowcase({
   const shown = (items ?? projects).slice(0, limit)
   const gridRef = useRef<HTMLDivElement>(null)
   const prevFilter = useRef(filter)
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  const total = shown.length
+  const SLIDES_PER_PAGE = 1
+  const pageCount = Math.max(1, Math.ceil(total / SLIDES_PER_PAGE))
+  const activePage = Math.min(Math.floor(activeSlide / SLIDES_PER_PAGE), pageCount - 1)
+
+  const scrollToSlide = (slide: number) => {
+    const el = gridRef.current?.querySelectorAll<HTMLElement>('[data-filter-card]')[slide]
+    el?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+  }
+
+  const scrollToPage = (i: number) => {
+    scrollToSlide(Math.min(i * SLIDES_PER_PAGE, total - 1))
+  }
+
+  const goPrev = () => scrollToPage(Math.max(activePage - 1, 0))
+  const goNext = () => scrollToPage(Math.min(activePage + 1, pageCount - 1))
+
+  const handleScroll = () => {
+    const grid = gridRef.current
+    if (!grid || reducedMotion) return
+    const gridRect = grid.getBoundingClientRect()
+    const center = gridRect.left + gridRect.width / 2
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('[data-filter-card]'))
+    if (!cards.length) return
+    let nearest = 0
+    let nearestDist = Infinity
+    cards.forEach((card, i) => {
+      const cardRect = card.getBoundingClientRect()
+      const cardCenter = cardRect.left + cardRect.width / 2
+      const dist = Math.abs(cardCenter - center)
+      if (dist < nearestDist) {
+        nearestDist = dist
+        nearest = i
+      }
+    })
+    setActiveSlide(nearest)
+  }
 
   // Smooth re-entry when the active filter changes (skips first mount).
   useIsoLayoutEffect(() => {
     if (!showFilter || prevFilter.current === filter) return
     prevFilter.current = filter
+    setActiveSlide(0)
     const cards = gridRef.current?.querySelectorAll<HTMLElement>('[data-filter-card]')
     if (reducedMotion || !cards?.length) return
     gsap.fromTo(
@@ -103,6 +143,7 @@ export function WorkShowcase({
 
         <div
           ref={gridRef}
+          onScroll={handleScroll}
           className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible py-8 md:py-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {shown.map((p, i) => (
@@ -110,6 +151,59 @@ export function WorkShowcase({
               <Card project={p} index={i} onNavigate={onNavigate} />
             </Reveal>
           ))}
+        </div>
+
+        <div className="md:hidden mt-4 flex items-center justify-center gap-3 text-mist-dim">
+          <button
+            type="button"
+            aria-label="Previous page"
+            onClick={goPrev}
+            disabled={activePage === 0}
+            className="w-9 h-9 rounded-full flex items-center justify-center border border-line bg-ink/60 transition-colors cursor-pointer hover:text-white disabled:opacity-40 disabled:cursor-default"
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <div className="flex items-center gap-1">
+            {[activePage - 1, activePage, activePage + 1].map((page, idx) => {
+              const visible = page >= 0 && page < pageCount
+              const isCenter = idx === 1
+              return visible ? (
+                <button
+                  key={isCenter ? `center-${page}` : `side-${idx}`}
+                  type="button"
+                  data-active-page={isCenter}
+                  aria-label={`Go to page ${page + 1} of ${pageCount}`}
+                  onClick={() => scrollToPage(page)}
+                  className={`h-9 w-9 flex items-center justify-center rounded-full text-sm font-semibold transition-colors duration-300 cursor-pointer ${
+                    isCenter
+                      ? 'pag-pop bg-maven text-white-solid shadow-[0_4px_16px_rgba(97,44,139,0.5)]'
+                      : 'hover:bg-ink-2 hover:text-white'
+                  }`}
+                >
+                  {isCenter ? (
+                    <span key={page} className="pag-rise">
+                      {page + 1}
+                    </span>
+                  ) : (
+                    page + 1
+                  )}
+                </button>
+              ) : (
+                <span key={`side-${idx}`} className="h-9 w-9" aria-hidden="true" />
+              )
+            })}
+          </div>
+
+          <button
+            type="button"
+            aria-label="Next page"
+            onClick={goNext}
+            disabled={activePage === pageCount - 1}
+            className="w-9 h-9 rounded-full flex items-center justify-center border border-line bg-ink/60 transition-colors cursor-pointer hover:text-white disabled:opacity-40 disabled:cursor-default"
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
 
         {onNavigate && !hideHeader && (

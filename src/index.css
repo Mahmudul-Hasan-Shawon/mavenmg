@@ -606,6 +606,47 @@ html:not([data-theme='light']) .marquee-badge {
   filter: grayscale(1) invert(1) brightness(1.2);
 }
 
+/* WorkShowcase mobile pagination: the center number rises smoothly into
+   its fixed circle with a blur-to-sharp focus and a gentle 3D twist; the
+   side numbers swap text in place. The circle itself gets a soft pop. */
+@keyframes pag-rise {
+  from {
+    transform: perspective(200px) translateY(16px) rotateX(32deg) scale(0.9);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  to {
+    transform: perspective(200px) translateY(0) rotateX(0deg) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes pag-pop {
+  from {
+    transform: scale(0.94);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+#featured-work .pag-rise {
+  animation: pag-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+#featured-work .pag-pop {
+  animation: pag-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #featured-work .pag-rise,
+  #featured-work .pag-pop {
+    animation: none;
+  }
+}
+
 /* Tighten the big section gaps on mobile only — heroes keep their top
    clearance (pt-40) since they clear the fixed navbar, and asymmetric
    pt/pb sections keep their layout. Standard sections use the shared
