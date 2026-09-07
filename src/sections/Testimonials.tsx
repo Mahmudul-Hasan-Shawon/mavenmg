@@ -101,7 +101,7 @@ export function Testimonials() {
               <img
                 src={t.image}
                 alt=""
-                className="w-12 h-12 rounded-full object-contain p-1.5 bg-white-solid ring-2 ring-maven-light shadow-[0_0_18px_rgba(139,79,191,0.8),0_0_36px_rgba(139,79,191,0.45)] shrink-0"
+                className="w-12 h-12 rounded-full object-contain p-1.5 bg-white-solid ring-2 ring-maven-light shrink-0"
               />
             ) : (
               <span
