@@ -124,8 +124,7 @@ export function LegalContent({ page }: LegalContentProps) {
                             active === i ? 'text-white bg-ink-2' : 'text-mist-dim hover:text-mist'
                           )}
                         >
-                          <span className="index-tag font-medium">{String(i + 1).padStart(2, '0')}</span>
-                          <span className="leading-snug">{s.heading}</span>
+                    <span className="leading-snug">{s.heading}</span>
                         </button>
                       </li>
                     ))}
@@ -165,7 +164,6 @@ export function LegalContent({ page }: LegalContentProps) {
                   aria-label={`${page.eyebrow} — ${s.heading}`}
                 >
                   <div className="flex items-baseline gap-3 md:gap-4">
-                    <span className="index-tag shrink-0 font-medium">{String(i + 1).padStart(2, '0')}</span>
                     <h2 className="display font-semibold text-lg md:text-xl tracking-[0.02em] text-white break-words min-w-0">
                       {s.heading}
                     </h2>
