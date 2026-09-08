@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap, useGsapContext } from '../../hooks/useGsap'
-import { navigation } from '../../data/navigation'
+import { navigation, legalLinks } from '../../data/navigation'
 import { site as siteData } from '../../data/site'
 import { cn } from '../../utils/cn'
 import { MagneticButton } from './MagneticButton'
 import { ThemeToggle } from './ThemeToggle'
+import { SocialIcon } from './SocialIcon'
 import { getLenis } from '../../utils/lenis'
 
 interface NavbarProps {
@@ -153,6 +154,7 @@ function MobileMenu({
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const tlRef = useRef<gsap.core.Timeline | null>(null)
+  const year = new Date().getFullYear()
 
   const isActive = (href: string) => {
     const base = href.split('#')[0]
@@ -174,6 +176,12 @@ function MobileMenu({
         { yPercent: 120, opacity: 0 },
         { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'expo.out' },
         '-=0.2'
+      )
+      tl.fromTo(
+        '[data-menu-detail]',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.06, ease: 'power3.out' },
+        '-=0.35'
       )
       tl.eventCallback('onReverseComplete', () => {
         gsap.set(rootRef.current, { visibility: 'hidden' })
@@ -205,31 +213,97 @@ function MobileMenu({
       role="dialog"
       aria-modal="true"
       aria-label="Menu"
-      className="fixed inset-0 z-[90] bg-void/98 backdrop-blur-2xl invisible overflow-y-auto"
+      className="fixed inset-0 z-[90] bg-void/98 backdrop-blur-2xl invisible overflow-y-auto overflow-x-hidden"
     >
-      <div className="min-h-full flex flex-col justify-center px-8 pt-24 pb-12">
-        <nav aria-label="Mobile" className="flex flex-col">
-          {navigation.map((link) => {
-            const active = isActive(link.href)
-            return (
-              <div key={link.href} style={{ overflow: 'hidden' }}>
+      {/* Ambient top-left glow keeps the panel on-brand. */}
+      <div aria-hidden="true" className="pointer-events-none absolute -top-40 -right-40 w-[26rem] h-[26rem] rounded-full bg-maven/20 blur-[120px]" />
+
+      <div className="relative min-h-full flex flex-col px-7 sm:px-10 pt-24 pb-8">
+        <div className="flex-1 flex flex-col justify-center py-4">
+          <nav aria-label="Mobile" className="flex flex-col items-center">
+            {navigation.map((link) => {
+              const active = isActive(link.href)
+              return (
+                <div key={link.href} style={{ overflow: 'hidden' }}>
+                  <a
+                    data-menu-link
+                    onClick={() => onNavigate(link.href)}
+                    data-cursor
+                    aria-current={active ? 'page' : undefined}
+                    className={cn(
+                      'group flex items-center gap-4 py-2.5 cursor-pointer transition-colors duration-300',
+                      active ? 'text-white' : 'text-mist hover:text-white'
+                    )}
+                  >
+                    <span className="display font-semibold text-[clamp(1.9rem,8vw,2.6rem)] leading-tight tracking-[0.01em] group-hover:translate-x-1.5 transition-transform duration-400">
+                      {link.label}
+                    </span>
+                  </a>
+                </div>
+              )
+            })}
+          </nav>
+        </div>
+
+        {/* Contact + social + legal cluster */}
+        <div className="mt-10 space-y-7">
+          <div className="flex flex-col items-center gap-2.5" data-menu-detail>
+            <a
+              href={`mailto:${siteData.email}`}
+              data-cursor
+              onClick={() => onClose()}
+              className="inline-flex items-center gap-2.5 text-sm text-mist hover:text-white transition-colors duration-300 w-fit"
+            >
+              <i className="fa-regular fa-envelope text-maven-light/80" aria-hidden="true" />
+              {siteData.email}
+            </a>
+            <a
+              href={siteData.phoneHref}
+              data-cursor
+              onClick={() => onClose()}
+              className="inline-flex items-center gap-2.5 text-sm text-mist hover:text-white transition-colors duration-300 w-fit"
+            >
+              <i className="fa-solid fa-phone text-maven-light/80" aria-hidden="true" />
+              {siteData.phone}
+            </a>
+          </div>
+
+          <div className="flex flex-col items-center gap-4 border-t border-line pt-6" data-menu-detail>
+            <div className="flex gap-2.5">
+              {siteData.social.map((s) => (
                 <a
-                  data-menu-link
-                  onClick={() => onNavigate(link.href)}
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
                   data-cursor
-                  aria-current={active ? 'page' : undefined}
-                  className={cn(
-                    'group flex items-baseline gap-4 py-2.5 cursor-pointer display text-[clamp(2rem,9vw,3rem)] transition-colors duration-300',
-                    active ? 'text-white' : 'text-mist hover:text-white'
-                  )}
+                  className="w-9 h-9 rounded-full border border-line flex items-center justify-center text-mist-dim transition-all duration-300 hover:border-maven-light/50 hover:text-maven-lighter hover:bg-maven/10 hover:-translate-y-0.5"
                 >
-                  <span className="font-mono text-[11px] text-maven-light/70 w-7">{link.index}</span>
-                  <span className="group-hover:translate-x-1.5 transition-transform duration-400">{link.label}</span>
+                  <SocialIcon label={s.label} />
                 </a>
-              </div>
-            )
-          })}
-        </nav>
+              ))}
+            </div>
+
+            
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5" data-menu-detail>
+            {legalLinks.map((l) => (
+              <a
+                key={l.href}
+                onClick={() => onNavigate(l.href)}
+                data-cursor
+                className="text-[11px] uppercase tracking-[0.08em] text-mist-dim hover:text-white cursor-pointer transition-colors duration-300"
+              >
+                {l.name}
+              </a>
+            ))}
+            <span className="text-mist-dim/60 text-xs">
+              © {year} {siteData.name}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   )
