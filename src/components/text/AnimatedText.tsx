@@ -1,5 +1,6 @@
 import { useRef, type CSSProperties, type ReactNode } from 'react'
 import { gsap, useGsapContext } from '../../hooks/useGsap'
+import { onAppReady } from '../../utils/motion'
 import { cn } from '../../utils/cn'
 
 type Mode = 'words' | 'chars'
@@ -56,27 +57,34 @@ export function AnimatedText({
     ({ ScrollTrigger: ST }) => {
       const targets = ref.current?.querySelectorAll<HTMLElement>('[data-unit]')
       if (!targets?.length) return
-      gsap.fromTo(
-        targets,
-        {
-          yPercent: 115,
-          ...(blur ? { opacity: 0.2, filter: 'blur(10px)' } : {}),
-        },
-        {
-          yPercent: 0,
-          opacity: 1,
-          filter: 'blur(0px)',
-          duration,
-          ease: 'expo.out',
-          stagger: mode === 'chars' ? stagger : stagger,
-          delay,
-          ...(trigger === 'scroll'
-            ? {
-                scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
-              }
-            : {}),
-        }
-      )
+      const fromState = {
+        yPercent: 115,
+        ...(blur ? { opacity: 0.2, filter: 'blur(10px)' } : {}),
+      }
+      const toState = {
+        yPercent: 0,
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration,
+        ease: 'expo.out',
+        stagger: mode === 'chars' ? stagger : stagger,
+        delay,
+        ...(trigger === 'scroll'
+          ? {
+              scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+            }
+          : {}),
+      }
+      if (trigger === 'load') {
+        // Gate mount-time intros behind the readiness veil so they begin
+        // exactly as the cover lifts, instead of half-finishing mid-load.
+        onAppReady(() => {
+          if (!ref.current) return
+          gsap.fromTo(targets, fromState, toState)
+        })
+      } else {
+        gsap.fromTo(targets, fromState, toState)
+      }
       void ST
     },
     [text, mode, blur, trigger]

@@ -20,7 +20,7 @@ npm run preview  # Preview production build
 ```
 src/
 ├── components/
-│   ├── ui/         # App-level reusable UI (Navbar, Footer, buttons, cards, Preloader…)
+│   ├── ui/         # App-level reusable UI (Navbar, Footer, buttons, cards, ReadyVeil…)
 │   ├── text/       # Shared typographic components (section headings, etc.)
 │   └── three/      # react-three-fiber scenes
 ├── data/           # All page content as typed constants (site, content, services, projects, testimonials, navigation)

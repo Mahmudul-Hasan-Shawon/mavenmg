@@ -40,6 +40,34 @@ export const quality = {
   mavenNodes: { high: 140, mid: 90, low: 52 }[tier],
 }
 
+type ReadyListener = () => void
+let appReady = false
+const readyWaiters: ReadyListener[] = []
+
+/**
+ * Register a callback that runs once the app is ready for entrance
+ * animations (after the readiness veil has settled). If already ready, it
+ * fires immediately — so this also works for sections that mount later.
+ */
+export function onAppReady(cb: ReadyListener) {
+  if (appReady) cb()
+  else readyWaiters.push(cb)
+}
+
+/** Mark the app ready — called by ReadyVeil so load-triggered intro
+ *  animations start exactly as the cover lifts. */
+export function markAppReady() {
+  if (appReady) return
+  appReady = true
+  const waiters = readyWaiters.splice(0)
+  for (const cb of waiters) cb()
+}
+
+export function resetAppReady() {
+  appReady = false
+  readyWaiters.length = 0
+}
+
 /**
  * Pointer handler for the `.spotlight` utility: feeds the cursor position
  * into the CSS vars the radial wash reads. Attach via onPointerMove on the
