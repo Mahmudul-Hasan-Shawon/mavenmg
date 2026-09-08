@@ -111,7 +111,16 @@ function Block({ block }: { block: BlogBlock }) {
   )
 }
 
-function Section({ section, index }: { section: BlogSection; index: number }) {
+function Section({
+  section,
+  index,
+  onNavigate,
+}: {
+  section: BlogSection
+  index: number
+  onNavigate: (href: string) => void
+}) {
+  const showCta = !section.blocks.some((block) => block.type === 'faq')
   return (
     <Reveal delay={Math.min(index * 0.03, 0.15)}>
       <section
@@ -127,6 +136,17 @@ function Section({ section, index }: { section: BlogSection; index: number }) {
             <Block key={j} block={block} />
           ))}
         </div>
+        {showCta && (
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <MagneticButton variant="primary" size="md" onClick={() => onNavigate('/contact')}>
+              Start Your Project
+              <ArrowRight size={18} />
+            </MagneticButton>
+            <MagneticButton variant="ghost" size="md" onClick={() => onNavigate('/contact')}>
+              Connect With Maven
+            </MagneticButton>
+          </div>
+        )}
       </section>
     </Reveal>
   )
@@ -525,7 +545,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
               ) : null}
 
               {post.sections?.map((section, i) => (
-                <Section key={`${i}-${section.heading}`} section={section} index={i} />
+                <Section key={`${i}-${section.heading}`} section={section} index={i} onNavigate={onNavigate} />
               ))}
 
               {/* Author sign-off */}
