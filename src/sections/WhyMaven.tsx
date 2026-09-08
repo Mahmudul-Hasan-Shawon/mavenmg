@@ -142,7 +142,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                       Ready to build a website that converts?
                     </p>
                     <p className="mt-3 text-white-solid/70 text-[15px] leading-relaxed max-w-xs">
-                      Tell us about your project — we'll craft a digital presence that drives real results.
+                      Tell us about your project, we'll craft a digital presence that drives real results.
                     </p>
                   </div>
 

@@ -72,7 +72,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
                 Your vision mixed with our creative skills will always drive the best results.
                 <span className="font-serif text-white/90">&rdquo;</span>
               </p>
-              <footer className="mono-label mt-4 text-white/90">— Maven Marketing Group</footer>
+              <footer className="mono-label mt-4 text-white/90">&mdash; Maven Marketing Group</footer>
             </blockquote>
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
