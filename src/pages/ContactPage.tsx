@@ -104,13 +104,13 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
                       <label htmlFor="cf-name" className="block text-sm font-semibold text-mist mb-2">
                         Your name
                       </label>
-                      <input id="cf-name" name="name" required placeholder="John Doe" className={inputCls} />
+                      <input id="cf-name" name="name" required placeholder="Carolina Rose" className={inputCls} />
                     </div>
                     <div>
                       <label htmlFor="cf-email" className="block text-sm font-semibold text-mist mb-2">
                         Your email
                       </label>
-                      <input id="cf-email" name="email" type="email" required placeholder="john@company.com" className={inputCls} />
+                      <input id="cf-email" name="email" type="email" required placeholder="carolina@company.com" className={inputCls} />
                     </div>
                   </div>
 
