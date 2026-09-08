@@ -28,7 +28,7 @@ export const privacyPolicy: LegalPage = {
     {
       heading: 'Introduction',
       content: [
-        `${companyName} ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.`,
+        `${companyName}  is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.`,
         `Please read this policy carefully. If you do not agree with the terms of this Privacy Policy, please do not access the site.`,
       ],
     },
@@ -108,7 +108,7 @@ export const termsOfService: LegalPage = {
     {
       heading: 'Acceptance of Terms',
       content: [
-        `By accessing or using the website and services provided by ${companyName} ("we," "our," or "us"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.`,
+        `By accessing or using the website and services provided by ${companyName} , you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.`,
       ],
     },
     {
@@ -225,7 +225,6 @@ export const cookiePolicy: LegalPage = {
       heading: 'Managing Cookies',
       content: [
         `You can control and manage cookies through your browser settings. Most browsers allow you to block or delete cookies. Please note that blocking certain cookies may affect the functionality of our website.`,
-        `To opt out of Google Analytics, you can install the Google Analytics Opt-out Browser Add-on available at https://tools.google.com/dlpage/gaoptout.`,
       ],
     },
     {
