@@ -191,7 +191,7 @@ export const cookiePolicy: LegalPage = {
   id: 'cookie-policy',
   eyebrow: 'Cookie Policy',
   title: 'Cookie Policy',
-  lede: 'How cookies and similar tracking technologies are used on our website — and how to control them.',
+  lede: 'How cookies and similar tracking technologies are used on our website, and how to control them.',
   lastUpdated: 'September 1, 2026',
   sections: [
     {
@@ -209,10 +209,10 @@ export const cookiePolicy: LegalPage = {
     {
       heading: 'Types of Cookies We Use',
       content: [
-        `Essential Cookies — These are necessary for the website to function properly. They enable core functionality such as security, network management, and account access. You cannot opt out of these cookies.`,
-        `Analytics Cookies — These help us understand how visitors interact with our website by collecting and reporting information anonymously. We use tools like Google Analytics to analyze site usage.`,
-        `Marketing Cookies — These are used to track visitors across websites to display relevant and engaging advertisements. These cookies may be set through our site by our advertising partners.`,
-        `Preference Cookies — These allow the website to remember choices you make (such as your language preference or region) and provide enhanced, personalized features.`,
+        `Essential Cookies: These are necessary for the website to function properly. They enable core functionality such as security, network management, and account access. You cannot opt out of these cookies.`,
+        `Analytics Cookies: These help us understand how visitors interact with our website by collecting and reporting information anonymously. We use tools like Google Analytics to analyze site usage.`,
+        `Marketing Cookies: These are used to track visitors across websites to display relevant and engaging advertisements. These cookies may be set through our site by our advertising partners.`,
+        `Preference Cookies: These allow the website to remember choices you make (such as your language preference or region) and provide enhanced, personalized features.`,
       ],
     },
     {

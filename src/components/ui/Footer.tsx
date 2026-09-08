@@ -143,7 +143,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
               <p className="text-mist-dim text-sm leading-relaxed mb-4">Sign up to receive the latest industry news.</p>
               {subscribed ? (
                 <p className="text-sm text-white-solid/80">
-                  You're on the list — welcome to the Digest.
+                  You're on the list, welcome to the Digest.
                 </p>
               ) : (
                 <form onSubmit={handleSubscribe} className="flex flex-row">

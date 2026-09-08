@@ -88,7 +88,7 @@ export default function SitemapPage({ onNavigate }: { onNavigate: (href: string)
         eyebrow="Sitemap"
         title="Everything on"
         accent="Maven, organized"
-        lede="Browse every page across the Maven website — services, portfolio, blog and the communities we serve — in one clear, searchable map."
+        lede="Browse every page across the Maven website: services, portfolio, blog and the communities we serve, in one clear, searchable map."
       />
 
       <section id="sitemap-links" className="section pt-8 md:pt-12 pb-24 md:pb-32" aria-label="Website sitemap">

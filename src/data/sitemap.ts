@@ -210,7 +210,7 @@ export const sitemapGroups: SitemapGroup[] = [
   },
   {
     id: 'industries',
-    title: 'Website Management — Industries',
+    title: 'Website Management: Industries',
     description: 'Industry-specific website management solutions we offer.',
     links: [
       industry('accounting'),
@@ -339,7 +339,7 @@ export const sitemapGroups: SitemapGroup[] = [
   },
   {
     id: 'locations',
-    title: 'Website Management — Locations',
+    title: 'Website Management: Locations',
     description: 'Website management for communities across Illinois and the Midwest.',
     links: [
       location('addison'),

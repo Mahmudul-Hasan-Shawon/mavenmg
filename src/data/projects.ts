@@ -177,7 +177,7 @@ export const projects: Project[] = [
     services: 'Website Design, Website Development, Website Management',
     color: '#2E8B57',
     image: '/images/projects/p17.jpg',
-    blurb: 'The problem solving mat — a playful product site built to convert.',
+    blurb: 'The problem solving mat, a playful product site built to convert.',
     url: 'https://thinkingmats.com/',
   },
   {
@@ -197,7 +197,7 @@ export const projects: Project[] = [
     services: 'Website Design, Website Development, Website Management',
     color: '#6B4E2E',
     image: '/images/projects/p19.jpg',
-    blurb: 'Where camo meets sports — a vibrant storefront for passionate fans.',
+    blurb: 'Where camo meets sports, a vibrant storefront for passionate fans.',
     url: 'https://passionsportscamo.com/',
   },
   {

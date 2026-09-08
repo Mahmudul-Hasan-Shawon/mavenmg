@@ -161,14 +161,14 @@ export function LegalContent({ page }: LegalContentProps) {
                   data-legal-section
                   data-index={i}
                   className="border-b border-line py-9 md:py-12 scroll-mt-28"
-                  aria-label={`${page.eyebrow} — ${s.heading}`}
+                  aria-label={`${page.eyebrow}: ${s.heading}`}
                 >
                   <div className="flex items-baseline gap-3 md:gap-4">
                     <h2 className="display font-semibold text-lg md:text-xl tracking-[0.02em] text-white break-words min-w-0">
                       {s.heading}
                     </h2>
                   </div>
-                  <div className="mt-4 md:mt-5 space-y-4 md:pl-10">
+                  <div className="mt-4 md:mt-5 space-y-4">
                     {s.content.map((p, j) => (
                       <p key={j} className="text-mist text-[15px] leading-[1.85] max-w-[68ch]">
                         {p}
