@@ -178,7 +178,16 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
           </p>
           <div className="flex items-center gap-5">
             {legalLinks.map((l) => (
-              <a key={l.name} href={l.href} className="text-xs text-mist-dim hover:text-white-solid transition-colors">
+              <a
+                key={l.name}
+                href={l.href}
+                onClick={(e) => {
+                  e.preventDefault()
+                  onNavigate(l.href)
+                }}
+                data-cursor
+                className="text-xs text-mist-dim hover:text-white-solid cursor-pointer transition-colors"
+              >
                 {l.name}
               </a>
             ))}
