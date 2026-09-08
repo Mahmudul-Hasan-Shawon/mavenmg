@@ -133,27 +133,6 @@ export function LegalContent({ page }: LegalContentProps) {
               )}
             </div>
 
-            <Reveal>
-              <dl className="grid gap-y-4 pb-8 border-b border-line sm:flex sm:flex-wrap sm:items-baseline sm:gap-x-8 sm:gap-y-3">
-                <div className="flex flex-col gap-1 sm:block">
-                  <dt className="mono-label sm:inline sm:mr-8">Status</dt>
-                  <dd className="text-sm text-mist sm:inline">In effect</dd>
-                </div>
-                <div className="flex flex-col gap-1 sm:block">
-                  <dt className="mono-label sm:inline sm:mr-8">Last updated</dt>
-                  <dd className="text-sm text-mist sm:inline">{page.lastUpdated}</dd>
-                </div>
-                <div className="flex flex-col gap-1 sm:block">
-                  <dt className="mono-label sm:inline sm:mr-8">Questions</dt>
-                  <dd className="text-sm sm:inline">
-                    <a href={`mailto:${site.email}`} data-cursor className="link-line text-maven-lighter break-all">
-                      {site.email}
-                    </a>
-                  </dd>
-                </div>
-              </dl>
-            </Reveal>
-
             {page.sections.map((s, i) => (
               <Reveal key={s.heading} delay={Math.min(i * 0.03, 0.15)}>
                 <section
