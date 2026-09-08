@@ -114,6 +114,7 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
                     </div>
                   </div>
 
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="cf-phone" className="block text-sm font-semibold text-mist mb-2">
