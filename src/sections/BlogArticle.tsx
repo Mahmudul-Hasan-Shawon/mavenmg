@@ -325,7 +325,7 @@ function GoogleRatingCard() {
   return (
     <div className="panel rounded-2xl p-6">
       <div className="flex items-center gap-3">
-        <svg viewBox="0 0 512 512" className="h-7 w-7 shrink-0" aria-hidden="true" focusable="false">
+        <svg viewBox="0 0 512 512" className="h-12 w-12 shrink-0" aria-hidden="true" focusable="false">
           <path
             fill="#167EE6"
             d="M492.668,211.489l-208.84-0.01c-9.222,0-16.697,7.474-16.697,16.696v66.715c0,9.22,7.475,16.696,16.696,16.696h117.606c-12.878,33.421-36.914,61.41-67.58,79.194L384,477.589c80.442-46.523,128-128.152,128-219.53c0-13.011-0.959-22.312-2.877-32.785C507.665,217.317,500.757,211.489,492.668,211.489z"
@@ -466,7 +466,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
           className="absolute inset-0 -z-10 bg-gradient-to-t from-void via-void/60 to-void/25"
         />
 
-        <div className="mx-auto flex min-h-[72vh] max-w-6xl flex-col px-6 py-7 md:min-h-[78vh] md:px-12 md:py-12">
+        <div className="mx-auto flex min-h-[56vh] max-w-6xl flex-col px-6 py-7 md:min-h-[62vh] md:px-12 md:py-12">
           <div className="mt-auto pt-8">
             <Reveal>
               <button
@@ -482,25 +482,28 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
 
             <header className="mt-4 max-w-4xl pb-2 md:mt-5 md:pb-6">
                 <Reveal>
-                  <div className="flex flex-wrap items-center gap-3">
-                    {post.tag ? (
-                      <span className="inline-flex items-center rounded-full border border-line bg-ink/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white backdrop-blur-sm">
-                        {post.tag}
-                      </span>
-                    ) : null}
-                    <span className="mono-label !text-white/75 flex items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5">
-                        <CalendarDays size={12} className="text-maven-light" aria-hidden="true" />
-                        {formatDate(post.date)}
-                      </span>
-                      <span aria-hidden="true" className="opacity-60">
-                        ·
-                      </span>
-                      <span className="inline-flex items-center gap-1.5">
-                        <Clock size={12} className="text-maven-light" aria-hidden="true" />
-                        {post.readingTime ?? 8} min read
-                      </span>
-                    </span>
+                  <div className="flex items-center gap-3">
+<svg viewBox="0 0 512 512" className="h-12 w-12 shrink-0" aria-hidden="true" focusable="false">
+                      <path fill="#167EE6" d="M492.668,211.489l-208.84-0.01c-9.222,0-16.697,7.474-16.697,16.696v66.715c0,9.22,7.475,16.696,16.696,16.696h117.606c-12.878,33.421-36.914,61.41-67.58,79.194L384,477.589c80.442-46.523,128-128.152,128-219.53c0-13.011-0.959-22.312-2.877-32.785C507.665,217.317,500.757,211.489,492.668,211.489z"></path>
+                      <path fill="#12B347" d="M256,411.826c-57.554,0-107.798-31.446-134.783-77.979l-86.806,50.034C78.586,460.443,161.34,512,256,512c46.437,0,90.254-12.503,128-34.292v-0.119l-50.147-86.81C310.915,404.083,284.371,411.826,256,411.826z"></path>
+                      <path fill="#0F993E" d="M384,477.708v-0.119l-50.147-86.81c-22.938,13.303-49.48,21.047-77.853,21.047V512C302.437,512,346.256,499.497,384,477.708z"></path>
+                      <path fill="#FFD500" d="M100.174,256c0-28.369,7.742-54.91,21.043-77.847l-86.806-50.034C12.502,165.746,0,209.444,0,256s12.502,90.254,34.411,127.881l86.806-50.034C107.916,310.91,100.174,284.369,100.174,256z"></path>
+                      <path fill="#FF4B26" d="M256,100.174c37.531,0,72.005,13.336,98.932,35.519c6.643,5.472,16.298,5.077,22.383-1.008l47.27-47.27c6.904-6.904,6.412-18.205-0.963-24.603C378.507,23.673,319.807,0,256,0C161.34,0,78.586,51.557,34.411,128.119l86.806,50.034C148.202,131.62,198.446,100.174,256,100.174z"></path>
+                      <path fill="#D93F21" d="M354.932,135.693c6.643,5.472,16.299,5.077,22.383-1.008l47.27-47.27c6.903-6.904,6.411-18.205-0.963-24.603C378.507,23.672,319.807,0,256,0v100.174C293.53,100.174,328.005,113.51,354.932,135.693z"></path>
+                    </svg>
+                    <div className="flex w-full flex-col justify-center">
+                      <p className="w-full text-md font-semibold text-white">
+                        Google <span className="text-white">• 19 Reviews</span>
+                      </p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <p className="display text-2xl text-white">5.0</p>
+                        <div className="flex items-center gap-1" aria-label="5 out of 5 stars">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={18} className="fill-amber-400 text-amber-400" />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </Reveal>
 
@@ -508,22 +511,13 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
                   <h1 className="display mt-6 text-[clamp(2rem,5.2vw,3.8rem)] text-white md:mt-7">{post.title}</h1>
                 </Reveal>
 
-                <Reveal delay={0.15}>
-                  <div className="mt-8 flex items-center gap-4">
-                    <img
-                      src={post.authorImage}
-                      alt={post.author}
-                      loading="lazy"
-                      className="h-11 w-11 shrink-0 rounded-full border border-maven-light/40 object-cover ring-2 ring-black/40"
-                    />
-                    <div className="text-sm">
-                      <p className="text-white">Written by {post.author}</p>
-                      <p className="mt-0.5 text-xs text-mist">
-                        {formatDate(post.date)} · {post.readingTime ?? 8} min read
-                      </p>
-                    </div>
-                  </div>
+                <Reveal delay={0.12}>
+                  <p className="mt-5 max-w-2xl text-mist text-[15px] md:text-[17px] leading-[1.85]">
+                    Discover the secrets to becoming a top-tier website manager in our ultimate guide. Kickstart your
+                    career with our invaluable insights!
+                  </p>
                 </Reveal>
+
               </header>
             </div>
           </div>
