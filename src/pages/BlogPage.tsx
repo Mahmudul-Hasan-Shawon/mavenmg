@@ -86,13 +86,6 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
           {yearGroups.map(([year, groupPosts], gi) => (
             <Reveal key={year} delay={gi * 0.05}>
               <div className="scroll-mt-28 mb-10 md:mb-14">
-                <div className="flex items-center gap-4 mb-8">
-                  <span className="w-16 h-10 shrink-0 grid place-items-center rounded-lg border border-maven-light/40 bg-maven/15 text-lg font-semibold text-maven-lighter font-mono">
-                    {year}
-                  </span>
-                  <span className="h-px flex-1 bg-line" aria-hidden="true" />
-                </div>
-
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {groupPosts.map((post) => (
                     <a
