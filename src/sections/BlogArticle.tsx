@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
-import { ArrowLeft, ArrowRight, ChevronDown, Mail, Star } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CalendarDays, ChevronDown, Mail, Star } from 'lucide-react'
 import type { BlogBlock, BlogListItem, BlogPost, BlogSection } from '../data/blog'
 import { blogPosts } from '../data/blog'
 import { site } from '../data/site'
 import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import { Eyebrow } from '../components/text/Eyebrow'
 import { getLenis } from '../utils/lenis'
 import { cn } from '../utils/cn'
 
@@ -449,9 +450,174 @@ function RelatedPosts({ post, onNavigate }: { post: BlogPost; onNavigate: (href:
   )
 }
 
+function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: (href: string) => void }) {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [canLeft, setCanLeft] = useState(false)
+  const [canRight, setCanRight] = useState(true)
+  const [filter, setFilter] = useState('All')
+
+  const categories = ['All', ...Array.from(new Set(blogPosts.map((p) => p.tag).filter(Boolean)))] as string[]
+
+  const updateArrows = () => {
+    const el = trackRef.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    setCanLeft(el.scrollLeft > 4)
+    setCanRight(el.scrollLeft < max - 4)
+  }
+
+  useEffect(() => {
+    updateArrows()
+    window.addEventListener('resize', updateArrows)
+    return () => window.removeEventListener('resize', updateArrows)
+  }, [])
+
+  const onFilterChange = (cat: string) => {
+    setFilter(cat)
+    requestAnimationFrame(() => {
+      const el = trackRef.current
+      if (el) el.scrollTo({ left: 0 })
+      updateArrows()
+    })
+  }
+
+  const scrollByCard = (dir: 1 | -1) => {
+    const el = trackRef.current
+    if (!el) return
+    const card = el.querySelector<HTMLElement>('[data-article-card]')
+    const step = (card?.offsetWidth ?? 340) + 24
+    el.scrollBy({ left: dir * step, behavior: 'smooth' })
+  }
+
+  const posts = blogPosts.filter((p) => p.slug !== current.slug && (filter === 'All' || p.tag === filter))
+
+  return (
+    <section id="blog-more-articles" className="section py-16 md:py-24" aria-label="All blog articles">
+      <div className="container-maven">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4 md:mb-10">
+          <div>
+            <Eyebrow label="Read more" className="mb-4" />
+            <h2 className="display font-semibold text-2xl md:text-4xl tracking-[0.01em] text-white">All articles</h2>
+          </div>
+          <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={() => scrollByCard(-1)}
+              disabled={!canLeft}
+              aria-label="Scroll articles left"
+              data-cursor
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-ink/60 text-white transition-colors duration-300 cursor-pointer hover:border-maven-light/60 hover:bg-maven/10 disabled:opacity-40 disabled:cursor-default"
+            >
+              <ArrowLeft size={18} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByCard(1)}
+              disabled={!canRight}
+              aria-label="Scroll articles right"
+              data-cursor
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-ink/60 text-white transition-colors duration-300 cursor-pointer hover:border-maven-light/60 hover:bg-maven/10 disabled:opacity-40 disabled:cursor-default"
+            >
+              <ArrowRight size={18} aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+
+        <div className="mb-7 flex gap-2 overflow-x-auto overscroll-x-contain -mx-6 px-6 pb-1 md:mx-0 md:px-0 md:flex-wrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => onFilterChange(cat)}
+              data-cursor
+              aria-pressed={filter === cat}
+              className={`shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                filter === cat
+                  ? 'bg-maven text-white-solid shadow-[0_4px_20px_rgba(97,44,139,0.5)]'
+                  : 'border border-line bg-ink/60 text-mist-dim hover:bg-ink-2 hover:text-mist'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div
+          ref={trackRef}
+          onScroll={updateArrows}
+          className="flex gap-6 overflow-x-auto overscroll-x-contain snap-x snap-mandatory pb-2 -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-16 lg:px-16 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {posts.map((p) => {
+            const isExternal = !p.slug
+            const href = p.slug ? `/blog/${p.slug}` : p.href
+            return (
+              <a
+                key={p.href}
+                href={href}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                onClick={
+                  isExternal
+                    ? undefined
+                    : (e) => {
+                        e.preventDefault()
+                        onNavigate(href)
+                      }
+                }
+                data-cursor
+                data-article-card
+                className="panel panel-hover group relative flex w-[80vw] max-w-[340px] shrink-0 snap-center flex-col justify-between gap-5 overflow-hidden rounded-2xl p-5 md:p-6 transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
+              >
+                <div className="relative aspect-[16/10] -mx-5 md:-mx-6 -mt-5 md:-mt-6 mb-1 overflow-hidden rounded-t-2xl bg-ink-2">
+                  {p.image ? (
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-maven/40 via-ink-2 to-ink-3" />
+                  )}
+                  {p.tag ? (
+                    <span className="absolute top-3 left-3 inline-flex items-center rounded-full border border-white/15 bg-black/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white-solid backdrop-blur-sm">
+                      {p.tag}
+                    </span>
+                  ) : null}
+                </div>
+
+                <h3 className="display font-semibold text-base md:text-lg text-white leading-snug tracking-[0.01em] line-clamp-2 group-hover:text-maven-lighter transition-colors duration-300">
+                  {p.title}
+                </h3>
+
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-mist-dim">
+                  <span className="inline-flex items-center gap-2">
+                    <img
+                      src={p.authorImage}
+                      alt={p.author}
+                      loading="lazy"
+                      className="h-6 w-6 shrink-0 rounded-full object-cover border border-maven-light/40"
+                    />
+                    {p.author}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <CalendarDays size={12} className="text-maven-light" aria-hidden="true" />
+                    {formatDate(p.date)}
+                  </span>
+                </div>
+              </a>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /** Editorial blog article: full-width cover hero + body with sticky utility sidebar. */
 export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: (href: string) => void }) {
   return (
+    <>
     <section id="blog-article" className="relative" aria-label="Blog article">
       {/* Full-width cover hero with overlaid header */}
       <div className="relative isolate w-full overflow-hidden">
@@ -624,5 +790,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
         </div>
       </div>
     </section>
+    <MoreArticles current={post} onNavigate={onNavigate} />
+    </>
   )
 }
