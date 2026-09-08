@@ -533,7 +533,7 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
               aria-pressed={filter === cat}
               className={`shrink-0 rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-300 cursor-pointer ${
                 filter === cat
-                  ? 'bg-maven text-white-solid shadow-[0_4px_20px_rgba(97,44,139,0.5)]'
+                  ? 'bg-maven text-white-solid'
                   : 'border border-line bg-ink/60 text-mist-dim hover:bg-ink-2 hover:text-mist'
               }`}
             >
