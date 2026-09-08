@@ -28,7 +28,7 @@ export const privacyPolicy: LegalPage = {
   eyebrow: 'Privacy Policy',
   title: 'Privacy Policy',
   lede: 'How Maven Marketing Group collects, uses, and protects the information you share with us.',
-  lastUpdated: 'September 1, 2026',
+  lastUpdated: 'September 8, 2026',
   sections: [
     {
       heading: 'Introduction',
@@ -108,7 +108,7 @@ export const termsOfService: LegalPage = {
   eyebrow: 'Terms of Service',
   title: 'Terms of Service',
   lede: 'The terms that govern your use of our website and the services we provide.',
-  lastUpdated: 'September 1, 2026',
+  lastUpdated: 'September 8, 2026',
   sections: [
     {
       heading: 'Acceptance of Terms',
@@ -197,7 +197,7 @@ export const cookiePolicy: LegalPage = {
   eyebrow: 'Cookie Policy',
   title: 'Cookie Policy',
   lede: 'How cookies and similar tracking technologies are used on our website, and how to control them.',
-  lastUpdated: 'September 1, 2026',
+  lastUpdated: 'September 8, 2026',
   sections: [
     {
       heading: 'What Are Cookies',
