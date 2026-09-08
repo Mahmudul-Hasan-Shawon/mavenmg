@@ -13,6 +13,9 @@ import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import SitemapPage from './pages/SitemapPage'
 import BlogPage from './pages/BlogPage'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfService from './pages/TermsOfService'
+import CookiePolicy from './pages/CookiePolicy'
 
 const routes: Record<string, (props: { onNavigate: (href: string) => void }) => ReactElement> = {
   '/': Home,
@@ -23,6 +26,9 @@ const routes: Record<string, (props: { onNavigate: (href: string) => void }) => 
   '/contact': ContactPage,
   '/sitemap': SitemapPage,
   '/blog': BlogPage,
+  '/privacy-policy': PrivacyPolicy,
+  '/terms-of-service': TermsOfService,
+  '/cookie-policy': CookiePolicy,
 }
 
 export default function App() {
