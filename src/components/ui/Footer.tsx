@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactElement } from 'react'
 import { site } from '../../data/site'
-import { footerServices, legalLinks, navigation } from '../../data/navigation'
+import { footerNavigation, footerServices, legalLinks } from '../../data/navigation'
 
 const socialSvg: Record<string, ReactElement> = {
   Instagram: (
@@ -96,7 +96,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
           <nav aria-label="Footer navigation">
             <h4 className="text-sm uppercase footer-col-heading">Explore</h4>
             <ul className="space-y-3 font-semibold">
-              {navigation.map((link) => (
+              {footerNavigation.map((link) => (
                 <li key={link.href}>
                   <a
                     onClick={() => onNavigate(link.href)}

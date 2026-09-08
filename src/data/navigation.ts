@@ -18,6 +18,12 @@ export const legalLinks = [
   { name: 'Cookie Policy', href: '#' },
 ]
 
+export const footerNavigation: NavLink[] = [
+  ...navigation,
+  { label: 'SITEMAP', href: '/sitemap', index: '06' },
+  { label: 'BLOG', href: '/blog', index: '07' },
+]
+
 export const footerServices = [
   'Custom Website Design',
   'Website Development',

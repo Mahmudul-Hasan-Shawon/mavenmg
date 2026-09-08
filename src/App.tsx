@@ -5,11 +5,13 @@ import { scrollState, reducedMotion } from './utils/motion'
 import { getLenis, setLenis } from './utils/lenis'
 import { Navbar } from './components/ui/Navbar'
 import { Footer } from './components/ui/Footer'
+// import { ClientWords } from './sections/ClientWords'
 import Home from './pages/Home'
 import ServicesPage from './pages/ServicesPage'
 import WorkPage from './pages/WorkPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
+import SitemapPage from './pages/SitemapPage'
 
 const routes: Record<string, (props: { onNavigate: (href: string) => void }) => ReactElement> = {
   '/': Home,
@@ -18,6 +20,7 @@ const routes: Record<string, (props: { onNavigate: (href: string) => void }) => 
   '/portfolio': WorkPage, // legacy path kept alive
   '/about': AboutPage,
   '/contact': ContactPage,
+  '/sitemap': SitemapPage,
 }
 
 export default function App() {
@@ -127,6 +130,8 @@ export default function App() {
       <main key={pageKey} id="main">
         <Page onNavigate={navigate} />
       </main>
+
+      {/* <ClientWords /> */}
 
       <Footer onNavigate={navigate} />
 
