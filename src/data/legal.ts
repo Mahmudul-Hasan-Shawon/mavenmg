@@ -1,8 +1,13 @@
 import { site } from './site'
 
+export interface LegalContentItem {
+  lead?: string
+  text: string
+}
+
 export interface LegalSection {
   heading: string
-  content: string[]
+  content: Array<string | LegalContentItem>
 }
 
 export interface LegalPage {
@@ -209,10 +214,22 @@ export const cookiePolicy: LegalPage = {
     {
       heading: 'Types of Cookies We Use',
       content: [
-        `Essential Cookies: These are necessary for the website to function properly. They enable core functionality such as security, network management, and account access. You cannot opt out of these cookies.`,
-        `Analytics Cookies: These help us understand how visitors interact with our website by collecting and reporting information anonymously. We use tools like Google Analytics to analyze site usage.`,
-        `Marketing Cookies: These are used to track visitors across websites to display relevant and engaging advertisements. These cookies may be set through our site by our advertising partners.`,
-        `Preference Cookies: These allow the website to remember choices you make (such as your language preference or region) and provide enhanced, personalized features.`,
+        {
+          lead: 'Essential Cookies: ',
+          text: 'These are necessary for the website to function properly. They enable core functionality such as security, network management, and account access. You cannot opt out of these cookies.',
+        },
+        {
+          lead: 'Analytics Cookies: ',
+          text: 'These help us understand how visitors interact with our website by collecting and reporting information anonymously. We use tools like Google Analytics to analyze site usage.',
+        },
+        {
+          lead: 'Marketing Cookies: ',
+          text: 'These are used to track visitors across websites to display relevant and engaging advertisements. These cookies may be set through our site by our advertising partners.',
+        },
+        {
+          lead: 'Preference Cookies: ',
+          text: 'These allow the website to remember choices you make (such as your language preference or region) and provide enhanced, personalized features.',
+        },
       ],
     },
     {

@@ -171,7 +171,14 @@ export function LegalContent({ page }: LegalContentProps) {
                   <div className="mt-4 md:mt-5 space-y-4">
                     {s.content.map((p, j) => (
                       <p key={j} className="text-mist text-[15px] leading-[1.85] max-w-[68ch]">
-                        {p}
+                        {typeof p === 'string' ? (
+                          p
+                        ) : (
+                          <>
+                            {p.lead && <strong className="font-semibold text-white">{p.lead}</strong>}
+                            {p.text}
+                          </>
+                        )}
                       </p>
                     ))}
                   </div>
