@@ -445,15 +445,21 @@
     opacity: 0.05;
   }
 
-  /* ---------- Marquee ---------- */
+/* ---------- Marquee ---------- */
 
-  .marquee-track {
-    animation: marquee 36s linear infinite;
-  }
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
 
-  .marquee-track:hover {
-    animation-play-state: paused;
-  }
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Client words: reviews scroll a little slower than the logo marquee and use
+   an inverted fade mask so cards trail off at both edges of the section. */
+#client-words .cw-track {
+  animation-duration: 80s;
+}
 
   /* ---------- Custom cursor: dot only ---------- */
 
@@ -664,9 +670,14 @@ html:not([data-theme='light']) .marquee-badge {
   animation: pag-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+#blog-list .pag-pop {
+  animation: pag-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   #featured-work .pag-rise,
-  #featured-work .pag-pop {
+  #featured-work .pag-pop,
+  #blog-list .pag-pop {
     animation: none;
   }
 }
@@ -697,7 +708,8 @@ html:not([data-theme='light']) .marquee-badge {
     animation: none;
   }
 
-  .marquee-track {
+  .marquee-track,
+  #client-words .cw-track {
     animation: none;
   }
 

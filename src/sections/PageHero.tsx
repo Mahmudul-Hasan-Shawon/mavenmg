@@ -1,4 +1,4 @@
-import { lazy } from 'react'
+import { lazy, type ReactNode } from 'react'
 import { AnimatedText } from '../components/text/AnimatedText'
 import { Eyebrow } from '../components/text/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
@@ -25,10 +25,14 @@ interface PageHeroProps {
   accentWhite?: string[]
   /** Words (case-insensitive) in the title to render in solid maven-light. */
   titleHighlight?: string[]
+  /** Drop the max-width cap on the lede paragraph so it spans the hero width. */
+  ledeWide?: boolean
+  /** Render the lede as separate lines (one node per sentence). */
+  ledeLines?: ReactNode[]
 }
 
 /** Compact editorial hero for secondary pages. */
-export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight }: PageHeroProps) {
+export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight, ledeWide, ledeLines }: PageHeroProps) {
   const copy = (
     <>
       <Reveal>
@@ -56,9 +60,17 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
           </span>
         )}
       </h1>
-      {lede && (
+      {(lede || ledeLines) && (
         <Reveal delay={0.25}>
-          <p className="mt-7 text-mist text-base md:text-lg leading-relaxed max-w-2xl">{lede}</p>
+          <p className={`mt-7 text-mist text-base md:text-lg leading-relaxed ${ledeWide ? 'max-w-none' : 'max-w-2xl'}`}>
+            {ledeLines
+              ? ledeLines.map((line, i) => (
+                  <span key={i} className="block mt-2 first:mt-0 md:mt-2.5">
+                    {line}
+                  </span>
+                ))
+              : lede}
+          </p>
         </Reveal>
       )}
     </>

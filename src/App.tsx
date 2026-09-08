@@ -12,6 +12,7 @@ import WorkPage from './pages/WorkPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import SitemapPage from './pages/SitemapPage'
+import BlogPage from './pages/BlogPage'
 
 const routes: Record<string, (props: { onNavigate: (href: string) => void }) => ReactElement> = {
   '/': Home,
@@ -21,6 +22,7 @@ const routes: Record<string, (props: { onNavigate: (href: string) => void }) => 
   '/about': AboutPage,
   '/contact': ContactPage,
   '/sitemap': SitemapPage,
+  '/blog': BlogPage,
 }
 
 export default function App() {
