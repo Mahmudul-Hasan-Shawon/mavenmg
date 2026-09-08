@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
-import { ArrowLeft, ArrowRight, CalendarDays, ChevronDown, Clock, Mail, Star } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ChevronDown, Mail, Star } from 'lucide-react'
 import type { BlogBlock, BlogListItem, BlogPost, BlogSection } from '../data/blog'
 import { blogPosts } from '../data/blog'
 import { site } from '../data/site'
@@ -88,10 +88,10 @@ function Block({ block }: { block: BlogBlock }) {
             {typeof item === 'string' ? (
               item
             ) : (
-              <>
+              <span>
                 <strong className="font-semibold text-white">{item.lead}</strong>
                 {item.text && <> {item.text}</>}
-              </>
+              </span>
             )}
           </li>
         ))}
@@ -355,7 +355,7 @@ function GoogleRatingCard() {
           <p className="display text-xl text-white">{rating.toFixed(1)}</p>
           <div className="mt-0.5 flex items-center gap-0.5" aria-label={`${rating} out of 5 stars`}>
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} size={13} className="fill-current text-maven-light" aria-hidden="true" />
+              <Star key={i} size={13} className="fill-amber-400 text-amber-400" aria-hidden="true" />
             ))}
           </div>
         </div>
@@ -480,7 +480,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
               </button>
             </Reveal>
 
-            <header className="mt-4 max-w-4xl pb-2 md:mt-5 md:pb-6">
+            <header className="mt-4 max-w-5xl pb-2 md:mt-5 md:pb-6">
                 <Reveal>
                   <div className="flex items-center gap-3">
 <svg viewBox="0 0 512 512" className="h-12 w-12 shrink-0" aria-hidden="true" focusable="false">
@@ -553,9 +553,9 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
                       className="h-14 w-14 shrink-0 rounded-full border border-maven-light/40 object-cover"
                     />
                     <div>
-                      <p className="mono-label !text-mist-dim">Published by</p>
+                      <p className="text-sm text-mist-dim">Published by</p>
                       <p className="mt-1 font-semibold text-white">{post.author}</p>
-                      <p className="mt-1.5 text-sm leading-relaxed text-mist">
+                      <p className="mt-1.5 text-md leading-relaxed text-mist">
                         We hope this article helps you out! If you want more advice for expanding your reach, getting
                         leads, and growing your business — let us know.
                       </p>
