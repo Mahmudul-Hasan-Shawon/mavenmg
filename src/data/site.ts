@@ -23,6 +23,11 @@ export const site = {
     zip: '60047',
   } as Address,
   hours: 'Open Mon-Sun · 9:00 AM – 5:00 PM',
+  googleReview: {
+    rating: 5.0,
+    count: 19,
+    url: 'https://www.google.com/maps/place/?cid=742174210247689679',
+  } as const,
   social: [
     { label: 'Instagram', href: 'https://www.instagram.com/mavenmg/' },
     { label: 'Facebook', href: 'https://www.facebook.com/mavenmg' },

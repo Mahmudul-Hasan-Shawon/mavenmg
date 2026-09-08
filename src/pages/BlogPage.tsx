@@ -87,54 +87,66 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
             <Reveal key={year} delay={gi * 0.05}>
               <div className="scroll-mt-28 mb-10 md:mb-14">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                  {groupPosts.map((post) => (
-                    <a
-                      key={post.href}
-                      href={post.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-cursor
-                      className="panel panel-hover group relative flex flex-col justify-between gap-6 rounded-2xl p-6 md:p-7 overflow-hidden transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
-                    >
-                      <div className="relative aspect-[16/10] -mx-6 md:-mx-7 -mt-6 md:-mt-7 mb-2 overflow-hidden rounded-t-2xl bg-ink-2">
-                        {post.image ? (
-                          <img
-                            src={post.image}
-                            alt={post.title}
-                            loading="lazy"
-                            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                          />
-                        ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-maven/40 via-ink-2 to-ink-3" />
-                        )}
-                        {post.tag ? (
-                          <span className="absolute top-3 left-3 inline-flex items-center px-3 py-1 rounded-full border border-white/15 bg-black/40 text-white-solid backdrop-blur-sm text-[11px] font-semibold uppercase tracking-[0.08em]">
-                            {post.tag}
+                  {groupPosts.map((post) => {
+                    const isExternal = !post.slug
+                    const href = post.slug ? `/blog/${post.slug}` : post.href
+                    return (
+                      <a
+                        key={post.href}
+                        href={href}
+                        target={isExternal ? '_blank' : undefined}
+                        rel={isExternal ? 'noopener noreferrer' : undefined}
+                        onClick={
+                          isExternal
+                            ? undefined
+                            : (e) => {
+                                e.preventDefault()
+                                onNavigate(href)
+                              }
+                        }
+                        data-cursor
+                        className="panel panel-hover group relative flex flex-col justify-between gap-6 rounded-2xl p-6 md:p-7 overflow-hidden transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
+                      >
+                        <div className="relative aspect-[16/10] -mx-6 md:-mx-7 -mt-6 md:-mt-7 mb-2 overflow-hidden rounded-t-2xl bg-ink-2">
+                          {post.image ? (
+                            <img
+                              src={post.image}
+                              alt={post.title}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 bg-gradient-to-br from-maven/40 via-ink-2 to-ink-3" />
+                          )}
+                          {post.tag ? (
+                            <span className="absolute top-3 left-3 inline-flex items-center px-3 py-1 rounded-full border border-white/15 bg-black/40 text-white-solid backdrop-blur-sm text-[11px] font-semibold uppercase tracking-[0.08em]">
+                              {post.tag}
+                            </span>
+                          ) : null}
+                        </div>
+
+                        <h3 className="display font-semibold text-base md:text-lg text-white leading-snug tracking-[0.01em] line-clamp-2 group-hover:text-maven-lighter transition-colors duration-300">
+                          {post.title}
+                        </h3>
+
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-mist-dim">
+                          <span className="inline-flex items-center gap-2">
+                            <img
+                              src={post.authorImage}
+                              alt={post.author}
+                              loading="lazy"
+                              className="w-7 h-7 shrink-0 rounded-full object-cover border border-maven-light/40"
+                            />
+                            {post.author}
                           </span>
-                        ) : null}
-                      </div>
-
-                      <h3 className="display font-semibold text-base md:text-lg text-white leading-snug tracking-[0.01em] line-clamp-2 group-hover:text-maven-lighter transition-colors duration-300">
-                        {post.title}
-                      </h3>
-
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-mist-dim">
-                        <span className="inline-flex items-center gap-2">
-                          <img
-                            src={post.authorImage}
-                            alt={post.author}
-                            loading="lazy"
-                            className="w-7 h-7 shrink-0 rounded-full object-cover border border-maven-light/40"
-                          />
-                          {post.author}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5">
-                          <CalendarDays size={12} className="text-maven-light" aria-hidden="true" />
-                          {formatDate(post.date)}
-                        </span>
-                      </div>
-                    </a>
-                  ))}
+                          <span className="inline-flex items-center gap-1.5">
+                            <CalendarDays size={12} className="text-maven-light" aria-hidden="true" />
+                            {formatDate(post.date)}
+                          </span>
+                        </div>
+                      </a>
+                    )
+                  })}
                 </div>
               </div>
             </Reveal>
