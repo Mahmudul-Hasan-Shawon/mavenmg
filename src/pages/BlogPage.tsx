@@ -108,7 +108,7 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
                           <div className="absolute inset-0 bg-gradient-to-br from-maven/40 via-ink-2 to-ink-3" />
                         )}
                         {post.tag ? (
-                          <span className="absolute top-3 left-3 inline-flex items-center px-3 py-1 rounded-full border border-white/15 bg-black/40 text-white backdrop-blur-sm text-[11px] font-semibold uppercase tracking-[0.08em]">
+                          <span className="absolute top-3 left-3 inline-flex items-center px-3 py-1 rounded-full border border-white/15 bg-black/40 text-white-solid backdrop-blur-sm text-[11px] font-semibold uppercase tracking-[0.08em]">
                             {post.tag}
                           </span>
                         ) : null}

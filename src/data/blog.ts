@@ -13,10 +13,10 @@ const author = 'Brody Quail'
 const authorImage = '/images/blog/brody-quail.jpg'
 
 export const blogPosts: BlogPost[] = [
-  { title: 'The Ultimate Guide on How to Become a Website Manager', href: `${base}/blog/how-to-become-website-manager/`, date: '2024-08-08', author, authorImage, tag: 'Informative' },
-  { title: 'The Best Website Management Tools for Business Success', href: `${base}/blog/website-management-tools/`, date: '2024-08-05', author, authorImage, tag: 'Educational' },
-  { title: 'Starting Your Web Development Career Right: Essential Tips for Success', href: `${base}/blog/web-development-career/`, date: '2024-08-01', author, authorImage, tag: 'Educational' },
-  { title: 'Web Developer Skills: A Comprehensive Guide for Success', href: `${base}/blog/web-developer-guide/`, date: '2024-07-29', author, authorImage, tag: 'Educational' },
+  { title: 'The Ultimate Guide on How to Become a Website Manager', href: `${base}/blog/how-to-become-website-manager/`, date: '2024-08-08', author, authorImage, tag: 'Informative', image: '/images/blog/become-web-design-manager.jpg' },
+  { title: 'The Best Website Management Tools for Business Success', href: `${base}/blog/website-management-tools/`, date: '2024-08-05', author, authorImage, tag: 'Educational', image: '/images/blog/website-management-tools.jpg' },
+  { title: 'Starting Your Web Development Career Right: Essential Tips for Success', href: `${base}/blog/web-development-career/`, date: '2024-08-01', author, authorImage, tag: 'Educational', image: '/images/blog/web-development-career.jpg' },
+  { title: 'Web Developer Skills: A Comprehensive Guide for Success', href: `${base}/blog/web-developer-guide/`, date: '2024-07-29', author, authorImage, tag: 'Educational', image: '/images/blog/comprehensive-guide.jpg' },
   { title: 'Proven Strategies for Web Designer Financial Success', href: `${base}/blog/strategies-for-web-designer-financial-success/`, date: '2024-07-24', author, authorImage, tag: '', image: '/images/blog/strategies-for-web-designer-financial-success.jpg' },
   { title: 'Graphic Design vs. Web Design: What Are the Key Differences?', href: `${base}/blog/graphic-design-vs-web-design/`, date: '2024-07-22', author, authorImage, tag: '', image: '/images/blog/graphic-design-vs-web-design.jpg' },
   { title: 'Full-Time Web Design Career: What You Need to Know', href: `${base}/blog/full-time-web-design-career/`, date: '2024-07-18', author, authorImage, tag: '', image: '/images/blog/full-time-web-design-career.jpg' },
