@@ -13,9 +13,11 @@ import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import SitemapPage from './pages/SitemapPage'
 import BlogPage from './pages/BlogPage'
+import BlogPostPage from './pages/BlogPostPage'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import CookiePolicy from './pages/CookiePolicy'
+import { blogPosts } from './data/blog'
 
 const routes: Record<string, (props: { onNavigate: (href: string) => void }) => ReactElement> = {
   '/': Home,
@@ -29,6 +31,13 @@ const routes: Record<string, (props: { onNavigate: (href: string) => void }) => 
   '/privacy-policy': PrivacyPolicy,
   '/terms-of-service': TermsOfService,
   '/cookie-policy': CookiePolicy,
+}
+
+/** Resolve internal blog detail pages (`/blog/<slug>`) from the post data. */
+const blogPostForPath = (path: string) => {
+  const prefix = '/blog/'
+  if (!path.startsWith(prefix)) return false
+  return blogPosts.some((p) => p.slug === path.slice(prefix.length))
 }
 
 export default function App() {
@@ -123,7 +132,7 @@ export default function App() {
     return () => window.removeEventListener('popstate', onPop)
   }, [scrollToTop])
 
-  const Page = routes[path] ?? Home
+  const Page = routes[path] ?? (blogPostForPath(path) ? BlogPostPage : Home)
 
   // Refresh ScrollTrigger after each route swap settles.
   useEffect(() => {
