@@ -5,6 +5,7 @@ import { scrollState, reducedMotion } from './utils/motion'
 import { getLenis, setLenis } from './utils/lenis'
 import { Navbar } from './components/ui/Navbar'
 import { Footer } from './components/ui/Footer'
+import { ReadyVeil } from './components/ui/ReadyVeil'
 // import { ClientWords } from './sections/ClientWords'
 import Home from './pages/Home'
 import ServicesPage from './pages/ServicesPage'
@@ -168,6 +169,7 @@ export default function App() {
       </div>
 
       <div className="noise-overlay" aria-hidden="true" />
+      <ReadyVeil />
     </div>
   )
 }
