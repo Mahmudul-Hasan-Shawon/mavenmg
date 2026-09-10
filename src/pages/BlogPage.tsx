@@ -26,21 +26,6 @@ function groupByYear(posts: typeof blogPosts) {
   return Array.from(map.entries())
 }
 
-/** Page numbers to render, keeping first/last and a window around the current one. */
-function pageList(current: number, total: number): (number | '…')[] {
-  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
-  const pages = new Set<number>([1, total, current - 1, current, current + 1])
-  const sorted = [...pages].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b)
-  const out: (number | '…')[] = []
-  let prev = 0
-  for (const p of sorted) {
-    if (p - prev > 1) out.push('…')
-    out.push(p)
-    prev = p
-  }
-  return out
-}
-
 export default function BlogPage({ onNavigate }: { onNavigate: (href: string) => void }) {
   const pageCount = Math.ceil(blogPosts.length / POSTS_PER_PAGE)
   const [page, setPage] = useState(1)
@@ -161,45 +146,54 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
 
           {/* Pagination */}
           <Reveal>
-            <nav aria-label="Blog pages" className="flex items-center justify-center gap-2">
+            <nav aria-label="Blog pages" className="mt-12 flex items-center justify-center gap-3 text-mist-dim">
               <button
                 type="button"
+                aria-label="Previous page"
                 onClick={() => goTo(page - 1)}
                 disabled={page === 1}
-                aria-label="Previous page"
                 className="w-10 h-10 rounded-full flex items-center justify-center border border-line bg-ink/60 transition-colors duration-300 cursor-pointer hover:text-white hover:border-maven-light/40 disabled:opacity-40 disabled:cursor-default"
               >
                 <ChevronLeft size={18} />
               </button>
 
-              {pageList(page, pageCount).map((p, i) =>
-                p === '…' ? (
-                  <span key={`e-${i}`} className="text-mist-dim w-6 text-center" aria-hidden="true">
-                    …
-                  </span>
-                ) : (
-                  <button
-                    key={`p-${p}`}
-                    type="button"
-                    onClick={() => goTo(p)}
-                    aria-label={`Page ${p}`}
-                    aria-current={p === page ? 'page' : undefined}
-                    className={`h-10 w-10 flex items-center justify-center rounded-full text-sm font-semibold transition-colors duration-300 cursor-pointer ${
-                      p === page
-                        ? 'pag-pop bg-maven text-white-solid shadow-[0_4px_16px_rgba(97,44,139,0.5)]'
-                        : 'border border-line bg-ink/60 hover:bg-ink-2 hover:text-white'
-                    }`}
-                  >
-                    {p}
-                  </button>
-                )
-              )}
+              <div className="flex items-center gap-1">
+                {[page - 1, page, page + 1].map((p, idx) => {
+                  const visible = p >= 1 && p <= pageCount
+                  const isCenter = idx === 1
+                  return visible ? (
+                    <button
+                      key={isCenter ? `center-${p}` : `side-${idx}`}
+                      type="button"
+                      data-active-page={isCenter}
+                      aria-label={`Go to page ${p} of ${pageCount}`}
+                      aria-current={isCenter ? 'page' : undefined}
+                      onClick={() => goTo(p)}
+                      className={`h-10 w-10 flex items-center justify-center rounded-full text-sm font-semibold transition-colors duration-300 cursor-pointer ${
+                        isCenter
+                          ? 'pag-pop bg-maven text-white-solid shadow-[0_4px_16px_rgba(97,44,139,0.5)]'
+                          : 'hover:bg-ink-2 hover:text-white'
+                      }`}
+                    >
+                      {isCenter ? (
+                        <span key={p} className="pag-rise">
+                          {p}
+                        </span>
+                      ) : (
+                        p
+                      )}
+                    </button>
+                  ) : (
+                    <span key={`side-${idx}`} className="h-10 w-10" aria-hidden="true" />
+                  )
+                })}
+              </div>
 
               <button
                 type="button"
+                aria-label="Next page"
                 onClick={() => goTo(page + 1)}
                 disabled={page === pageCount}
-                aria-label="Next page"
                 className="w-10 h-10 rounded-full flex items-center justify-center border border-line bg-ink/60 transition-colors duration-300 cursor-pointer hover:text-white hover:border-maven-light/40 disabled:opacity-40 disabled:cursor-default"
               >
                 <ChevronRight size={18} />
