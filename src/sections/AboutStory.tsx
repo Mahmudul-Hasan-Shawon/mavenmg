@@ -42,18 +42,18 @@ export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void 
   return (
     <>
       {/* Services we offer — flush hairline panels */}
-      <section id="about-services" className="section py-28 md:py-36 border-t border-line relative overflow-hidden" aria-label="Services we offer">
+      <section id="about-services" className="section py-28 md:py-36 border-t border-line relative overflow-clip" aria-label="Services we offer">
         <div className="container-maven">
           <Reveal>
             <Eyebrow label="Services we offer" className="mb-14 md:mb-20" />
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-5">
-            {offerings.map((o, i) => {
+            {offerings.map((o) => {
               const Icon = o.icon
               return (
-                <Reveal key={o.title} delay={i * 0.08}>
-                  <div className="spotlight glow-tl h-full flex flex-col rounded-2xl border border-line bg-void overflow-hidden shadow-[0_24px_60px_-24px_rgba(97,44,139,0.45)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500" onPointerMove={trackSpotlight}>
+                <div key={o.title}>
+                  <div className="scroll-blur spotlight glow-tl h-full flex flex-col rounded-2xl border border-line bg-void overflow-hidden shadow-[0_24px_60px_-24px_rgba(97,44,139,0.45)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500" onPointerMove={trackSpotlight}>
                     <div className="relative overflow-hidden">
                       <img
                         src={o.image}
@@ -82,7 +82,7 @@ export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void 
                       </ul>
                     </div>
                   </div>
-                </Reveal>
+                </div>
               )
             })}
           </div>

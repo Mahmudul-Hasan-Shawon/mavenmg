@@ -147,9 +147,9 @@ export function WorkShowcase({
           className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible py-8 md:py-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {shown.map((p, i) => (
-            <Reveal key={p.id} delay={(i % 3) * 0.06} className="shrink-0 w-[80vw] max-w-[340px] md:w-auto md:max-w-none snap-center">
+            <div key={p.id} className="shrink-0 w-[80vw] max-w-[340px] md:w-auto md:max-w-none snap-center">
               <Card project={p} index={i} onNavigate={onNavigate} />
-            </Reveal>
+            </div>
           ))}
         </div>
 
@@ -271,7 +271,7 @@ function Card({
         rel="noreferrer"
         data-cursor
         aria-label={`Visit the ${name} website`}
-        className="panel panel-hover group relative block cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
+        className="scroll-blur panel panel-hover group relative block cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
       >
         {body}
       </a>
@@ -282,7 +282,7 @@ function Card({
     <article
       data-filter-card
       onClick={() => onNavigate('/work')}
-      className="panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
+      className="scroll-blur panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
     >
       {body}
     </article>
