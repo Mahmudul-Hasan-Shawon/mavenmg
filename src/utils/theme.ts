@@ -31,7 +31,7 @@ export function storedPreference(): ThemePreference | null {
 
 /** Map a preference (or absence) to a concrete theme. */
 export function resolveTheme(pref: ThemePreference | null): ThemeName {
-  return pref === 'light' || pref === 'dark' ? pref : systemTheme()
+  return pref === 'light' || pref === 'dark' ? pref : 'dark'
 }
 
 /** Apply + persist a resolved theme, then broadcast so WebGL scenes can retint. */
@@ -71,7 +71,7 @@ export function initialTheme(): ThemeName {
   if (pref === 'light' || pref === 'dark') return pref
   if (document.documentElement.dataset.theme === 'light') return 'light'
   if (document.documentElement.dataset.theme === 'dark') return 'dark'
-  return systemTheme()
+  return 'dark'
 }
 
 /** Subscribe to runtime theme changes (returns unsubscribe). */
