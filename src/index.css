@@ -429,6 +429,34 @@
     box-shadow: inset 1px 1px 0 0 var(--edge-tl);
   }
 
+  /* Scroll-driven cinematic reveal: opacity, blur and a translate rise are
+     scrubbed directly by scroll position through an entry view() timeline —
+     soft and sunk as the card enters from the bottom, then sharp for good.
+     Scroll up and it re-blurs only as it slips back out the bottom edge;
+     there is no blurring at the top of the viewport. No observers, no
+     fixed-duration tween. Uses `transform` for the rise so Tailwind's
+     `translate`-based hover lifts (hover:-translate-y-*) keep composing. */
+  .scroll-blur {
+    will-change: transform, filter;
+  }
+
+  @supports (animation-timeline: view()) {
+    .scroll-blur {
+      animation: scroll-blur-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry;
+    }
+
+    /* The featured-work carousel scrolls horizontally on small screens, so
+       drive its cards from an inline view() timeline instead of re-scrubbing
+       against the document's vertical scroll. */
+    @media (max-width: 767px) {
+      #featured-work .scroll-blur {
+        animation-timeline: view(inline);
+      }
+    }
+  }
+
   /* ---------- Overlay / texture ---------- */
 
   .noise-overlay {
@@ -566,6 +594,30 @@
 @keyframes beam-orbit {
   to {
     transform: rotate(1turn);
+  }
+}
+
+/* Scroll-driven reveal for .scroll-blur cards. The element scrubs through
+   0%–100% of its entry into the viewport (an `entry` view() timeline, tied
+   1:1 to scroll position): blurred, transparent and sunk 25px as it arrives,
+   sharpening by mid-entry and staying sharp while on screen. Reversing the
+   scroll reverses the state — no duration to fight, only where the user
+   stopped. Exiting past the top edge never re-blurs the card. */
+@keyframes scroll-blur-reveal {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 25px, 0);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -710,6 +762,10 @@ html:not([data-theme='light']) .marquee-badge {
 
   .marquee-track,
   #client-words .cw-track {
+    animation: none;
+  }
+
+  .scroll-blur {
     animation: none;
   }
 

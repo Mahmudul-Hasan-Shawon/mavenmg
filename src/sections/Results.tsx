@@ -9,7 +9,8 @@ import { trackSpotlight } from '../utils/motion'
  * side (hairline dividers between them), wrapped in a gradient hairline
  * border that ignites to maven on hover. Inside, a mouse-tracked spotlight
  * plus top-left ambient glow make the panel feel lit from within; numerals
- * render in the brand gradient. Counters animate once when the section enters.
+ * render in the brand gradient. The panel gets the scroll-blur reveal, and
+ * counters animate once when the section enters.
  */
 export function Results() {
   const rootRef = useRef<HTMLElement>(null)
@@ -17,19 +18,6 @@ export function Results() {
   useGsapContext(
     rootRef,
     () => {
-      gsap.fromTo(
-        '[data-stat]',
-        { opacity: 0, y: 48 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.1,
-          ease: 'expo.out',
-          stagger: 0.12,
-          scrollTrigger: { trigger: rootRef.current, start: 'top 75%', once: true },
-        }
-      )
-
       // Counters
       gsap.utils.toArray<HTMLElement>('[data-counter]').forEach((el) => {
         const target = Number(el.dataset.counter || '0')
@@ -50,7 +38,7 @@ export function Results() {
   )
 
   return (
-    <section ref={rootRef} id="results" className="section py-28 md:py-36 relative overflow-hidden" aria-label="Results">
+    <section ref={rootRef} id="results" className="section py-28 md:py-36 relative overflow-clip" aria-label="Results">
       {/* Ambient wash */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[420px] rounded-full bg-maven/10 blur-[160px]" />
@@ -61,8 +49,7 @@ export function Results() {
 
         {/* One panel, three stats — hairline dividers between them */}
         <div
-          data-stat
-          className="border-beam group relative rounded-3xl shadow-[0_28px_80px_-28px_rgba(97,44,139,0.5)] transition-all duration-500 ease-out hover:-translate-y-2"
+          className="scroll-blur border-beam group relative rounded-3xl shadow-[0_28px_80px_-28px_rgba(97,44,139,0.5)] transition-all duration-500 ease-out hover:-translate-y-2"
         >
           {/* Orbiting border beam — blurred halo underneath, sharp core on top */}
           <div aria-hidden="true" className="beam-viewport beam-viewport-halo">

@@ -11,7 +11,6 @@ import {
 } from 'lucide-react'
 import { reasons } from '../data/content'
 import { SectionHeading } from '../components/ui/SectionHeading'
-import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { trackSpotlight } from '../utils/motion'
 import { cn } from '../utils/cn'
@@ -37,7 +36,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
   return (
     <section
       id="why-maven"
-      className="section py-28 md:py-36 border-t border-line relative overflow-hidden"
+      className="section py-28 md:py-36 border-t border-line relative overflow-clip"
       aria-label="Why Maven"
     >
       {/* Ambient wash */}
@@ -61,12 +60,11 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
             const Icon = reasonIcons[reason.index]
             const featured = i === 0
             return (
-              <Reveal
+              <div
                 key={reason.index}
-                delay={i * 0.07}
                 className={cn('h-full', featured && 'sm:col-span-2 lg:col-span-2')}
               >
-                <div className="group relative h-full rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5">
+                <div className="scroll-blur group relative h-full rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5">
                   {/* Gradient hairline border — ignites to maven on hover */}
                   <div
                     className={cn(
@@ -120,18 +118,18 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                         )}
                       >
                         {reason.description}
-                      </p>
-                    </div>
+</p>
                   </div>
                 </div>
-              </Reveal>
+              </div>
+            </div>
             )
           })}
 
           {/* CTA card */}
           {onNavigate && (
-            <Reveal delay={reasons.length * 0.07} className="h-full sm:col-span-2 lg:col-span-1">
-              <div className="group relative h-full rounded-3xl transition-transform duration-500 ease-out hover:-translate-y-1.5">
+            <div className="h-full sm:col-span-2 lg:col-span-1">
+              <div className="scroll-blur group relative h-full rounded-3xl transition-transform duration-500 ease-out hover:-translate-y-1.5">
                 <div className="spotlight glow-tl rounded-3xl bg-maven-deep p-8 md:p-9 flex flex-col justify-end gap-6 h-full overflow-hidden">
                   <div aria-hidden="true" className="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-white-solid/10" />
                   <div aria-hidden="true" className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-white-solid/10" />
@@ -152,7 +150,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                   </MagneticButton>
                 </div>
               </div>
-            </Reveal>
+            </div>
           )}
         </div>
       </div>

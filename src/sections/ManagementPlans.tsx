@@ -70,7 +70,11 @@ const plans = [
 
 export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
-    <section id="management-plans" className="section py-28 md:py-36 relative overflow-hidden" aria-label="Website Management Service Plans">
+    <section
+      id="management-plans"
+      className="section py-28 md:py-36 relative overflow-clip"
+      aria-label="Website Management Service Plans"
+    >
       <div className="container-maven">
         <Reveal>
           <Eyebrow label="Management plans" className="mb-8 justify-center" />
@@ -84,11 +88,11 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
         </Reveal>
 
         <div className="grid md:grid-cols-3 gap-6 mt-14 md:mt-24">
-          {plans.map((plan, i) => (
-            <Reveal key={plan.name} delay={i * 0.1}>
+          {plans.map((plan) => (
+            <div key={plan.name}>
               <div
                 className={cn(
-                  'group relative rounded-3xl h-full transition-all duration-500 ease-out shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:-translate-y-2 hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)]',
+                  'scroll-blur group relative rounded-3xl h-full transition-all duration-500 ease-out shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:-translate-y-2 hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)]',
                   plan.featured && 'md:-translate-y-3 md:hover:-translate-y-5'
                 )}
               >
@@ -167,7 +171,7 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                   </div>
                 </div>
               </div>
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>

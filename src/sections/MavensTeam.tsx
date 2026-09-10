@@ -20,7 +20,7 @@ interface MavensTeamProps {
  */
 export function MavensTeam({ id, className }: MavensTeamProps) {
   return (
-    <section id={id} className={cn('section relative overflow-hidden', className)} aria-label="The Marketing Mavens team">
+    <section id={id} className={cn('section relative overflow-clip', className)} aria-label="The Marketing Mavens team">
       <div className="container-maven">
         <Reveal>
           <div className="text-start mb-16">
@@ -39,7 +39,7 @@ export function MavensTeam({ id, className }: MavensTeamProps) {
         </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mb-8 md:mb-14">
-          <Reveal className="relative">
+          <div className="scroll-blur relative">
             <div className="absolute -inset-3 bg-gradient-to-r from-[#612C8B]/30 to-[#8B4FBF]/30 blur-2xl" aria-hidden="true" />
             <img
               alt="The Maven Marketing team collaborating in the studio"
@@ -47,11 +47,11 @@ export function MavensTeam({ id, className }: MavensTeamProps) {
               loading="lazy"
               src="/images/team.jpg"
             />
-          </Reveal>
+          </div>
 
           <div className="space-y-5">
-            <Reveal delay={0.1}>
-              <div className="glass rounded-3xl p-8 hover:border-maven-light/30 transition-all duration-500">
+            <div>
+              <div className="scroll-blur glass rounded-3xl p-8 hover:border-maven-light/30 transition-all duration-500">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 rounded-2xl bg-maven/20 flex items-center justify-center flex-shrink-0">
                     <Code size={24} className="text-maven-light" aria-hidden="true" />
@@ -65,10 +65,10 @@ export function MavensTeam({ id, className }: MavensTeamProps) {
                   business growth.
                 </p>
               </div>
-            </Reveal>
+            </div>
 
-            <Reveal delay={0.2}>
-              <div className="glass rounded-3xl p-8 hover:border-maven-light/30 transition-all duration-500">
+            <div>
+              <div className="scroll-blur glass rounded-3xl p-8 hover:border-maven-light/30 transition-all duration-500">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 rounded-2xl bg-maven-light/20 flex items-center justify-center flex-shrink-0">
                     <Megaphone size={24} className="text-maven-light" aria-hidden="true" />
@@ -82,7 +82,7 @@ export function MavensTeam({ id, className }: MavensTeamProps) {
                   your industry.
                 </p>
               </div>
-            </Reveal>
+            </div>
           </div>
         </div>
       </div>
