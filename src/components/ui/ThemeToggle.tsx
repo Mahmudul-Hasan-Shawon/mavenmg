@@ -24,7 +24,10 @@ const LABELS: Record<ThemePreference, string> = {
  * persist an explicit user override that always wins.
  */
 export function ThemeToggle({ className = '' }: { className?: string }) {
-  const [pref, setPref] = useState<ThemePreference>(() => storedPreference() ?? 'system')
+  const [pref, setPref] = useState<ThemePreference>(() => {
+    const s = storedPreference()
+    return s === 'light' || s === 'dark' ? s : 'dark'
+  })
   const [theme, setTheme] = useState<ThemeName>(() => initialTheme())
 
   useEffect(() => {
@@ -37,7 +40,7 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
     const onChange = () => {
       const stored = storedPreference()
       if (stored === 'light' || stored === 'dark') return
-      const next = systemTheme()
+      const next: ThemeName = 'dark'
       setTheme(next)
       applyTheme(next, false)
     }
@@ -90,5 +93,5 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
 }
 
 function resolve(pref: ThemePreference): ThemeName {
-  return pref === 'system' ? systemTheme() : pref
+  return pref === 'system' ? 'dark' : pref
 }
