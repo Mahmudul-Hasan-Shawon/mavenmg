@@ -16,7 +16,7 @@
       try {
         var t = localStorage.getItem('maven-theme')
         if (t !== 'light' && t !== 'dark') {
-          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+          t = 'dark'
         }
         document.documentElement.dataset.theme = t
       } catch (e) {
