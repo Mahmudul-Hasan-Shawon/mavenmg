@@ -455,6 +455,12 @@
         animation-timeline: view(inline);
       }
     }
+
+    /* The read-more carousel on blog posts scrolls horizontally on every
+       screen, so it needs an inline view() timeline as well. */
+    #blog-more-articles .scroll-blur {
+      animation-timeline: view(inline);
+    }
   }
 
   /* ---------- Overlay / texture ---------- */

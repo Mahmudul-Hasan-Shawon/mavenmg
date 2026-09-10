@@ -566,7 +566,7 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
                 }
                 data-cursor
                 data-article-card
-                className="panel panel-hover group relative flex w-[80vw] max-w-[340px] shrink-0 snap-center flex-col justify-between gap-5 overflow-hidden rounded-2xl p-5 md:p-6 transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
+                className="scroll-blur panel panel-hover group relative flex w-[80vw] max-w-[340px] shrink-0 snap-center flex-col justify-between gap-5 overflow-hidden rounded-2xl p-5 md:p-6 transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
               >
                 <div className="relative aspect-[16/10] -mx-5 md:-mx-6 -mt-5 md:-mt-6 mb-1 overflow-hidden rounded-t-2xl bg-ink-2">
                   {p.image ? (

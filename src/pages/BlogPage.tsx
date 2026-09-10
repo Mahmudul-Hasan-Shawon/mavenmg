@@ -83,8 +83,8 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
 
       <section id="blog-list" className="section pt-8 md:pt-12 pb-16 md:pb-20 scroll-mt-24" aria-label="Blog articles">
         <div className="container-maven">
-          {yearGroups.map(([year, groupPosts], gi) => (
-            <Reveal key={year} delay={gi * 0.05}>
+          {yearGroups.map(([year, groupPosts]) => (
+            <div key={year}>
               <div className="scroll-mt-28 mb-10 md:mb-14">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {groupPosts.map((post) => {
@@ -105,7 +105,7 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
                               }
                         }
                         data-cursor
-                        className="panel panel-hover group relative flex flex-col justify-between gap-6 rounded-2xl p-6 md:p-7 overflow-hidden transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
+                        className="scroll-blur panel panel-hover group relative flex flex-col justify-between gap-6 rounded-2xl p-6 md:p-7 overflow-hidden transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
                       >
                         <div className="relative aspect-[16/10] -mx-6 md:-mx-7 -mt-6 md:-mt-7 mb-2 overflow-hidden rounded-t-2xl bg-ink-2">
                           {post.image ? (
@@ -149,7 +149,7 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
                   })}
                 </div>
               </div>
-            </Reveal>
+            </div>
           ))}
 
           {/* Pagination */}
