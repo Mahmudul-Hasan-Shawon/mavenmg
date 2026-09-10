@@ -755,10 +755,19 @@ html:not([data-theme='light']) .marquee-badge {
   animation: pag-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+#blog-list .pag-rise {
+  animation: pag-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
 @media (prefers-reduced-motion: reduce) {
   #featured-work .pag-rise,
   #featured-work .pag-pop,
   #blog-list .pag-pop {
+    animation: none;
+  }
+
+  #blog-list .pag-rise {
     animation: none;
   }
 }
