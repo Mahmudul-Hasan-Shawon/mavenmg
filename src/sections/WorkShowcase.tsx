@@ -1,10 +1,9 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { projects, projectCategories } from '../data/projects'
 import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Eyebrow } from '../components/text/Eyebrow'
-import { gsap, useIsoLayoutEffect } from '../hooks/useGsap'
 import { reducedMotion } from '../utils/motion'
 
 /**
@@ -75,27 +74,12 @@ export function WorkShowcase({
     setActiveSlide(nearest)
   }
 
-  // Smooth re-entry when the active filter changes (skips first mount).
-  useIsoLayoutEffect(() => {
+  // Reset the mobile carousel to its first slide when the active filter
+  // changes; the keyed grid remount below replays the CSS stagger entrance.
+  useEffect(() => {
     if (!showFilter || prevFilter.current === filter) return
     prevFilter.current = filter
     setActiveSlide(0)
-    const cards = gridRef.current?.querySelectorAll<HTMLElement>('[data-filter-card]')
-    if (reducedMotion || !cards?.length) return
-    gsap.fromTo(
-      cards,
-      { opacity: 0, y: 28, scale: 0.98 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.6,
-        ease: 'power3.out',
-        stagger: 0.06,
-        overwrite: 'auto',
-        clearProps: 'all',
-      }
-    )
   }, [filter, showFilter])
 
   return (
@@ -142,12 +126,17 @@ export function WorkShowcase({
         )}
 
         <div
+          key={showFilter ? filter : 'static'}
           ref={gridRef}
           onScroll={handleScroll}
-          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible py-8 md:py-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="work-cards-stagger flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible py-8 md:py-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {shown.map((p, i) => (
-            <div key={p.id} className="shrink-0 w-[80vw] max-w-[340px] md:w-auto md:max-w-none snap-center">
+            <div
+              key={p.id}
+              className="work-card-shell shrink-0 w-[80vw] max-w-[340px] md:w-auto md:max-w-none snap-center"
+              style={{ '--card-i': i } as CSSProperties}
+            >
               <Card project={p} index={i} onNavigate={onNavigate} />
             </div>
           ))}
