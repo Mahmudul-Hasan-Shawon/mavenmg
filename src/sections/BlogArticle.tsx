@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react'
 import { ArrowLeft, ArrowRight, CalendarDays, ChevronDown, Mail, Star } from 'lucide-react'
 import type { BlogBlock, BlogListItem, BlogPost, BlogSection } from '../data/blog'
 import { blogPosts } from '../data/blog'
@@ -522,16 +522,21 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
         </div>
 
         <div
+          key={filter}
           ref={trackRef}
           onScroll={updateArrows}
-          className="flex gap-6 overflow-x-auto overscroll-x-contain snap-x snap-mandatory pb-2 -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-16 lg:px-16 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="article-cards-stagger flex gap-6 overflow-x-auto overscroll-x-contain snap-x snap-mandatory pb-2 -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-16 lg:px-16 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {posts.map((p) => {
+          {posts.map((p, i) => {
             const isExternal = !p.slug
             const href = p.slug ? `/blog/${p.slug}` : p.href
             return (
-              <a
+              <div
                 key={p.href}
+                className="article-card-shell shrink-0 w-[80vw] max-w-[340px] snap-center"
+                style={{ '--card-i': i } as CSSProperties}
+              >
+              <a
                 href={href}
                 target={isExternal ? '_blank' : undefined}
                 rel={isExternal ? 'noopener noreferrer' : undefined}
@@ -545,7 +550,7 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
                 }
                 data-cursor
                 data-article-card
-                className="scroll-blur panel panel-hover group relative flex w-[80vw] max-w-[340px] shrink-0 snap-center flex-col justify-between gap-5 overflow-hidden rounded-2xl p-5 md:p-6 transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
+                className="scroll-blur panel panel-hover group relative flex flex-col justify-between gap-5 overflow-hidden rounded-2xl p-5 md:p-6 transition-shadow duration-500 hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)]"
               >
                 <div className="relative aspect-[16/10] -mx-5 md:-mx-6 -mt-5 md:-mt-6 mb-1 overflow-hidden rounded-t-2xl bg-ink-2">
                   {p.image ? (
@@ -585,6 +590,7 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
                   </span>
                 </div>
               </a>
+              </div>
             )
           })}
         </div>

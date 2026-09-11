@@ -657,6 +657,17 @@
   animation-delay: calc(var(--card-i, 0) * 70ms);
 }
 
+/* Transient entrance for the read-more article carousel when the user
+   changes the tag filter. The keyed track remount replays this once per
+   filter, staggering each card in with a soft blur-rise that echoes the
+   scroll-blur language without depending on scroll position. It lives on a
+   wrapper element so it never overwrites the scroll-driven animation on the
+   card. */
+.article-cards-stagger .article-card-shell {
+  animation: blog-card-reveal 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--card-i, 0) * 70ms);
+}
+
 /* Transient entrance for project cards when the user changes the work
    category filter. The keyed grid remount replays this once per filter,
    staggering each card in with a soft blur-rise that echoes the scroll-blur
