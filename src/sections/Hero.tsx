@@ -39,7 +39,16 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
   )
 
   return (
-    <section ref={rootRef} id="hero" className="relative min-h-svh flex flex-col overflow-hidden" aria-label="Introduction">
+    <section
+      ref={rootRef}
+      id="hero"
+      style={{
+        backgroundColor: '#000000',
+        backgroundImage: 'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+      }}
+      className="relative min-h-svh flex flex-col overflow-hidden"
+      aria-label="Introduction"
+    >
       {/* WebGL orbital ring system */}
       <div data-hero-canvas className="absolute inset-0 will-change-transform">
         <LazyCanvas

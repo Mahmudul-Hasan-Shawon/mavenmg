@@ -21,6 +21,11 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
         title="Grow your business online"
         accent="purpose driven websites"
         lede="Every project below was designed, developed, and is actively managed by Maven, built to perform as good as it looks."
+        style={{
+          backgroundColor: '#000000',
+          backgroundImage:
+            'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+        }}
       />
 
       {/* Featured project hero */}
