@@ -632,8 +632,9 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
           className="absolute inset-0 -z-10 bg-gradient-to-t from-void via-void/60 to-void/25"
         />
 
-        <div className="mx-auto flex min-h-[56vh] max-w-6xl flex-col px-6 py-7 md:min-h-[62vh] md:px-12 md:py-12">
-          <div className="mt-auto pt-8">
+        <div className="section">
+          <div className="container-maven max-w-6xl flex min-h-[56vh] flex-col py-7 md:min-h-[62vh] md:py-12">
+            <div className="mt-auto pt-8">
             <Reveal>
               <button
                 type="button"
@@ -686,6 +687,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
 
               </header>
             </div>
+          </div>
           </div>
         </div>
 
