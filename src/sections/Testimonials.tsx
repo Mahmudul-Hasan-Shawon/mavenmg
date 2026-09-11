@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, Quote } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { testimonials } from '../data/testimonials'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 import { Eyebrow } from '../components/text/Eyebrow'
@@ -86,38 +86,58 @@ export function Testimonials() {
         <Eyebrow label="Client words" align="center" className="mb-14 md:mb-16" />
 
         <div ref={quoteRef} className="max-w-3xl mx-auto text-center">
-          <Quote size={32} className="text-maven-lighter mx-auto mb-9" aria-hidden="true" />
           <blockquote
             className="flex flex-col justify-center min-h-[15rem] sm:min-h-[9rem] md:min-h-[11rem] lg:min-h-[16rem]"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
             <span className="font-dm font-semibold text-[clamp(1.05rem,2.2vw,1.6rem)] leading-[1.6] tracking-[0.01em] text-white text-balance">
-              “{highlightNames(t.quote)}”
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="60"
+                height="60"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-maven-lighter inline-block -scale-x-100 -mt-2 mr-3 align-baseline"
+                aria-hidden="true"
+              >
+                <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+                <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+              </svg>
+              {highlightNames(t.quote)}
             </span>
           </blockquote>
           <figcaption className="mt-10 flex items-center justify-center gap-4">
-            {t.image ? (
-              <img
-                src={t.image}
-                alt=""
-                className="w-12 h-12 rounded-full object-contain p-1.5 bg-white-solid ring-2 ring-maven-light shrink-0"
-              />
-            ) : (
-              <span
-                aria-hidden="true"
-                className="w-12 h-12 rounded-full bg-gradient-to-br from-maven to-maven-light flex items-center justify-center font-sora font-bold text-sm text-white-solid ring-1 ring-maven-light/40 shadow-[0_0_28px_rgba(139,79,191,0.45)] shrink-0"
-              >
-                {t.name.charAt(0)}
+            <div className="relative w-12 h-12 shrink-0">
+              <div className="absolute -inset-1.5 rounded-full border border-maven-light/40" />
+              {t.image ? (
+                <div className="absolute inset-0 w-12 h-12 rounded-full bg-white-solid overflow-hidden">
+                  <img
+                    src={t.image}
+                    alt={t.name}
+                    className="w-full h-full object-contain p-1.5 rounded-full"
+                  />
+                </div>
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 w-12 h-12 rounded-full bg-gradient-to-br from-maven to-maven-light flex items-center justify-center font-sora font-bold text-sm text-white-solid"
+                >
+                  {t.name.charAt(0)}
+                </span>
+              )}
+            </div>
+            <div className="relative pl-4">
+              <div className="absolute left-0 top-0 bottom-0 w-px bg-maven-light" />
+              <span className="block text-start text-md font-medium text-white tracking-wide">{t.name}</span>
+              <span className="block text-start text-mist-dim text-xs mt-0.5 font-mono uppercase tracking-widest">
+                {t.role}{t.company ? ` — ${t.company}` : ''}
               </span>
-            )}
-            <span className="text-left">
-              <span className="block text-white font-medium">{t.name}</span>
-              <span className="block text-mist-dim text-sm mt-0.5">
-                {t.role}
-                {t.company ? `, ${t.company}` : ''}
-              </span>
-            </span>
+            </div>
           </figcaption>
         </div>
 
