@@ -23,7 +23,6 @@ services that"
             <Reveal key={s.id} delay={i * 0.05}>
               <article className="grid md:grid-cols-[1fr_1.4fr] gap-6 md:gap-16 py-12 md:py-16">
                 <div>
-                  <span className="index-tag block mb-4">{s.index}</span>
                   <h2 className="display font-semibold text-2xl md:text-3xl text-white mb-5">{s.title}</h2>
                   <div className="flex flex-wrap gap-2">
                     {s.features.map((f) => (
