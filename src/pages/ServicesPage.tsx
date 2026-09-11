@@ -1,8 +1,16 @@
-import { Check } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import { services } from '../data/services'
 import { PageHero } from '../sections/PageHero'
 import { ManagementPlans } from '../sections/ManagementPlans'
 import { Reveal } from '../components/ui/Reveal'
+
+/** Maps the legacy service ids in data/services.ts to their detail page slugs. */
+const serviceSlug: Record<string, string> = {
+  'web-design': 'web-design',
+  management: 'website-management',
+  seo: 'seo',
+  marketing: 'digital-marketing',
+}
 
 export default function ServicesPage({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
@@ -14,6 +22,11 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
 services that"
         accent="increase sales"
         lede="Companies all around the world use our freelance digital marketing services to generate leads, land new clients and most importantly increase sales."
+        style={{
+          backgroundColor: '#000000',
+          backgroundImage:
+            'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+        }}
       />
 
       {/* Service detail rows */}
@@ -44,6 +57,14 @@ services that"
                       </li>
                     ))}
                   </ul>
+                  <a
+                    data-cursor
+                    onClick={() => onNavigate(`/services/${serviceSlug[s.id] ?? s.id}`)}
+                    className="group mt-8 inline-flex items-center gap-2.5 text-sm font-medium text-maven-lighter hover:text-white cursor-pointer transition-colors duration-300"
+                  >
+                    Explore {s.title}
+                    <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </a>
                 </div>
               </article>
             </Reveal>

@@ -58,13 +58,13 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
             <h4 className="text-sm uppercase footer-col-heading">Services</h4>
             <ul className="space-y-3">
               {footerServices.map((s) => (
-                <li key={s}>
+                <li key={s.href}>
                   <a
-                    onClick={() => onNavigate('/services')}
+                    onClick={() => onNavigate(s.href)}
                     data-cursor
                     className="text-sm text-mist-dim hover:text-white-solid cursor-pointer transition-colors"
                   >
-                    {s}
+                    {s.label}
                   </a>
                 </li>
               ))}

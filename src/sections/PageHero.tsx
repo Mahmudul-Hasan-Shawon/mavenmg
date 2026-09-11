@@ -1,8 +1,9 @@
-import { lazy, type ReactNode } from 'react'
+import { lazy, type CSSProperties, type ReactNode } from 'react'
 import { AnimatedText } from '../components/text/AnimatedText'
 import { Eyebrow } from '../components/text/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
 import { LazyCanvas } from '../three/LazyCanvas'
+import { cn } from '../utils/cn'
 import { reducedMotion } from '../utils/motion'
 
 const AboutLogo = reducedMotion ? null : lazy(() => import('../three/AboutLogo'))
@@ -29,10 +30,14 @@ interface PageHeroProps {
   ledeWide?: boolean
   /** Render the lede as separate lines (one node per sentence). */
   ledeLines?: ReactNode[]
+  /** Inline styles applied to the hero section (e.g. custom background). */
+  style?: CSSProperties
 }
 
 /** Compact editorial hero for secondary pages. */
-export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight, ledeWide, ledeLines }: PageHeroProps) {
+export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight, ledeWide, ledeLines, style }: PageHeroProps) {
+  const imageBg = Boolean(image && !logo3d)
+
   const copy = (
     <>
       <Reveal>
@@ -77,41 +82,79 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
   )
 
   return (
-    <section id={id} className="section pt-24 pb-8 md:pt-52 md:pb-20 relative overflow-hidden" aria-label={`${eyebrow} introduction`}>
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 right-[8%] w-[560px] h-[420px] rounded-full bg-maven/12 blur-[140px]" />
-      </div>
+    <section
+      id={id}
+      style={style}
+      className={cn(
+        'section relative overflow-hidden',
+        imageBg ? 'isolate pt-24 pb-10 md:pt-44 md:pb-20' : 'pt-24 pb-8 md:pt-52 md:pb-20'
+      )}
+      aria-label={`${eyebrow} introduction`}
+    >
+      {imageBg && image && (
+        <>
+          <img
+            src={image}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 -z-20 h-full w-full scale-110 object-cover blur-[4px]"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-gradient-to-t from-void via-void/60 to-void/25"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-40 right-[8%] -z-10 w-[560px] h-[420px] rounded-full bg-maven/15 blur-[140px]"
+          />
+        </>
+      )}
+
       <div className="container-maven relative">
         {image ? (
-          <div className="grid lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-16 items-center">
-            <div>{copy}</div>
-            <div className="relative flex flex-col items-center justify-center gap-6 order-first lg:order-last lg:justify-end">
-              <div className="relative flex justify-center lg:justify-end w-full">
+          imageBg ? (
+            <div className="flex min-h-0 flex-col justify-start md:min-h-[48vh]">
+              <div className="max-w-4xl pb-2 md:pb-4">{copy}</div>
+            </div>
+          ) : (
+            <div className="grid lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-16 items-center lg:items-stretch">
+              <div className="lg:flex lg:flex-col lg:justify-center">{copy}</div>
+              <div className="relative order-first lg:order-last w-full">
                 {logo3d ? (
-                <div className="relative w-64 sm:w-80 lg:w-full lg:max-w-md aspect-square">
-                  <LazyCanvas
-                    Scene={AboutLogo}
-                    className="absolute inset-0"
-                    sceneProps={{ src: image }}
-                    fallback={
-                      <img
-                        src={image}
-                        alt={imageAlt || ''}
-                        className="absolute inset-0 w-full h-full object-contain animate-float-slow"
-                      />
-                    }
-                  />
-                </div>
-              ) : (
-                <img
-                  src={image}
-                  alt={imageAlt || ''}
-                  className="relative w-48 sm:w-60 lg:w-full lg:max-w-md object-contain animate-float-slow"
-                />
-              )}
+                  <div className="relative flex flex-col items-center justify-center gap-6 lg:h-full lg:justify-end">
+                    <div className="relative flex justify-center lg:justify-end w-full">
+                      <div className="relative w-64 sm:w-80 lg:w-full lg:max-w-md aspect-square">
+                        <LazyCanvas
+                          Scene={AboutLogo}
+                          className="absolute inset-0"
+                          sceneProps={{ src: image }}
+                          fallback={
+                            <img
+                              src={image}
+                              alt={imageAlt || ''}
+                              className="absolute inset-0 w-full h-full object-contain animate-float-slow"
+                            />
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="relative w-full min-h-[320px] sm:min-h-[420px] lg:h-full overflow-hidden rounded-3xl border border-line shadow-[0_30px_70px_-30px_rgba(97,44,139,0.45)]">
+                    <img
+                      src={image}
+                      alt={imageAlt || ''}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent"
+                      aria-hidden="true"
+                    />
+                  </div>
+                )}
               </div>
             </div>
-          </div>
+          )
         ) : (
           copy
         )}

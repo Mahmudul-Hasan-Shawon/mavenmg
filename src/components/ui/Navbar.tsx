@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import { ArrowRight, ChevronDown } from 'lucide-react'
 import { gsap, useGsapContext } from '../../hooks/useGsap'
-import { navigation, legalLinks } from '../../data/navigation'
+import { navigation, legalLinks, footerServices, type NavLink } from '../../data/navigation'
 import { site as siteData } from '../../data/site'
 import { cn } from '../../utils/cn'
 import { MagneticButton } from './MagneticButton'
@@ -86,20 +87,29 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
           </a>
 
           <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
-            {navigation.map((link) => (
-              <a
-                key={link.href}
-                onClick={() => go(link.href)}
-                data-cursor
-                className={cn(
-                  'text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
-                  isActive(link.href) ? 'text-white' : 'text-mist hover:text-white'
-                )}
-                aria-current={isActive(link.href) ? 'page' : undefined}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navigation.map((link) =>
+              link.href === '/services' ? (
+                <ServicesNavItem
+                  key={link.href}
+                  link={link}
+                  active={isActive(link.href)}
+                  go={go}
+                />
+              ) : (
+                <a
+                  key={link.href}
+                  onClick={() => go(link.href)}
+                  data-cursor
+                  className={cn(
+                    'text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
+                    isActive(link.href) ? 'text-white' : 'text-mist hover:text-white'
+                  )}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                >
+                  {link.label}
+                </a>
+              )
+            )}
           </nav>
 
           <div className="flex items-center gap-3">
@@ -138,6 +148,124 @@ function MenuButton({ open, onToggle }: { open: boolean; onToggle: () => void })
       <span className={cn('absolute w-[18px] h-px bg-white transition-all duration-400', open ? 'rotate-45' : '-translate-y-[3.5px]')} />
       <span className={cn('absolute w-[18px] h-px bg-white transition-all duration-400', open ? '-rotate-45' : 'translate-y-[3.5px]')} />
     </button>
+  )
+}
+
+function ServicesNavItem({
+  link,
+  active,
+  go,
+}: {
+  link: NavLink
+  active: boolean
+  go: (href: string) => void
+}) {
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        data-cursor
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className={cn(
+          'flex items-center gap-1.5 text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
+          active ? 'text-white' : 'text-mist hover:text-white'
+        )}
+      >
+        {link.label}
+        <span
+          className={cn('grid place-items-center transition-transform duration-300', open && 'rotate-180')}
+          aria-hidden="true"
+        >
+          <ChevronDown size={14} />
+        </span>
+      </button>
+
+      <div
+        id={`${link.href.slice(1)}-menu`}
+        role="menu"
+        aria-label="All services"
+        className={cn(
+          'absolute left-1/2 -translate-x-1/2 top-full pt-5 w-[340px]',
+          'transition-all duration-300 ease-out',
+          open ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'
+        )}
+      >
+        <div className="relative rounded-2xl border border-line bg-void/95 backdrop-blur-xl shadow-[0_30px_70px_-24px_rgba(97,44,139,0.55)] overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-16 -right-16 w-44 h-44 rounded-full bg-maven/25 blur-[80px]"
+          />
+          <div className="relative px-4 pt-4 pb-2 flex items-center justify-between">
+            <span className="mono-label !text-maven-light">All services</span>
+            <span className="mono-label !text-mist-dim">01–07</span>
+          </div>
+          <div className="relative grid gap-0.5 p-2">
+            {footerServices.map((s, i) => (
+              <a
+                key={s.href}
+                role="menuitem"
+                tabIndex={open ? 0 : -1}
+                data-cursor
+                onClick={() => {
+                  setOpen(false)
+                  go(s.href)
+                }}
+                style={{ transitionDelay: open ? `${i * 25}ms` : '0ms' }}
+                className={cn(
+                  'group flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-300',
+                  open ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
+                )}
+              >
+                <span className="flex items-center gap-3">
+                  <span className="mono-label !text-mist-dim group-hover:!text-maven-lighter transition-colors duration-300">
+                    0{i + 1}
+                  </span>
+                  <span className="text-sm font-medium text-white/85 group-hover:text-white transition-colors duration-300">
+                    {s.label}
+                  </span>
+                </span>
+                <ArrowRight
+                  size={14}
+                  className="text-maven-light opacity-0 -translate-x-1.5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                />
+              </a>
+            ))}
+          </div>
+          <div className="relative p-2 pt-1.5">
+            <a
+              role="menuitem"
+              tabIndex={open ? 0 : -1}
+              data-cursor
+              onClick={() => {
+                setOpen(false)
+                go('/services')
+              }}
+              className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-maven/15 hover:bg-maven/25 border border-maven-light/20 transition-colors duration-300 cursor-pointer"
+            >
+              <span className="text-sm font-semibold text-maven-lighter">View all services</span>
+              <ArrowRight size={14} className="text-maven-lighter" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -213,7 +341,11 @@ function MobileMenu({
       role="dialog"
       aria-modal="true"
       aria-label="Menu"
-      className="fixed inset-0 z-[90] bg-void/98 backdrop-blur-2xl invisible overflow-y-auto overflow-x-hidden"
+      className="fixed inset-0 z-[90] invisible overflow-y-auto overflow-x-hidden"
+      style={{
+        backgroundColor: '#000000',
+        backgroundImage: 'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+      }}
     >
       {/* Ambient top-left glow keeps the panel on-brand. */}
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 -right-40 w-[26rem] h-[26rem] rounded-full bg-maven/20 blur-[120px]" />

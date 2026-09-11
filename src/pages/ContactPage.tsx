@@ -31,7 +31,14 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
     'w-full px-4 py-3.5 rounded-xl bg-ink-2 border border-line text-white text-sm focus:border-maven focus:ring-2 focus:ring-maven/20 outline-none transition-all placeholder:text-mist-dim'
 
   return (
-    <>
+    <div
+      className="relative"
+style={{
+  backgroundColor: '#000000',
+  backgroundImage:
+    'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+}}
+    >
       <PageHero
         id="contact-hero"
         eyebrow="Contact"
@@ -168,6 +175,6 @@ export default function ContactPage({ onNavigate }: { onNavigate: (href: string)
           </Reveal>
         </div>
       </section>
-    </>
+    </div>
   )
 }

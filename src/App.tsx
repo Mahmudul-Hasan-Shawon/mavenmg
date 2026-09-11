@@ -9,6 +9,7 @@ import { ReadyVeil } from './components/ui/ReadyVeil'
 // import { ClientWords } from './sections/ClientWords'
 import Home from './pages/Home'
 import ServicesPage from './pages/ServicesPage'
+import ServicePage from './pages/ServicePage'
 import WorkPage from './pages/WorkPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
@@ -19,10 +20,18 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import CookiePolicy from './pages/CookiePolicy'
 import { blogPosts } from './data/blog'
+import { servicePages } from './data/servicePages'
+
+/** Individual service detail routes built from the service page data. */
+const serviceRoutes: Record<string, (props: { onNavigate: (href: string) => void }) => ReactElement> = {}
+for (const page of servicePages) {
+  serviceRoutes[`/services/${page.slug}`] = (props) => <ServicePage {...props} data={page} />
+}
 
 const routes: Record<string, (props: { onNavigate: (href: string) => void }) => ReactElement> = {
   '/': Home,
   '/services': ServicesPage,
+  ...serviceRoutes,
   '/work': WorkPage,
   '/portfolio': WorkPage, // legacy path kept alive
   '/about': AboutPage,

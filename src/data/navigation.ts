@@ -24,12 +24,12 @@ export const footerNavigation: NavLink[] = [
   { label: 'BLOG', href: '/blog', index: '07' },
 ]
 
-export const footerServices = [
-  'Custom Website Design',
-  'Website Development',
-  'Website Management',
-  'SEO Services',
-  'Digital Marketing',
-  'E-commerce Solutions',
-  'Logo & Branding',
+export const footerServices: { label: string; href: string }[] = [
+  { label: 'Custom Website Design', href: '/services/web-design' },
+  { label: 'Website Development', href: '/services/web-development' },
+  { label: 'Website Management', href: '/services/website-management' },
+  { label: 'SEO Services', href: '/services/seo' },
+  { label: 'Digital Marketing', href: '/services/digital-marketing' },
+  { label: 'E-commerce Solutions', href: '/services/ecommerce' },
+  { label: 'Logo & Branding', href: '/services/logo-branding' },
 ]

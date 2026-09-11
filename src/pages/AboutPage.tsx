@@ -50,6 +50,11 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
         image="/images/logos/3dlogomaven.png"
         imageAlt="Maven Marketing Group 3D logo"
         logo3d
+        style={{
+          backgroundColor: '#000000',
+          backgroundImage:
+            'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+        }}
       />
 
       <Story />
