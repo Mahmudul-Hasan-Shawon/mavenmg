@@ -97,7 +97,7 @@ export default function SitemapPage({ onNavigate }: { onNavigate: (href: string)
             <Reveal key={group.id} delay={gi * 0.05}>
               <div id={group.id} className="scroll-mt-28">
                 <Eyebrow label={group.title} className="mb-3" />
-                <p className="text-mist-dim text-sm md:text-base max-w-xl mb-8">{group.description}</p>
+                <p className="text-mist text-sm md:text-base max-w-xl mb-8">{group.description}</p>
 
                 {ALPHA_GROUP_IDS.has(group.id) ? (
                   <AlphabeticalGrid group={group} />

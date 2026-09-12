@@ -258,7 +258,7 @@ function MavensTabs() {
 
       <div ref={copyRef}>
         <p className="mono-label mb-4">{String(mode + 1).padStart(2, '0')} / Our {Active.label}</p>
-        <p className="text-white/70 text-md md:text-lg leading-relaxed max-w-xl">{Active.body}</p>
+        <p className="text-mist text-md md:text-lg leading-relaxed max-w-xl">{Active.body}</p>
       </div>
 
       <div className="mt-12 pt-8 pb-8 border-t border-b border-line max-w-xl">

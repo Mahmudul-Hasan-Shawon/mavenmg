@@ -88,7 +88,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
                     {valueIcons[v.title]}
                   </div>
                   <h3 className="display font-semibold tracking-[0.98px] text-lg md:text-xl text-white mb-2">{v.title}</h3>
-                  <p className="text-mist-dim text-md leading-relaxed">{v.description}</p>
+                  <p className="text-mist text-md leading-relaxed">{v.description}</p>
                 </div>
               </div>
             ))}
