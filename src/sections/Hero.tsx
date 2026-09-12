@@ -19,8 +19,8 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
     <section
       id="hero"
       style={{
-        backgroundColor: '#000000',
-        backgroundImage: 'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+        backgroundColor: 'var(--hero-base)',
+        backgroundImage: 'radial-gradient(ellipse 85% 65% at 50% 0%, var(--hero-glow) 0%, var(--hero-base) 100%)',
       }}
       className="relative min-h-svh flex flex-col overflow-hidden"
       aria-label="Introduction"

@@ -22,16 +22,16 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
         accent="purpose driven websites"
         lede="Every project below was designed, developed, and is actively managed by Maven, built to perform as good as it looks."
         style={{
-          backgroundColor: '#000000',
+          backgroundColor: 'var(--hero-base)',
           backgroundImage:
-            'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+            'radial-gradient(ellipse 85% 65% at 50% 0%, var(--hero-glow) 0%, var(--hero-base) 100%)',
         }}
       />
 
       {/* Featured project hero */}
       {featured && (
         <Reveal>
-          <section id="featured-project" className="bg-[#000000] pt-4 pb-10 lg:pt-10 lg:pb-24 px-6" aria-label="Featured project">
+          <section id="featured-project" className="bg-[var(--hero-base)] pt-4 pb-10 lg:pt-10 lg:pb-24 px-6" aria-label="Featured project">
             <div className="max-w-6xl mx-auto">
               <div className="relative overflow-hidden rounded-[2rem]">
                 <div className="absolute inset-0">

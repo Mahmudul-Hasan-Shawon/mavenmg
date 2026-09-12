@@ -9,7 +9,7 @@ import { Eyebrow } from '../components/text/Eyebrow'
  */
 export function Story() {
   return (
-    <section id="story" className="bg-[#000000] section pt-28 md:pt-36 pb-8 md:pb-12 " aria-label="Company story">
+    <section id="story" className="bg-[var(--hero-base)] section pt-28 md:pt-36 pb-8 md:pb-12 " aria-label="Company story">
       <div className="container-maven">
         <Reveal>
           <Eyebrow label="Our story" className="mb-8 justify-center" />
