@@ -97,6 +97,7 @@ export default function ServicePage({ data, onNavigate }: ServicePageProps) {
         accent={data.hero.accent}
         accentHighlight={data.hero.accentHighlight}
         lede={data.hero.lede}
+        ledeHighlight={data.hero.ledeHighlight}
         image={data.hero.image}
         imageAlt={data.hero.imageAlt}
       />
@@ -134,8 +135,8 @@ function OverviewSection({ data }: { data: ServicePageData }) {
               <Eyebrow label="Overview" className="mb-6" />
             </Reveal>
             <Reveal delay={0.05}>
-              <h2 className="display font-semibold text-[clamp(2rem,4.6vw,3.5rem)] text-white mb-7">
-                {data.overview.heading}
+              <h2 className="display font-bold text-[clamp(2rem,4.6vw,3.5rem)] text-white mb-7">
+                <HeadingHighlight text={data.overview.heading} highlight={data.overview.headingHighlight} />
               </h2>
             </Reveal>
             <div className="space-y-4 mb-9">
@@ -160,7 +161,7 @@ function OverviewSection({ data }: { data: ServicePageData }) {
           </div>
 
           <Reveal delay={0.1}>
-            <div className="relative lg:mt-4">
+            <div className="relative lg:mt-10">
               <div className="relative overflow-hidden rounded-3xl border border-line shadow-[0_30px_70px_-30px_rgba(97,44,139,0.45)]">
                 <img
                   src={data.overview.image}
@@ -172,24 +173,26 @@ function OverviewSection({ data }: { data: ServicePageData }) {
                   className="absolute inset-0 bg-gradient-to-t from-void/75 via-transparent to-transparent"
                   aria-hidden="true"
                 />
-              </div>
-              <div className="absolute -bottom-6 left-6 sm:left-10 group">
-                <div className="relative rounded-2xl p-px bg-gradient-to-br from-maven-light/60 via-maven-light/20 to-maven/10 shadow-[0_20px_50px_-24px_rgba(97,44,139,0.65)] transition-all duration-500 group-hover:via-maven-light/40 group-hover:-translate-y-0.5">
+                <div className="absolute bottom-0 left-0 max-w-[min(85%,20rem)]">
                   <div
-                    className="spotlight glow-tl relative overflow-hidden rounded-[calc(1rem-1px)] bg-ink/95 backdrop-blur-md px-7 py-5"
+                    className="spotlight glow-tl relative isolate overflow-hidden rounded-2xl rounded-tl-none px-4 py-3 sm:px-5 sm:py-4"
                     onPointerMove={trackSpotlight}
                   >
-                    <div className="relative flex items-center gap-4">
-                      <span className="hidden sm:flex w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br from-maven/40 to-maven/15 border border-maven-light/25 items-center justify-center">
-                        <Sparkles size={17} className="text-maven-lighter" />
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-ink/95 backdrop-blur-md [mask-image:linear-gradient(to_right,black_0%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,black_0%,transparent_100%)]"
+                    />
+                    <div className="relative z-10 flex items-center gap-3">
+                      <span className="hidden sm:flex w-10 h-10 shrink-0 rounded-lg bg-gradient-to-br from-maven/40 to-maven/15 border border-maven-light/25 items-center justify-center">
+                        <Sparkles size={16} className="text-maven-lighter" />
                       </span>
-                      <div>
-                        <p className="font-dm font-[1000] leading-none tracking-[0.02em] tabular-nums text-4xl text-transparent bg-clip-text bg-[image:var(--grad)]">
+                      <div className="flex flex-wrap items-center gap-x-2">
+                        <p className="font-dm font-[1000] leading-none tracking-[0.02em] tabular-nums text-3xl text-white">
                           {data.stats[0].prefix}
                           {formatValue(data.stats[0])}
                           {data.stats[0].suffix}
                         </p>
-                        <p className="mono-label !text-mist mt-2">{data.stats[0].label}</p>
+                        <p className="text-sm text-white">{data.stats[0].label}</p>
                       </div>
                     </div>
                   </div>
@@ -208,6 +211,25 @@ function OverviewSection({ data }: { data: ServicePageData }) {
 /** Static (non-animated) number formatting used for reduced motion + the floating stat badge. */
 function formatValue(stat: ServiceStat) {
   return stat.decimals ? stat.value.toFixed(stat.decimals) : stat.value.toLocaleString()
+}
+
+/** Renders a heading, wrapping any listed words in solid maven-light. */
+function HeadingHighlight({ text, highlight }: { text: string; highlight?: string[] }) {
+  if (!highlight?.length) return <>{text}</>
+  const set = new Set(highlight.map((w) => w.toLowerCase()))
+  return (
+    <>
+      {text.split(/(\s+)/).map((piece, i) =>
+        /^\s+$/.test(piece) ? (
+          <span key={i}> </span>
+        ) : set.has(piece.toLowerCase()) ? (
+          <span key={i} className="text-maven-light">{piece}</span>
+        ) : (
+          <span key={i}>{piece}</span>
+        )
+      )}
+    </>
+  )
 }
 
 /**

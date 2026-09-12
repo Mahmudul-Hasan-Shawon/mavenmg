@@ -67,12 +67,16 @@ export interface ServicePageData {
     accent: string
     accentHighlight?: string[]
     lede: string
+    /** Words (case-insensitive) in the lede to render in solid maven-light. */
+    ledeHighlight?: string[]
     image: string
     imageAlt: string
   }
   stats: ServiceStat[]
   overview: {
     heading: string
+    /** Words (case-insensitive) in the heading to render in solid maven-light. */
+    headingHighlight?: string[]
     paragraphs: string[]
     bullets: string[]
     image: string
@@ -105,7 +109,7 @@ export const servicePages: ServicePageData[] = [
     },
     stats: [
       { value: 200, suffix: '+', label: 'Websites launched' },
-      { value: 2.8, suffix: '×', decimals: 1, label: 'Average conversion lift' },
+      { value: 2.8, suffix: 'X', decimals: 1, label: 'Average conversion lift' },
       { value: 100, suffix: '%', label: 'Responsive by default' },
       { value: 98, label: 'Average Lighthouse score' },
     ],
@@ -356,9 +360,10 @@ export const servicePages: ServicePageData[] = [
     hero: {
       eyebrow: 'Website Management',
       title: 'Your website,',
-      accent: 'fully handled.',
+      accent: 'fully handled',
       accentHighlight: ['handled'],
       lede: 'Your website should work for you — never the other way around. Maven manages updates, security, monitoring, and content so your site stays fast, fresh, and online with a 99.9% uptime guarantee.',
+      ledeHighlight: ['maven'],
       image: '/images/Services/Website Management/hero.jpg',
       imageAlt: 'Website management and maintenance dashboard',
     },
@@ -370,6 +375,7 @@ export const servicePages: ServicePageData[] = [
     ],
     overview: {
       heading: 'Maintenance that prevents problems',
+      headingHighlight: ['maintenance', 'problems'],
       paragraphs: [
         'Too many businesses lose customers when their website goes down, loads slowly, or gets hacked. We put systems in place so those things simply do not happen — and when issues do appear, we usually catch them before you ever notice.',
         'You get a fast, secure, always-on website with fresh content, plus clear monthly reporting. You focus on running your business; we handle the rest.',
@@ -504,7 +510,7 @@ export const servicePages: ServicePageData[] = [
       imageAlt: 'Search engine optimization analytics',
     },
     stats: [
-      { value: 3.5, suffix: '×', decimals: 1, label: 'Average organic traffic growth' },
+      { value: 3.5, suffix: 'X', decimals: 1, label: 'Average organic traffic growth' },
       { value: 87, suffix: '%', label: 'Of searches start with organic results' },
       { value: 40, suffix: '+', label: 'Keywords tracked per client' },
       { value: 3, label: 'Months to first page-1 rankings' },
@@ -639,7 +645,7 @@ export const servicePages: ServicePageData[] = [
       imageAlt: 'Digital marketing strategy and analytics',
     },
     stats: [
-      { value: 5, suffix: '×', label: 'Average return on ad spend' },
+      { value: 5, suffix: 'X', label: 'Average return on ad spend' },
       { value: 45, suffix: '%', label: 'Lower average cost per lead' },
       { value: 120, suffix: '+', label: 'Campaigns managed' },
       { value: 98, suffix: '%', label: 'Client retention rate' },
@@ -779,7 +785,7 @@ export const servicePages: ServicePageData[] = [
       imageAlt: 'E-commerce storefront on screen',
     },
     stats: [
-      { value: 3.2, suffix: '×', decimals: 1, label: 'Average checkout conversion lift' },
+      { value: 3.2, suffix: 'X', decimals: 1, label: 'Average checkout conversion lift' },
       { value: 40, suffix: '%', label: 'Faster pages after rebuild' },
       { value: 99.9, suffix: '%', decimals: 1, label: 'Uptime on storefronts' },
       { value: 1000, suffix: '+', label: 'Products easily managed' },
@@ -917,7 +923,7 @@ export const servicePages: ServicePageData[] = [
     stats: [
       { value: 80, suffix: '+', label: 'Brands built & refreshed' },
       { value: 7, label: 'Logo concepts per project' },
-      { value: 3, suffix: '×', label: 'Faster audience recognition' },
+      { value: 3, suffix: 'X', label: 'Faster audience recognition' },
       { value: 100, suffix: '%', label: 'Original designs' },
     ],
     overview: {
