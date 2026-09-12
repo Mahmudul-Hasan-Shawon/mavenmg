@@ -313,7 +313,7 @@ function IncludesSection({ data }: { data: ServicePageData }) {
   return (
     <section
       id={`${data.slug}-includes`}
-      className="section py-24 md:py-36 border-t border-line relative overflow-clip"
+      className="section py-24 md:py-36 bg-[#1f112c] border-t border-line relative overflow-clip"
       aria-label="What's included"
     >
       <div className="container-maven relative">
@@ -329,14 +329,14 @@ function IncludesSection({ data }: { data: ServicePageData }) {
             return (
               <Reveal key={item.title} delay={(i % 3) * 0.06}>
                 <div
-                  className="scroll-blur spotlight glow-tl group h-full rounded-2xl border border-line bg-white/[0.02] p-8 hover:border-maven-light/40 hover:shadow-[0_24px_60px_-28px_rgba(97,44,139,0.55)] transition-all duration-500"
+                  className="scroll-blur spotlight glow-tl group h-full rounded-2xl border border-white-solid/[0.08] bg-white-solid/[0.04] p-8 hover:border-maven-digest/40 hover:shadow-[0_24px_60px_-28px_rgba(97,44,139,0.55)] transition-all duration-500"
                   onPointerMove={trackSpotlight}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-maven/15 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-                    <Icon size={20} className="text-maven-light" aria-hidden="true" />
+                  <div className="w-12 h-12 rounded-xl bg-maven-digest/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                    <Icon size={20} className="text-maven-digest" aria-hidden="true" />
                   </div>
                   <h3 className="display font-semibold text-lg md:text-xl text-white mb-2.5">{item.title}</h3>
-                  <p className="text-mist-dim text-[15px] leading-relaxed">{item.description}</p>
+                  <p className="text-maven-digest/75 text-[15px] leading-relaxed">{item.description}</p>
                 </div>
               </Reveal>
             )
@@ -349,7 +349,7 @@ function IncludesSection({ data }: { data: ServicePageData }) {
 
 function TechStrip({ data }: { data: ServicePageData }) {
   return (
-    <section id={`${data.slug}-tech`} className="px-6 md:px-10 pb-24 md:pb-32" aria-label="Platforms we build on">
+    <section id={`${data.slug}-tech`} className="px-6 md:px-10 pb-24 md:pb-32 bg-[#4a1f6b]" aria-label="Platforms we build on">
       <div className="max-w-5xl mx-auto">
         <Reveal>
           <p className="mono-label !text-mist text-center mb-10">Built on platforms your customers trust</p>
@@ -362,7 +362,7 @@ function TechStrip({ data }: { data: ServicePageData }) {
                 src={t.src}
                 alt={t.alt}
                 loading="lazy"
-                className="h-8 md:h-9 w-auto opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                className="h-8 md:h-9 w-auto opacity-100  hover:opacity-100 transition-all duration-300"
               />
             ))}
           </div>
@@ -376,11 +376,11 @@ function ProcessSection({ data }: { data: ServicePageData }) {
   return (
     <section
       id={`${data.slug}-process`}
-      className="section py-24 md:py-36 border-t border-line relative overflow-clip"
+      className="section bg-[#1f112c] py-24 md:py-36 border-t border-line relative overflow-clip"
       aria-label="Our process"
     >
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-        <div className="absolute -bottom-24 right-[-8%] w-[420px] h-[340px] rounded-full bg-maven/10 blur-[130px]" />
+        <div className="absolute -bottom-24 right-[-8%] w-[420px] h-[340px] rounded-full bg-maven-digest/10 blur-[130px]" />
       </div>
 
       <div className="container-maven relative">
@@ -391,12 +391,12 @@ function ProcessSection({ data }: { data: ServicePageData }) {
           {data.process.map((step, i) => (
             <div
               key={step.title}
-              className="relative first:pl-0 md:pl-8 md:border-l md:border-line md:first:border-l-0"
+              className="relative first:pl-0 md:pl-8 md:border-l md:border-maven-digest/15 md:first:border-l-0"
             >
               <Reveal delay={i * 0.08}>
-                <p className="font-mono text-xs tracking-[0.3em] text-maven-light/70 mb-3">STEP 0{i + 1}</p>
+                <p className="font-mono text-xs tracking-[0.3em] text-maven-digest/80 mb-3">STEP 0{i + 1}</p>
                 <h3 className="display font-semibold text-xl md:text-2xl text-white mb-3">{step.title}</h3>
-                <p className="text-mist-dim text-[15px] leading-relaxed md:pr-4">{step.description}</p>
+                <p className="text-maven-digest/75 text-[15px] leading-relaxed md:pr-4">{step.description}</p>
               </Reveal>
             </div>
           ))}
@@ -410,7 +410,7 @@ function PlansSection({ data, onNavigate }: { data: ServicePageData; onNavigate:
   return (
     <section
       id={`${data.slug}-plans`}
-      className="section py-24 md:py-36 border-t border-line relative overflow-clip"
+      className="section py-24 md:py-36 border-t  border-line relative overflow-clip"
       aria-label="Plans and pricing"
     >
       <div className="container-maven relative">

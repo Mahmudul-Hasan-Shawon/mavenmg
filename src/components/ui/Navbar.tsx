@@ -292,10 +292,6 @@ function ServicesNavItem({
                 aria-hidden="true"
                 className="pointer-events-none absolute -top-16 -right-16 w-44 h-44 rounded-full bg-maven/25 blur-[80px]"
               />
-              <div className="relative px-4 pt-4 pb-2 flex items-center justify-between">
-                <span className="mono-label !text-maven-light">All services</span>
-                <span className="mono-label !text-mist-dim">01–07</span>
-              </div>
               <div className="relative grid gap-0.5 p-2">
                 {footerServices.map((s, i) => (
                   <a
@@ -314,9 +310,6 @@ function ServicesNavItem({
                     )}
                   >
                     <span className="flex items-center gap-3">
-                      <span className="mono-label !text-mist-dim group-hover:!text-maven-lighter transition-colors duration-300">
-                        0{i + 1}
-                      </span>
                       <span className="text-sm font-medium text-white/85 group-hover:text-white transition-colors duration-300">
                         {s.label}
                       </span>
