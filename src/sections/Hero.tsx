@@ -1,6 +1,5 @@
-import { lazy, useRef, type LazyExoticComponent, type ComponentType } from 'react'
+import { lazy, type LazyExoticComponent, type ComponentType } from 'react'
 import { ArrowRight } from 'lucide-react'
-import { gsap, useGsapContext } from '../hooks/useGsap'
 import { site, badges } from '../data/site'
 import { AnimatedText } from '../components/text/AnimatedText'
 import { MagneticButton } from '../components/ui/MagneticButton'
@@ -16,31 +15,8 @@ function lazyScene(
 const MavenNetwork = reducedMotion ? null : lazyScene(() => import('../three/MavenNetwork'))
 
 export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
-  const rootRef = useRef<HTMLElement>(null)
-
-  // Scroll exit: content drifts up and dissolves as the hero leaves.
-  useGsapContext(
-    rootRef,
-    () => {
-      gsap.to('[data-hero-content]', {
-        yPercent: -18,
-        opacity: 0,
-        ease: 'none',
-        scrollTrigger: { trigger: rootRef.current, start: 'top top', end: 'bottom 35%', scrub: 0.5 },
-      })
-      gsap.to('[data-hero-canvas]', {
-        yPercent: 12,
-        scale: 1.06,
-        ease: 'none',
-        scrollTrigger: { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: 0.5 },
-      })
-    },
-    []
-  )
-
   return (
     <section
-      ref={rootRef}
       id="hero"
       style={{
         backgroundColor: '#000000',
