@@ -96,7 +96,6 @@ function System({ mode, count, showCore }: { mode: number; count: number; showCo
     return { outer, inner, outerMat, innerMat, coreGeo, coreMat }
   }, [count])
 
-  const pointer = useRef({ x: 0, y: 0 })
   const colorOuter = useMemo(() => new THREE.Color(), [])
   const colorInner = useMemo(() => new THREE.Color(), [])
 
@@ -138,10 +137,8 @@ function System({ mode, count, showCore }: { mode: number; count: number; showCo
 
     const g = groupRef.current
     if (g) {
-      pointer.current.x += (state.pointer.x - pointer.current.x) * Math.min(1, dt * 3)
-      pointer.current.y += (state.pointer.y - pointer.current.y) * Math.min(1, dt * 3)
-      g.rotation.y += (pointer.current.x * 0.5 - g.rotation.y) * dt * 2
-      g.rotation.x += (pointer.current.y * 0.3 - g.rotation.x) * dt * 2
+      g.rotation.y += dt * 0.05
+      g.rotation.x = Math.sin(t * 0.3) * 0.1
       g.position.y = Math.sin(t * 0.5) * 0.08
     }
   })
