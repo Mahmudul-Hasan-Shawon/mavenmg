@@ -418,8 +418,8 @@ function MobileMenu({
       aria-label="Menu"
       className="fixed inset-0 z-[90] invisible overflow-y-auto overflow-x-hidden"
       style={{
-        backgroundColor: '#000000',
-        backgroundImage: 'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+        backgroundColor: 'var(--hero-base)',
+        backgroundImage: 'radial-gradient(ellipse 85% 65% at 50% 0%, var(--hero-glow) 0%, var(--hero-base) 100%)',
       }}
     >
       {/* Ambient top-left glow keeps the panel on-brand. */}

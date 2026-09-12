@@ -39,6 +39,10 @@
   --glow-tl: rgba(139, 79, 191, 0.14);
   --edge-tl: rgba(218, 202, 255, 0.07);
   --cursor-dot: #dacaff;
+  /* Full-bleed hero / stage sections: deep-purple glow rising off a near-black
+     base in dark mode, soft lavender wash off a pale base in light mode. */
+  --hero-base: #000000;
+  --hero-glow: #36064d;
 }
 
 [data-theme="light"] {
@@ -71,6 +75,8 @@
   --glow-tl: rgba(109, 47, 165, 0.09);
   --edge-tl: rgba(255, 255, 255, 0.65);
   --cursor-dot: #2c1846;
+  --hero-base: #f5f4fb;
+  --hero-glow: #dccff5;
 }
 
 /* Semantic Tailwind tokens follow the theme vars (inline → utilities
@@ -741,19 +747,11 @@ html:not([data-theme='light']) .marquee-badge {
 
 /* Hero marquee edge fades. */
 .hero-marquee-fade-left {
-  background-image: linear-gradient(to right, #030303, color-mix(in srgb, #030303 70%, transparent), transparent);
+  background-image: linear-gradient(to right, var(--hero-base), color-mix(in srgb, var(--hero-base) 70%, transparent), transparent);
 }
 
 .hero-marquee-fade-right {
-  background-image: linear-gradient(to left, #030303, color-mix(in srgb, #030303 70%, transparent), transparent);
-}
-
-[data-theme='light'] .hero-marquee-fade-left {
-  background-image: linear-gradient(to right, #030303, color-mix(in srgb, #030303 30%, transparent), transparent);
-}
-
-[data-theme='light'] .hero-marquee-fade-right {
-  background-image: linear-gradient(to left, #030303, color-mix(in srgb, #030303 30%, transparent), transparent);
+  background-image: linear-gradient(to left, var(--hero-base), color-mix(in srgb, var(--hero-base) 70%, transparent), transparent);
 }
 
 /* WorkShowcase mobile pagination: the center number rises smoothly into

@@ -23,14 +23,14 @@ services that"
         accent="increase sales"
         lede="Companies all around the world use our freelance digital marketing services to generate leads, land new clients and most importantly increase sales."
         style={{
-          backgroundColor: '#000000',
+          backgroundColor: 'var(--hero-base)',
           backgroundImage:
-            'radial-gradient(ellipse 85% 65% at 50% 0%, #36064D 0%, #000000 100%)',
+            'radial-gradient(ellipse 85% 65% at 50% 0%, var(--hero-glow) 0%, var(--hero-base) 100%)',
         }}
       />
 
       {/* Service detail rows */}
-      <section id="service-details" className="bg-[#000000] section pb-8" aria-label="Service details">
+      <section id="service-details" className="bg-[var(--hero-base)] section pb-8" aria-label="Service details">
         <div className="container-maven divide-y divide-line border-y border-line">
           {services.map((s, i) => (
             <Reveal key={s.id} delay={i * 0.05}>
