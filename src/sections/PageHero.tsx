@@ -8,6 +8,24 @@ import { reducedMotion } from '../utils/motion'
 
 const AboutLogo = reducedMotion ? null : lazy(() => import('../three/AboutLogo'))
 
+/** Renders a lede string, wrapping any listed words in solid maven-light. */
+function LedeHighlight({ text, highlight }: { text?: string; highlight: string[] }) {
+  const set = new Set(highlight.map((w) => w.toLowerCase()))
+  return (
+    <>
+      {(text ?? '').split(/(\s+)/).map((piece, i) =>
+        /^\s+$/.test(piece) ? (
+          <span key={i}> </span>
+        ) : set.has(piece.toLowerCase()) ? (
+          <span key={i} className="text-maven-light">{piece}</span>
+        ) : (
+          <span key={i}>{piece}</span>
+        )
+      )}
+    </>
+  )
+}
+
 interface PageHeroProps {
   /** Unique per-page section id, e.g. "about-hero". */
   id: string
@@ -26,6 +44,8 @@ interface PageHeroProps {
   accentWhite?: string[]
   /** Words (case-insensitive) in the title to render in solid maven-light. */
   titleHighlight?: string[]
+  /** Words (case-insensitive) in the lede to render in solid maven-light. */
+  ledeHighlight?: string[]
   /** Drop the max-width cap on the lede paragraph so it spans the hero width. */
   ledeWide?: boolean
   /** Render the lede as separate lines (one node per sentence). */
@@ -35,7 +55,7 @@ interface PageHeroProps {
 }
 
 /** Compact editorial hero for secondary pages. */
-export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight, ledeWide, ledeLines, style }: PageHeroProps) {
+export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight, ledeHighlight, ledeWide, ledeLines, style }: PageHeroProps) {
   const imageBg = Boolean(image && !logo3d)
 
   const copy = (
@@ -74,7 +94,9 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
                     {line}
                   </span>
                 ))
-              : lede}
+              : ledeHighlight?.length
+                ? <LedeHighlight text={lede} highlight={ledeHighlight} />
+                : lede}
           </p>
         </Reveal>
       )}

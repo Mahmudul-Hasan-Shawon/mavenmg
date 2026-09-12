@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 import { gsap, useGsapContext } from '../../hooks/useGsap'
 import { navigation, legalLinks, footerServices, type NavLink } from '../../data/navigation'
@@ -161,111 +162,192 @@ function ServicesNavItem({
   go: (href: string) => void
 }) {
   const [open, setOpen] = useState(false)
+  const [shown, setShown] = useState(false)
+  const [pos, setPos] = useState<{ left: number; top: number } | null>(null)
+  const btnRef = useRef<HTMLButtonElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const closeTimer = useRef<number | undefined>(undefined)
+
+  const openMenu = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current)
+    if (!computePos()) return
+    setOpen(true)
+  }
+
+  const closeMenu = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current)
+    closeTimer.current = window.setTimeout(() => {
+      setOpen(false)
+      setShown(false)
+    }, 60)
+  }
+
+  const closeNow = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current)
+    setOpen(false)
+    setShown(false)
+  }
+
+  /** Anchor the fixed panel under the trigger; false if the button scrolled out of view. */
+  const computePos = () => {
+    const el = btnRef.current
+    if (!el) return false
+    const r = el.getBoundingClientRect()
+    if (r.top < -40 || r.bottom < 0) return false
+    const width = 340
+    const left = Math.max(16, Math.min(window.innerWidth - width - 16, r.left + r.width / 2 - width / 2))
+    setPos({ left, top: r.bottom })
+    return true
+  }
 
   useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false)
+    const raf = requestAnimationFrame(() => setShown(true))
+    // The header is fixed, so the panel cannot move on scroll — only
+    // re-anchor on resize. During scroll we just close once the header
+    // would slide away (scrolled past 180 while moving down), mirroring
+    // how the dropdown used to scroll off with the header.
+    let lastY = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      if (y > 180 && y - lastY > 6) {
+        closeNow()
+        return
+      }
+      lastY = y
     }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeNow()
+    }
+    const onResize = () => {
+      if (!computePos()) closeNow()
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    window.addEventListener('resize', onResize)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const onClick = (e: MouseEvent) => {
+      const target = e.target as Node
+      if (panelRef.current?.contains(target) || btnRef.current?.contains(target)) return
+      closeNow()
+    }
+    document.addEventListener('mousedown', onClick)
+    return () => document.removeEventListener('mousedown', onClick)
   }, [open])
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
-      <button
-        type="button"
-        data-cursor
-        aria-haspopup="menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        className={cn(
-          'flex items-center gap-1.5 text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
-          active ? 'text-white' : 'text-mist hover:text-white'
-        )}
-      >
-        {link.label}
-        <span
-          className={cn('grid place-items-center transition-transform duration-300', open && 'rotate-180')}
-          aria-hidden="true"
+    <>
+      <div className="relative" onMouseEnter={openMenu} onMouseLeave={closeMenu}>
+        <button
+          ref={btnRef}
+          type="button"
+          data-cursor
+          aria-haspopup="menu"
+          aria-expanded={open}
+          onClick={() => (open ? closeNow() : openMenu())}
+          className={cn(
+            'flex items-center gap-1.5 text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
+            active ? 'text-white' : 'text-mist hover:text-white'
+          )}
         >
-          <ChevronDown size={14} />
-        </span>
-      </button>
-
-      <div
-        id={`${link.href.slice(1)}-menu`}
-        role="menu"
-        aria-label="All services"
-        className={cn(
-          'absolute left-1/2 -translate-x-1/2 top-full pt-5 w-[340px]',
-          'transition-all duration-300 ease-out',
-          open ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'
-        )}
-      >
-        <div className="relative rounded-2xl border border-line bg-void/95 backdrop-blur-xl shadow-[0_30px_70px_-24px_rgba(97,44,139,0.55)] overflow-hidden">
-          <div
+          {link.label}
+          <span
+            className={cn('grid place-items-center transition-transform duration-300', open && 'rotate-180')}
             aria-hidden="true"
-            className="pointer-events-none absolute -top-16 -right-16 w-44 h-44 rounded-full bg-maven/25 blur-[80px]"
-          />
-          <div className="relative px-4 pt-4 pb-2 flex items-center justify-between">
-            <span className="mono-label !text-maven-light">All services</span>
-            <span className="mono-label !text-mist-dim">01–07</span>
-          </div>
-          <div className="relative grid gap-0.5 p-2">
-            {footerServices.map((s, i) => (
-              <a
-                key={s.href}
-                role="menuitem"
-                tabIndex={open ? 0 : -1}
-                data-cursor
-                onClick={() => {
-                  setOpen(false)
-                  go(s.href)
-                }}
-                style={{ transitionDelay: open ? `${i * 25}ms` : '0ms' }}
-                className={cn(
-                  'group flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-300',
-                  open ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
-                )}
-              >
-                <span className="flex items-center gap-3">
-                  <span className="mono-label !text-mist-dim group-hover:!text-maven-lighter transition-colors duration-300">
-                    0{i + 1}
-                  </span>
-                  <span className="text-sm font-medium text-white/85 group-hover:text-white transition-colors duration-300">
-                    {s.label}
-                  </span>
-                </span>
-                <ArrowRight
-                  size={14}
-                  className="text-maven-light opacity-0 -translate-x-1.5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
-                />
-              </a>
-            ))}
-          </div>
-          <div className="relative p-2 pt-1.5">
-            <a
-              role="menuitem"
-              tabIndex={open ? 0 : -1}
-              data-cursor
-              onClick={() => {
-                setOpen(false)
-                go('/services')
-              }}
-              className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-maven/15 hover:bg-maven/25 border border-maven-light/20 transition-colors duration-300 cursor-pointer"
-            >
-              <span className="text-sm font-semibold text-maven-lighter">View all services</span>
-              <ArrowRight size={14} className="text-maven-lighter" />
-            </a>
-          </div>
-        </div>
+          >
+            <ChevronDown size={14} />
+          </span>
+        </button>
       </div>
-    </div>
+
+      {open &&
+        pos &&
+        createPortal(
+          <div
+            ref={panelRef}
+            id={`${link.href.slice(1)}-menu`}
+            role="menu"
+            aria-label="All services"
+            onMouseEnter={openMenu}
+            onMouseLeave={closeMenu}
+            style={{ left: pos.left, top: pos.top }}
+            className={cn(
+              'fixed w-[340px] pt-5 z-[110] transition-transform duration-300 ease-out',
+              shown ? 'translate-y-0' : '-translate-y-2'
+            )}
+          >
+            <div
+              className="relative rounded-2xl border border-line bg-void/80 backdrop-blur-[20px] shadow-[0_30px_70px_-24px_rgba(97,44,139,0.55)] overflow-hidden"
+            >
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-16 -right-16 w-44 h-44 rounded-full bg-maven/25 blur-[80px]"
+              />
+              <div className="relative px-4 pt-4 pb-2 flex items-center justify-between">
+                <span className="mono-label !text-maven-light">All services</span>
+                <span className="mono-label !text-mist-dim">01–07</span>
+              </div>
+              <div className="relative grid gap-0.5 p-2">
+                {footerServices.map((s, i) => (
+                  <a
+                    key={s.href}
+                    role="menuitem"
+                    tabIndex={shown ? 0 : -1}
+                    data-cursor
+                    onClick={() => {
+                      closeNow()
+                      go(s.href)
+                    }}
+                    style={{ transitionDelay: shown ? `${i * 25}ms` : '0ms' }}
+                    className={cn(
+                      'group flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-300',
+                      shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
+                    )}
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="mono-label !text-mist-dim group-hover:!text-maven-lighter transition-colors duration-300">
+                        0{i + 1}
+                      </span>
+                      <span className="text-sm font-medium text-white/85 group-hover:text-white transition-colors duration-300">
+                        {s.label}
+                      </span>
+                    </span>
+                    <ArrowRight
+                      size={14}
+                      className="text-maven-light opacity-0 -translate-x-1.5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                    />
+                  </a>
+                ))}
+              </div>
+              <div className="relative p-2 pt-1.5">
+                <a
+                  role="menuitem"
+                  tabIndex={shown ? 0 : -1}
+                  data-cursor
+                  onClick={() => {
+                    closeNow()
+                    go('/services')
+                  }}
+                  className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-maven/15 hover:bg-maven/25 border border-maven-light/20 transition-colors duration-300 cursor-pointer"
+                >
+                  <span className="text-sm font-semibold text-maven-lighter">View all services</span>
+                  <ArrowRight size={14} className="text-maven-lighter" />
+                </a>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+    </>
   )
 }
 
