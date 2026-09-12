@@ -31,7 +31,7 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
       {/* Featured project hero */}
       {featured && (
         <Reveal>
-          <section id="featured-project" className="pt-4 pb-10 lg:pt-10 lg:pb-24 px-6" aria-label="Featured project">
+          <section id="featured-project" className="bg-[#000000] pt-4 pb-10 lg:pt-10 lg:pb-24 px-6" aria-label="Featured project">
             <div className="max-w-6xl mx-auto">
               <div className="relative overflow-hidden rounded-[2rem]">
                 <div className="absolute inset-0">

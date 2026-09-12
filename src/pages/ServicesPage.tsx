@@ -30,7 +30,7 @@ services that"
       />
 
       {/* Service detail rows */}
-      <section id="service-details" className="section pb-8" aria-label="Service details">
+      <section id="service-details" className="bg-[#000000] section pb-8" aria-label="Service details">
         <div className="container-maven divide-y divide-line border-y border-line">
           {services.map((s, i) => (
             <Reveal key={s.id} delay={i * 0.05}>
