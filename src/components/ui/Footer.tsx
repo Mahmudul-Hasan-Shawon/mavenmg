@@ -117,7 +117,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
 
             {/* Maven Digest newsletter */}
             <div className="mt-8 pt-8 border-t border-line">
-              <p className="display font-semibold text-maven-digest text-lg mb-1">Maven Digest</p>
+              <p className="display font-semibold text-[#a89fc0] text-lg mb-1">Maven Digest</p>
               <p className="text-mist-dim text-sm leading-relaxed mb-4">Sign up to receive the latest industry news.</p>
               {subscribed ? (
                 <p className="text-sm text-white-solid/80">

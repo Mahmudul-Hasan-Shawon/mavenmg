@@ -116,7 +116,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
           <div className="flex items-center gap-3">
             <div className="hidden md:block">
               <MagneticButton
-                variant={scrolled ? 'primary' : 'ghost'}
+                variant={scrolled ? 'primary' : 'deep'}
                 size="sm"
                 onClick={() => go('/contact')}
               >

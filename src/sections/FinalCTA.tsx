@@ -26,7 +26,7 @@ export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void })
               Connect With A Marketing Maven Now. Elevate your website and supercharge your digital marketing results.
             </p>
             <MagneticButton
-              variant="frost"
+              variant="deep"
               size="lg"
               className="w-full sm:w-auto"
               onClick={() => onNavigate('/contact')}

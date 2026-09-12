@@ -99,7 +99,7 @@ style={{
               <div className="glass rounded-3xl p-10 md:p-12 h-full flex flex-col items-center justify-center text-center">
                 <p className="display text-2xl md:text-3xl text-white mb-4">Thank you, message ready.</p>
                 <p className="text-mist mb-8">Your email client should have opened with your project details. If not, reach us directly at {site.email}.</p>
-                <MagneticButton variant="ghost" onClick={() => setSent(false)}>
+                <MagneticButton variant="deep" onClick={() => setSent(false)}>
                   Send another message
                 </MagneticButton>
               </div>
