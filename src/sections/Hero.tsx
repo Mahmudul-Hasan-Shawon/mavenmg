@@ -91,7 +91,7 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
               Start Your Project
               <ArrowRight size={16} />
             </MagneticButton>
-            <MagneticButton variant="ghost" onClick={() => onNavigate('/work')}>
+            <MagneticButton variant="deep" onClick={() => onNavigate('/work')}>
               View Our Work
             </MagneticButton>
           </div>

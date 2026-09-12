@@ -349,7 +349,7 @@ function IncludesSection({ data }: { data: ServicePageData }) {
 
 function TechStrip({ data }: { data: ServicePageData }) {
   return (
-    <section id={`${data.slug}-tech`} className="px-6 md:px-10 pb-24 md:pb-32 bg-maven-dark" aria-label="Platforms we build on">
+    <section id={`${data.slug}-tech`} className="px-6 md:px-10 pb-24 md:pb-32 bg-[var(--hero-base)]" aria-label="Platforms we build on">
       <div className="max-w-5xl mx-auto">
         <Reveal>
           <p className="mono-label !text-mist text-center mb-10">Built on platforms your customers trust</p>
@@ -440,7 +440,7 @@ function PlansSection({ data, onNavigate }: { data: ServicePageData; onNavigate:
                 )}
                 <p className="mono-label !text-mist mb-4">{plan.name}</p>
                 <p className="display font-semibold text-4xl text-white mb-1">{plan.price}</p>
-                <p className="text-mist-dim text-sm mb-7">
+                <p className="text-mist text-base mb-7">
                   {plan.priceNote} · {plan.blurb}
                 </p>
                 <ul className="space-y-3 mb-9 mt-auto">
@@ -454,7 +454,7 @@ function PlansSection({ data, onNavigate }: { data: ServicePageData; onNavigate:
                   ))}
                 </ul>
                 <MagneticButton
-                  variant={plan.featured ? 'primary' : 'ghost'}
+                  variant={plan.featured ? 'primary' : 'deep'}
                   fullWidth
                   onClick={() => onNavigate('/contact')}
                 >
@@ -484,7 +484,7 @@ function FaqSection({ data, onNavigate }: { data: ServicePageData; onNavigate: (
             <Eyebrow label="FAQ" className="mb-7" />
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="display font-semibold text-[clamp(2rem,4.4vw,3.4rem)] text-white mb-5">Questions, answered.</h2>
+            <h2 className="display font-semibold text-[clamp(2rem,4.4vw,3.4rem)] text-white mb-5">Questions, <span className="text-maven-light">answered</span></h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-mist text-base md:text-lg leading-relaxed mb-8">
@@ -492,7 +492,7 @@ function FaqSection({ data, onNavigate }: { data: ServicePageData; onNavigate: (
             </p>
           </Reveal>
           <Reveal delay={0.15}>
-            <MagneticButton variant="ghost" onClick={() => onNavigate('/contact')}>
+            <MagneticButton variant="deep" onClick={() => onNavigate('/contact')}>
               Ask a question <ArrowRight size={16} />
             </MagneticButton>
           </Reveal>
@@ -582,7 +582,7 @@ function RelatedSection({
                 <span className="absolute top-7 right-7 w-10 h-10 rounded-full border border-line grid place-items-center text-mist group-hover:bg-maven group-hover:text-white-solid group-hover:border-maven-light/40 transition-all duration-300 rotate-45 group-hover:rotate-0">
                   <ArrowRight size={15} />
                 </span>
-                <p className="mono-label !text-mist-dim mb-4">Related · 0{i + 1}</p>
+    
                 <h3 className="display font-semibold text-xl md:text-2xl text-white mb-3 pr-12">{page.navLabel}</h3>
                 <p className="text-mist text-[15px] leading-relaxed">{entry.blurb}</p>
               </a>

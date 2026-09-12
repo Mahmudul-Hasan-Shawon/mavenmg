@@ -143,7 +143,7 @@ function Section({
               Start Your Project
               <ArrowRight size={18} />
             </MagneticButton>
-            <MagneticButton variant="ghost" size="md" onClick={() => onNavigate('/contact')}>
+            <MagneticButton variant="deep" size="md" onClick={() => onNavigate('/contact')}>
               Connect With Maven
             </MagneticButton>
           </div>
@@ -368,7 +368,7 @@ function SidebarCTA({ onNavigate }: { onNavigate: (href: string) => void }) {
           Start Your Project
           <ArrowRight size={18} />
         </MagneticButton>
-        <MagneticButton variant="ghost" size="md" fullWidth onClick={() => onNavigate('/contact')}>
+        <MagneticButton variant="deep" size="md" fullWidth onClick={() => onNavigate('/contact')}>
           Connect With Maven
         </MagneticButton>
       </div>
