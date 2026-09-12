@@ -739,23 +739,21 @@ html:not([data-theme='light']) .marquee-badge {
   filter: grayscale(1) invert(1) brightness(1.2);
 }
 
-/* Hero marquee edge fades — theme-aware so the band matches the page
-   background. Light theme uses a gentler stop so it never reads as a
-   hard white strip over the network. */
+/* Hero marquee edge fades. */
 .hero-marquee-fade-left {
-  background-image: linear-gradient(to right, var(--bg), color-mix(in srgb, var(--bg) 70%, transparent), transparent);
+  background-image: linear-gradient(to right, #030303, color-mix(in srgb, #030303 70%, transparent), transparent);
 }
 
 .hero-marquee-fade-right {
-  background-image: linear-gradient(to left, var(--bg), color-mix(in srgb, var(--bg) 70%, transparent), transparent);
+  background-image: linear-gradient(to left, #030303, color-mix(in srgb, #030303 70%, transparent), transparent);
 }
 
 [data-theme='light'] .hero-marquee-fade-left {
-  background-image: linear-gradient(to right, var(--bg), color-mix(in srgb, var(--bg) 30%, transparent), transparent);
+  background-image: linear-gradient(to right, #030303, color-mix(in srgb, #030303 30%, transparent), transparent);
 }
 
 [data-theme='light'] .hero-marquee-fade-right {
-  background-image: linear-gradient(to left, var(--bg), color-mix(in srgb, var(--bg) 30%, transparent), transparent);
+  background-image: linear-gradient(to left, #030303, color-mix(in srgb, #030303 30%, transparent), transparent);
 }
 
 /* WorkShowcase mobile pagination: the center number rises smoothly into
