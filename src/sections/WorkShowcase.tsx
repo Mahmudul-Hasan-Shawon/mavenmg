@@ -245,7 +245,7 @@ function Card({
       <div className="p-5">
         <p className="card-tag mb-2">{project.category}</p>
         <h3 className="display font-semibold text-xl text-white mb-2 tracking-[0.01em]">{name}</h3>
-        <p className="text-mist-dim text-base leading-relaxed line-clamp-2">{project.blurb}</p>
+        <p className="text-mist text-base leading-relaxed line-clamp-2">{project.blurb}</p>
       </div>
     </>
   )

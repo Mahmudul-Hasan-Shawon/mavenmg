@@ -313,7 +313,7 @@ function IncludesSection({ data }: { data: ServicePageData }) {
   return (
     <section
       id={`${data.slug}-includes`}
-      className="section py-24 md:py-36 bg-maven-dark border-t border-line relative overflow-clip"
+      className="section py-24 md:py-36 bg-[var(--hero-base)] border-t border-line relative overflow-clip"
       aria-label="What's included"
     >
       <div className="container-maven relative">
@@ -376,7 +376,7 @@ function ProcessSection({ data }: { data: ServicePageData }) {
   return (
     <section
       id={`${data.slug}-process`}
-      className="section bg-maven-dark py-24 md:py-36 border-t border-line relative overflow-clip"
+      className="section bg-[var(--hero-base)] py-24 md:py-36 border-t border-line relative overflow-clip"
       aria-label="Our process"
     >
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
@@ -584,7 +584,7 @@ function RelatedSection({
                 </span>
                 <p className="mono-label !text-mist-dim mb-4">Related · 0{i + 1}</p>
                 <h3 className="display font-semibold text-xl md:text-2xl text-white mb-3 pr-12">{page.navLabel}</h3>
-                <p className="text-mist-dim text-[15px] leading-relaxed">{entry.blurb}</p>
+                <p className="text-mist text-[15px] leading-relaxed">{entry.blurb}</p>
               </a>
             </Reveal>
           ))}

@@ -41,7 +41,7 @@ export function Story() {
                     <h3 className="display font-semibold tracking-[0.98px] text-lg text-white transition-colors duration-500 group-hover:text-maven-lighter">
                       {entry.title}
                     </h3>
-                    <p className="mt-2.5 text-mist-dim text-[15px] leading-relaxed max-w-lg transition-colors duration-500 group-hover:text-mist">
+                    <p className="mt-2.5 text-mist text-[15px] leading-relaxed max-w-lg transition-colors duration-500 group-hover:text-white">
                       {entry.body}
                     </p>
                   </div>

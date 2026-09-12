@@ -129,7 +129,7 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                     </div>
 
                     <h3 className="display font-semibold tracking-[0.2px] text-2xl text-white mb-2">{plan.name}</h3>
-                    <p className="text-mist-dim text-md leading-relaxed mb-7 min-h-[3.75rem]">{plan.tagline}</p>
+                    <p className="text-mist text-md leading-relaxed mb-7 min-h-[3.75rem]">{plan.tagline}</p>
 
                     {/* Price */}
                     <div className="pb-6 border-b border-line mb-6">

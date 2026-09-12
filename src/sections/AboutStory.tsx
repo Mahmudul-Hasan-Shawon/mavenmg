@@ -69,7 +69,7 @@ export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void 
 
                     <div className="p-8 md:p-9 flex flex-col flex-1">
                       <h3 className="display font-semibold tracking-[0.98px] text-xl md:text-2xl text-white mb-3">{o.title}</h3>
-                      <p className="text-mist-dim text-base leading-relaxed mb-7">{o.description}</p>
+                      <p className="text-mist text-base leading-relaxed mb-7">{o.description}</p>
                       <ul className="space-y-3 mb-8 mt-auto">
                         {o.features.map((f) => (
                           <li key={f} className="flex items-center gap-3 text-base text-mist">

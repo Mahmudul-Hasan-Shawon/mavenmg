@@ -79,7 +79,7 @@ export function Results() {
 
                   <h3 className="font-poppins font-semibold text-xl md:text-2xl text-white mb-4 md:mb-5 tracking-[0.03em]">{stat.label}</h3>
 
-                  <p className="text-mist-dim text-base pt-4 leading-relaxed max-w-xs">{stat.description}</p>
+                  <p className="text-mist text-base pt-4 leading-relaxed max-w-xs">{stat.description}</p>
                 </div>
               ))}
             </div>
