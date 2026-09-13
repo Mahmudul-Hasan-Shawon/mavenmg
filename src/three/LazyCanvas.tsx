@@ -7,7 +7,7 @@ import { cn } from '../utils/cn'
 type AnyScene = LazyExoticComponent<ComponentType<any>>
 
 interface LazyCanvasProps {
-  /** React.lazy(() => import('./SomeScene')) — scene must render an R3F <Canvas>. */
+  /** React.lazy(() => import('./SomeScene')) scene must render an R3F <Canvas>. */
   Scene: AnyScene | null
   /** CSS fallback layer, always rendered beneath the canvas. */
   fallback?: ReactNode

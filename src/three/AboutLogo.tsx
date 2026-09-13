@@ -4,7 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { quality } from '../utils/motion'
 
 /* =====================================================================
-   AboutLogo — the Maven "m" mark as an interactive hologram: the logo
+   AboutLogo the Maven "m" mark as an interactive hologram: the logo
    texture on a shader plane with a travelling light sweep and breathing
    pulse, floating in 3D, tilting toward the cursor, and wrapped in a
    halo of slowly orbiting violet particles.

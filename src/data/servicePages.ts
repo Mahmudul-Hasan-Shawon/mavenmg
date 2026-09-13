@@ -103,7 +103,7 @@ export const servicePages: ServicePageData[] = [
       titleHighlight: ['designed'],
       accent: 'convert & impress',
       accentHighlight: ['convert'],
-      lede: 'Every business is different — your website should be too. Maven crafts bespoke, conversion-focused websites that capture your brand, guide your visitors, and turn clicks into customers. No templates, no compromises.',
+      lede: 'Every business is different your website should be too. Maven crafts bespoke, conversion-focused websites that capture your brand, guide your visitors, and turn clicks into customers. No templates, no compromises.',
       image: '/images/Services/Custom Website Design/hero.jpg',
       imageAlt: 'Custom website design displayed on a laptop',
     },
@@ -116,7 +116,7 @@ export const servicePages: ServicePageData[] = [
     overview: {
       heading: 'Design that works as hard as you do',
       paragraphs: [
-        'A great website is equal parts art and strategy. We start with your business goals and your visitors\u2019 behavior, then design an interface that looks stunning and quietly does its job — guiding people toward the action you want them to take.',
+        'A great website is equal parts art and strategy. We start with your business goals and your visitors\u2019 behavior, then design an interface that looks stunning and quietly does its job guiding people toward the action you want them to take.',
         'Every page, button, and headline is placed with intent. The result is a website that feels unmistakably yours and performs measurably for your bottom line.',
       ],
       bullets: [
@@ -147,7 +147,7 @@ export const servicePages: ServicePageData[] = [
       {
         icon: 'palette',
         title: 'Brand-Aligned Visuals',
-        description: 'Design systems built from your colors, typography, and personality — not a generic look.',
+        description: 'Design systems built from your colors, typography, and personality not a generic look.',
       },
       {
         icon: 'gauge',
@@ -215,13 +215,13 @@ export const servicePages: ServicePageData[] = [
       },
       {
         q: 'What if I already have a website?',
-        a: 'We love redesigns. We audit what you have, keep what works, and rebuild the rest — often lifting conversions within weeks of relaunch.',
+        a: 'We love redesigns. We audit what you have, keep what works, and rebuild the rest often lifting conversions within weeks of relaunch.',
       },
     ],
     related: [
       { slug: 'web-development', blurb: 'Clean, scalable code that makes your design fast, secure, and future-proof.' },
       { slug: 'ecommerce', blurb: 'High-converting storefronts built on the platforms your customers trust.' },
-      { slug: 'logo-branding', blurb: 'A complete identity that makes your site — and business — unmistakable.' },
+      { slug: 'logo-branding', blurb: 'A complete identity that makes your site and business unmistakable.' },
     ],
   },
   {
@@ -233,7 +233,7 @@ export const servicePages: ServicePageData[] = [
       title: 'Development that turns',
       accent: 'ideas into products',
       accentHighlight: ['products'],
-      lede: 'A design is only as good as the code behind it. Maven builds fast, secure, and scalable websites and web apps — engineered to perform today and grow with your business tomorrow.',
+      lede: 'A design is only as good as the code behind it. Maven builds fast, secure, and scalable websites and web apps engineered to perform today and grow with your business tomorrow.',
       image: '/images/Services/Website Development/hero.png',
       imageAlt: 'Custom web development code on screen',
     },
@@ -246,7 +246,7 @@ export const servicePages: ServicePageData[] = [
     overview: {
       heading: 'Engineered to perform, built to scale',
       paragraphs: [
-        'Behind every fast, reliable website is thoughtful engineering. We write clean, modular, documented code that follows modern best practices — not a patchwork of plugins held together with hope.',
+        'Behind every fast, reliable website is thoughtful engineering. We write clean, modular, documented code that follows modern best practices not a patchwork of plugins held together with hope.',
         'From content platforms to custom web applications, we build the right foundation for your goals, then keep it fast, secure, and easy to maintain.',
       ],
       bullets: [
@@ -267,7 +267,7 @@ export const servicePages: ServicePageData[] = [
       {
         icon: 'database',
         title: 'CMS & Platform Builds',
-        description: 'WordPress, headless, or fully custom — we build the foundation your content needs.',
+        description: 'WordPress, headless, or fully custom we build the foundation your content needs.',
       },
       {
         icon: 'link',
@@ -328,7 +328,7 @@ export const servicePages: ServicePageData[] = [
     faq: [
       {
         q: 'What is the difference between design and development?',
-        a: 'Design defines how your site looks and feels; development builds it so it works. Maven offers both seamlessly — designing the experience, then engineering the code behind it.',
+        a: 'Design defines how your site looks and feels; development builds it so it works. Maven offers both seamlessly designing the experience, then engineering the code behind it.',
       },
       {
         q: 'What platforms do you build on?',
@@ -349,20 +349,20 @@ export const servicePages: ServicePageData[] = [
     ],
     related: [
       { slug: 'web-design', blurb: 'Beautiful, on-brand interfaces that give your code something great to wear.' },
-      { slug: 'ecommerce', blurb: 'Storefront engineering — payments, catalogs, and checkout that just works.' },
+      { slug: 'ecommerce', blurb: 'Storefront engineering payments, catalogs, and checkout that just works.' },
       { slug: 'website-management', blurb: 'Keep your build fast, secure, and up to date after launch.' },
     ],
   },
   {
     slug: 'website-management',
     navLabel: 'Website Management',
-    blurb: 'Monitoring, updates, and content — your site handled for you.',
+    blurb: 'Monitoring, updates, and content your site handled for you.',
     hero: {
       eyebrow: 'Website Management',
       title: 'Your website,',
       accent: 'fully handled',
       accentHighlight: ['handled'],
-      lede: 'Your website should work for you — never the other way around. Maven manages updates, security, monitoring, and content so your site stays fast, fresh, and online with a 99.9% uptime guarantee.',
+      lede: 'Your website should work for you never the other way around. Maven manages updates, security, monitoring, and content so your site stays fast, fresh, and online with a 99.9% uptime guarantee.',
       ledeHighlight: ['maven'],
       image: '/images/Services/Website Management/hero.jpg',
       imageAlt: 'Website management and maintenance dashboard',
@@ -377,7 +377,7 @@ export const servicePages: ServicePageData[] = [
       heading: 'Maintenance that prevents problems',
       headingHighlight: ['maintenance', 'problems'],
       paragraphs: [
-        'Too many businesses lose customers when their website goes down, loads slowly, or gets hacked. We put systems in place so those things simply do not happen — and when issues do appear, we usually catch them before you ever notice.',
+        'Too many businesses lose customers when their website goes down, loads slowly, or gets hacked. We put systems in place so those things simply do not happen and when issues do appear, we usually catch them before you ever notice.',
         'You get a fast, secure, always-on website with fresh content, plus clear monthly reporting. You focus on running your business; we handle the rest.',
       ],
       bullets: [
@@ -408,7 +408,7 @@ export const servicePages: ServicePageData[] = [
       {
         icon: 'life-buoy',
         title: '24/7 Monitoring',
-        description: 'Uptime, performance, and security watched around the clock — with alerts before outages.',
+        description: 'Uptime, performance, and security watched around the clock with alerts before outages.',
       },
       {
         icon: 'file',
@@ -471,7 +471,7 @@ export const servicePages: ServicePageData[] = [
     faq: [
       {
         q: 'What happens if my website goes down?',
-        a: 'Monitoring alerts us within minutes. We diagnose and restore the site — usually before your visitors even notice — and keep you updated throughout.',
+        a: 'Monitoring alerts us within minutes. We diagnose and restore the site usually before your visitors even notice and keep you updated throughout.',
       },
       {
         q: 'How are updates tested so nothing breaks?',
@@ -479,7 +479,7 @@ export const servicePages: ServicePageData[] = [
       },
       {
         q: 'Who writes the content updates?',
-        a: 'Content changes are handled by our team — including writers and editors for posts, pages, and images. You tell us the topic; we produce it.',
+        a: 'Content changes are handled by our team including writers and editors for posts, pages, and images. You tell us the topic; we produce it.',
       },
       {
         q: 'Do you manage my hosting too?',
@@ -505,7 +505,7 @@ export const servicePages: ServicePageData[] = [
       title: 'Rank higher,',
       accent: 'get found first.',
       accentHighlight: ['found'],
-      lede: 'When people search for what you offer, you should be there. Maven combines technical expertise, quality content, and real authority building to grow your rankings — and the revenue that follows.',
+      lede: 'When people search for what you offer, you should be there. Maven combines technical expertise, quality content, and real authority building to grow your rankings and the revenue that follows.',
       image: '/images/Services/SEO Services/hero.jpg',
       imageAlt: 'Search engine optimization analytics',
     },
@@ -519,7 +519,7 @@ export const servicePages: ServicePageData[] = [
       heading: 'Visibility that compounds over time',
       paragraphs: [
         'SEO is the gift that keeps giving: unlike ads, the traffic keeps coming month after month. We start with a deep audit, fix the technical foundation, and then build the content and authority that moves you up the rankings.',
-        'We do not chase vanity metrics. Every optimization ties back to keywords your ideal customers actually search — and to leads and sales you can measure.',
+        'We do not chase vanity metrics. Every optimization ties back to keywords your ideal customers actually search and to leads and sales you can measure.',
       ],
       bullets: [
         'Deep keyword and competitor research',
@@ -610,11 +610,11 @@ export const servicePages: ServicePageData[] = [
       },
       {
         q: 'What is the difference between SEO and Google Ads?',
-        a: 'Ads deliver immediate traffic for as long as you pay. SEO earns free, compounding traffic. Most businesses do best with a mix — we will tell you honestly which to prioritize.',
+        a: 'Ads deliver immediate traffic for as long as you pay. SEO earns free, compounding traffic. Most businesses do best with a mix we will tell you honestly which to prioritize.',
       },
       {
         q: 'Do you guarantee #1 rankings?',
-        a: 'No honest agency does. We guarantee quality work, transparent reporting, and aggressive progress — and we are transparent about feasibility from day one.',
+        a: 'No honest agency does. We guarantee quality work, transparent reporting, and aggressive progress and we are transparent about feasibility from day one.',
       },
       {
         q: 'Will SEO work for my industry?',
@@ -622,7 +622,7 @@ export const servicePages: ServicePageData[] = [
       },
       {
         q: 'What do your reports include?',
-        a: 'Rankings, organic traffic, leading pages, and conversions — tied to your business goals, with clear recommendations for the month ahead.',
+        a: 'Rankings, organic traffic, leading pages, and conversions tied to your business goals, with clear recommendations for the month ahead.',
       },
     ],
     related: [
@@ -640,7 +640,7 @@ export const servicePages: ServicePageData[] = [
       title: 'Campaigns that',
       accent: 'grow your revenue',
       accentHighlight: ['grow'],
-      lede: 'From paid ads to social media and email, Maven builds data-driven campaigns that fill your funnel with qualified leads — and turn them into loyal, repeat customers.',
+      lede: 'From paid ads to social media and email, Maven builds data-driven campaigns that fill your funnel with qualified leads and turn them into loyal, repeat customers.',
       image: '/images/Services/Digital Marketing/hero.jpg',
       imageAlt: 'Digital marketing strategy and analytics',
     },
@@ -660,7 +660,7 @@ export const servicePages: ServicePageData[] = [
         'Strategy built on your real sales numbers',
         'Paid, earned, and owned channels working together',
         'Constant testing lowers costs and lifts results',
-        'Clear monthly reporting — no jargon, no fluff',
+        'Clear monthly reporting no jargon, no fluff',
       ],
       image: '/images/Services/Digital Marketing/overview.png',
       imageAlt: 'Digital marketing agency approach',
@@ -699,7 +699,7 @@ export const servicePages: ServicePageData[] = [
     ],
     process: [
       { title: 'Strategy', description: 'We align channels, budgets, and targets with your business goals.' },
-      { title: 'Launch', description: 'Campaigns, creative, and funnels go live fast — then get measured.' },
+      { title: 'Launch', description: 'Campaigns, creative, and funnels go live fast then get measured.' },
       { title: 'Optimize', description: 'Daily testing and tweaks improve performance week over week.' },
       { title: 'Scale', description: 'We re-invest in what works and cut what does not.' },
     ],
@@ -746,7 +746,7 @@ export const servicePages: ServicePageData[] = [
     faq: [
       {
         q: 'Which channel should I start with?',
-        a: 'It depends on your audience and goals. We analyze your market and recommend a starting point — often Google Ads or a focused social strategy — before you spend a dollar.',
+        a: 'It depends on your audience and goals. We analyze your market and recommend a starting point often Google Ads or a focused social strategy before you spend a dollar.',
       },
       {
         q: 'How do you measure success?',
@@ -758,11 +758,11 @@ export const servicePages: ServicePageData[] = [
       },
       {
         q: 'How quickly will I see results?',
-        a: 'Paid campaigns typically start converting within the first month. Organic channels build slower but compound — we set honest expectations up front.',
+        a: 'Paid campaigns typically start converting within the first month. Organic channels build slower but compound we set honest expectations up front.',
       },
       {
         q: 'Do you work alongside my in-house team?',
-        a: 'Yes. We slot in as your fractional marketing team, or partner alongside existing staff — sharing tools, reports, and goals so everyone wins.',
+        a: 'Yes. We slot in as your fractional marketing team, or partner alongside existing staff sharing tools, reports, and goals so everyone wins.',
       },
     ],
     related: [
@@ -780,7 +780,7 @@ export const servicePages: ServicePageData[] = [
       title: 'Stores that',
       accent: 'sell while you sleep',
       accentHighlight: ['sell'],
-      lede: 'A pretty shop is not enough — it has to convert. Maven builds e-commerce experiences that guide shoppers from browse to checkout without friction, on platforms you can actually manage.',
+      lede: 'A pretty shop is not enough it has to convert. Maven builds e-commerce experiences that guide shoppers from browse to checkout without friction, on platforms you can actually manage.',
       image: '/images/Services/E-commerce Solutions/hero.png',
       imageAlt: 'E-commerce storefront on screen',
     },
@@ -793,7 +793,7 @@ export const servicePages: ServicePageData[] = [
     overview: {
       heading: 'From catalog to checkout, perfected',
       paragraphs: [
-        'Shoppers judge your store in seconds. If it is slow, confusing, or clunky on mobile, they bounce — and buy from someone else. We build storefronts that feel effortless at every step of the journey.',
+        'Shoppers judge your store in seconds. If it is slow, confusing, or clunky on mobile, they bounce and buy from someone else. We build storefronts that feel effortless at every step of the journey.',
         'Payments, shipping, tax, inventory, and marketing integrations are handled behind the scenes, so you can focus on products and growth while your store works around the clock.',
       ],
       bullets: [
@@ -886,7 +886,7 @@ export const servicePages: ServicePageData[] = [
       },
       {
         q: 'Can you migrate my existing store?',
-        a: 'Yes. We migrate products, customers, and order history carefully — preserving your data and SEO while moving to a better platform.',
+        a: 'Yes. We migrate products, customers, and order history carefully preserving your data and SEO while moving to a better platform.',
       },
       {
         q: 'Do you handle payments and tax?',
@@ -898,7 +898,7 @@ export const servicePages: ServicePageData[] = [
       },
       {
         q: 'How do you reduce cart abandonment?',
-        a: 'A faster, simpler checkout, guest checkout, express pay, clear shipping costs, and trust signals — plus email recovery funnels for the shoppers who do leave.',
+        a: 'A faster, simpler checkout, guest checkout, express pay, clear shipping costs, and trust signals plus email recovery funnels for the shoppers who do leave.',
       },
     ],
     related: [
@@ -916,7 +916,7 @@ export const servicePages: ServicePageData[] = [
       title: 'A brand that',
       accent: 'people remember',
       accentHighlight: ['remember'],
-      lede: 'Your brand is more than a logo — it is the feeling people get whenever they meet you. Maven designs complete identities that make your business recognizable everywhere it shows up.',
+      lede: 'Your brand is more than a logo it is the feeling people get whenever they meet you. Maven designs complete identities that make your business recognizable everywhere it shows up.',
       image: '/images/Services/Logo & Branding/hero.png',
       imageAlt: 'Maven 3D logo representing brand design',
     },
@@ -929,7 +929,7 @@ export const servicePages: ServicePageData[] = [
     overview: {
       heading: 'Identity that leaves a mark',
       paragraphs: [
-        'Great brands are built on strategy, not trends. We start by understanding your story, your market, and what makes you different — then translate that into a visual identity with real personality.',
+        'Great brands are built on strategy, not trends. We start by understanding your story, your market, and what makes you different then translate that into a visual identity with real personality.',
         'The result is a system, not just a logo: colors, typography, and messaging that work together so your brand looks and sounds unmistakably yours everywhere it appears.',
       ],
       bullets: [
@@ -1025,11 +1025,11 @@ export const servicePages: ServicePageData[] = [
       },
       {
         q: 'What files do I get?',
-        a: 'Everything: vector (SVG, AI, PDF), raster (PNG, JPG), and optimized web files — sized for print, screens, and social media.',
+        a: 'Everything: vector (SVG, AI, PDF), raster (PNG, JPG), and optimized web files sized for print, screens, and social media.',
       },
       {
         q: 'Do you design more than the logo?',
-        a: 'Yes. Packaging, signage, business cards, social graphics, and full marketing collateral — our identity kits and brand systems cover it.',
+        a: 'Yes. Packaging, signage, business cards, social graphics, and full marketing collateral our identity kits and brand systems cover it.',
       },
       {
         q: 'Can you refresh my existing brand?',

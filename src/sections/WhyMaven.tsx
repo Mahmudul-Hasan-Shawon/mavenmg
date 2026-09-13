@@ -26,7 +26,7 @@ const reasonIcons: Record<string, LucideIcon> = {
 }
 
 /**
- * WhyMaven — "Why Choose Maven" as a premium bento index. The flagship
+ * WhyMaven "Why Choose Maven" as a premium bento index. The flagship
  * "01" reason spans two columns with a ghosted numeral; every card carries
  * a mouse-tracked spotlight, a glow-tl lift, an icon tile and a gradient
  * hairline border that ignites to maven on hover. A deep-violet CTA card
@@ -65,7 +65,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                 className={cn('h-full', featured && 'sm:col-span-2 lg:col-span-2')}
               >
                 <div className="scroll-blur group relative h-full rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5">
-                  {/* Gradient hairline border — ignites to maven on hover */}
+                  {/* Gradient hairline border ignites to maven on hover */}
                   <div
                     className={cn(
                       'rounded-3xl p-px h-full transition-colors duration-500',
@@ -79,7 +79,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                       )}
                       onPointerMove={trackSpotlight}
                     >
-                      {/* Ghosted numeral — top-right watermark */}
+                      {/* Ghosted numeral top-right watermark */}
                       <span
                         aria-hidden="true"
                         className={cn(

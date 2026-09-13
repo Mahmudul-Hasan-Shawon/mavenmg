@@ -203,7 +203,7 @@ function ServicesNavItem({
   useEffect(() => {
     if (!open) return
     const raf = requestAnimationFrame(() => setShown(true))
-    // The header is fixed, so the panel cannot move on scroll — only
+    // The header is fixed, so the panel cannot move on scroll only
     // re-anchor on resize. During scroll we just close once the header
     // would slide away (scrolled past 180 while moving down), mirroring
     // how the dropdown used to scroll off with the header.

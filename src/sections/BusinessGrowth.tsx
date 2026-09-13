@@ -12,7 +12,7 @@ interface GrowthTier {
 }
 
 /**
- * BusinessGrowth — Maven's growth journey as three progressive tiers:
+ * BusinessGrowth Maven's growth journey as three progressive tiers:
  * Small Business → Medium Business → Enterprise Solutions. Each tier pairs a
  * square illustration with its stage copy, and connector arrows lead the eye
  * along the scaling path.
@@ -27,7 +27,7 @@ description:
   },
   {
     tag: '02 · Momentum',
-    title: 'Medium Business',
+    title: 'Mid-Sized Business',
 description:
       'Systems replace guesswork. As you scale, we automate campaigns, sharpen your funnel, and turn steady traffic into predictable revenue.',
       image: '/images/growth/medium-business.png',
@@ -62,7 +62,7 @@ export function BusinessGrowth({ onNavigate }: { onNavigate?: (href: string) => 
           highlight={['every', 'journey']}
           accentLight
           accentWhite={['stage']}
-          lede="From first launch to full-scale enterprise, Maven grows with you — the right tools, the right strategy, at the right size."
+          lede="From first launch to full-scale enterprise, Maven grows with you the right tools, the right strategy, at the right size."
           align="center"
         />
 

@@ -1,4 +1,4 @@
-/* ===== Maven Marketing Group — shared site JS ===== */
+/* ===== Maven Marketing Group shared site JS ===== */
 
 /* ---------- Data (ported from src/data/content.js) ---------- */
 const brand = {
@@ -71,10 +71,10 @@ const portfolioItems = [
 const categories = ['All', 'Construction & Real Estate', 'E-Commerce', 'Law Firms', 'Manufacturing', 'Other']
 
 const testimonials = [
-  { name: 'Slater Heil', role: 'Founder & CEO', company: 'Blueberry', text: 'When we at Blueberry needed a site to match our next-gen DeFi vision, Maven delivered something unreal. Their design is unmatched in this cutting-edge space—sleek, futuristic, and screaming innovation, it\'s like they pulled our protocol\'s soul straight onto the screen.' },
+  { name: 'Slater Heil', role: 'Founder & CEO', company: 'Blueberry', text: 'When we at Blueberry needed a site to match our next-gen DeFi vision, Maven delivered something unreal. Their design is unmatched in this cutting-edge space sleek, futuristic, and screaming innovation, it\'s like they pulled our protocol\'s soul straight onto the screen.' },
   { name: 'Edric Bol', role: 'Owner', company: 'Bolco Construction', text: 'Maven stepped up and delivered exactly what I wanted: simple and effective. They built a clean, no-nonsense site that puts our work front and center with great photos, easy navigation, and a straightforward layout that doesn\'t confuse anyone.' },
-  { name: 'Mike Wall', role: 'Owner', company: 'Simpson Cleaning', text: 'Before maven we were on BigCommerce — high fees eating us alive. Maven swooped in, got us off that mess, and saved us a ton on monthly costs. The site they built? Tough, slick, and all-American, just like our breachers.' },
-  { name: 'Jason Collicot', role: 'Owner', company: 'Crypto Cache', text: 'Maven\'s management of our Crypto Cache website has been phenomenal. They\'ve transformed it with a bold, cutting-edge design — sharp visuals, seamless flow, and a crypto-savvy vibe that grabs attention.' },
+  { name: 'Mike Wall', role: 'Owner', company: 'Simpson Cleaning', text: 'Before maven we were on BigCommerce high fees eating us alive. Maven swooped in, got us off that mess, and saved us a ton on monthly costs. The site they built? Tough, slick, and all-American, just like our breachers.' },
+  { name: 'Jason Collicot', role: 'Owner', company: 'Crypto Cache', text: 'Maven\'s management of our Crypto Cache website has been phenomenal. They\'ve transformed it with a bold, cutting-edge design sharp visuals, seamless flow, and a crypto-savvy vibe that grabs attention.' },
   { name: 'Quam Opere', role: 'Owner', company: 'Eminent Limo', text: 'Eminent Limo was stuck at zero, nothing coming through the website, until Maven turned it around. They shot us from $0 to averaging $50K a month, knocking out every competitor in search rankings. Maven\'s design and SEO magic are unreal.' },
   { name: 'John Skalla', role: 'Owner', company: '', text: 'If Maven Marketing Group was an NHL team they would be the Stanley Cup Champions. They shoot and always score. I wouldn\'t let anyone else touch my websites. The best.' },
   { name: 'Genaro Cavazos', role: 'Chief Executive Officer', company: '', text: 'Connor and his team were absolutely fantastic. They professionalized our website and have helped us cement ourselves as a top-notch provider in the Security Industry. I wish I had found them sooner!' },
@@ -202,7 +202,7 @@ function renderFooter() {
           <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div class="max-w-md">
               <h3 class="text-2xl md:text-3xl font-black text-white mb-2">Stay in the Loop</h3>
-              <p class="text-white/75 text-base">Get the latest marketing tips, success stories, and exclusive offers — straight to your inbox.</p>
+              <p class="text-white/75 text-base">Get the latest marketing tips, success stories, and exclusive offers straight to your inbox.</p>
             </div>
             <form class="w-full lg:w-auto" data-newsletter>
               <div class="flex flex-col sm:flex-row gap-3">
@@ -221,7 +221,7 @@ function renderFooter() {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
           <div class="sm:col-span-2 lg:col-span-2">
             <a href="/" class="block mb-5"><img src="images/logo.png" alt="${brand.name}" class="h-10 w-auto mb-1" /></a>
-            <p class="text-gray-500 text-base leading-relaxed mb-5">Custom built websites and digital marketing services for businesses of all sizes. Based in ${brand.address.city}, ${brand.address.state} — serving clients nationwide and worldwide.</p>
+            <p class="text-gray-500 text-base leading-relaxed mb-5">Custom built websites and digital marketing services for businesses of all sizes. Based in ${brand.address.city}, ${brand.address.state} serving clients nationwide and worldwide.</p>
             <div class="flex gap-3">${socials}</div>
           </div>
           <div>
@@ -331,10 +331,10 @@ function initForms() {
     form.addEventListener('submit', (e) => {
       e.preventDefault()
       const input = form.querySelector('[data-newsletter-email]')
-      const subject = encodeURIComponent('Newsletter signup — ' + brand.name)
+      const subject = encodeURIComponent('Newsletter signup ' + brand.name)
       const body = encodeURIComponent('Please subscribe this email to your newsletter:\n\n' + (input.value || '') + '\n')
       window.location.href = 'mailto:' + brand.email + '?subject=' + subject + '&body=' + body
-      form.innerHTML = '<div class="flex items-center gap-3 bg-white/15 backdrop-blur-sm rounded-2xl px-6 py-4"><span class="text-white font-semibold">Thanks! Opening your mail app — we\'ll be in touch.</span></div>'
+      form.innerHTML = '<div class="flex items-center gap-3 bg-white/15 backdrop-blur-sm rounded-2xl px-6 py-4"><span class="text-white font-semibold">Thanks! Opening your mail app we\'ll be in touch.</span></div>'
     })
   })
 

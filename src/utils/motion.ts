@@ -1,6 +1,6 @@
 /**
  * Shared motion/scroll state. Lenis writes to this on every scroll tick;
- * R3F scenes read it inside useFrame — no React re-renders involved.
+ * R3F scenes read it inside useFrame no React re-renders involved.
  */
 export const scrollState = {
   y: 0,
@@ -47,14 +47,14 @@ const readyWaiters: ReadyListener[] = []
 /**
  * Register a callback that runs once the app is ready for entrance
  * animations (after the readiness veil has settled). If already ready, it
- * fires immediately — so this also works for sections that mount later.
+ * fires immediately so this also works for sections that mount later.
  */
 export function onAppReady(cb: ReadyListener) {
   if (appReady) cb()
   else readyWaiters.push(cb)
 }
 
-/** Mark the app ready — called by ReadyVeil so load-triggered intro
+/** Mark the app ready called by ReadyVeil so load-triggered intro
  *  animations start exactly as the cover lifts. */
 export function markAppReady() {
   if (appReady) return

@@ -135,7 +135,7 @@ export function Testimonials() {
               <div className="absolute left-0 top-0 bottom-0 w-px bg-maven-light" />
               <span className="block text-start text-md font-medium text-white tracking-wide">{t.name}</span>
               <span className="block text-start text-mist-dim text-xs mt-0.5 font-mono uppercase tracking-widest">
-                {t.role}{t.company ? ` — ${t.company}` : ''}
+                {t.role}{t.company ? ` ${t.company}` : ''}
               </span>
             </div>
           </figcaption>

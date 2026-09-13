@@ -703,7 +703,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
                       <p className="mt-1 font-semibold text-white">{post.author}</p>
                       <p className="mt-1.5 text-md leading-relaxed text-mist">
                         We hope this article helps you out! If you want more advice for expanding your reach, getting
-                        leads, and growing your business — let us know.
+                        leads, and growing your business let us know.
                       </p>
                     </div>
                   </div>
