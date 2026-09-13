@@ -22,6 +22,7 @@ interface LegalContentProps {
 export function LegalContent({ page }: LegalContentProps) {
   const uid = useId()
   const listRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
   const [tocOpen, setTocOpen] = useState(false)
 
@@ -43,18 +44,44 @@ export function LegalContent({ page }: LegalContentProps) {
     return () => observer.disconnect()
   }, [page.sections.length])
 
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+    const activeItem = container.querySelector<HTMLElement>(`li:nth-child(${active + 1})`)
+    if (activeItem) activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+  }, [active])
+
   const goTo = (index: number) => {
     const target = document.getElementById(`${uid}-${slugify(page.sections[index].heading)}`)
-    setTocOpen(false)
     if (!target) return
-    const lenis = getLenis()
-    if (lenis) lenis.scrollTo(target, { offset: -sectionOffset })
-    else target.scrollIntoView({ behavior: 'smooth' })
+    const scroll = () => {
+      const lenis = getLenis()
+      if (lenis) lenis.scrollTo(target, { offset: -sectionOffset })
+      else target.scrollIntoView({ behavior: 'smooth' })
+    }
+    if (tocOpen) {
+      setTocOpen(false)
+      setTimeout(scroll, 350)
+    } else {
+      scroll()
+    }
   }
 
   const onTocClick = (e: MouseEvent<HTMLAnchorElement>, index: number) => {
     e.preventDefault()
     goTo(index)
+  }
+
+  const activeHeading = page.sections[active]?.heading ?? ''
+
+  const canScrollContainer = (el: HTMLElement, delta: number) => {
+    if (delta < 0) return el.scrollTop > 0
+    return el.scrollTop < el.scrollHeight - el.clientHeight
+  }
+
+  const onTocWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const el = e.currentTarget
+    if (canScrollContainer(el, e.deltaY)) e.stopPropagation()
   }
 
   return (
@@ -91,46 +118,69 @@ export function LegalContent({ page }: LegalContentProps) {
 
           {/* Document body */}
           <div ref={listRef} className="min-w-0">
-            {/* In-document navigation mobile collapsible */}
-            <div className="lg:hidden mb-7">
+{/* In-document navigation mobile collapsible (matching the blog article TOC) */}
+            <div className="lg:hidden sticky top-0 z-30 -mx-6 border-b border-line bg-void p-4 mb-8 md:-mx-12 md:mb-10">
               <button
                 type="button"
                 onClick={() => setTocOpen((v) => !v)}
                 aria-expanded={tocOpen}
                 data-cursor
-                className="w-full flex items-center justify-between gap-3 rounded-2xl border border-line bg-ink/60 px-4 py-3.5 text-left transition-colors duration-300 hover:border-maven-light/40"
+                className="flex w-full items-center justify-between gap-3 text-left"
               >
-                <span className="mono-label">In this document</span>
-                <span className="flex items-center gap-3">
-                  <span className="text-xs text-mist-dim tabular-nums">{page.sections.length}</span>
-                  <ChevronDown
-                    size={16}
-                    aria-hidden="true"
-                    className={cn('text-mist transition-transform duration-300', tocOpen && 'rotate-180')}
-                  />
+                <span className="min-w-0">
+                  <span className="block font-semibold text-white">Table of Contents</span>
+                  <span className="mt-0.5 block truncate text-xs font-medium text-maven-light">
+                    {activeHeading || 'Jump to a section'}
+                  </span>
                 </span>
+                <ChevronDown
+                  size={16}
+                  aria-hidden="true"
+                  className={cn('shrink-0 text-mist transition-transform duration-300', tocOpen && 'rotate-180')}
+                />
               </button>
-              {tocOpen && (
-                <nav aria-label="On this page" className="mt-2 rounded-2xl border border-line bg-ink/60 overflow-hidden">
-                  <ol>
-                    {page.sections.map((s, i) => (
-                      <li key={s.heading} className="border-b border-line last:border-b-0">
-                        <button
-                          type="button"
-                          onClick={() => goTo(i)}
-                          data-cursor
-                          className={cn(
-                            'w-full flex items-baseline gap-3 px-4 py-3 text-left text-sm transition-colors duration-200',
-                            active === i ? 'text-white bg-ink-2' : 'text-mist-dim hover:text-mist'
-                          )}
-                        >
-                    <span className="leading-snug">{s.heading}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ol>
-                </nav>
-              )}
+              <div
+                className={cn(
+                  'grid transition-all duration-300 ease-out',
+                  tocOpen ? 'mt-4 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                )}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <nav aria-label="Table of contents">
+                    <div
+                      ref={scrollRef}
+                      onWheel={onTocWheel}
+                      className="max-h-[50vh] overflow-y-auto overscroll-contain pr-1"
+                    >
+                      <ul className="space-y-1">
+                        {page.sections.map((s, i) => (
+                          <li key={s.heading}>
+                            <a
+                              href={`#${uid}-${slugify(s.heading)}`}
+                              onClick={(e) => onTocClick(e, i)}
+                              data-cursor
+                              className={cn(
+                                'flex items-baseline gap-2.5 rounded-lg px-2 py-2 text-[13px] leading-snug transition-colors duration-300',
+                                active === i ? 'bg-maven/10 text-white' : 'text-mist-dim hover:text-mist'
+                              )}
+                            >
+                              <span
+                                className={cn(
+                                  'shrink-0 text-[10px] font-medium tabular-nums',
+                                  active === i ? 'text-maven-light' : 'text-maven/50'
+                                )}
+                              >
+                                {String(i + 1).padStart(2, '0')}
+                              </span>
+                              {s.heading}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </nav>
+                </div>
+              </div>
             </div>
 
             {page.sections.map((s, i) => (
