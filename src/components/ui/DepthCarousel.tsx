@@ -324,16 +324,24 @@ export default function DepthCarousel({
     [layout]
   )
 
-  const onPointerEnd = useCallback(() => {
-    const drag = dragRef.current
-    if (!drag) return
-    dragRef.current = null
-    if (!drag.moved) return
-    const cfg = cfgRef.current
-    const stepPx = Math.max(cfg.cardWidth * 0.55 * scaleRef.current, 40)
-    const projected = posRef.current - (drag.v * 180) / stepPx
-    setFocus(Math.round(projected), true)
-  }, [setFocus])
+  const onPointerEnd = useCallback(
+    (e: PointerEvent<HTMLDivElement>) => {
+      const drag = dragRef.current
+      if (!drag) return
+      dragRef.current = null
+      if (!drag.moved) return
+      const cfg = cfgRef.current
+      const stepPx = Math.max(cfg.cardWidth * 0.55 * scaleRef.current, 40)
+      const dx = e.clientX - drag.x
+      const threshold = Math.max(30, stepPx * 0.3)
+      if (Math.abs(dx) < threshold) {
+        setFocus(Math.round(posRef.current), true)
+        return
+      }
+      navigateBy(dx < 0 ? 1 : -1)
+    },
+    [navigateBy, setFocus]
+  )
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
