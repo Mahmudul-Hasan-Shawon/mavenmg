@@ -12,6 +12,7 @@ import {
 import { reasons } from '../data/content'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import GradientWaves from '../components/ui/GradientWaves'
 import { trackSpotlight } from '../utils/motion'
 import { cn } from '../utils/cn'
 
@@ -130,9 +131,31 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
           {onNavigate && (
             <div className="h-full sm:col-span-2 lg:col-span-1">
               <div className="scroll-blur group relative h-full rounded-3xl transition-transform duration-500 ease-out hover:-translate-y-1.5">
-                <div className="spotlight glow-tl rounded-3xl bg-maven-deep p-8 md:p-9 flex flex-col justify-end gap-6 h-full overflow-hidden">
-                  <div aria-hidden="true" className="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-white-solid/10" />
-                  <div aria-hidden="true" className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-white-solid/10" />
+                <div className="spotlight glow-tl rounded-3xl bg-void p-8 md:p-9 flex flex-col justify-end gap-6 h-full overflow-hidden">
+                  <div aria-hidden="true" className="absolute inset-0">
+                    <GradientWaves
+                      horizonColor="#1b0b2e"
+                      waveColor="#612c8b"
+                      crestColor="#dacaff"
+                      speed={0.35}
+                      amplitude={2.5}
+                      waveScale={0.9}
+                      waveRatio={0.9}
+                      swell={35}
+                      turbulence={20}
+                      tilt={1.11}
+                      zoom={1.05}
+                      height={3.5}
+                      fogDepth={18}
+                      detail="medium"
+                      brightness={1.05}
+                      opacity={1.0}
+                      mouseInteraction
+                      parallaxStrength={0.5}
+                      grain
+                      grainIntensity={0.05}
+                    />
+                  </div>
 
                   <div className="relative">
                     <span className="mono-label !text-white-solid/70 mb-4 block">Next step</span>
@@ -144,7 +167,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                     </p>
                   </div>
 
-                  <MagneticButton variant="primary" className="relative" onClick={() => onNavigate('/contact')}>
+                  <MagneticButton variant="glass" className="relative" onClick={() => onNavigate('/contact')}>
                     Start Your Project
                     <ArrowRight size={16} />
                   </MagneticButton>
