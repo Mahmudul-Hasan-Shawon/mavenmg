@@ -33,6 +33,16 @@
   transform-style: preserve-3d;
 }
 
+@media (max-width: 767px) {
+  .depth-carousel__stage {
+    margin-bottom: 24px;
+  }
+
+  .depth-carousel__dots {
+    bottom: 12px;
+  }
+}
+
 .depth-carousel__card {
   position: absolute;
   top: 50%;

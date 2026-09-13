@@ -278,7 +278,7 @@ export default function DepthCarousel({
     const ro = new ResizeObserver((entries) => {
       const w = entries[0].contentRect.width
       const cfg = cfgRef.current
-      const needed = w < 640 ? cfg.cardWidth + 30 : cfg.cardWidth + Math.abs(cfg.spread) + 40
+      const needed = w < 640 ? cfg.cardWidth : cfg.cardWidth + Math.abs(cfg.spread) + 40
       scaleRef.current = clamp(w / needed, 0.5, 1)
       layout(posRef.current)
     })
@@ -388,10 +388,19 @@ export default function DepthCarousel({
     const onFocusOut = () => {
       focused = false
     }
+    const onInteractStart = () => {
+      stop()
+    }
+    const onInteractEnd = () => {
+      start()
+    }
     root?.addEventListener('mouseenter', onEnter)
     root?.addEventListener('mouseleave', onLeave)
     root?.addEventListener('focusin', onFocusIn)
     root?.addEventListener('focusout', onFocusOut)
+    root?.addEventListener('pointerdown', onInteractStart)
+    root?.addEventListener('pointerup', onInteractEnd)
+    root?.addEventListener('pointercancel', onInteractEnd)
     start()
     return () => {
       stop()
@@ -399,6 +408,9 @@ export default function DepthCarousel({
       root?.removeEventListener('mouseleave', onLeave)
       root?.removeEventListener('focusin', onFocusIn)
       root?.removeEventListener('focusout', onFocusOut)
+      root?.removeEventListener('pointerdown', onInteractStart)
+      root?.removeEventListener('pointerup', onInteractEnd)
+      root?.removeEventListener('pointercancel', onInteractEnd)
     }
   }, [autoplay, autoplayDelay, count, navigateBy])
 
