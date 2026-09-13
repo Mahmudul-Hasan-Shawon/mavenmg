@@ -2,6 +2,7 @@ import { Hero } from '../sections/Hero'
 import { Partners } from '../sections/Partners'
 import { Services } from '../sections/Services'
 import { WhyMaven } from '../sections/WhyMaven'
+import { BusinessGrowth } from '../sections/BusinessGrowth'
 import { Results } from '../sections/Results'
 import { Philosophy } from '../sections/Philosophy'
 import { WorkShowcase } from '../sections/WorkShowcase'
@@ -18,6 +19,7 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
       <Services onNavigate={onNavigate} />
       <Results />
       <WhyMaven onNavigate={onNavigate} />
+      <BusinessGrowth onNavigate={onNavigate} />
       <Testimonials />
       <Philosophy />
       <WorkShowcase onNavigate={onNavigate} limit={6} />
