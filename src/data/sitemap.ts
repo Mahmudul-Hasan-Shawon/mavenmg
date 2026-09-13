@@ -1,6 +1,8 @@
 export interface SitemapLink {
   label: string
   href: string
+  /** Internal SPA route (navigated via onNavigate); defaults to external. */
+  external?: boolean
 }
 
 export interface SitemapGroup {
@@ -27,24 +29,35 @@ const titleize = (slug: string) =>
 const main = (path: string, label?: string): SitemapLink => ({
   label: label || titleize(path),
   href: `${base}/${path}`,
+  external: true,
+})
+
+/** Internal app route, e.g. "/services/web-design", navigated within the SPA. */
+const internal = (path: string, label?: string): SitemapLink => ({
+  label: label || titleize(path),
+  href: path ? `/${path}` : '/',
+  external: false,
 })
 
 /** Website management location page, e.g. "Addison Website Management Services". */
 const location = (city: string, label?: string): SitemapLink => ({
   label: `${label || titleize(city)} Website Management Services`,
   href: `${base}/website-management-services/${city}`,
+  external: true,
 })
 
 /** Website management industry page, e.g. "Franchises Website Management Services". */
 const industry = (slug: string, label?: string): SitemapLink => ({
   label: `${label || titleize(slug)} Website Management Services`,
   href: `${base}/website-management-services/${slug}`,
+  external: true,
 })
 
 /** Portfolio case-study page, e.g. "Blueberry" (no "Portfolio" prefix). */
 const portfolio = (slug: string, label?: string): SitemapLink => ({
   label: label || titleize(slug),
   href: `${base}/portfolio/${slug}`,
+  external: true,
 })
 
 export const sitemapGroups: SitemapGroup[] = [
@@ -53,16 +66,16 @@ export const sitemapGroups: SitemapGroup[] = [
     title: 'Main Pages',
     description: 'The core pages that make up the Maven website.',
     links: [
-      main('', 'Home'),
-      main('services', 'Services'),
-      main('about', 'About'),
-      main('maven-marketing-group-portfolio', 'Our Work'),
-      main('contact-maven', 'Contact'),
-      main('build-your-project', 'Build Your Project'),
-      main('blog', 'Blog'),
-      main('sitemap', 'Sitemap'),
-      main('privacy-policy', 'Privacy Policy'),
-      main('terms-of-use', 'Terms of Use'),
+      internal('', 'Home'),
+      internal('services', 'Services'),
+      internal('about', 'About'),
+      internal('work', 'Our Work'),
+      internal('contact', 'Contact'),
+      internal('contact', 'Build Your Project'),
+      internal('blog', 'Blog'),
+      internal('sitemap', 'Sitemap'),
+      internal('privacy-policy', 'Privacy Policy'),
+      internal('terms-of-service', 'Terms of Use'),
     ],
   },
   {
@@ -70,20 +83,20 @@ export const sitemapGroups: SitemapGroup[] = [
     title: 'Services',
     description: 'Our full range of web design, development, management, and marketing services.',
     links: [
-      main('services/web-design', 'Custom Website Design'),
-      main('services/web-development', 'Website Development'),
-      main('services/website-management', 'Website Management'),
-      main('services/seo', 'SEO Services'),
-      main('services/digital-marketing', 'Digital Marketing'),
-      main('services/ecommerce', 'E-commerce Solutions'),
-      main('services/logo-branding', 'Logo & Branding'),
-      main('services/web-design-packages', 'Web Design Packages'),
-      main('services/digital-marketing-services', 'Digital Marketing Services'),
-      main('services/website-management-services', 'Website Management Services'),
-      main('web-design-services', 'Web Design Services'),
-      main('website-maintenance-services', 'Website Maintenance Services'),
-      main('website-management-services', 'Website Management Services'),
-      main('social-media-advertising', 'Social Media Advertising'),
+      internal('services/web-design', 'Custom Website Design'),
+      internal('services/web-development', 'Website Development'),
+      internal('services/website-management', 'Website Management'),
+      internal('services/seo', 'SEO Services'),
+      internal('services/digital-marketing', 'Digital Marketing'),
+      internal('services/ecommerce', 'E-commerce Solutions'),
+      internal('services/logo-branding', 'Logo & Branding'),
+      internal('services/web-design', 'Web Design Packages'),
+      internal('services/digital-marketing', 'Digital Marketing Services'),
+      internal('services/website-management', 'Website Management Services'),
+      internal('services/web-design', 'Web Design Services'),
+      internal('services/website-management', 'Website Maintenance Services'),
+      internal('services/website-management', 'Website Management Services'),
+      internal('services/digital-marketing', 'Social Media Advertising'),
     ],
   },
   {
