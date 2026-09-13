@@ -4,12 +4,14 @@ import { projects, projectCategories } from '../data/projects'
 import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Eyebrow } from '../components/text/Eyebrow'
+import DepthCarousel from '../components/ui/DepthCarousel'
 import { reducedMotion } from '../utils/motion'
 
 /**
  * WorkShowcase, Maven's featured projects as a clean responsive grid on the
  * homepage. Up to `limit` projects, each card fully visible with image,
- * title and category. The full index lives on the Work page.
+ * title and category. The full index lives on the Work page. Pass
+ * `variant="depth"` to render the DepthCarousel stack instead of the grid.
  */
 export function WorkShowcase({
   onNavigate,
@@ -20,6 +22,7 @@ export function WorkShowcase({
   filter,
   onFilterChange,
   mobileTag,
+  variant = 'grid',
 }: {
   onNavigate: (href: string) => void
   limit?: number
@@ -30,6 +33,8 @@ export function WorkShowcase({
   onFilterChange?: (category: string) => void
   /** Label-only mobile eyebrow rendered inside the section header spot. */
   mobileTag?: string
+  /** Visual style of the project index: responsive grid or depth stack. */
+  variant?: 'grid' | 'depth'
 }) {
   const shown = (items ?? projects).slice(0, limit)
   const gridRef = useRef<HTMLDivElement>(null)
@@ -125,6 +130,69 @@ export function WorkShowcase({
           </div>
         )}
 
+        {variant === 'depth' ? (
+          <div className="relative h-[480px] md:h-[620px]">
+            <DepthCarousel
+              items={shown.map((p, i) => {
+                const name = p.name.replace(/\n/g, ' ')
+                return {
+                  image: p.image,
+                  alt: `${name}, ${p.category} website by Maven Marketing Group`,
+                  content: (
+                    <>
+                      <div className="relative flex-1 min-h-0 overflow-hidden">
+                        <img
+                          src={p.image}
+                          alt={`${name}, ${p.category} website by Maven Marketing Group`}
+                          loading="lazy"
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
+                        <span
+                          className="absolute top-4 left-5 font-poppins font-bold text-4xl text-stroke select-none"
+                          aria-hidden="true"
+                        >
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          className="project-arrow-circle absolute bottom-4 right-4 w-10 h-10 rounded-full border border-white/20 bg-ink/40 backdrop-blur flex items-center justify-center text-white-solid"
+                        >
+                          <ArrowUpRight size={16} />
+                        </span>
+                      </div>
+                      <div className="p-5">
+                        <p className="card-tag mb-2">{p.category}</p>
+                        <h3 className="display font-semibold text-xl text-white mb-2 tracking-[0.01em]">{name}</h3>
+                        <p className="text-mist text-base leading-relaxed line-clamp-2">{p.blurb}</p>
+                      </div>
+                    </>
+                  ),
+                }
+              })}
+              cardWidth={380}
+              cardHeight={480}
+              radius={20}
+              tint="#05060a"
+              depth={180}
+              spread={120}
+              tilt={14}
+              tiltDirection="right"
+              perspective={1400}
+              visibleCards={4}
+              falloff={0.22}
+              blur={5}
+              duration={800}
+              ease="power3.out"
+              autoplay
+              autoplayDelay={3600}
+              loop
+              showControls
+              showIndicators
+            />
+          </div>
+        ) : (
+          <>
         <div
           key={showFilter ? filter : 'static'}
           ref={gridRef}
@@ -194,6 +262,8 @@ export function WorkShowcase({
             <ChevronRight size={18} />
           </button>
         </div>
+          </>
+        )}
 
         {onNavigate && !hideHeader && (
           <Reveal>

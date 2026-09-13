@@ -22,7 +22,7 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
       <BusinessGrowth onNavigate={onNavigate} />
       <Testimonials />
       <Philosophy />
-      <WorkShowcase onNavigate={onNavigate} limit={6} />
+      <WorkShowcase onNavigate={onNavigate} limit={6} variant="depth" />
       <MavensTeam id="mavens-team" className="pt-16 md:pt-24 pb-8 md:pb-16" />
       <FinalCTA onNavigate={onNavigate} />
     </>
