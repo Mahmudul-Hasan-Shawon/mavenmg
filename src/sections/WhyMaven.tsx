@@ -65,7 +65,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                 key={reason.index}
                 className={cn('h-full', featured && 'sm:col-span-2 lg:col-span-2')}
               >
-                <div className="scroll-blur group relative h-full rounded-3xl transition-all duration-500 ease-out hover:-translate-y-1.5">
+                <div className="scroll-blur group relative h-full rounded-3xl shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-all duration-500 ease-out hover:-translate-y-1.5">
                   {/* Gradient hairline border ignites to maven on hover */}
                   <div
                     className={cn(
@@ -130,7 +130,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
           {/* CTA card */}
           {onNavigate && (
             <div className="h-full sm:col-span-2 lg:col-span-1">
-              <div className="scroll-blur group relative h-full rounded-3xl transition-transform duration-500 ease-out hover:-translate-y-1.5">
+              <div className="scroll-blur group relative h-full rounded-3xl shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-transform duration-500 ease-out hover:-translate-y-1.5">
                 <div className="spotlight glow-tl rounded-3xl bg-[#0d0818] p-8 md:p-9 flex flex-col justify-end gap-6 h-full overflow-hidden">
                   <div aria-hidden="true" className="absolute inset-0">
                     <GradientWaves

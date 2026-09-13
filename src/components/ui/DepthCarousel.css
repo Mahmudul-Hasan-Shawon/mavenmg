@@ -51,8 +51,8 @@
   overflow: hidden;
   background: var(--color-ink-2);
   box-shadow:
-    0 30px 60px -20px rgba(0, 0, 0, 0.45),
-    0 8px 20px -10px rgba(0, 0, 0, 0.3);
+    0 30px 60px -20px rgba(97, 44, 139, 0.45),
+    0 8px 20px -10px rgba(97, 44, 139, 0.3);
   will-change: transform, opacity;
   cursor: pointer;
   transform: translate(-50%, -50%);
