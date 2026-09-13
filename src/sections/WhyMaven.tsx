@@ -131,7 +131,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
           {onNavigate && (
             <div className="h-full sm:col-span-2 lg:col-span-1">
               <div className="scroll-blur group relative h-full rounded-3xl transition-transform duration-500 ease-out hover:-translate-y-1.5">
-                <div className="spotlight glow-tl rounded-3xl bg-void p-8 md:p-9 flex flex-col justify-end gap-6 h-full overflow-hidden">
+                <div className="spotlight glow-tl rounded-3xl bg-[#0d0818] p-8 md:p-9 flex flex-col justify-end gap-6 h-full overflow-hidden">
                   <div aria-hidden="true" className="absolute inset-0">
                     <GradientWaves
                       horizonColor="#1b0b2e"
