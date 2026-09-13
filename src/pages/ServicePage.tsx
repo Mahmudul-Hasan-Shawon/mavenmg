@@ -484,7 +484,7 @@ function FaqSection({ data, onNavigate }: { data: ServicePageData; onNavigate: (
             <Eyebrow label="FAQ" className="mb-7" />
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="display font-semibold text-[clamp(2rem,4.4vw,3.4rem)] text-white mb-5">Questions, <span className="text-maven-light">answered</span></h2>
+            <h2 className="display font-semibold text-[clamp(2rem,4.4vw,3.4rem)] text-white mb-5">Questions, <span className="text-maven-light">Answered</span></h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-mist text-base md:text-lg leading-relaxed mb-8">
