@@ -329,7 +329,7 @@ function Card({
         rel="noreferrer"
         data-cursor
         aria-label={`Visit the ${name} website`}
-        className="scroll-blur panel panel-hover group relative block cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
+        className="scroll-blur panel panel-hover group relative block cursor-pointer overflow-hidden rounded-2xl shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500"
       >
         {body}
       </a>
@@ -340,7 +340,7 @@ function Card({
     <article
       data-filter-card
       onClick={() => onNavigate('/work')}
-      className="scroll-blur panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl shadow-[0_18px_45px_-24px_rgba(97,44,139,0.4)] hover:shadow-[0_28px_70px_-30px_rgba(97,44,139,0.55)] transition-shadow duration-500"
+      className="scroll-blur panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500"
     >
       {body}
     </article>

@@ -89,7 +89,7 @@ export function BusinessGrowth({ onNavigate }: { onNavigate?: (href: string) => 
                     </span>
                   )}
 
-                  <div className="scroll-blur panel panel-hover group relative h-full rounded-3xl overflow-hidden transition-shadow duration-500">
+                  <div className="scroll-blur panel panel-hover group relative h-full rounded-3xl overflow-hidden shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500">
                     {/* Illustration */}
                     <div className="relative aspect-[4/3] overflow-hidden bg-void">
                       <div className="absolute inset-0 opacity-25 blur-2xl scale-125 transition-transform duration-700 group-hover:scale-150">
