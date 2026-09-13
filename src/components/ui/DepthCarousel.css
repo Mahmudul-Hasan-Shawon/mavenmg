@@ -39,10 +39,10 @@
   left: 50%;
   transform-origin: center center;
   overflow: hidden;
-  background: #0b0d12;
+  background: var(--color-ink-2);
   box-shadow:
-    0 30px 60px -20px rgba(0, 0, 0, 0.65),
-    0 8px 20px -10px rgba(0, 0, 0, 0.5);
+    0 30px 60px -20px rgba(0, 0, 0, 0.45),
+    0 8px 20px -10px rgba(0, 0, 0, 0.3);
   will-change: transform, opacity;
   cursor: pointer;
   transform: translate(-50%, -50%);
@@ -133,13 +133,37 @@
   backdrop-filter: blur(6px);
 }
 
+[data-theme='light'] .depth-carousel__arrow {
+  background: rgba(109, 47, 165, 0.06);
+  border-color: rgba(109, 47, 165, 0.25);
+  color: var(--color-maven);
+}
+
+[data-theme='light'] .depth-carousel__arrow:hover {
+  background: rgba(109, 47, 165, 0.12);
+  border-color: var(--color-maven);
+}
+
+[data-theme='light'] .depth-carousel__dots {
+  background: rgba(109, 47, 165, 0.06);
+  border: 1px solid rgba(109, 47, 165, 0.22);
+}
+
+[data-theme='light'] .depth-carousel__dot {
+  background: rgba(109, 47, 165, 0.28);
+}
+
+[data-theme='light'] .depth-carousel__dot.is-active {
+  background: var(--color-maven);
+}
+
 .depth-carousel__dot {
   width: 7px;
   height: 7px;
   padding: 0;
   border: none;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.32);
+  background: var(--color-mist-dim);
   cursor: pointer;
   transition:
     width 0.25s ease,
@@ -148,7 +172,7 @@
 
 .depth-carousel__dot.is-active {
   width: 20px;
-  background: #fff;
+  background: var(--color-white);
 }
 
 @media (prefers-reduced-motion: reduce) {

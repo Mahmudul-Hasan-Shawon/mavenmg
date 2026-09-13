@@ -178,14 +178,22 @@ export default function DepthCarousel({
 
         const back = Math.max(0, d)
         const az = Math.abs(d)
-        const shown = az <= cfg.visibleCards + 0.5
+        const wrapLimit =
+          cfg.loop && n > 1 ? Math.min(n / 2, cfg.visibleCards + 0.5) : cfg.visibleCards + 0.5
+        const shown = az <= wrapLimit
 
         const tz = -cfg.depth * d
         const tx = dir * cfg.spread * d
         const ry = dir * cfg.tilt * clamp(d, 0, 1)
 
-        let opacity = d < 0 ? Math.max(0, 1 + d) : 1
-        if (!shown) opacity = 0
+        let opacity: number
+        if (d < 0) {
+          opacity = Math.max(0, Math.min(1, 1 + d))
+        } else if (az >= wrapLimit) {
+          opacity = 0
+        } else {
+          opacity = Math.max(0, Math.min(1, wrapLimit - az))
+        }
 
         const backQ = d < 0 ? 0 : Math.round(back)
         const brightness = Math.max(0.2, 1 - backQ * cfg.falloff)
