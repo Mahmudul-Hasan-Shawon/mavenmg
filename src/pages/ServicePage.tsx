@@ -298,7 +298,7 @@ function StatsPanel({ stats }: { stats: ServiceStat[] }) {
                     {renderValue(stat)}
                     {stat.suffix}
                   </p>
-                  <p className="mono-label !text-mist mt-4 md:mt-5">{stat.label}</p>
+                  <p className="text-mist text-md mt-4 md:mt-5">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -329,7 +329,7 @@ function IncludesSection({ data }: { data: ServicePageData }) {
             return (
               <Reveal key={item.title} delay={(i % 3) * 0.06}>
                 <div
-                  className="scroll-blur spotlight glow-tl group h-full rounded-2xl border border-line bg-ink-2 p-8 hover:border-maven-light/40 hover:shadow-[0_24px_60px_-28px_rgba(97,44,139,0.55)] transition-all duration-500"
+                  className="scroll-blur spotlight glow-tl group h-full rounded-2xl border border-line bg-ink-2 p-8 shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:-translate-y-1.5 hover:border-maven-light/40 hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-all duration-500 ease-out"
                   onPointerMove={trackSpotlight}
                 >
                   <div className="w-12 h-12 rounded-xl bg-maven/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
