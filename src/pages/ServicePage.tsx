@@ -329,7 +329,7 @@ function IncludesSection({ data }: { data: ServicePageData }) {
             return (
               <Reveal key={item.title} delay={(i % 3) * 0.06}>
                 <div
-                  className="scroll-blur spotlight glow-tl group h-full rounded-2xl border border-line bg-white/[0.02] p-8 hover:border-maven-light/40 hover:shadow-[0_24px_60px_-28px_rgba(97,44,139,0.55)] transition-all duration-500"
+                  className="scroll-blur spotlight glow-tl group h-full rounded-2xl border border-line bg-ink-2 p-8 hover:border-maven-light/40 hover:shadow-[0_24px_60px_-28px_rgba(97,44,139,0.55)] transition-all duration-500"
                   onPointerMove={trackSpotlight}
                 >
                   <div className="w-12 h-12 rounded-xl bg-maven/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
