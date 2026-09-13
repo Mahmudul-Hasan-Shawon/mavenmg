@@ -91,7 +91,7 @@ export function BusinessGrowth({ onNavigate }: { onNavigate?: (href: string) => 
 
                   <div className="scroll-blur panel panel-hover group relative h-full rounded-3xl overflow-hidden transition-shadow duration-500">
                     {/* Illustration */}
-                    <div className="relative aspect-square overflow-hidden bg-void">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-void">
                       <div className="absolute inset-0 opacity-25 blur-2xl scale-125 transition-transform duration-700 group-hover:scale-150">
                         <img src={tier.image} alt="" loading="lazy" className="duotone-maven w-full h-full object-contain" />
                       </div>
@@ -99,7 +99,7 @@ export function BusinessGrowth({ onNavigate }: { onNavigate?: (href: string) => 
                         src={tier.image}
                         alt={`${tier.title} growth illustration`}
                         loading="lazy"
-                        className="duotone-maven relative w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+                        className="duotone-maven relative w-full h-full object-contain p-4 md:p-6 transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                     </div>
 
