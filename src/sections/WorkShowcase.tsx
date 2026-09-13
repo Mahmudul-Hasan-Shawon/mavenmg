@@ -88,7 +88,12 @@ export function WorkShowcase({
   }, [filter, showFilter])
 
   return (
-    <section id="featured-work" className="section py-28 md:py-36 border-t border-line" style={{ position: 'static' }} aria-label="Featured work">
+    <section
+      id="featured-work"
+      className="section py-28 md:py-36 border-t border-line"
+      style={{ position: 'static' }}
+      aria-label="Featured work"
+    >
       <div className="container-maven">
         {mobileTag && (
           <div className="mb-8 md:hidden">

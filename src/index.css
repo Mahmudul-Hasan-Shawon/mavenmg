@@ -363,6 +363,26 @@
     margin-inline: auto;
   }
 
+  /* Testimonial section gets the hero-style glow rising from the bottom.
+     Dark mode reuses the hero tokens; light mode needs a stronger violet
+     so the wash stays visible on the pale base. */
+  #testimonials {
+    background-color: var(--hero-base);
+    background-image: radial-gradient(
+      ellipse 85% 65% at 50% 100%,
+      var(--hero-glow) 0%,
+      var(--hero-base) 100%
+    );
+  }
+
+  [data-theme='light'] #testimonials {
+    background-image: radial-gradient(
+      ellipse 85% 65% at 50% 100%,
+      rgba(109, 47, 165, 0.22) 0%,
+      rgba(109, 47, 165, 0) 100%
+    );
+  }
+
   .index-tag {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
