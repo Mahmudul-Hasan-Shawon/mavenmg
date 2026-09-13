@@ -131,7 +131,7 @@ export function WorkShowcase({
         )}
 
         {variant === 'depth' ? (
-          <div className="relative h-[480px] md:h-[620px]">
+          <div className="relative h-[min(560px,135vw)] md:h-[620px]">
             <DepthCarousel
               items={shown.map((p, i) => {
                 const name = p.name.replace(/\n/g, ' ')
@@ -267,7 +267,7 @@ export function WorkShowcase({
 
         {onNavigate && !hideHeader && (
           <Reveal>
-            <div className="mt-12 flex justify-center">
+            <div className="mt-6 md:mt-12 flex justify-center">
               <MagneticButton variant="primary" onClick={() => onNavigate('/work')}>
                 View all projects <ArrowUpRight size={16} />
               </MagneticButton>
