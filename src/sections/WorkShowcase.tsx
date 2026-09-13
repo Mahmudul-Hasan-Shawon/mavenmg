@@ -154,12 +154,6 @@ export function WorkShowcase({
                         >
                           {String(i + 1).padStart(2, '0')}
                         </span>
-                        <span
-                          aria-hidden="true"
-                          className="project-arrow-circle absolute bottom-4 right-4 w-10 h-10 rounded-full border border-white/20 bg-ink/40 backdrop-blur flex items-center justify-center text-white-solid"
-                        >
-                          <ArrowUpRight size={16} />
-                        </span>
                       </div>
                       <div className="p-5">
                         <p className="card-tag mb-2">{p.category}</p>
