@@ -1,4 +1,4 @@
-import { ExternalLink } from 'lucide-react'
+import { ArrowRight, ExternalLink } from 'lucide-react'
 import { sitemapGroups, type SitemapGroup, type SitemapLink } from '../data/sitemap'
 import { PageHero } from '../sections/PageHero'
 import { Reveal } from '../components/ui/Reveal'
@@ -27,10 +27,39 @@ function groupByLetter(links: SitemapLink[]): LetterGroup[] {
 }
 
 /** One clickable sitemap row clean, borderless. */
-function SitemapCard({ link }: { link: SitemapLink }) {
+function SitemapCard({
+  link,
+  onNavigate,
+}: {
+  link: SitemapLink
+  onNavigate: (href: string) => void
+}) {
+  const href = link.href
+
+  if (!link.external) {
+    return (
+      <a
+        href={href}
+        onClick={(e) => {
+          e.preventDefault()
+          onNavigate(href)
+        }}
+        data-cursor
+        className="group flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg transition-colors duration-300 hover:bg-maven-lighter/[0.04]"
+      >
+        <span className="text-sm text-mist group-hover:text-white transition-colors truncate">{link.label}</span>
+        <ArrowRight
+          size={14}
+          className="shrink-0 text-mist-dim/70 group-hover:text-maven-lighter transition-colors"
+          aria-hidden="true"
+        />
+      </a>
+    )
+  }
+
   return (
     <a
-      href={link.href}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       data-cursor
@@ -47,18 +76,18 @@ function SitemapCard({ link }: { link: SitemapLink }) {
 }
 
 /** Standard vertical list, one link per line. */
-function GroupGrid({ group }: { group: SitemapGroup }) {
+function GroupGrid({ group, onNavigate }: { group: SitemapGroup; onNavigate: (href: string) => void }) {
   return (
     <div className="space-y-1">
       {group.links.map((link) => (
-        <SitemapCard key={link.href} link={link} />
+        <SitemapCard key={`${link.href}-${link.label}`} link={link} onNavigate={onNavigate} />
       ))}
     </div>
   )
 }
 
 /** A→Z letter columns, side by side; items stacked within each column. */
-function AlphabeticalGrid({ group }: { group: SitemapGroup }) {
+function AlphabeticalGrid({ group, onNavigate }: { group: SitemapGroup; onNavigate: (href: string) => void }) {
   return (
     <div className="columns-1 md:columns-2 lg:columns-3 gap-x-12 gap-y-10 [&>div]:break-inside-avoid">
       {groupByLetter(group.links).map(({ letter, links }) => (
@@ -71,7 +100,7 @@ function AlphabeticalGrid({ group }: { group: SitemapGroup }) {
           </div>
           <div className="space-y-1">
             {links.map((link) => (
-              <SitemapCard key={link.href} link={link} />
+              <SitemapCard key={link.href} link={link} onNavigate={onNavigate} />
             ))}
           </div>
         </div>
@@ -100,9 +129,9 @@ export default function SitemapPage({ onNavigate }: { onNavigate: (href: string)
                 <p className="text-mist text-sm md:text-base max-w-xl mb-8">{group.description}</p>
 
                 {ALPHA_GROUP_IDS.has(group.id) ? (
-                  <AlphabeticalGrid group={group} />
+                  <AlphabeticalGrid group={group} onNavigate={onNavigate} />
                 ) : (
-                  <GroupGrid group={group} />
+                  <GroupGrid group={group} onNavigate={onNavigate} />
                 )}
               </div>
             </Reveal>
