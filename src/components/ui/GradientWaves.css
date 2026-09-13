@@ -1,0 +1,7 @@
+/* GradientWaves — raymarched gradient ocean (React Bits). */
+.gradient-waves-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}

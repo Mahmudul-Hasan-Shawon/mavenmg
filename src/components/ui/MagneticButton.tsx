@@ -11,9 +11,10 @@ interface MagneticButtonProps {
   /**
    * Visual spec. `primary` = solid brand violet; `ghost` = hairline outline;
    * `accent` = brighter solid violet; `deep` = quiet dark-violet tier;
-   * `frost` = translucent frosted pill for use over imagery.
+   * `frost` = translucent frosted pill for use over imagery; `glass` =
+   * translucent brand violet with a heavy backdrop blur (for use over motion).
    */
-  variant?: 'primary' | 'ghost' | 'accent' | 'deep' | 'frost'
+  variant?: 'primary' | 'ghost' | 'accent' | 'deep' | 'frost' | 'glass'
   /** Pill size carries padding, font size and weight as one spec. */
   size?: 'default' | 'sm' | 'md' | 'lg'
   /** Stretch the pill to fill its container (e.g. full-width on mobile). */
@@ -36,6 +37,8 @@ const styles: Record<NonNullable<MagneticButtonProps['variant']>, string> = {
     'bg-maven-deep text-white-solid border border-maven-deep hover:bg-maven-light-hover hover:border-maven-light-hover',
   frost:
     'bg-white-solid text-maven border border-line hover:bg-[#efeafb] backdrop-blur-md',
+  glass:
+    'bg-maven/60 text-white-solid hover:bg-maven-light/75 border border-maven-light/40 shadow-[0_10px_32px_-10px_rgba(139,79,191,0.55)] hover:shadow-[0_0_36px_-4px_rgba(139,79,191,0.6)] backdrop-blur-xl backdrop-saturate-125',
 }
 
 const sizes: Record<NonNullable<MagneticButtonProps['size']>, string> = {
