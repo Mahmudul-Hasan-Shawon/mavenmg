@@ -6,7 +6,7 @@ import { reducedMotion } from '../utils/motion'
 import { Eyebrow } from '../components/text/Eyebrow'
 
 /**
- * Philosophy — a zigzag of Vision and Mission. Each row pairs an editorial
+ * Philosophy a zigzag of Vision and Mission. Each row pairs an editorial
  * text block with a giant ghosted numeral floating in the section's particle
  * field, alternating sides on desktop. Blocks fade up as they enter.
  */
@@ -30,7 +30,7 @@ export function Philosophy() {
         )
       })
 
-      // Parallax — images drift down while text drifts up, scrubbed across the
+      // Parallax images drift down while text drifts up, scrubbed across the
       // whole section for a gentle depth separation.
       gsap.utils.toArray<HTMLElement>('[data-phil-visual]').forEach((el) => {
         gsap.fromTo(
@@ -76,7 +76,7 @@ export function Philosophy() {
       <div className="container-maven relative">
         <Eyebrow label={philosophy.eyebrow} align="center" className="mb-16 md:mb-24" />
 
-        {/* Intro — The Marketing Mavens */}
+        {/* Intro The Marketing Mavens */}
         <div data-phil-block className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <div data-phil-copy className="order-2 lg:order-1">
             <h2 className="text-5xl md:text-8xl font-bold mb-6">
@@ -101,7 +101,7 @@ export function Philosophy() {
         </div>
 
         <div className="space-y-24 lg:space-y-0">
-          {/* Vision — image first on mobile, text left on desktop */}
+          {/* Vision image first on mobile, text left on desktop */}
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/vision.png" label="Vision" className="order-1 lg:order-2" />
             <div data-phil-block data-phil-copy className="order-2 lg:order-1">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
@@ -115,7 +115,7 @@ export function Philosophy() {
             </div>
           </div>
 
-          {/* Mission — image first on mobile, numeral left on desktop */}
+          {/* Mission image first on mobile, numeral left on desktop */}
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" className="order-1" floatClass="animate-float-drift-alt" />
             <div data-phil-block data-phil-copy className="order-2">
               <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
@@ -135,7 +135,7 @@ export function Philosophy() {
 }
 
 /**
- * Web Masters / Online Marketers toggle — pill buttons swap the active
+ * Web Masters / Online Marketers toggle pill buttons swap the active
  * discipline copy with a blur/fade transition. Same content as the Mavens
  * section's discipline switcher.
  */
@@ -148,7 +148,7 @@ function MavensTabs() {
   const resetScrollAcc = useRef<() => void>(() => {})
 
   // Scroll-driven switching with hysteresis: while the block is in view, a
-  // *sustained* scroll of THRESHOLD px in one direction switches tabs — down
+  // *sustained* scroll of THRESHOLD px in one direction switches tabs down
   // advances to "Online Marketers", up returns to "Web Masters" (the default).
   // Jitter and tiny adjustments never flip the tab, and one gesture switches
   // at most once.
@@ -269,7 +269,7 @@ function MavensTabs() {
 }
 
 /**
- * The visual half of a zigzag row — an illustration floating over a blurred
+ * The visual half of a zigzag row an illustration floating over a blurred
  * echo of itself and a soft glow.
  */
 function Phil({
@@ -281,7 +281,7 @@ function Phil({
   image: string
   label: string
   className?: string
-  /** Float animation variant — alternate it between rows so their images
+  /** Float animation variant alternate it between rows so their images
       drift out of phase instead of mirroring each other. */
   floatClass?: string
 }) {
@@ -399,7 +399,7 @@ function ParticleField() {
 
     resize()
     if (reduced) {
-      // Single static frame — the field is visible but not animated.
+      // Single static frame the field is visible but not animated.
       running = true
       draw()
       running = false

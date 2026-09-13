@@ -26,7 +26,7 @@ function groupByLetter(links: SitemapLink[]): LetterGroup[] {
   return groups
 }
 
-/** One clickable sitemap row — clean, borderless. */
+/** One clickable sitemap row clean, borderless. */
 function SitemapCard({ link }: { link: SitemapLink }) {
   return (
     <a

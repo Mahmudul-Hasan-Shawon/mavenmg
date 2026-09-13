@@ -61,7 +61,7 @@ export function LegalContent({ page }: LegalContentProps) {
     <section id={`${uid}-index`} className="section pt-2 pb-24 md:pb-32" aria-label="Policy content">
       <div className="container-maven">
         <div className="grid lg:grid-cols-[200px_1fr] xl:grid-cols-[220px_1fr] gap-8 lg:gap-16 xl:gap-24">
-          {/* In-document navigation — desktop */}
+          {/* In-document navigation desktop */}
           <aside className="hidden lg:block" aria-label="On this page">
             <div className="sticky top-28">
               <p className="mono-label mb-6">In this document</p>
@@ -91,7 +91,7 @@ export function LegalContent({ page }: LegalContentProps) {
 
           {/* Document body */}
           <div ref={listRef} className="min-w-0">
-            {/* In-document navigation — mobile collapsible */}
+            {/* In-document navigation mobile collapsible */}
             <div className="lg:hidden mb-7">
               <button
                 type="button"

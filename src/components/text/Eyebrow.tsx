@@ -10,7 +10,7 @@ interface EyebrowProps {
 
 /**
  * Eyebrow row that opens a section: hairline rule + uppercase mono label +
- * hairline rule. The single source for this cluster — compose margins via
+ * hairline rule. The single source for this cluster compose margins via
  * className (e.g. "mb-8", "mb-14 md:mb-20").
  */
 export function Eyebrow({ label, align = 'left', className }: EyebrowProps) {

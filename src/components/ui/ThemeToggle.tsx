@@ -34,7 +34,7 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
     // Sync module state + dataset with whatever the pre-paint script decided.
     applyTheme(initialTheme(), false)
 
-    // Follow OS theme changes live — unless an explicit preference is set.
+    // Follow OS theme changes live unless an explicit preference is set.
     const mq = window.matchMedia?.('(prefers-color-scheme: light)')
     if (!mq?.addEventListener) return
     const onChange = () => {

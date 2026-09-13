@@ -5,7 +5,7 @@ import { Eyebrow } from '../components/text/Eyebrow'
 import { trackSpotlight } from '../utils/motion'
 
 /**
- * Results — "luminous panel": a single dark card holding all stats side by
+ * Results "luminous panel": a single dark card holding all stats side by
  * side (hairline dividers between them), wrapped in a gradient hairline
  * border that ignites to maven on hover. Inside, a mouse-tracked spotlight
  * plus top-left ambient glow make the panel feel lit from within; numerals
@@ -47,11 +47,11 @@ export function Results() {
       <div className="container-maven relative">
         <Eyebrow label="The Maven impact" className="mb-14 md:mb-20" />
 
-        {/* One panel, three stats — hairline dividers between them */}
+        {/* One panel, three stats hairline dividers between them */}
         <div
           className="scroll-blur border-beam group relative rounded-3xl shadow-[0_28px_80px_-28px_rgba(97,44,139,0.5)] transition-all duration-500 ease-out hover:-translate-y-2"
         >
-          {/* Orbiting border beam — blurred halo underneath, sharp core on top */}
+          {/* Orbiting border beam blurred halo underneath, sharp core on top */}
           <div aria-hidden="true" className="beam-viewport beam-viewport-halo">
             <div className="beam-rotator beam-rotator-halo" />
           </div>
@@ -59,7 +59,7 @@ export function Results() {
             <div className="beam-rotator beam-rotator-core" />
           </div>
 
-          {/* Gradient hairline border — always lit to maven */}
+          {/* Gradient hairline border always lit to maven */}
           <div className="rounded-3xl p-px bg-maven-light/50">
             <div className="spotlight glow-tl rounded-[calc(1.5rem-1px)] bg-void grid grid-cols-1 md:grid-cols-3" onPointerMove={trackSpotlight}>
               {stats.map((stat, i) => (

@@ -102,7 +102,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                     </h3>
                   </div>
 
-                  {/* Expanding detail — always visible on mobile, hover-expands on desktop */}
+                  {/* Expanding detail always visible on mobile, hover-expands on desktop */}
                   <div
                     className={cn(
                       'grid grid-rows-[1fr] opacity-100 md:transition-[grid-template-rows,opacity] md:duration-500 md:ease-out',
@@ -131,7 +131,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                   </div>
                 </button>
 
-{/* Service image — card banner on mobile, gradient-reveal right column on desktop */}
+{/* Service image card banner on mobile, gradient-reveal right column on desktop */}
                 <div
                   className={cn(
                     'relative order-first md:order-none w-full h-44 md:h-auto overflow-hidden transition-all duration-700 ease-out',

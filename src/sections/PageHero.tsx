@@ -33,7 +33,7 @@ interface PageHeroProps {
   title: string
   accent?: string
   lede?: string
-  /** Optional brand visual — shown right of the copy on desktop. */
+  /** Optional brand visual shown right of the copy on desktop. */
   image?: string
   imageAlt?: string
   /** Render the image as an interactive Three.js hologram scene. */

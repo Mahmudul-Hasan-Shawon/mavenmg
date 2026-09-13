@@ -6,7 +6,7 @@ import { themeState } from '../utils/theme'
 import { SCENE_PALETTES, retintMaterial, watchSceneTheme } from './scenePalette'
 
 /* =====================================================================
-   MavenNetwork — the "Maven system": two counter-rotating orbital rings
+   MavenNetwork the "Maven system": two counter-rotating orbital rings
    of nodes around a wireframe core. `mode` (0 = Web Masters, 1 = Online
    Marketers) re-weights the rings' colour, tilt and speed, so the visual
    identity shifts as the story moves between the two disciplines.

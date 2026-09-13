@@ -6,7 +6,7 @@ export interface BlogPost {
   authorImage: string
   tag: string
   image?: string
-  /** Local slug — posts with a slug render on an internal `/blog/<slug>` page. */
+  /** Local slug posts with a slug render on an internal `/blog/<slug>` page. */
   slug?: string
   /** Approximate read time in minutes. */
   readingTime?: number
@@ -20,7 +20,7 @@ export interface BlogFAQItem {
   a: string
 }
 
-/** List rows — a bold lead followed by explanatory text. */
+/** List rows a bold lead followed by explanatory text. */
 export type BlogListItem = string | { lead: string; text: string }
 
 export type BlogBlock =
@@ -696,7 +696,7 @@ export const blogPosts: BlogPost[] = [
           {
             type: 'p',
             text:
-              'To get started in web development, begin by learning foundational languages like HTML for content structuring, CSS for design and layout, and JavaScript for interactivity. From there, choose a learning path\u2014whether self-taught using online platforms, attending boot camps, or pursuing formal education\u2014and practice regularly with hands-on projects. Engaging with the developer community, building a portfolio, and staying updated with industry trends will further solidify your journey into web development. Below, we explore each step to help you navigate this dynamic field.',
+              'To get started in web development, begin by learning foundational languages like HTML for content structuring, CSS for design and layout, and JavaScript for interactivity. From there, choose a learning path whether self-taught using online platforms, attending boot camps, or pursuing formal education and practice regularly with hands-on projects. Engaging with the developer community, building a portfolio, and staying updated with industry trends will further solidify your journey into web development. Below, we explore each step to help you navigate this dynamic field.',
           },
           { type: 'sub', text: 'Understand the Basics' },
           {

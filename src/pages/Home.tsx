@@ -10,7 +10,7 @@ import { Testimonials } from '../sections/Testimonials'
 import { MavensTeam } from '../sections/MavensTeam'
 import { FinalCTA } from '../sections/FinalCTA'
 
-/** The full narrative experience — Maven's home page. */
+/** The full narrative experience Maven's home page. */
 export default function Home({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
     <>

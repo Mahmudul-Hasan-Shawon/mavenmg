@@ -233,7 +233,7 @@ function HeadingHighlight({ text, highlight }: { text: string; highlight?: strin
 }
 
 /**
- * StatsPanel — a single "luminous panel" holding the service stats side by
+ * StatsPanel a single "luminous panel" holding the service stats side by
  * side (hairline dividers between them), wrapped in a gradient hairline
  * border that ignites to maven on hover. An orbiting border beam, mouse
  * spotlight, and top-left ambient glow make it feel lit from within; the
@@ -276,7 +276,7 @@ function StatsPanel({ stats }: { stats: ServiceStat[] }) {
   return (
     <Reveal delay={0.1}>
       <div ref={rootRef} className="border-beam group relative rounded-3xl mt-24 md:mt-32">
-        {/* Orbiting border beam — blurred halo underneath, sharp core on top */}
+        {/* Orbiting border beam blurred halo underneath, sharp core on top */}
         <div aria-hidden="true" className="beam-viewport beam-viewport-halo">
           <div className="beam-rotator beam-rotator-halo" />
         </div>
@@ -488,7 +488,7 @@ function FaqSection({ data, onNavigate }: { data: ServicePageData; onNavigate: (
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-mist text-base md:text-lg leading-relaxed mb-8">
-              Still curious? Ask us anything — we will give you a straight answer.
+              Still curious? Ask us anything we will give you a straight answer.
             </p>
           </Reveal>
           <Reveal delay={0.15}>

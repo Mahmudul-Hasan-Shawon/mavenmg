@@ -6,7 +6,7 @@ import { trackSpotlight } from '../utils/motion'
 import { cn } from '../utils/cn'
 
 /**
- * ManagementPlans — "Website Management Service Plans" as three pure pricing
+ * ManagementPlans "Website Management Service Plans" as three pure pricing
  * cards: identical skeleton (icon + tier, name, tagline, price, note,
  * features, CTA) with gradient hairline borders that ignite on hover. The
  * featured tier lifts, carries the "Most Popular" chip and ignited border.
@@ -102,7 +102,7 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                   </span>
                 )}
 
-                {/* Gradient hairline border — ignites to maven on hover */}
+                {/* Gradient hairline border ignites to maven on hover */}
                 <div
                   className={cn(
                     'rounded-3xl p-px h-full transition-colors duration-500',

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Theme variables — dark is the default, [data-theme="light"]
+   Theme variables dark is the default, [data-theme="light"]
    remaps the same semantic tokens. Tailwind color utilities
    are generated with @theme inline so they follow the vars.
    ============================================================ */
@@ -21,7 +21,7 @@
   --maven: #612c8b;
   --maven-light: #8b4fbf;
   --maven-lighter: #dacaff;
-  /* Fixed lavender for the always-dark footer digest — same in both themes,
+  /* Fixed lavender for the always-dark footer digest same in both themes,
      since maven-lighter flips to a deep violet in light mode. */
   --maven-digest: #dacaff;
   --maven-dark: #4a1f6b;
@@ -170,7 +170,7 @@
     border-radius: 2px;
   }
 
-  /* Poppins heading system — weight ramps down with scope:
+  /* Poppins heading system weight ramps down with scope:
      800 hero-scale h1, 700 section h2, 600 card/inline h3.
      Explicit font-* utilities and .display (700) still win over these. */
   h1, h2, h3 {
@@ -211,7 +211,7 @@
    look, while Tailwind utilities (mb-*, leading-*, colors) stay free to
    override individual properties at the call site. */
 @layer components {
-  /* Project-card category label — DM Sans semibold brand violet, replaces the
+  /* Project-card category label DM Sans semibold brand violet, replaces the
      mono label typography inside project cards only. */
   .card-tag {
     font-family: var(--font-dm);
@@ -255,7 +255,7 @@
     transform: scaleX(1);
   }
 
-  /* Contact form select — custom chevron for the boxed input style. */
+  /* Contact form select custom chevron for the boxed input style. */
   #contact .contact-select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238E8E93' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -298,7 +298,7 @@
     font-weight: 700;
   }
 
-  /* Contact page hero — centered copy. */
+  /* Contact page hero centered copy. */
   #contact-hero .flex.items-center.gap-4 {
     justify-content: center;
   }
@@ -310,7 +310,7 @@
     text-align: center;
   }
 
-  /* Contact hero — tighter top spacing on desktop (overrides md:pt-52). */
+  /* Contact hero tighter top spacing on desktop (overrides md:pt-52). */
   @media (min-width: 768px) {
     #contact-hero.section {
       padding-top: 8rem;
@@ -335,7 +335,7 @@
     color: transparent;
   }
 
-  /* Brand duotone — forces artwork into the maven violet range so mixed-source
+  /* Brand duotone forces artwork into the maven violet range so mixed-source
      illustrations share one palette. */
   .duotone-maven {
     filter: grayscale(1) sepia(1) hue-rotate(225deg) saturate(3.2) brightness(0.9);
@@ -386,7 +386,7 @@
     background: var(--panel-bg-hover);
   }
 
-  /* Frosted card container — follows the theme vars, so the hover border
+  /* Frosted card container follows the theme vars, so the hover border
      utilities attached to it (hover:border-maven-light/30) have a border to
      transition. */
   .glass {
@@ -420,7 +420,7 @@
     opacity: 1;
   }
 
-  /* Soft top-left light source — ambient glow + faint edge catch,
+  /* Soft top-left light source ambient glow + faint edge catch,
      gives flush grid cards a premium raised feel. Requires the
      positioned/overflow-hidden context .spotlight provides. */
   .glow-tl::after {
@@ -436,7 +436,7 @@
   }
 
 /* Scroll-driven cinematic reveal: opacity, blur and a translate rise are
-       scrubbed directly by scroll position through a view() timeline — soft
+       scrubbed directly by scroll position through a view() timeline soft
        and sunk as the card enters from the bottom, sharp for the whole run,
        then a short, quieter fade/blur as it slips back out the top edge.
        The top fade fades over a smaller scroll height than the bottom one.
@@ -562,7 +562,7 @@
        capped so the GPU layer stays bounded. */
     width: 150%;
     aspect-ratio: 1;
-    /* `translate` composes with the keyframed transform — rotate spins the
+    /* `translate` composes with the keyframed transform rotate spins the
        square about its own (card-centered) middle. */
     translate: -50% -50%;
     animation: beam-orbit 7s linear infinite;
@@ -615,7 +615,7 @@
    transparent and sunk 25px as it arrives, sharpening quickly through entry
    and staying sharp across the run, then fading out again over only the final
    stretch as it leaves past the top edge. Reversing the scroll reverses the
-   state — the top fade stays shorter than the bottom one because sharp is
+   state the top fade stays shorter than the bottom one because sharp is
    reached early and only abandoned near the very end. */
 @keyframes scroll-blur-reveal {
   0% {
@@ -703,7 +703,7 @@
   50% { transform: translateY(-14px); }
 }
 
-/* Gentle drift for editorial illustrations (vision/mission) — bobs up/down
+/* Gentle drift for editorial illustrations (vision/mission) bobs up/down
    and side to side with a whisper of tilt, pure transform. */
 @keyframes float-drift {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
@@ -722,7 +722,7 @@
     will-change: transform;
   }
 
-  /* Counter-phase variant — different duration + negative delay so multiple
+  /* Counter-phase variant different duration + negative delay so multiple
      drifting images never move in the same direction at the same time. */
   .animate-float-drift-alt {
     animation: float-drift 9s ease-in-out -3.5s infinite;
@@ -809,7 +809,7 @@ html:not([data-theme='light']) .marquee-badge {
   }
 }
 
-/* Tighten the big section gaps on mobile only — heroes keep their top
+/* Tighten the big section gaps on mobile only heroes keep their top
    clearance (pt-40) since they clear the fixed navbar, and asymmetric
    pt/pb sections keep their layout. Standard sections use the shared
    rhythm py-28 md:py-36 (see CLAUDE.md). Unlayered so it beats the

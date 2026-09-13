@@ -5,7 +5,7 @@ import { Eyebrow } from '../components/text/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
 
 /**
- * Client words — a scrolling marquee of review cards with star ratings,
+ * Client words a scrolling marquee of review cards with star ratings,
  * seeded just above the footer. Uses the real Maven testimonials and their
  * photos. The track duplicates its content so the translateX(-50%) keyframe
  * loops seamlessly.
@@ -72,7 +72,7 @@ export function ClientWords() {
   )
 }
 
-/** Client avatar — shows the photo, falls back to initials if it fails to load. */
+/** Client avatar shows the photo, falls back to initials if it fails to load. */
 function Avatar({ name, image }: { name: string; image?: string }) {
   const [failed, setFailed] = useState(false)
 

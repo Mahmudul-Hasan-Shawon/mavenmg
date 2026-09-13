@@ -5,7 +5,7 @@ import { Eyebrow } from '../components/text/Eyebrow'
 import { trackSpotlight } from '../utils/motion'
 
 /**
- * AboutStory — the live-site "About / Services We Offer" story, rebuilt in
+ * AboutStory the live-site "About / Services We Offer" story, rebuilt in
  * Maven's editorial design language: a founding-story split with the Chicago
  * skyline, then the three service offerings as flush hairline panels with the
  * signature spotlight + top-left glow treatment.
@@ -41,7 +41,7 @@ const offerings = [
 export function AboutStory({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
     <>
-      {/* Services we offer — flush hairline panels */}
+      {/* Services we offer flush hairline panels */}
       <section id="about-services" className="section py-28 md:py-36 border-t border-line relative overflow-clip" aria-label="Services we offer">
         <div className="container-maven">
           <Reveal>

@@ -14,7 +14,7 @@ interface MagneticButtonProps {
    * `frost` = translucent frosted pill for use over imagery.
    */
   variant?: 'primary' | 'ghost' | 'accent' | 'deep' | 'frost'
-  /** Pill size — carries padding, font size and weight as one spec. */
+  /** Pill size carries padding, font size and weight as one spec. */
   size?: 'default' | 'sm' | 'md' | 'lg'
   /** Stretch the pill to fill its container (e.g. full-width on mobile). */
   fullWidth?: boolean

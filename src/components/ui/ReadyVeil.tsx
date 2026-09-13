@@ -9,7 +9,7 @@ const MIN_HOLD = 450
 /**
  * First-load readiness gate (not a preloader). A flat, theme-colored cover
  * stays up until the page has fully loaded, then wipes upward while the
- * load-triggered entrance animations begin — so nothing renders scattered or
+ * load-triggered entrance animations begin so nothing renders scattered or
  * half-animated. Plays once per session; skipped entirely under reduced
  * motion.
  */

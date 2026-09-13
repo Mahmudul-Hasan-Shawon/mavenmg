@@ -1,11 +1,11 @@
 export type ThemeName = 'dark' | 'light'
 
-/** User preference — 'system' (default) resolves live against the OS. */
+/** User preference 'system' (default) resolves live against the OS. */
 export type ThemePreference = 'system' | 'light' | 'dark'
 
 export const THEME_KEY = 'maven-theme'
 
-/** Module-level theme state — readable inside R3F useFrame without re-render.
+/** Module-level theme state readable inside R3F useFrame without re-render.
  *  App syncs it from data-theme on mount; scenes get notified via THEME_EVENT. */
 export const themeState: { name: ThemeName } = { name: 'dark' }
 

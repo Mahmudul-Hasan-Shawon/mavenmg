@@ -1,7 +1,7 @@
 import { partners } from '../data/site'
 import { Reveal } from '../components/ui/Reveal'
 
-/** Partner strip — fine editorial ticker with hairline borders. */
+/** Partner strip fine editorial ticker with hairline borders. */
 export function Partners() {
   return (
     <div className="bg-[var(--hero-base)]">
