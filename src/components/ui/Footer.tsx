@@ -33,7 +33,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
               className="h-11 w-auto mb-5 mx-auto md:mx-0"
               loading="lazy"
             />
-            <p className="text-mist text-md leading-relaxed max-w-[34ch] mx-auto md:mx-0">
+            <p className="text-[#a89fc0] text-md leading-relaxed max-w-[34ch] mx-auto md:mx-0">
               Custom built websites and digital marketing services for businesses of all sizes. Based in Lake Zurich,
               IL, serving clients nationwide and worldwide.
             </p>
