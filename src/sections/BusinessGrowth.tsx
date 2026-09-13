@@ -72,7 +72,7 @@ export function BusinessGrowth({ onNavigate }: { onNavigate?: (href: string) => 
               <Fragment key={tier.title}>
                 {i > 0 && (
                   <div className="flex lg:hidden justify-center -my-2" aria-hidden="true">
-                    <span className="w-10 h-10 rounded-full bg-maven-deep border border-maven-light/40 text-maven-lighter flex items-center justify-center shadow-[0_8px_24px_-8px_rgba(139,79,191,0.6)]">
+                    <span className="w-10 h-10 rounded-full bg-maven-deep border border-maven-light/40 text-white-solid flex items-center justify-center shadow-[0_8px_24px_-8px_rgba(139,79,191,0.6)]">
                       <ChevronDown size={18} />
                     </span>
                   </div>
@@ -83,7 +83,7 @@ export function BusinessGrowth({ onNavigate }: { onNavigate?: (href: string) => 
                   {i < tiers.length - 1 && (
                     <span
                       aria-hidden="true"
-                      className="hidden lg:flex absolute top-[38%] right-0 translate-x-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-maven-deep border border-maven-light/40 text-maven-lighter items-center justify-center shadow-[0_8px_28px_-8px_rgba(139,79,191,0.65)]"
+                      className="hidden lg:flex absolute top-[38%] right-0 translate-x-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-maven-deep border border-maven-light/40 text-white-solid items-center justify-center shadow-[0_8px_28px_-8px_rgba(139,79,191,0.65)]"
                     >
                       <ChevronRight size={20} />
                     </span>
