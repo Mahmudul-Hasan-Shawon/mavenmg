@@ -61,7 +61,8 @@ export default function App() {
     const lenis = new Lenis({
       autoRaf: false,
       smoothWheel: !reducedMotion,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.5,
+      lerp: 0.13,
     })
     setLenis(lenis)
 
@@ -97,7 +98,13 @@ export default function App() {
         if (href.includes('#')) {
           document.querySelector(href.split('#')[1] ? `#${href.split('#')[1]}` : 'body')?.scrollIntoView({ behavior: 'smooth' })
         } else if (target === path) {
-          scrollToTop()
+          if (target === '/') {
+            const lenis = getLenis()
+            if (lenis) lenis.scrollTo(0)
+            else window.scrollTo({ top: 0, behavior: 'smooth' })
+          } else {
+            scrollToTop()
+          }
         }
         return
       }
