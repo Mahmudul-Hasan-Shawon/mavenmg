@@ -31,7 +31,7 @@ export function storedPreference(): ThemePreference | null {
 
 /** Map a preference (or absence) to a concrete theme. */
 export function resolveTheme(pref: ThemePreference | null): ThemeName {
-  return pref === 'light' || pref === 'dark' ? pref : 'dark'
+  return pref === 'light' || pref === 'dark' ? pref : systemTheme()
 }
 
 /** Apply + persist a resolved theme, then broadcast so WebGL scenes can retint. */
@@ -40,7 +40,7 @@ export function applyTheme(name: ThemeName, persist = true) {
   if (typeof document !== 'undefined') {
     document.documentElement.dataset.theme = name
     const meta = document.querySelector('meta[name="theme-color"]')
-    meta?.setAttribute('content', name === 'light' ? '#f5f3fa' : '#08060d')
+    meta?.setAttribute('content', name === 'light' ? '#f5f3fa' : '#150c1f')
   }
   if (persist) {
     try {

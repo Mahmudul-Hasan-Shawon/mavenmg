@@ -1,17 +1,39 @@
-import { useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
 import { blogPosts } from '../data/blog'
 import { PageHero } from '../sections/PageHero'
 import { FinalCTA } from '../sections/FinalCTA'
 import { Reveal } from '../components/ui/Reveal'
+import { getLenis } from '../utils/lenis'
+import { reducedMotion } from '../utils/motion'
+import { formatDate } from '../utils/date'
 
 const POSTS_PER_PAGE = 12
 
-/** Format a YYYY-MM-DD string into a human-friendly display date. */
-function formatDate(iso: string): string {
-  const [y, m, d] = iso.split('-').map(Number)
-  const dt = new Date(y, m - 1, d)
-  return dt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+/** Scroll offset that clears the fixed header pill (matches sectionOffset elsewhere). */
+const listScrollOffset = -96
+
+/** A jump between consecutive page numbers larger than this becomes an ellipsis. */
+const ELLIPSIS_THRESHOLD = 1
+
+/**
+ * Numbered pagination window: always shows the first and last page plus the
+ * pages around the current one, collapsing the gaps into ellipsis markers
+ * (e.g. 1 … 4 5 6 … 8).
+ */
+function getPageItems(current: number, total: number): (number | 'gap')[] {
+  if (total <= 1) return [1]
+  const wanted = new Set<number>([1, total, current - 1, current, current + 1])
+  // Keep an extra neighbour when hugging an edge so the window never pinches.
+  if (current <= 3) [2, 3, 4].forEach((p) => wanted.add(p))
+  if (current >= total - 2) [total - 1, total - 2, total - 3].forEach((p) => wanted.add(p))
+  const pages = [...wanted].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b)
+  const items: (number | 'gap')[] = []
+  pages.forEach((p, i) => {
+    if (i > 0 && p - pages[i - 1] > ELLIPSIS_THRESHOLD) items.push('gap')
+    items.push(p)
+  })
+  return items
 }
 
 /** Group a post slice into year buckets (newest year first). */
@@ -29,6 +51,7 @@ function groupByYear(posts: typeof blogPosts) {
 export default function BlogPage({ onNavigate }: { onNavigate: (href: string) => void }) {
   const pageCount = Math.ceil(blogPosts.length / POSTS_PER_PAGE)
   const [page, setPage] = useState(1)
+  const didMount = useRef(false)
 
   const posts = blogPosts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE)
   const yearGroups = groupByYear(posts)
@@ -37,6 +60,19 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
     if (next < 1 || next > pageCount || next === page) return
     setPage(next)
   }
+
+  // Scroll the top of the list into view on page change (never on first paint).
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true
+      return
+    }
+    const list = document.getElementById('blog-list')
+    if (!list) return
+    const lenis = getLenis()
+    if (lenis) lenis.scrollTo(list, { offset: listScrollOffset, immediate: reducedMotion })
+    else list.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' })
+  }, [page])
 
   return (
     <>
@@ -158,35 +194,39 @@ export default function BlogPage({ onNavigate }: { onNavigate: (href: string) =>
               </button>
 
               <div className="flex items-center gap-1">
-                {[page - 1, page, page + 1].map((p, idx) => {
-                  const visible = p >= 1 && p <= pageCount
-                  const isCenter = idx === 1
-                  return visible ? (
+                {getPageItems(page, pageCount).map((item, idx) =>
+                  item === 'gap' ? (
+                    <span
+                      key={`gap-${idx}`}
+                      aria-hidden="true"
+                      className="h-10 w-6 flex items-center justify-center text-sm text-mist-dim select-none"
+                    >
+                      …
+                    </span>
+                  ) : (
                     <button
-                      key={isCenter ? `center-${p}` : `side-${idx}`}
+                      key={item}
                       type="button"
-                      data-active-page={isCenter}
-                      aria-label={`Go to page ${p} of ${pageCount}`}
-                      aria-current={isCenter ? 'page' : undefined}
-                      onClick={() => goTo(p)}
+                      data-active-page={item === page}
+                      aria-label={`Go to page ${item} of ${pageCount}`}
+                      aria-current={item === page ? 'page' : undefined}
+                      onClick={() => goTo(item)}
                       className={`h-10 w-10 flex items-center justify-center rounded-full text-sm font-semibold transition-colors duration-300 cursor-pointer ${
-                        isCenter
+                        item === page
                           ? 'pag-pop bg-maven text-white-solid shadow-[0_4px_16px_rgba(97,44,139,0.5)]'
                           : 'hover:bg-ink-2 hover:text-white'
                       }`}
                     >
-                      {isCenter ? (
-                        <span key={p} className="pag-rise">
-                          {p}
+                      {item === page ? (
+                        <span key={item} className="pag-rise">
+                          {item}
                         </span>
                       ) : (
-                        p
+                        item
                       )}
                     </button>
-                  ) : (
-                    <span key={`side-${idx}`} className="h-10 w-10" aria-hidden="true" />
                   )
-                })}
+                )}
               </div>
 
               <button

@@ -1,4 +1,5 @@
 import { Code, Megaphone } from 'lucide-react'
+import { mavens } from '../data/content'
 import { Reveal } from '../components/ui/Reveal'
 import { Eyebrow } from '../components/text/Eyebrow'
 import { cn } from '../utils/cn'
@@ -29,12 +30,7 @@ export function MavensTeam({ id, className }: MavensTeamProps) {
               <span className="text-white">The Experts Behind</span>{' '}
               <span className="block text-maven-light">Your Success</span>
             </h2>
-            <p className="text-mist max-w-2xl text-lg leading-relaxed">
-              At Maven, we bring together the finest minds in digital strategy and web design, our
-              team known as the Marketing Mavens. These elite online marketers and web masters are
-              your gateway to transcending the ordinary and achieving the extraordinary in the
-              digital realm.
-            </p>
+            <p className="text-mist max-w-2xl text-lg leading-relaxed">{mavens.intro}</p>
           </div>
         </Reveal>
 

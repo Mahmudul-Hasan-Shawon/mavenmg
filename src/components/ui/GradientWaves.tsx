@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Renderer, Program, Mesh, Triangle } from 'ogl'
+import { skipWebGL } from '../../utils/motion'
 import './GradientWaves.css'
 
 interface GradientWavesProps {
@@ -207,6 +208,7 @@ export default function GradientWaves({
   const enableMouseRef = useRef(mouseInteraction)
 
   useEffect(() => {
+    if (skipWebGL) return
     const container = containerRef.current
     if (!container) return
 
@@ -416,6 +418,23 @@ export default function GradientWaves({
     mouseInteraction,
     parallaxStrength,
   ])
+
+  // Reduced-motion visitors and devices without a usable WebGL context get a
+  // still gradient standing in for the raymarched ocean — the same palette
+  // ramp (horizon at the top falling into the wave color with a crest sheen
+  // at the bottom), rendered as plain CSS so no GPU loop ever starts.
+  if (skipWebGL) {
+    return (
+      <div
+        aria-hidden="true"
+        className={`gradient-waves-container ${className}`.trim()}
+        style={{
+          backgroundImage: `linear-gradient(to bottom, ${horizonColor} 0%, ${waveColor} 62%, ${crestColor} 150%)`,
+          opacity,
+        }}
+      />
+    )
+  }
 
   return <div ref={containerRef} className={`gradient-waves-container ${className}`.trim()} />
 }

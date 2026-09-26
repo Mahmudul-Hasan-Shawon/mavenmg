@@ -27,14 +27,3 @@ export function useReducedMotion(): boolean {
   }, [])
   return reduced
 }
-
-/** Viewport width below Tailwind's md breakpoint. */
-export function useIsMobile(): boolean {
-  const [mobile, setMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768)
-  useEffect(() => {
-    const onResize = () => setMobile(window.innerWidth < 768)
-    window.addEventListener('resize', onResize, { passive: true })
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
-  return mobile
-}

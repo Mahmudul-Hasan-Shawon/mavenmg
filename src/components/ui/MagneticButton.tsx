@@ -1,4 +1,4 @@
-import { useRef, type ReactNode, type MouseEvent } from 'react'
+import { useEffect, useRef, type ReactNode, type MouseEvent } from 'react'
 import { gsap } from '../../hooks/useGsap'
 import { useFinePointer, useReducedMotion } from '../../hooks/useDevice'
 import { cn } from '../../utils/cn'
@@ -65,21 +65,38 @@ export function MagneticButton({
   const innerRef = useRef<HTMLSpanElement>(null)
   const fine = useFinePointer()
   const reduced = useReducedMotion()
+  // quickTo pair created once per mount: each mousemove retargets the same
+  // tween instead of stacking competing gsap.to tweens.
+  const moveXRef = useRef<ReturnType<typeof gsap.quickTo> | null>(null)
+  const moveYRef = useRef<ReturnType<typeof gsap.quickTo> | null>(null)
+
+  useEffect(() => {
+    const inner = innerRef.current
+    if (!inner) return
+    moveXRef.current = gsap.quickTo(inner, 'x', { duration: 0.5, ease: 'power3.out' })
+    moveYRef.current = gsap.quickTo(inner, 'y', { duration: 0.5, ease: 'power3.out' })
+    return () => {
+      moveXRef.current = null
+      moveYRef.current = null
+    }
+  }, [])
 
   const onMove = (e: MouseEvent) => {
     if (!fine || reduced) return
     const el = e.currentTarget as HTMLElement
-    const inner = innerRef.current
-    if (!el || !inner) return
+    const moveX = moveXRef.current
+    const moveY = moveYRef.current
+    if (!el || !moveX || !moveY) return
     const rect = el.getBoundingClientRect()
-    const dx = e.clientX - (rect.left + rect.width / 2)
-    const dy = e.clientY - (rect.top + rect.height / 2)
-    gsap.to(inner, { x: dx * strength, y: dy * strength, duration: 0.5, ease: 'power3.out' })
+    moveX((e.clientX - (rect.left + rect.width / 2)) * strength)
+    moveY((e.clientY - (rect.top + rect.height / 2)) * strength)
   }
 
   const onLeave = () => {
     if (!innerRef.current) return
-    gsap.to(innerRef.current, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.45)' })
+    // overwrite:'auto' kills any in-flight magnetic pull so the elastic
+    // return always wins.
+    gsap.to(innerRef.current, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.45)', overwrite: 'auto' })
   }
 
   const cls = cn(

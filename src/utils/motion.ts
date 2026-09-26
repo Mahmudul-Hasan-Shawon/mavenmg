@@ -28,8 +28,28 @@ function detectTier(): Tier {
 export const tier: Tier = detectTier()
 export const isMobileWidth = () => typeof window !== 'undefined' && window.innerWidth < 768
 
-/** Skip WebGL entirely on low-power devices / reduced motion. */
-export const skipWebGL = reducedMotion || tier === 'low'
+let webglProbe: boolean | null = null
+/**
+ * True when a WebGL 2 or WebGL 1 context can actually be created here.
+ * Probed once and cached: some browsers report canvas support but fail at
+ * getContext (GPU blocklisted, hardware acceleration disabled, headless),
+ * which would otherwise crash the R3F <Canvas> at render time.
+ */
+export function webglAvailable(): boolean {
+  if (webglProbe === null) {
+    try {
+      const c = document.createElement('canvas')
+      webglProbe = !!(c.getContext('webgl2') || c.getContext('webgl'))
+    } catch {
+      webglProbe = false
+    }
+  }
+  return webglProbe
+}
+
+/** Skip WebGL entirely on low-power devices / reduced motion / no usable
+ *  WebGL context (the CSS fallback layers cover the scene instead). */
+export const skipWebGL = reducedMotion || tier === 'low' || !webglAvailable()
 
 export const quality = {
   tier,
@@ -61,11 +81,6 @@ export function markAppReady() {
   appReady = true
   const waiters = readyWaiters.splice(0)
   for (const cb of waiters) cb()
-}
-
-export function resetAppReady() {
-  appReady = false
-  readyWaiters.length = 0
 }
 
 /**

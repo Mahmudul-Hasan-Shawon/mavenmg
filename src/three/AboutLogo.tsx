@@ -14,22 +14,31 @@ const LOGO_BASE = 3.3 // plane height in world units
 
 function LogoPlane({ src }: { src: string }) {
   const [tex, setTex] = useState<THREE.Texture | null>(null)
+  const [haloGeo, setHaloGeo] = useState<THREE.BufferGeometry | null>(null)
   const group = useRef<THREE.Group>(null)
   const halo = useRef<THREE.Points>(null)
   const pointer = useRef({ x: 0, y: 0 })
   const target = useRef({ x: 0, y: 0 })
 
-  // Load the logo texture.
+  // Load the logo texture. Textures handed out by TextureLoader are never
+  // freed by three.js itself, so dispose on change/unmount (and immediately
+  // if the load resolves after we've already torn down).
   useEffect(() => {
     let alive = true
+    let loaded: THREE.Texture | null = null
     new THREE.TextureLoader().load(src, (t) => {
-      if (!alive) return
+      loaded = t
+      if (!alive) {
+        t.dispose()
+        return
+      }
       t.colorSpace = THREE.SRGBColorSpace
       t.anisotropy = 4
       setTex(t)
     })
     return () => {
       alive = false
+      loaded?.dispose()
     }
   }, [src])
 
@@ -84,8 +93,10 @@ function LogoPlane({ src }: { src: string }) {
     })
   }, [tex])
 
-  // Halo of orbiting particles around the mark.
-  const haloGeo = useMemo(() => {
+  // Halo of orbiting particles around the mark. Built in an effect (not
+  // useMemo) so the random scatter never runs during render — render stays
+  // pure — and disposed when it is replaced or on unmount.
+  useEffect(() => {
     const count = quality.tier === 'high' ? 220 : 120
     const pos = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
@@ -97,7 +108,10 @@ function LogoPlane({ src }: { src: string }) {
     }
     const g = new THREE.BufferGeometry()
     g.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-    return g
+    setHaloGeo(g)
+    return () => {
+      g.dispose()
+    }
   }, [])
 
   const haloMat = useMemo(
@@ -113,6 +127,15 @@ function LogoPlane({ src }: { src: string }) {
       }),
     []
   )
+
+  // R3F only auto-disposes objects it creates itself; the material above and
+  // the shader material below are ours, so sweep them on rotate/unmount.
+  useEffect(() => {
+    return () => {
+      logoMat?.dispose()
+      haloMat.dispose()
+    }
+  }, [logoMat, haloMat])
 
   const aspect = tex ? (tex.image as HTMLImageElement).width / (tex.image as HTMLImageElement).height : 1
 
@@ -137,7 +160,7 @@ function LogoPlane({ src }: { src: string }) {
     }
   })
 
-  if (!tex || !logoMat) return null
+  if (!tex || !logoMat || !haloGeo) return null
 
   return (
     <group ref={group}>

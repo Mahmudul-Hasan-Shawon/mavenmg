@@ -41,12 +41,8 @@ export function retintMaterial(
 }
 
 /** Subscribe a scene to theme changes; fires immediately with current theme. */
-export function watchSceneTheme(
-  apply: (theme: ThemeName) => void,
-  deps: unknown[] = []
-): () => void {
+export function watchSceneTheme(apply: (theme: ThemeName) => void): () => void {
   const off = onThemeChange((t) => apply(t))
   apply(themeState.name)
-  void deps
   return off
 }

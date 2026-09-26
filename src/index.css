@@ -17,7 +17,8 @@
   --line-hover: rgba(139, 79, 191, 0.35);
   --fg: #ffffff;
   --mist: #a89fc0;
-  --mist-dim: #6f6885;
+  /* ≥4.5:1 against --bg so mono/meta text passes WCAG AA. */
+  --mist-dim: #8b8499;
   --maven: #612c8b;
   --maven-light: #8b4fbf;
   --maven-lighter: #dacaff;
@@ -38,7 +39,6 @@
   --spot: rgba(139, 79, 191, 0.1);
   --glow-tl: rgba(139, 79, 191, 0.14);
   --edge-tl: rgba(218, 202, 255, 0.07);
-  --cursor-dot: #dacaff;
   /* Full-bleed hero / stage sections: deep-purple glow rising off a near-black
      base in dark mode, soft lavender wash off a pale base in light mode. */
   --hero-base: #000000;
@@ -54,7 +54,8 @@
   --line-hover: rgba(109, 47, 165, 0.4);
   --fg: #191327;
   --mist: #57506e;
-  --mist-dim: #8a849e;
+  /* ≥4.5:1 against --bg so mono/meta text passes WCAG AA. */
+  --mist-dim: #665f7a;
   --maven: #6d2fa5;
   --maven-light: #7b3cbe;
   /* "lighter" flips to a deep violet in light mode: it is the highlight
@@ -74,9 +75,20 @@
   --spot: rgba(109, 47, 165, 0.07);
   --glow-tl: rgba(109, 47, 165, 0.09);
   --edge-tl: rgba(255, 255, 255, 0.65);
-  --cursor-dot: #2c1846;
   --hero-base: #f5f4fb;
   --hero-glow: #dccff5;
+}
+
+/* Native chrome (scrollbars, form controls) follows the active theme.
+   Declared after both theme blocks so the light override wins on
+   [data-theme='light'] at equal specificity. */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
 }
 
 /* Semantic Tailwind tokens follow the theme vars (inline → utilities
@@ -159,14 +171,13 @@
     background: var(--bg);
   }
   ::-webkit-scrollbar-thumb {
-    color-scheme: dark;
     background: color-mix(in srgb, var(--maven-light) 55%, var(--bg));
     border-radius: 3px;
   }
 
   :focus-visible {
-    outline: 1.5px solid var(--maven-light);
-    outline-offset: 3px;
+    outline: 2px solid var(--maven-light);
+    outline-offset: 2px;
     border-radius: 2px;
   }
 
@@ -197,14 +208,11 @@
     font-weight: 700;
   }
 
-  input:focus,
-  select:focus,
-  textarea:focus {
-    outline: none !important;
-    outline-offset: 0 !important;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-  }
+  /* No blanket focus suppression here: inputs/selects/textareas fall back to
+     the :focus-visible outline above unless a component provides its own
+     stronger focus treatment (e.g. the .field underline, the footer/contact
+     focus:ring inputs). Removing the old outline:none !important rules keeps
+     keyboard focus visible site-wide (WCAG 2.4.7). */
 }
 
 /* Shared component classes live in @layer components: they define the base
@@ -516,29 +524,6 @@
   animation-play-state: paused;
 }
 
-/* Client words: reviews scroll a little slower than the logo marquee and use
-   an inverted fade mask so cards trail off at both edges of the section. */
-#client-words .cw-track {
-  animation-duration: 80s;
-}
-
-  /* ---------- Custom cursor: dot only ---------- */
-
-  @media (hover: hover) and (pointer: fine) {
-    .cursor-dot {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 120;
-      width: 7px;
-      height: 7px;
-      border-radius: 9999px;
-      background: var(--cursor-dot);
-      mix-blend-mode: normal;
-    }
-  }
-
   /* ---------- Border beam ---------- */
 
   /* A comet streak orbits the card border. Each layer is an oversized square
@@ -549,7 +534,7 @@
      reads as ambient glow illuminating the edge around it. Linear timing keeps
      the orbit constant and loop-seamless (the gradient is periodic in 360deg). */
   .border-beam {
-    /* --beam_radius must match the host's border-radius (rounded-3xl). */
+    /* --beam-radius must match the host's border-radius (rounded-3xl). */
     --beam-radius: 1.5rem;
     --beam-reach: 16px;
     position: relative;
@@ -817,18 +802,6 @@ html:not([data-theme='light']) .marquee-badge {
   display: inline-block;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  #featured-work .pag-rise,
-  #featured-work .pag-pop,
-  #blog-list .pag-pop {
-    animation: none;
-  }
-
-  #blog-list .pag-rise {
-    animation: none;
-  }
-}
-
 /* Tighten the big section gaps on mobile only heroes keep their top
    clearance (pt-40) since they clear the fixed navbar, and asymmetric
    pt/pb sections keep their layout. Standard sections use the shared
@@ -850,26 +823,21 @@ html:not([data-theme='light']) .marquee-badge {
 /* ---------- Reduced motion (unlayered so it beats every animation) ---------- */
 
 @media (prefers-reduced-motion: reduce) {
+  #featured-work .pag-rise,
+  #featured-work .pag-pop,
+  #blog-list .pag-rise,
+  #blog-list .pag-pop,
   .animate-float-slow,
-  .animate-float-drift {
-    animation: none;
-  }
-
+  .animate-float-drift,
   .marquee-track,
-  #client-words .cw-track {
-    animation: none;
-  }
-
-  .scroll-blur {
-    animation: none;
-  }
-
-  .blog-card-shell {
-    animation: none;
-  }
-
+  .scroll-blur,
+  .blog-card-shell,
   .work-card-shell {
     animation: none;
+  }
+
+  .beam-viewport {
+    display: none;
   }
 
   *,
@@ -877,12 +845,6 @@ html:not([data-theme='light']) .marquee-badge {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .beam-viewport {
-    display: none;
   }
 }
 

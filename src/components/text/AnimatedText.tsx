@@ -54,7 +54,7 @@ export function AnimatedText({
 
   useGsapContext(
     ref,
-    ({ ScrollTrigger: ST }) => {
+    () => {
       const targets = ref.current?.querySelectorAll<HTMLElement>('[data-unit]')
       if (!targets?.length) return
       const fromState = {
@@ -67,7 +67,7 @@ export function AnimatedText({
         filter: 'blur(0px)',
         duration,
         ease: 'expo.out',
-        stagger: mode === 'chars' ? stagger : stagger,
+        stagger,
         delay,
         ...(trigger === 'scroll'
           ? {
@@ -78,14 +78,16 @@ export function AnimatedText({
       if (trigger === 'load') {
         // Gate mount-time intros behind the readiness veil so they begin
         // exactly as the cover lifts, instead of half-finishing mid-load.
+        // The tween is created paused INSIDE this gsap.context (so a context
+        // revert on unmount/dep change kills it); onAppReady only hits play.
+        const tween = gsap.fromTo(targets, fromState, { ...toState, paused: true })
         onAppReady(() => {
           if (!ref.current) return
-          gsap.fromTo(targets, fromState, toState)
+          tween.play()
         })
       } else {
         gsap.fromTo(targets, fromState, toState)
       }
-      void ST
     },
     [text, mode, blur, trigger]
   )

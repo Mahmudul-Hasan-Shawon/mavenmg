@@ -77,42 +77,49 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                   )}
                 />
 
-                <button
-                  type="button"
-                  data-cursor
-                  aria-expanded={isActive}
-                  className="w-full text-left px-5 md:px-10 py-6 md:py-9 cursor-pointer"
-                >
-                  <div className="flex items-baseline gap-5 md:gap-10 min-w-0">
-                    <span
-                      className={cn(
-                        'hidden md:inline-block index-tag transition-colors duration-300',
-                        isActive && '!text-maven-lighter'
-                      )}
+                {/* Text column: title button + expanding detail. Kept as one
+                    grid child so the image keeps its own column on desktop. */}
+                <div className="min-w-0">
+                  <h3 className="min-w-0">
+                    <button
+                      type="button"
+                      data-cursor
+                      aria-expanded={isActive}
+                      aria-controls={`service-panel-${service.id}`}
+                      onClick={() => setActive(i)}
+                      className="w-full text-left px-5 md:px-10 pt-6 md:pt-9 pb-0 cursor-pointer flex items-baseline gap-5 md:gap-10 min-w-0"
                     >
-                      {service.index}
-                    </span>
-                    <h3
-                      className={cn(
-                        'display font-semibold tracking-[0.98px] text-[clamp(1.125rem,3.4vw,2.6rem)] md:transition-all md:duration-500 md:truncate text-white',
-                        isActive ? 'md:translate-x-2' : 'md:text-mist md:group-hover:text-white'
-                      )}
-                    >
-                      {service.title}
-                    </h3>
-                  </div>
+                      <span
+                        className={cn(
+                          'hidden md:inline-block index-tag transition-colors duration-300',
+                          isActive && '!text-maven-lighter'
+                        )}
+                      >
+                        {service.index}
+                      </span>
+                      <span
+                        className={cn(
+                          'display font-semibold tracking-[0.98px] text-[clamp(1.125rem,3.4vw,2.6rem)] md:transition-all md:duration-500 md:truncate text-white',
+                          isActive ? 'md:translate-x-2' : 'md:text-mist md:group-hover:text-white'
+                        )}
+                      >
+                        {service.title}
+                      </span>
+                    </button>
+                  </h3>
 
                   {/* Expanding detail always visible on mobile, hover-expands on desktop */}
                   <div
+                    id={`service-panel-${service.id}`}
                     className={cn(
-                      'grid grid-rows-[1fr] opacity-100 md:transition-[grid-template-rows,opacity] md:duration-500 md:ease-out',
+                      'px-5 md:px-10 grid grid-rows-[1fr] opacity-100 md:transition-[grid-template-rows,opacity] md:duration-500 md:ease-out',
                       isActive
                         ? 'md:grid-rows-[1fr] md:opacity-100'
                         : 'md:grid-rows-[0fr] md:opacity-0'
                     )}
                   >
                     <div className="overflow-hidden">
-                      <div className="pt-5 pb-1 pl-0 md:pl-[4.5rem]">
+                      <div className="pt-5 pb-7 md:pb-10 pl-0 md:pl-[4.5rem]">
                         <p className="text-mist text-base md:text-base leading-relaxed max-w-3xl">
                           {service.description}
                         </p>
@@ -129,7 +136,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                       </div>
                     </div>
                   </div>
-                </button>
+                </div>
 
 {/* Service image card banner on mobile, gradient-reveal right column on desktop */}
                 <div

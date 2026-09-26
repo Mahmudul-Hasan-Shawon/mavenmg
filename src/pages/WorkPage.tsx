@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { projects } from '../data/projects'
 import { PageHero } from '../sections/PageHero'
 import { FinalCTA } from '../sections/FinalCTA'
@@ -46,7 +46,11 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
                 <div className="relative p-8 md:p-14 max-w-xl text-center md:text-left">
                   <div
                     className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6"
-                    style={{ background: `${featured.color}15`, border: `1px solid ${featured.color}30`, color: '#FF9B42' }}
+                    style={{
+                      background: `${featured.color}15`,
+                      border: `1px solid ${featured.color}30`,
+                      color: featured.badgeColor ?? featured.color,
+                    }}
                   >
                     <Star size={14} aria-hidden="true" />
                     Featured Project
@@ -55,18 +59,27 @@ export default function WorkPage({ onNavigate }: { onNavigate: (href: string) =>
                     {featured.name}
                   </h3>
                   <p className="text-white-solid/85 text-base leading-relaxed mb-6">
-                    The HAQ Pickle Pickleball started as a fun idea between a father and son, two avid pickleball players.
-                    <br />
-                    <br />
-                    After &#34;dinking&#34; around a few ideas to create something unique that picklers had never seen before, an idea started coming to life.
+                    {featured.featuredStory?.map((paragraph, i) => (
+                      <Fragment key={i}>
+                        {i > 0 ? (
+                          <>
+                            <br />
+                            <br />
+                          </>
+                        ) : null}
+                        {paragraph}
+                      </Fragment>
+                    ))}
                   </p>
                   <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                     <MagneticButton variant="primary" size="md" onClick={() => onNavigate('/contact')}>
                       Start Your Project <ArrowRight size={16} />
                     </MagneticButton>
-                    <MagneticButton variant="frost" size="md" href="https://haqpickle.com" external>
-                      Visit Website
-                    </MagneticButton>
+                    {featured.url && (
+                      <MagneticButton variant="frost" size="md" href={featured.url} external>
+                        Visit Website
+                      </MagneticButton>
+                    )}
                   </div>
                 </div>
               </div>

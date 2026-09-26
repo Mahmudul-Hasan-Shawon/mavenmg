@@ -11,7 +11,9 @@ import { Eyebrow } from '../components/text/Eyebrow'
  */
 export function Testimonials() {
   const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
+  // Autoplay pauses while hovered or keyboard-focused (WCAG 2.2.2).
+  const [autoPaused, setAutoPaused] = useState(false)
+  const paused = autoPaused
   const quoteRef = useRef<HTMLDivElement>(null)
   const animating = useRef(false)
 
@@ -82,15 +84,19 @@ export function Testimonials() {
         <div className="absolute top-0 right-1/4 w-[400px] h-[300px] rounded-full bg-maven-light/8 blur-[140px]" />
       </div>
 
-      <div className="container-maven relative">
+      {/* Hover OR keyboard focus anywhere in the carousel pauses autoplay (WCAG 2.2.2). */}
+      <div
+        className="container-maven relative"
+        onMouseEnter={() => setAutoPaused(true)}
+        onMouseLeave={() => setAutoPaused(false)}
+        onFocus={() => setAutoPaused(true)}
+        onBlur={() => setAutoPaused(false)}
+      >
         <Eyebrow label="Client words" align="center" className="mb-14 md:mb-16" />
 
         <div ref={quoteRef} className="max-w-3xl mx-auto text-center">
-          <blockquote
-            className="flex flex-col justify-center min-h-[15rem] sm:min-h-[9rem] md:min-h-[11rem] lg:min-h-[16rem]"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-          >
+          <figure>
+          <blockquote className="flex flex-col justify-center min-h-[15rem] sm:min-h-[9rem] md:min-h-[11rem] lg:min-h-[16rem]">
             <span className="font-dm font-semibold text-[clamp(1.05rem,2.2vw,1.6rem)] leading-[1.6] tracking-[0.01em] text-white text-balance">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -139,6 +145,7 @@ export function Testimonials() {
               </span>
             </div>
           </figcaption>
+          </figure>
         </div>
 
         {/* Controls */}

@@ -5,6 +5,9 @@ export interface Address {
   zip: string
 }
 
+/** Canonical production origin, e.g. for sitemap.xml and share links. */
+export const SITE_URL = 'https://mavenmarketinggroup.com'
+
 export const site = {
   name: 'Maven Marketing Group',
   shortName: 'Maven',

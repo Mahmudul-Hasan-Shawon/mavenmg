@@ -34,14 +34,10 @@ interface DepthCarouselProps {
   className?: string
 }
 
-const DEFAULT_ITEMS: DepthCarouselItem[] = [
-  { image: 'https://picsum.photos/seed/depth1/800/1000', alt: 'Slide 1' },
-  { image: 'https://picsum.photos/seed/depth2/800/1000', alt: 'Slide 2' },
-  { image: 'https://picsum.photos/seed/depth3/800/1000', alt: 'Slide 3' },
-  { image: 'https://picsum.photos/seed/depth4/800/1000', alt: 'Slide 4' },
-  { image: 'https://picsum.photos/seed/depth5/800/1000', alt: 'Slide 5' },
-  { image: 'https://picsum.photos/seed/depth6/800/1000', alt: 'Slide 6' },
-]
+// Stable empty default: every real usage passes `items`, so the placeholder
+// slides (external picsum.photos images) are gone and the default keeps a
+// stable reference for the memo deps.
+const EMPTY_ITEMS: DepthCarouselItem[] = []
 
 const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max)
 const normalizeItem = (it: string | DepthCarouselItem): DepthCarouselItem =>
@@ -74,7 +70,7 @@ interface DragState {
 }
 
 export default function DepthCarousel({
-  items = DEFAULT_ITEMS,
+  items = EMPTY_ITEMS,
   cardWidth = 300,
   cardHeight = 380,
   radius = 18,
@@ -101,7 +97,6 @@ export default function DepthCarousel({
   const count = data.length
 
   const rootRef = useRef<HTMLDivElement>(null)
-  const stageRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const overlayRefs = useRef<(HTMLSpanElement | null)[]>([])
 
@@ -209,7 +204,9 @@ export default function DepthCarousel({
           el.style.filter = filterStr
         }
         el.style.zIndex = String(zi)
-        el.style.pointerEvents = shown && opacity > 0.05 ? 'auto' : 'none'
+        // Only the active card (the one sitting at pos) stays interactive —
+        // the rest are aria-hidden and must not be pointer-reachable.
+        el.style.pointerEvents = shown && opacity > 0.05 && az < 0.5 ? 'auto' : 'none'
 
         const ov = overlayRefs.current[i]
         if (ov) ov.style.opacity = clamp(back * cfg.falloff * 1.25, 0, 0.86).toFixed(3)
@@ -358,7 +355,9 @@ export default function DepthCarousel({
 
   const onCardClick = useCallback(
     (index: number) => {
-      if (dragRef.current?.moved) return
+      // Drags never reach here as clicks: once a drag moves past the
+      // threshold the root captures the pointer, so the release click
+      // targets the root instead of the card.
       setFocus(index, true)
     },
     [setFocus]
@@ -371,11 +370,16 @@ export default function DepthCarousel({
     const root = rootRef.current
     let hovered = false
     let focused = false
+    let onscreen = false
+    let pageVisible = !document.hidden
     const stop = () => {
       if (autoTimerRef.current) window.clearInterval(autoTimerRef.current)
       autoTimerRef.current = null
     }
     const start = () => {
+      // Never tick while the carousel is scrolled out of view or the tab is
+      // hidden — the observer/visibility handlers restart it on return.
+      if (!onscreen || !pageVisible) return
       stop()
       autoTimerRef.current = window.setInterval(
         () => {
@@ -402,6 +406,21 @@ export default function DepthCarousel({
     const onInteractEnd = () => {
       start()
     }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        onscreen = entry.isIntersecting
+        if (onscreen && pageVisible) start()
+        else stop()
+      },
+      { threshold: 0 }
+    )
+    if (root) io.observe(root)
+    const onVisibility = () => {
+      pageVisible = !document.hidden
+      if (pageVisible && onscreen) start()
+      else stop()
+    }
+    document.addEventListener('visibilitychange', onVisibility)
     root?.addEventListener('mouseenter', onEnter)
     root?.addEventListener('mouseleave', onLeave)
     root?.addEventListener('focusin', onFocusIn)
@@ -409,9 +428,10 @@ export default function DepthCarousel({
     root?.addEventListener('pointerdown', onInteractStart)
     root?.addEventListener('pointerup', onInteractEnd)
     root?.addEventListener('pointercancel', onInteractEnd)
-    start()
     return () => {
       stop()
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
       root?.removeEventListener('mouseenter', onEnter)
       root?.removeEventListener('mouseleave', onLeave)
       root?.removeEventListener('focusin', onFocusIn)
@@ -449,7 +469,7 @@ export default function DepthCarousel({
       onPointerCancel={onPointerEnd}
       onKeyDown={onKeyDown}
     >
-      <div className="depth-carousel__stage" ref={stageRef}>
+      <div className="depth-carousel__stage">
         {data.map((item, i) => (
           <div
             key={i}

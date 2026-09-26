@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { stats } from '../data/site'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 import { Eyebrow } from '../components/text/Eyebrow'
-import { trackSpotlight } from '../utils/motion'
+import { reducedMotion, trackSpotlight } from '../utils/motion'
 
 /**
  * Results "luminous panel": a single dark card holding all stats side by
@@ -12,6 +12,12 @@ import { trackSpotlight } from '../utils/motion'
  * render in the brand gradient. The panel gets the scroll-blur reveal, and
  * counters animate once when the section enters.
  */
+
+/** Static (non-animated) number formatting used when reduced motion is on. */
+function formatValue(stat: (typeof stats)[number]) {
+  return stat.decimals ? stat.value.toFixed(stat.decimals) : stat.value.toLocaleString()
+}
+
 export function Results() {
   const rootRef = useRef<HTMLElement>(null)
 
@@ -36,6 +42,16 @@ export function Results() {
     },
     []
   )
+
+  // Reduced motion skips the GSAP counters entirely, so render final values.
+  const renderValue = (stat: (typeof stats)[number]) => {
+    if (reducedMotion) return <span className="font-[1000]">{formatValue(stat)}</span>
+    return (
+      <span data-counter={stat.value} data-decimals={stat.decimals} className="font-[1000]">
+        0
+      </span>
+    )
+  }
 
   return (
     <section ref={rootRef} id="results" className="section py-28 md:py-36 relative overflow-clip" aria-label="Results">
@@ -71,9 +87,7 @@ export function Results() {
                 >
                   <div className="font-dm font-[1000] leading-[0.75] tracking-[0.02em] tabular-nums mb-4 md:mb-5 text-[4.5rem] text-transparent bg-clip-text bg-[image:var(--grad)]">
                     {stat.prefix}
-                    <span data-counter={stat.value} data-decimals={stat.decimals} className="font-[1000]">
-                      0
-                    </span>
+                    {renderValue(stat)}
                     <span>{stat.suffix}</span>
                   </div>
 

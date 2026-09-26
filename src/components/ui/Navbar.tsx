@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { createPortal } from 'react-dom'
-import { ArrowRight, ChevronDown } from 'lucide-react'
+import { ArrowRight, ChevronDown, Mail, Phone } from 'lucide-react'
 import { gsap, useGsapContext } from '../../hooks/useGsap'
 import { navigation, legalLinks, footerServices, type NavLink } from '../../data/navigation'
 import { site as siteData } from '../../data/site'
@@ -8,6 +8,7 @@ import { cn } from '../../utils/cn'
 import { MagneticButton } from './MagneticButton'
 import { ThemeToggle } from './ThemeToggle'
 import { SocialIcon } from './SocialIcon'
+import { SmartLink } from './SmartLink'
 import { getLenis } from '../../utils/lenis'
 
 interface NavbarProps {
@@ -15,12 +16,13 @@ interface NavbarProps {
   onNavigate: (href: string) => void
 }
 
+const MOBILE_MENU_ID = 'mobile-menu'
+
 /** Desktop nav + full-screen mobile menu. Transparent over hero, compact on scroll. */
 export function Navbar({ activePath, onNavigate }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     let lastY = window.scrollY
@@ -52,7 +54,6 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
   return (
     <>
       <header
-        ref={headerRef}
         className={cn(
           'fixed top-0 left-0 right-0 z-[100] transition-all duration-500',
           hidden && !menuOpen && '-translate-y-full'
@@ -66,8 +67,9 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
               : 'max-w-7xl mt-0 px-6 md:px-10 py-5 border-b border-transparent'
           )}
         >
-          <a
-            onClick={() => go('/')}
+          <SmartLink
+            href="/"
+            onNavigate={go}
             className="cursor-pointer shrink-0"
             aria-label={`${siteData.name}, home`}
             data-cursor
@@ -85,7 +87,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
               data-logo="light"
               className={cn('w-auto transition-all duration-500', scrolled ? 'h-7' : 'h-9')}
             />
-          </a>
+          </SmartLink>
 
           <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
             {navigation.map((link) =>
@@ -97,9 +99,10 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
                   go={go}
                 />
               ) : (
-                <a
+                <SmartLink
                   key={link.href}
-                  onClick={() => go(link.href)}
+                  href={link.href}
+                  onNavigate={go}
                   data-cursor
                   className={cn(
                     'text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
@@ -108,7 +111,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
                   aria-current={isActive(link.href) ? 'page' : undefined}
                 >
                   {link.label}
-                </a>
+                </SmartLink>
               )
             )}
           </nav>
@@ -126,7 +129,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
 
             <ThemeToggle />
 
-            <MenuButton open={menuOpen} onToggle={() => setMenuOpen((v) => !v)} />
+            <MenuButton open={menuOpen} onToggle={() => setMenuOpen((v) => !v)} controls={MOBILE_MENU_ID} />
           </div>
         </div>
       </header>
@@ -136,12 +139,13 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
   )
 }
 
-function MenuButton({ open, onToggle }: { open: boolean; onToggle: () => void }) {
+function MenuButton({ open, onToggle, controls }: { open: boolean; onToggle: () => void; controls?: string }) {
   return (
     <button
       type="button"
       onClick={onToggle}
       aria-expanded={open}
+      aria-controls={controls}
       aria-label={open ? 'Close menu' : 'Open menu'}
       data-cursor
       className="relative w-11 h-11 flex md:hidden items-center justify-center rounded-full border border-line bg-ink/60 backdrop-blur-md cursor-pointer"
@@ -294,15 +298,14 @@ function ServicesNavItem({
               />
               <div className="relative grid gap-0.5 p-2">
                 {footerServices.map((s, i) => (
-                  <a
+                  <SmartLink
                     key={s.href}
+                    href={s.href}
+                    onNavigate={go}
                     role="menuitem"
                     tabIndex={shown ? 0 : -1}
                     data-cursor
-                    onClick={() => {
-                      closeNow()
-                      go(s.href)
-                    }}
+                    onClick={closeNow}
                     style={{ transitionDelay: shown ? `${i * 25}ms` : '0ms' }}
                     className={cn(
                       'group flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-300',
@@ -318,23 +321,22 @@ function ServicesNavItem({
                       size={14}
                       className="text-maven-light opacity-0 -translate-x-1.5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
                     />
-                  </a>
+                  </SmartLink>
                 ))}
               </div>
               <div className="relative p-2 pt-1.5">
-                <a
+                <SmartLink
+                  href="/services"
+                  onNavigate={go}
                   role="menuitem"
                   tabIndex={shown ? 0 : -1}
                   data-cursor
-                  onClick={() => {
-                    closeNow()
-                    go('/services')
-                  }}
+                  onClick={closeNow}
                   className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-maven/15 hover:bg-maven/25 border border-maven-light/20 transition-colors duration-300 cursor-pointer"
                 >
                   <span className="text-sm font-semibold text-maven-lighter">View all services</span>
                   <ArrowRight size={14} className="text-maven-lighter" />
-                </a>
+                </SmartLink>
               </div>
             </div>
           </div>,
@@ -357,6 +359,10 @@ function MobileMenu({
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const tlRef = useRef<gsap.core.Timeline | null>(null)
+  const lastFocused = useRef<HTMLElement | null>(null)
+  // Visibility is owned by React (not GSAP) so the menu still opens when
+  // prefers-reduced-motion skips the timeline setup entirely.
+  const [visible, setVisible] = useState(false)
   const year = new Date().getFullYear()
 
   const isActive = (href: string) => {
@@ -368,7 +374,6 @@ function MobileMenu({
     rootRef,
     () => {
       const tl = gsap.timeline({ paused: true })
-      tl.set(rootRef.current, { visibility: 'visible' })
       tl.fromTo(
         rootRef.current,
         { clipPath: 'inset(0 0 100% 0)' },
@@ -386,19 +391,38 @@ function MobileMenu({
         { y: 0, opacity: 1, duration: 0.6, stagger: 0.06, ease: 'power3.out' },
         '-=0.35'
       )
-      tl.eventCallback('onReverseComplete', () => {
-        gsap.set(rootRef.current, { visibility: 'hidden' })
-      })
+      tl.eventCallback('onReverseComplete', () => setVisible(false))
       tlRef.current = tl
     },
     []
   )
 
+  // With reduced motion tlRef stays null: the overlay simply appears/disappears.
+  // The overlay visibility is React-owned; the timeline only animates when it exists.
   useEffect(() => {
     const tl = tlRef.current
-    if (!tl) return
-    if (open) tl.timeScale(1).play()
-    else tl.timeScale(1.6).reverse()
+    if (open) {
+      // eslint-disable-next-line react/set-state-in-effect -- syncing React state with the GSAP timeline (an external system)
+      setVisible(true)
+      tl?.timeScale(1).play()
+    } else if (tl && tl.progress() > 0) {
+      tl.timeScale(1.6).reverse()
+    } else {
+      // eslint-disable-next-line react/set-state-in-effect -- syncing React state with the GSAP timeline (an external system)
+      setVisible(false)
+    }
+  }, [open])
+
+  // Move focus into the dialog on open; restore it to the toggle on close.
+  useEffect(() => {
+    if (!open) {
+      lastFocused.current?.focus()
+      return
+    }
+    lastFocused.current = document.activeElement as HTMLElement | null
+    const firstLink = rootRef.current?.querySelector<HTMLElement>('a[href]')
+    const raf = requestAnimationFrame(() => (firstLink ?? rootRef.current)?.focus())
+    return () => cancelAnimationFrame(raf)
   }, [open])
 
   useEffect(() => {
@@ -410,13 +434,36 @@ function MobileMenu({
     return () => window.removeEventListener('keydown', onKey)
   }, [open, onClose])
 
+  // Keep Tab cycling inside the dialog while it is open.
+  const onTrapKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Tab') return
+    const root = rootRef.current
+    if (!root) return
+    const focusables = Array.from(root.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
+    if (focusables.length === 0) return
+    const first = focusables[0]
+    const last = focusables[focusables.length - 1]
+    const active = document.activeElement
+    const inside = active instanceof HTMLElement && root.contains(active)
+    if (e.shiftKey && (active === first || active === root || !inside)) {
+      e.preventDefault()
+      last.focus()
+    } else if (!e.shiftKey && (active === last || !inside)) {
+      e.preventDefault()
+      first.focus()
+    }
+  }
+
   return (
     <div
       ref={rootRef}
+      id={MOBILE_MENU_ID}
       role="dialog"
       aria-modal="true"
       aria-label="Menu"
-      className="fixed inset-0 z-[90] invisible overflow-y-auto overflow-x-hidden"
+      tabIndex={-1}
+      onKeyDown={onTrapKeyDown}
+      className={cn('fixed inset-0 z-[90] overflow-y-auto overflow-x-hidden', !visible && 'invisible')}
       style={{
         backgroundColor: 'var(--hero-base)',
         backgroundImage: 'radial-gradient(ellipse 85% 65% at 50% 0%, var(--hero-glow) 0%, var(--hero-base) 100%)',
@@ -432,9 +479,10 @@ function MobileMenu({
               const active = isActive(link.href)
               return (
                 <div key={link.href} style={{ overflow: 'hidden' }}>
-                  <a
+                  <SmartLink
+                    href={link.href}
+                    onNavigate={onNavigate}
                     data-menu-link
-                    onClick={() => onNavigate(link.href)}
                     data-cursor
                     aria-current={active ? 'page' : undefined}
                     className={cn(
@@ -445,7 +493,7 @@ function MobileMenu({
                     <span className="display font-semibold text-[clamp(1.9rem,8vw,2.6rem)] leading-tight tracking-[0.01em] group-hover:translate-x-1.5 transition-transform duration-400">
                       {link.label}
                     </span>
-                  </a>
+                  </SmartLink>
                 </div>
               )
             })}
@@ -461,7 +509,7 @@ function MobileMenu({
               onClick={() => onClose()}
               className="inline-flex items-center gap-2.5 text-sm text-mist hover:text-white transition-colors duration-300 w-fit"
             >
-              <i className="fa-regular fa-envelope text-maven-light/80" aria-hidden="true" />
+              <Mail size={15} className="text-maven-light/80" aria-hidden="true" />
               {siteData.email}
             </a>
             <a
@@ -470,7 +518,7 @@ function MobileMenu({
               onClick={() => onClose()}
               className="inline-flex items-center gap-2.5 text-sm text-mist hover:text-white transition-colors duration-300 w-fit"
             >
-              <i className="fa-solid fa-phone text-maven-light/80" aria-hidden="true" />
+              <Phone size={15} className="text-maven-light/80" aria-hidden="true" />
               {siteData.phone}
             </a>
           </div>
@@ -497,14 +545,15 @@ function MobileMenu({
 
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5" data-menu-detail>
             {legalLinks.map((l) => (
-              <a
+              <SmartLink
                 key={l.href}
-                onClick={() => onNavigate(l.href)}
+                href={l.href}
+                onNavigate={onNavigate}
                 data-cursor
                 className="text-[11px] uppercase tracking-[0.08em] text-mist-dim hover:text-white cursor-pointer transition-colors duration-300"
               >
                 {l.name}
-              </a>
+              </SmartLink>
             ))}
             <span className="text-mist-dim/60 text-xs">
               © {year} {siteData.name}

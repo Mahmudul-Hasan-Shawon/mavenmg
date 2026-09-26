@@ -5,6 +5,10 @@ export interface Project {
   services: string
   color: string
   featured?: boolean
+  /** Card text color used when the project appears in the featured hero. */
+  badgeColor?: string
+  /** Hero paragraphs shown when the project is the featured one. */
+  featuredStory?: string[]
   image: string
   blurb: string
   url?: string
@@ -18,6 +22,11 @@ export const projects: Project[] = [
     services: 'Website Design, Website Development, Website Management',
     color: '#E85D04',
     featured: true,
+    badgeColor: '#FF9B42',
+    featuredStory: [
+      'The HAQ Pickle Pickleball started as a fun idea between a father and son, two avid pickleball players.',
+      'After "dinking" around a few ideas to create something unique that picklers had never seen before, an idea started coming to life.',
+    ],
     image: '/images/projects/p1.jpg',
     blurb: 'Started as a fun idea between a father and son, now a booming e-commerce brand.',
     url: 'https://haqpickle.com/',
@@ -94,7 +103,7 @@ export const projects: Project[] = [
   },
   {
     id: 9,
-    name: 'Kieth Law Group',
+    name: 'Keith Law Group',
     category: 'Law Firms',
     services: 'Website Design, Website Development, Website Management',
     color: '#612C8B',

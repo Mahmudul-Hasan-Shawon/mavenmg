@@ -5,16 +5,11 @@ import { blogPosts } from '../data/blog'
 import { site } from '../data/site'
 import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import { SocialIcon } from '../components/ui/SocialIcon'
 import { Eyebrow } from '../components/text/Eyebrow'
 import { getLenis } from '../utils/lenis'
+import { formatDate } from '../utils/date'
 import { cn } from '../utils/cn'
-
-/** Format a YYYY-MM-DD string into a human-friendly display date. */
-function formatDate(iso: string): string {
-  const [y, m, d] = iso.split('-').map(Number)
-  const dt = new Date(y, m - 1, d)
-  return dt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-}
 
 const slugify = (heading: string) =>
   heading
@@ -469,6 +464,8 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
   }
 
   const posts = blogPosts.filter((p) => p.slug !== current.slug && (filter === 'All' || p.tag === filter))
+  const visiblePosts = posts.slice(0, 9)
+  const hasMore = posts.length > visiblePosts.length
 
   return (
     <section id="blog-more-articles" className="section py-16 md:py-24" aria-label="All blog articles">
@@ -527,7 +524,7 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
           onScroll={updateArrows}
           className="article-cards-stagger flex gap-6 overflow-x-auto overscroll-x-contain snap-x snap-mandatory pb-2 -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-16 lg:px-16 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {posts.map((p, i) => {
+          {visiblePosts.map((p, i) => {
             const isExternal = !p.slug
             const href = p.slug ? `/blog/${p.slug}` : p.href
             return (
@@ -594,6 +591,22 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
             )
           })}
         </div>
+
+        {hasMore && (
+          <div className="mt-10 flex justify-center">
+            <a
+              href="/blog"
+              onClick={(e) => {
+                e.preventDefault()
+                onNavigate('/blog')
+              }}
+              data-cursor
+              className="link-line inline-block text-sm text-maven-lighter"
+            >
+              View all articles
+            </a>
+          </div>
+        )}
       </div>
     </section>
   )
@@ -601,6 +614,7 @@ function MoreArticles({ current, onNavigate }: { current: BlogPost; onNavigate: 
 
 /** Editorial blog article: full-width cover hero + body with sticky utility sidebar. */
 export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: (href: string) => void }) {
+  const { rating, count } = site.googleReview
   return (
     <>
     <section id="blog-article" className="relative" aria-label="Blog article">
@@ -638,11 +652,11 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
 <img src="/images/logos/Google_Symbol_0.svg" alt="Google" className="h-12 w-12 shrink-0" />
                     <div className="flex w-full flex-col justify-center">
                       <p className="w-full text-md font-semibold text-white">
-                        Google <span className="text-white">• 19 Reviews</span>
+                        Google <span className="text-white">• {count} Reviews</span>
                       </p>
                       <div className="mt-1 flex items-center gap-2">
-                        <p className="display text-2xl text-white">5.0</p>
-                        <div className="flex items-center gap-1" aria-label="5 out of 5 stars">
+                        <p className="display text-2xl text-white">{rating.toFixed(1)}</p>
+                        <div className="flex items-center gap-1" aria-label={`${rating} out of 5 stars`}>
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} size={18} className="fill-amber-400 text-amber-400" />
                           ))}
@@ -654,13 +668,6 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
 
                 <Reveal delay={0.08}>
                   <h1 className="display mt-6 text-[clamp(2rem,5.2vw,3.8rem)] text-white md:mt-7">{post.title}</h1>
-                </Reveal>
-
-                <Reveal delay={0.12}>
-                  <p className="mt-5 max-w-2xl text-mist text-[15px] md:text-[17px] leading-[1.85]">
-                    Discover the secrets to becoming a top-tier website manager in our ultimate guide. Kickstart your
-                    career with our invaluable insights!
-                  </p>
                 </Reveal>
 
               </header>
@@ -719,7 +726,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
                         data-cursor
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-ink/60 text-maven-light transition-colors duration-300 hover:border-maven-light/60 hover:bg-maven/10 hover:text-maven-lighter"
                       >
-                        <span className="fi fi-brands-facebook flex h-full w-full items-center justify-center text-[15px] leading-none" aria-hidden="true" />
+                        <SocialIcon label="Facebook" />
                       </a>
                       <a
                         href={`https://twitter.com/intent/tweet?url=${articleUrl(post)}&text=${encodeURIComponent(post.title)}`}
@@ -729,7 +736,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
                         data-cursor
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-ink/60 text-maven-light transition-colors duration-300 hover:border-maven-light/60 hover:bg-maven/10 hover:text-maven-lighter"
                       >
-                        <span className="fi fi-brands-twitter flex h-full w-full items-center justify-center text-[15px] leading-none" aria-hidden="true" />
+                        <SocialIcon label="X" />
                       </a>
                       <a
                         href={`https://www.linkedin.com/sharing/share-offsite/?url=${articleUrl(post)}`}
@@ -739,7 +746,7 @@ export function BlogArticle({ post, onNavigate }: { post: BlogPost; onNavigate: 
                         data-cursor
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-ink/60 text-maven-light transition-colors duration-300 hover:border-maven-light/60 hover:bg-maven/10 hover:text-maven-lighter"
                       >
-                        <span className="fi fi-brands-linkedin flex h-full w-full items-center justify-center text-[15px] leading-none" aria-hidden="true" />
+                        <SocialIcon label="LinkedIn" />
                       </a>
                       <a
                         href={`mailto:?subject=${encodeURIComponent(post.title)}&body=${articleUrl(post)}`}

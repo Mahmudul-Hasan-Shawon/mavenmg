@@ -29,7 +29,7 @@ export const testimonials: Testimonial[] = [
     company: 'Simpson Cleaning',
     image: '/images/testimonials/mike-wall.png',
     quote:
-      'Before maven we were on BigCommerce, high fees eating us alive. Maven swooped in, got us off that mess, and saved us a ton on monthly costs. The site they built? Tough, slick, and all-American, just like our breachers.',
+      'Before maven we were on BigCommerce, high fees eating us alive. Maven swooped in, got us off that mess, and saved us a ton on monthly costs. The site they built? Tough, slick, and all-American.',
   },
   {
     name: 'Jason Collicot',

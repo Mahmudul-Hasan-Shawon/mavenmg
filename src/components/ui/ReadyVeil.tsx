@@ -5,6 +5,8 @@ import { markAppReady, reducedMotion } from '../../utils/motion'
 
 const SHOWN_KEY = 'maven-loaded'
 const MIN_HOLD = 450
+/** Never hold the page hostage for a hanging subresource (fonts, CDN, ...). */
+const MAX_WAIT = 2500
 
 /**
  * First-load readiness gate (not a preloader). A flat, theme-colored cover
@@ -37,6 +39,7 @@ export function ReadyVeil() {
 
     let cancelled = false
     let holdTimer: number | undefined
+    let maxWaitTimer: number | undefined
     let tl: ReturnType<typeof gsap.timeline> | undefined
 
     const finish = () => {
@@ -65,12 +68,22 @@ export function ReadyVeil() {
       else holdTimer = window.setTimeout(reveal, MIN_HOLD - elapsed)
     }
 
-    if (document.readyState === 'complete') beginTurn()
-    else window.addEventListener('load', beginTurn, { once: true })
+    // Reveal on load — or after MAX_WAIT, whichever comes first.
+    if (document.readyState === 'complete') {
+      beginTurn()
+    } else {
+      window.addEventListener('load', beginTurn, { once: true })
+      maxWaitTimer = window.setTimeout(() => {
+        window.removeEventListener('load', beginTurn)
+        beginTurn()
+      }, MAX_WAIT)
+    }
 
     return () => {
       cancelled = true
       if (holdTimer !== undefined) window.clearTimeout(holdTimer)
+      if (maxWaitTimer !== undefined) window.clearTimeout(maxWaitTimer)
+      window.removeEventListener('load', beginTurn)
       tl?.kill()
       document.documentElement.style.overflow = ''
       getLenis()?.start()

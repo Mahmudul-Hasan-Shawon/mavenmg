@@ -58,7 +58,10 @@ export function WorkShowcase({
   const goPrev = () => scrollToPage(Math.max(activePage - 1, 0))
   const goNext = () => scrollToPage(Math.min(activePage + 1, pageCount - 1))
 
-  const handleScroll = () => {
+  // rAF throttle: at most one measurement pass per frame, pending scrolls coalesce.
+  const scrollRaf = useRef<number | null>(null)
+
+  const measureNearestCard = () => {
     const grid = gridRef.current
     if (!grid || reducedMotion) return
     const gridRect = grid.getBoundingClientRect()
@@ -78,6 +81,22 @@ export function WorkShowcase({
     })
     setActiveSlide(nearest)
   }
+
+  const handleScroll = () => {
+    if (scrollRaf.current !== null) return
+    scrollRaf.current = requestAnimationFrame(() => {
+      scrollRaf.current = null
+      measureNearestCard()
+    })
+  }
+
+  // Cancel any pending frame on unmount.
+  useEffect(
+    () => () => {
+      if (scrollRaf.current !== null) cancelAnimationFrame(scrollRaf.current)
+    },
+    []
+  )
 
   // Reset the mobile carousel to its first slide when the active filter
   // changes; the keyed grid remount below replays the CSS stagger entrance.
@@ -336,13 +355,21 @@ function Card({
     )
   }
 
+  // No live URL: still a real link so the card is keyboard reachable, but it
+  // navigates internally to the /work index instead of leaving the site.
   return (
-    <article
+    <a
       data-filter-card
-      onClick={() => onNavigate('/work')}
-      className="scroll-blur panel panel-hover group relative cursor-pointer overflow-hidden rounded-2xl shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500"
+      href="/work"
+      data-cursor
+      aria-label={`View the ${name} project`}
+      onClick={(e) => {
+        e.preventDefault()
+        onNavigate('/work')
+      }}
+      className="scroll-blur panel panel-hover group relative block cursor-pointer overflow-hidden rounded-2xl shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maven-light/70"
     >
       {body}
-    </article>
+    </a>
   )
 }

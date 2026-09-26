@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { quality, isMobileWidth } from '../utils/motion'
@@ -74,12 +74,31 @@ const nodeShader = () =>
     `,
   })
 
+interface RingSet {
+  outer: THREE.BufferGeometry
+  inner: THREE.BufferGeometry
+  outerMat: THREE.ShaderMaterial
+  innerMat: THREE.ShaderMaterial
+  coreGeo: THREE.BufferGeometry
+  coreMat: THREE.MeshBasicMaterial
+}
+
 function System({ mode, count, showCore }: { mode: number; count: number; showCore: boolean }) {
   const groupRef = useRef<THREE.Group>(null)
   const modeRef = useRef(mode)
-  modeRef.current = mode
+  const ringsRef = useRef<RingSet | null>(null)
+  const [rings, setRings] = useState<RingSet | null>(null)
 
-  const rings = useMemo(() => {
+  // Keep the animated mode readable inside useFrame without re-rendering.
+  useEffect(() => {
+    modeRef.current = mode
+  }, [mode])
+
+  // The ring geometries, shader materials and core are created here (not in
+  // useMemo) so no GPU resources are built during render. R3F does not
+  // auto-dispose externally-created geometry/material instances, so the
+  // cleanup walks the whole set and disposes each one.
+  useEffect(() => {
     const outer = ringPositions(count, 2.6, 0.5, 0.5)
     const inner = ringPositions(Math.round(count * 0.7), 1.7, -0.7, 0.35)
     const outerMat = nodeShader()
@@ -93,7 +112,18 @@ function System({ mode, count, showCore }: { mode: number; count: number; showCo
       transparent: true,
       opacity: 0.35,
     })
-    return { outer, inner, outerMat, innerMat, coreGeo, coreMat }
+    const set: RingSet = { outer, inner, outerMat, innerMat, coreGeo, coreMat }
+    ringsRef.current = set
+    setRings(set)
+    return () => {
+      ringsRef.current = null
+      outer.dispose()
+      inner.dispose()
+      outerMat.dispose()
+      innerMat.dispose()
+      coreGeo.dispose()
+      coreMat.dispose()
+    }
   }, [count])
 
   const colorOuter = useMemo(() => new THREE.Color(), [])
@@ -102,6 +132,7 @@ function System({ mode, count, showCore }: { mode: number; count: number; showCo
   // Theme retinting + mode colour accents co-operate here: theme sets the
   // baseline ring colours, mode blends between them each frame.
   useEffect(() => {
+    if (!rings) return
     return watchSceneTheme((theme) => {
       const pal = SCENE_PALETTES[theme]
       const outerTarget = theme === 'light' ? '#7b3cbe' : '#8B4FBF'
@@ -120,20 +151,22 @@ function System({ mode, count, showCore }: { mode: number; count: number; showCo
   }, [rings])
 
   useFrame((state, dt) => {
+    const r = ringsRef.current
+    if (!r) return
     const t = state.clock.elapsedTime
     const m = modeRef.current
-    rings.outerMat.uniforms.uTime.value = t
-    rings.innerMat.uniforms.uTime.value = t
+    r.outerMat.uniforms.uTime.value = t
+    r.innerMat.uniforms.uTime.value = t
 
     // Mode 0 (Web Masters): outer ring leads. Mode 1 (Online Marketers):
     // inner ring leads, warmer emphasis. Targets follow the active theme.
     const light = themeState.name === 'light'
-    rings.outerMat.uniforms.uSpin.value += dt * (0.22 - m * 0.12)
-    rings.innerMat.uniforms.uSpin.value += dt * (-0.28 + m * 0.4)
+    r.outerMat.uniforms.uSpin.value += dt * (0.22 - m * 0.12)
+    r.innerMat.uniforms.uSpin.value += dt * (-0.28 + m * 0.4)
     colorOuter.set(light ? (m < 0.5 ? '#7b3cbe' : '#9257cf') : m < 0.5 ? '#8B4FBF' : '#B98AF0')
     colorInner.set(light ? (m < 0.5 ? '#4a3070' : '#6d4a9e') : m < 0.5 ? '#DACAFF' : '#E9DDFF')
-    ;(rings.outerMat.uniforms.uColor.value as THREE.Color).lerp(colorOuter, dt * 3)
-    ;(rings.innerMat.uniforms.uColor.value as THREE.Color).lerp(colorInner, dt * 3)
+    ;(r.outerMat.uniforms.uColor.value as THREE.Color).lerp(colorOuter, dt * 3)
+    ;(r.innerMat.uniforms.uColor.value as THREE.Color).lerp(colorInner, dt * 3)
 
     const g = groupRef.current
     if (g) {
@@ -145,9 +178,9 @@ function System({ mode, count, showCore }: { mode: number; count: number; showCo
 
   return (
     <group ref={groupRef}>
-      <points geometry={rings.outer} material={rings.outerMat} />
-      <points geometry={rings.inner} material={rings.innerMat} />
-      {showCore && <mesh geometry={rings.coreGeo} material={rings.coreMat} />}
+      {rings && <points geometry={rings.outer} material={rings.outerMat} />}
+      {rings && <points geometry={rings.inner} material={rings.innerMat} />}
+      {rings && showCore && <mesh geometry={rings.coreGeo} material={rings.coreMat} />}
     </group>
   )
 }

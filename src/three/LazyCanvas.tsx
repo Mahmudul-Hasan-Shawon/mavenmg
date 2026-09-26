@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Suspense, useEffect, useRef, useState, type ReactNode, type LazyExoticComponent, type ComponentType } from 'react'
-import { skipWebGL, quality } from '../utils/motion'
+import { skipWebGL } from '../utils/motion'
+import { ErrorBoundary } from '../components/ui/ErrorBoundary'
 import { cn } from '../utils/cn'
 
 // Scenes carry their own typed prop shapes; the lazy wrapper stays loose.
@@ -20,9 +21,11 @@ interface LazyCanvasProps {
 
 /**
  * Mounts an R3F scene only when it matters:
- *  - skipped entirely on low-power devices / prefers-reduced-motion (CSS fallback shows)
+ *  - skipped entirely on low-power devices / prefers-reduced-motion / when no
+ *    WebGL context can be created (CSS fallback shows)
  *  - lazy-imported so three.js stays out of the initial bundle
  *  - the render loop pauses whenever the canvas leaves the viewport
+ *  - wrapped in an ErrorBoundary so a GL crash degrades to the fallback
  */
 export function LazyCanvas({ Scene, fallback, className, sceneProps, defer = true }: LazyCanvasProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -50,13 +53,12 @@ export function LazyCanvas({ Scene, fallback, className, sceneProps, defer = tru
     <div ref={ref} className={cn('pointer-events-none', className)} aria-hidden="true">
       {fallback}
       {!skipWebGL && near && S && (
-        <Suspense fallback={null}>
-          <S frameloop={inView ? 'always' : 'never'} {...sceneProps} />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <S frameloop={inView ? 'always' : 'never'} {...sceneProps} />
+          </Suspense>
+        </ErrorBoundary>
       )}
     </div>
   )
 }
-
-/** Shared canvas performance settings. */
-export const canvasDpr = quality.dpr

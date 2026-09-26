@@ -12,7 +12,9 @@ export interface SitemapGroup {
   links: SitemapLink[]
 }
 
-const base = 'https://mavenmarketinggroup.com'
+import { SITE_URL } from './site'
+
+const base = SITE_URL
 
 /** Turn a URL slug into a clean display label. */
 const titleize = (slug: string) =>
@@ -75,7 +77,8 @@ export const sitemapGroups: SitemapGroup[] = [
       internal('blog', 'Blog'),
       internal('sitemap', 'Sitemap'),
       internal('privacy-policy', 'Privacy Policy'),
-      internal('terms-of-service', 'Terms of Use'),
+      internal('terms-of-service', 'Terms of Service'),
+      internal('cookie-policy', 'Cookie Policy'),
     ],
   },
   {
@@ -161,7 +164,7 @@ export const sitemapGroups: SitemapGroup[] = [
       main('blog/hiring-professional-website-management-services', 'Hiring Professional Website Management Services'),
       main('blog/how-much-website-costs', 'How Much Does a Website Cost?'),
       main('blog/how-to-become-successful-web-designer', 'How to Become a Successful Web Designer'),
-      main('blog/how-to-become-website-manager', 'How to Become a Website Manager'),
+      internal('blog/how-to-become-website-manager', 'How to Become a Website Manager'),
       main('blog/how-to-find-web-designer', 'How to Find a Web Designer'),
       main('blog/how-to-start-web-design-career', 'How to Start a Web Design Career'),
       main('blog/industries-benefiting-from-web-design', 'Industries Benefiting From Web Design'),
@@ -196,10 +199,10 @@ export const sitemapGroups: SitemapGroup[] = [
       main('blog/web-designer-work-settings', 'Web Designer Work Settings'),
       main('blog/web-developer-guide', 'The Web Developer Guide'),
       main('blog/web-developer-responsibilities', 'Web Developer Responsibilities'),
-      main('blog/web-development-career', 'Web Development Careers'),
+      internal('blog/web-development-career', 'Web Development Careers'),
       main('blog/web-development-types', 'Web Development Types'),
       main('blog/webiste-management-cost-factors', 'Website Management Cost Factors'),
-      main('blog/website-management-tools', 'Website Management Tools'),
+      internal('blog/website-management-tools', 'Website Management Tools'),
       main('blog/what-does-a-website-designer-do', 'What Does a Website Designer Do?'),
       main('blog/when-to-hire-web-designer', 'When to Hire a Web Designer'),
       main('8-benefits-of-responsive-web-design', '8 Benefits of Responsive Web Design'),
