@@ -121,7 +121,7 @@ export function LegalContent({ page }: LegalContentProps) {
             <p className="mono-label mb-6">Last updated: {page.lastUpdated}</p>
 
             {/* In-document navigation mobile collapsible (matching the blog article TOC) */}
-            <div className="lg:hidden sticky top-20 z-30 -mx-6 border-b border-line bg-void p-4 mb-8 md:-mx-12 md:mb-10">
+            <div className="lg:hidden sticky top-0 z-30 -mx-6 border-b border-line bg-void p-4 mb-8 md:-mx-12 md:mb-10">
               <button
                 type="button"
                 onClick={() => setTocOpen((v) => !v)}
