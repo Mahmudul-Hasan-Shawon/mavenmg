@@ -2,7 +2,7 @@
 
 <img src="public/images/logos/mavenlogo_light.png" alt="Maven Marketing Group" width="280" />
 
-# Maven Marketing Group — Website
+# Maven Marketing Group - Website
 
 **Custom built websites with a purpose.**
 
@@ -13,7 +13,7 @@
 [![Cloudflare Pages](https://img.shields.io/badge/Cloudflare-Pages-F38020?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com)
 [![Node](https://img.shields.io/badge/node-%E2%89%A520-339933?logo=nodedotjs&logoColor=white)](./.nvmrc)
 
-The production marketing site for Maven Marketing Group — a Chicago-based web
+The production marketing site for Maven Marketing Group - a Chicago-based web
 design and digital marketing agency. A fully custom, animation-rich single-page
 app with hand-rolled routing, a dual theme system, WebGL accent scenes, and a
 100% data-driven content layer.
@@ -24,26 +24,26 @@ app with hand-rolled routing, a dual theme system, WebGL accent scenes, and a
 
 ## ✨ Features
 
-- **Custom SPA router** — history-based navigation with an animated page-transition
+- **Custom SPA router** - history-based navigation with an animated page-transition
   veil, per-route `<title>` / meta / canonical management, in-page hash anchors,
   scroll-position memory for back/forward, and a real **404 page**.
-- **Dual theme system** — dark / light / *system* preference that genuinely
+- **Dual theme system** - dark / light / *system* preference that genuinely
   follows the OS, applied **before first paint** (zero flash), synced with
   WebGL scene palettes at runtime.
-- **Motion-first design** — GSAP + ScrollTrigger choreography, Lenis smooth
-  scrolling, magnetic buttons, a depth carousel, animated text — all of it
+- **Motion-first design** - GSAP + ScrollTrigger choreography, Lenis smooth
+  scrolling, magnetic buttons, a depth carousel, animated text - all of it
   **fully disabled under `prefers-reduced-motion`** with static fallbacks.
-- **WebGL accent scenes** — react-three-fiber (hero/about logo, particle
+- **WebGL accent scenes** - react-three-fiber (hero/about logo, particle
   network) and a raymarched ogl shader, lazily mounted, paused offscreen,
   capability-probed, and wrapped in an ErrorBoundary so unsupported browsers
   degrade gracefully to CSS.
-- **Data-driven content** — services, projects, blog, testimonials, sitemap
+- **Data-driven content** - services, projects, blog, testimonials, sitemap
   and navigation all live in typed data modules under `src/data/`. Adding a
   service page or blog post is a data change, not a code change.
-- **Working contact + newsletter pipelines** — both forms POST to Cloudflare
+- **Working contact + newsletter pipelines** - both forms POST to Cloudflare
   Pages Functions with validation, loading/error states, and an honest mailto
   fallback.
-- **SEO built in** — build-time `sitemap.xml` generation, `robots.txt`,
+- **SEO built in** - build-time `sitemap.xml` generation, `robots.txt`,
   canonical URLs, Open Graph / Twitter cards, and JSON-LD `LocalBusiness`
   structured data.
 
@@ -64,7 +64,7 @@ app with hand-rolled routing, a dual theme system, WebGL accent scenes, and a
 
 ### Prerequisites
 
-- **Node.js ≥ 20** (`.nvmrc` pins 22 — `nvm use`)
+- **Node.js ≥ 20** (`.nvmrc` pins 22 - `nvm use`)
 - npm (comes with Node)
 
 ### Install & run
@@ -82,7 +82,7 @@ npm run build      # typecheck + bundle → dist/
 npm run preview    # serve the production build locally
 ```
 
-The `build` script runs `tsc --noEmit` first — type errors fail the deploy,
+The `build` script runs `tsc --noEmit` first - type errors fail the deploy,
 not just the editor.
 
 ### Lint
@@ -107,8 +107,8 @@ npm run lint       # oxlint over src/ (static/ legacy folder is ignored)
 mavenmg/
 ├── functions/               # Cloudflare Pages Functions (serverless API)
 │   └── api/
-│       ├── contact.ts       # POST /api/contact — validates + forwards leads
-│       └── subscribe.ts     # POST /api/subscribe — newsletter signup
+│       ├── contact.ts       # POST /api/contact - validates + forwards leads
+│       └── subscribe.ts     # POST /api/subscribe - newsletter signup
 ├── public/                  # Static assets copied verbatim (images, robots.txt)
 ├── src/
 │   ├── components/
@@ -128,7 +128,7 @@ mavenmg/
 │   ├── sections/            # page sections (Hero, Results, WorkShowcase…)
 │   ├── three/               # R3F scenes (LazyCanvas, AboutLogo, MavenNetwork)
 │   └── utils/               # theme, motion/reduced-motion, lenis, date, cn
-├── static/                  # ⚠️ legacy pre-React site — reference only,
+├── static/                  # ⚠️ legacy pre-React site - reference only,
 │                            #    not built or deployed
 ├── index.html               # head: meta, OG, JSON-LD, pre-paint theme script
 ├── vite.config.js           # plugins + sitemap.xml generation
@@ -142,7 +142,7 @@ mavenmg/
 `src/App.tsx` owns routing with a tiny route table + `history.pushState`.
 Route changes play a clip-path veil wipe; the URL, document title, meta
 description, canonical, and OG/Twitter tags are derived per route from the
-data layer (see `getRouteMeta`). Unknown paths render `NotFoundPage` — the
+data layer (see `getRouteMeta`). Unknown paths render `NotFoundPage` - the
 homepage is never served at a wrong URL. `public/_redirects`
 (`/* /index.html 200`) lets Cloudflare serve the SPA on deep links.
 
@@ -158,7 +158,7 @@ theme in `src/index.css` under `[data-theme='…']`.
 ### Motion & accessibility
 
 Everything animated goes through `useGsapContext`, which is a no-op under
-`prefers-reduced-motion` — and every animated component ships a static
+`prefers-reduced-motion` - and every animated component ships a static
 fallback so no content is ever hidden behind a skipped animation. Navigation
 uses real `<a href>` elements (via `SmartLink`) with `preventDefault` + SPA
 navigation, so keyboard, middle-click, and crawlers all work. The mobile menu
@@ -184,7 +184,7 @@ configured** in Cloudflare Pages:
 
 Point the env vars at Zapier/Make/n8n hooks, a CRM endpoint, or an email API
 worker. **Without configuration the functions return `503 not_configured`**
-and the UI shows an honest error with a pre-filled `mailto:` fallback — no
+and the UI shows an honest error with a pre-filled `mailto:` fallback - no
 lead is ever silently dropped or faked.
 
 Test the functions locally with Wrangler:
@@ -202,7 +202,7 @@ npm run build && npx wrangler pages dev dist        # functions + static build
 - **`robots.txt`** lives in `public/` and points at the sitemap.
 - Per-route titles/descriptions/canonicals are set in `src/App.tsx`
   (`getRouteMeta`); the homepage defaults live in `index.html`.
-- `LocalBusiness` JSON-LD is in `index.html` — keep address/phone/socials in
+- `LocalBusiness` JSON-LD is in `index.html` - keep address/phone/socials in
   sync with `src/data/site.ts` when they change.
 
 ## ☁️ Deployment
@@ -219,7 +219,7 @@ npx wrangler pages deploy dist --project-name mavenmg --branch main
 Cloudflare Pages dashboard (Settings → Environment variables) so the forms
 deliver.
 
-> The canonical production domain is `https://mavenmarketinggroup.com` —
+> The canonical production domain is `https://mavenmarketinggroup.com` -
 > defined once as `SITE_URL` in `src/data/site.ts` and referenced by the
 > sitemap generator and data files. Update it there first if it ever changes.
 
@@ -232,7 +232,7 @@ The visual system is CSS-first Tailwind v4: colors, fonts, and shadows are
 - `maven` (brand violet scale), `mist` (body text), `void` / `ink` (surfaces)
 - `--mist-dim` is contrast-tuned to ≥ 4.5:1 against both theme backgrounds
 - Fonts: Poppins (display), DM Sans (body), JetBrains Mono (labels),
-  Playfair Display (accents) — loaded from Google Fonts
+  Playfair Display (accents) - loaded from Google Fonts
 
 ## 🧹 Housekeeping
 
