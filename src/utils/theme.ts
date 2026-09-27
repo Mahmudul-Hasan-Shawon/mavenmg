@@ -38,9 +38,22 @@ export function resolveTheme(pref: ThemePreference | null): ThemeName {
 export function applyTheme(name: ThemeName, persist = true) {
   themeState.name = name
   if (typeof document !== 'undefined') {
-    document.documentElement.dataset.theme = name
+    const root = document.documentElement
+    // The pre-paint script already set data-theme, so only a genuine change
+    // needs the swap frames. A no-op call (mount sync) must not mute entrance
+    // transitions that start in the same tick.
+    const swap = Boolean(root.dataset.theme) && root.dataset.theme !== name
+    if (swap) root.classList.add('theme-switching')
+    root.dataset.theme = name
     const meta = document.querySelector('meta[name="theme-color"]')
     meta?.setAttribute('content', name === 'light' ? '#f5f3fa' : '#150c1f')
+    if (swap) {
+      // Two frames: one to commit data-theme, one to paint with the new vars
+      // while transitions are still suppressed.
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => root.classList.remove('theme-switching'))
+      )
+    }
   }
   if (persist) {
     try {

@@ -66,21 +66,21 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
         <Monitor
           size={18}
           aria-hidden="true"
-          className={`absolute inset-0 transition-all duration-500 ${
+          className={`theme-toggle-glyph absolute inset-0 transition-all duration-500 ${
             pref === 'system' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'
           }`}
         />
         <Sun
           size={18}
           aria-hidden="true"
-          className={`absolute inset-0 transition-all duration-500 ${
+          className={`theme-toggle-glyph absolute inset-0 transition-all duration-500 ${
             pref !== 'system' && theme === 'light' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50'
           }`}
         />
         <Moon
           size={18}
           aria-hidden="true"
-          className={`absolute inset-0 transition-all duration-500 ${
+          className={`theme-toggle-glyph absolute inset-0 transition-all duration-500 ${
             pref !== 'system' && theme === 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'
           }`}
         />
