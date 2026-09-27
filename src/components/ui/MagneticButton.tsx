@@ -12,9 +12,11 @@ interface MagneticButtonProps {
    * Visual spec. `primary` = solid brand violet; `ghost` = hairline outline;
    * `accent` = brighter solid violet; `deep` = quiet dark-violet tier;
    * `frost` = translucent frosted pill for use over imagery; `glass` =
-   * translucent brand violet with a heavy backdrop blur (for use over motion).
+   * translucent brand violet with a heavy backdrop blur (for use over motion);
+   * `deepOutline` = border-only until hover, `maven-lighter` label (light
+   * lavender on dark, deep violet on light) over an unchanging deep border.
    */
-  variant?: 'primary' | 'ghost' | 'accent' | 'deep' | 'frost' | 'glass'
+  variant?: 'primary' | 'ghost' | 'accent' | 'deep' | 'frost' | 'glass' | 'deepOutline'
   /** Pill size carries padding, font size and weight as one spec. */
   size?: 'default' | 'sm' | 'md' | 'lg'
   /** Stretch the pill to fill its container (e.g. full-width on mobile). */
@@ -35,6 +37,8 @@ const styles: Record<NonNullable<MagneticButtonProps['variant']>, string> = {
     'bg-maven-light text-white-solid border border-maven-light hover:bg-maven-light-hover hover:border-maven-light-hover',
   deep:
     'bg-maven-deep text-white-solid border border-maven-deep hover:bg-maven-light-hover hover:border-maven-light-hover',
+  deepOutline:
+    'bg-transparent text-maven-lighter border border-maven-deep hover:bg-maven-deep hover:text-white-solid hover:border-maven-deep',
   frost:
     'bg-white-solid text-maven border border-line hover:bg-[#efeafb] backdrop-blur-md',
   glass:
@@ -100,7 +104,7 @@ export function MagneticButton({
   }
 
   const cls = cn(
-    'group relative inline-flex items-center justify-center gap-2.5 rounded-full tracking-tight overflow-hidden cursor-pointer select-none transition-shadow duration-300',
+    'group relative inline-flex items-center justify-center gap-2.5 rounded-full tracking-tight overflow-hidden cursor-pointer select-none transition-[color,background-color,border-color,box-shadow] duration-300',
     styles[variant],
     sizes[size],
     fullWidth && 'w-full',
