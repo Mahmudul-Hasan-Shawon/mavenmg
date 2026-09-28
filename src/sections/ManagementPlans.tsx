@@ -1,4 +1,5 @@
-import { Check } from 'lucide-react'
+import { Check, Crown, Rocket, ShieldCheck } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 import { Eyebrow } from '../components/text/Eyebrow'
@@ -12,7 +13,17 @@ import { cn } from '../utils/cn'
  * featured tier lifts, carries the "Most Popular" chip and ignited border.
  */
 
-const plans = [
+const plans: {
+  name: string
+  tier: string
+  tagline: string
+  price: string
+  perMonth: boolean
+  note: string
+  icon: LucideIcon
+  features: string[]
+  featured: boolean
+}[] = [
   {
     name: 'Essential Maintenance',
     tier: 'Tier 01',
@@ -20,7 +31,7 @@ const plans = [
     price: '500',
     perMonth: true,
     note: '',
-    icon: 'fas fa-shield-halved',
+    icon: ShieldCheck,
     features: [
       'Maintenance & Hosting',
       'Website Speed Optimization',
@@ -39,7 +50,7 @@ const plans = [
     price: '1500',
     perMonth: true,
     note: 'Includes everything in Essential Maintenance.',
-    icon: 'fas fa-rocket',
+    icon: Rocket,
     features: [
       'Website Edits',
       'Designers',
@@ -57,7 +68,7 @@ const plans = [
     price: 'Custom Quote',
     perMonth: false,
     note: 'Builds on Proactive Management.',
-    icon: 'fas fa-crown',
+    icon: Crown,
     features: [
       'Unlimited Website Projects',
       'Dedicated Project Manager',
@@ -123,7 +134,7 @@ export function ManagementPlans({ onNavigate }: { onNavigate: (href: string) => 
                           plan.featured ? 'bg-maven-light/20 text-maven-lighter' : 'bg-maven/15 text-maven-lighter'
                         )}
                       >
-                        <i className={plan.icon} aria-hidden="true" />
+                        <plan.icon size={20} aria-hidden="true" />
                       </span>
                       <span className="mono-label !text-mist-dim">{plan.tier}</span>
                     </div>
