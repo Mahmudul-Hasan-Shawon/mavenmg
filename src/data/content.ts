@@ -49,30 +49,6 @@ export const reasons: Reason[] = [
   },
 ]
 
-export interface Value {
-  title: string
-  description: string
-}
-
-export const values: Value[] = [
-  {
-    title: 'Innovation',
-    description: 'Staying ahead of the curve with the latest technologies and design trends.',
-  },
-  {
-    title: 'Results',
-    description: 'Every decision is made with your bottom line in mind.',
-  },
-  {
-    title: 'Partnership',
-    description: 'We treat our clients like partners, not just numbers.',
-  },
-  {
-    title: 'Excellence',
-    description: 'We never settle for "good enough", we strive for outstanding.',
-  },
-]
-
 export const mavens = {
   eyebrow: 'The Marketing Mavens',
   headline: 'Elevating Digital Excellence',
@@ -91,35 +67,6 @@ export const mavens = {
     'Join forces with the Marketing Mavens, where every click is an opportunity, and every strategy is tailored for your triumph.',
 }
 
-export interface StoryEntry {
-  year: string
-  title: string
-  body: string
-}
-
-export const story: StoryEntry[] = [
-  {
-    year: '2019',
-    title: 'Founded in Lake Zurich',
-    body: 'Maven Marketing Group was founded on the core principle of bringing small businesses into the digital age, a Chicago-based company with clients all over the United States and the world.',
-  },
-  {
-    year: 'Design',
-    title: 'Custom Website Solutions',
-    body: 'We matured into a full-stack digital marketing agency offering high-quality web design packages, custom, responsive websites built to convert.',
-  },
-  {
-    year: 'Care',
-    title: 'Website Management',
-    body: 'Beyond launch, we keep sites up and running with monitoring, updates and content support, a 99.9% up-time guarantee.',
-  },
-  {
-    year: 'Growth',
-    title: 'Digital Marketing & SEO',
-    body: 'Today our focus is the best freelance digital marketing experience you can find: SEO, PPC, content and strategy that drive measurable growth.',
-  },
-]
-
 export const philosophy = {
   eyebrow: 'Our Philosophy',
   vision:
@@ -127,3 +74,74 @@ export const philosophy = {
   mission:
     'As a leading website management and digital marketing agency, our expertise covers website management, conversion rate optimization, SEO, and UI/UX design, offering a comprehensive approach that consistently delivers results.',
 }
+
+/** About page hero stats, mirroring mavenmarketinggroup.com/about. */
+export const aboutStats = [
+  { value: '2019', label: 'Founded in the Chicago area' },
+  { value: '300+', label: 'Businesses helped' },
+  { value: '3.6M+', label: 'Leads generated for clients' },
+  { value: '$500M+', label: 'Revenue generated for clients' },
+]
+
+export interface AboutService {
+  title: string
+  description: string
+  items: string[]
+}
+
+/** "What We Do" offerings on the About page. */
+export const aboutServices: AboutService[] = [
+  {
+    title: 'Custom Websites',
+    description: 'Custom design and development built around your brand and the people you sell to.',
+    items: ['Custom web design', 'Web development', 'Website redesigns', 'E-commerce'],
+  },
+  {
+    title: 'Website Management',
+    description: 'Ongoing care that keeps your site fast, secure and up to date.',
+    items: ['Web maintenance', 'Dedicated management', 'Content strategy', 'Rebrands'],
+  },
+  {
+    title: 'Search Engine Optimization',
+    description: 'Search strategy that turns rankings into leads and sales.',
+    items: ['SEO', 'Conversion rate optimization', 'Lead generation'],
+  },
+  {
+    title: 'Digital Marketing',
+    description: 'Campaigns that put your brand in front of the right customers.',
+    items: ['PPC and Google Ads', 'Social media marketing', 'Content marketing', 'Logo design'],
+  },
+]
+
+/** "How We Work" expectations on the About page. */
+export const aboutExpect = [
+  {
+    title: 'Built for your business',
+    description: 'No template with your logo dropped in. Every site is designed around your goals, your brand and your customers.',
+  },
+  {
+    title: 'Measured by results',
+    description: 'We track leads, conversions and revenue, and use that data to decide what to improve next.',
+  },
+  {
+    title: 'Here after launch',
+    description: 'Launch day is the start. We keep your site updated and performing as web standards and technology change.',
+  },
+  {
+    title: 'Easy to reach',
+    description: "Clear communication, regular updates and a team that's always a call or an email away.",
+  },
+]
+
+export const aboutTestimonial = {
+  quote:
+    'Connor and his team were absolutely fantastic. They professionalized our website and have helped us cement ourselves as a top-notch provider in the Security Industry. I wish I had found them sooner!',
+  author: 'Genaro Cavazos',
+  role: 'Chief Executive Officer',
+}
+
+export const aboutTeam = [
+  { initials: 'CM', name: 'Connor McNerney', role: 'President & Managing Member' },
+  { initials: 'KD', name: 'Kolton Durment', role: 'Chief Technical Officer' },
+  { initials: 'DR', name: 'David Rodriguez', role: 'Executive Administrator' },
+]

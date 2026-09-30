@@ -1,52 +1,28 @@
-import type { ReactElement } from 'react'
-import { values } from '../data/content'
+import { ArrowRight } from 'lucide-react'
 import { PageHero } from '../sections/PageHero'
 import { Story } from '../sections/Story'
 import { AboutStory } from '../sections/AboutStory'
+import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 import { Eyebrow } from '../components/text/Eyebrow'
+import { aboutStats, aboutExpect, aboutTestimonial, aboutTeam } from '../data/content'
 
-const valueIcons: Record<string, ReactElement> = {
-  Innovation: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8B4FBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M9 18h6" />
-      <path d="M10 22h4" />
-      <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z" />
-    </svg>
-  ),
-  Results: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8B4FBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <circle cx="12" cy="12" r="6" />
-      <circle cx="12" cy="12" r="2" />
-    </svg>
-  ),
-  Partnership: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8B4FBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  ),
-  Excellence: (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="#8B4FBF" stroke="none">
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-    </svg>
-  ),
-}
-
+/**
+ * About, mirroring mavenmarketinggroup.com/about: brand hero with actions and
+ * stats, Our Story, What We Do, How We Work, a client testimonial, Leadership,
+ * and the closing CTA.
+ */
 export default function AboutPage({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
     <>
       <PageHero
         id="about-hero"
         eyebrow="About Maven"
-        title="Who is Maven"
-        titleHighlight={['maven']}
-        accent="Marketing Group?"
-        accentHighlight={['maven']}
-        lede="A Chicago-based web design and digital marketing agency, founded in 2019 on the core principle of bringing small businesses into the digital age."
+        title="A web agency"
+        titleHighlight={['web', 'agency']}
+        accent="built to stick around after launch."
+        accentHighlight={['stick', 'around']}
+        lede="Maven Marketing Group designs, builds and manages websites for businesses across the country, then keeps them fast, secure and bringing in leads. We started in 2019 to bring small businesses into the digital age. That's still the job."
         image="/images/logos/3dlogomaven.png"
         imageAlt="Maven Marketing Group 3D logo"
         logo3d
@@ -57,46 +33,135 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
         }}
       />
 
-      <Story />
-
-      {/* Values */}
-      <section id="values" className="section pt-20 md:pt-24 pb-24 md:pb-32 border-t border-line" aria-label="Our values">
+      {/* Hero actions + stats */}
+      <section className="bg-[var(--hero-base)] pb-20 md:pb-28" aria-label="Maven highlights">
         <div className="container-maven">
           <Reveal>
-            <Eyebrow label="Our values" className="mb-14" />
+            <div className="flex flex-wrap items-center gap-4">
+              <MagneticButton variant="primary" onClick={() => onNavigate('/contact')}>
+                Start Your Project
+                <ArrowRight size={16} />
+              </MagneticButton>
+              <MagneticButton variant="deepOutline" onClick={() => onNavigate('/work')}>
+                View Our Work
+                <ArrowRight size={16} />
+                </MagneticButton>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="mt-14 md:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-px bg-line rounded-3xl overflow-hidden border border-line">
+              {aboutStats.map((s) => (
+                <div key={s.label} className="bg-[var(--hero-base)] px-6 py-10 md:px-8 md:py-12 text-center">
+                  <p className="font-dm font-[1000] leading-none tracking-[0.02em] tabular-nums text-[2.2rem] md:text-[2.9rem] lg:text-[3.2rem] text-transparent bg-clip-text bg-[image:var(--grad)]">
+                    {s.value}
+                  </p>
+                  <p className="text-mist text-md mt-4">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+        </section>
+
+      <Story />
+
+      <AboutStory />
+
+      {/* How we work */}
+      <section className="section py-24 md:py-32 border-t border-line" aria-label="How we work">
+        <div className="container-maven">
+          <Reveal>
+            <Eyebrow label="How we work" className="mb-8" />
           </Reveal>
           <Reveal>
-            <blockquote className="relative max-w-2xl mx-auto text-center mb-16">
-              <p className="font-serif italic relative text-[clamp(1.5rem,3.2vw,2.1rem)] leading-normal text-white">
-                <span
-                  aria-hidden="true"
-                  className="font-serif inline-block h-[0.55em] overflow-visible align-[-0.12em] mr-1.5 text-[1.9em] leading-[0] text-white/90 select-none"
-                >
-                  &ldquo;
-                </span>
-                Your vision mixed with our creative skills will always drive the best results.
-                <span className="font-serif text-white/90">&rdquo;</span>
-              </p>
-              <footer className="mono-label mt-4 text-white/90">&mdash; Maven Marketing Group</footer>
-            </blockquote>
+            <h2 className="display text-[clamp(1.8rem,4.2vw,3.6rem)] text-white max-w-2xl mb-12 md:mb-16">
+              What you can <span className="grad-text">expect from us</span>
+            </h2>
           </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((v) => (
-              <div key={v.title}>
-                <div className="scroll-blur group rounded-2xl border border-line bg-white/[0.02] p-8 h-full hover:border-maven-light/40 hover:shadow-[0_20px_50px_-26px_rgba(97,44,139,0.55)] transition-all duration-300 text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-maven/15 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
-                    {valueIcons[v.title]}
-                  </div>
-                  <h3 className="display font-semibold tracking-[0.98px] text-lg md:text-xl text-white mb-2">{v.title}</h3>
-                  <p className="text-mist text-md leading-relaxed">{v.description}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {aboutExpect.map((e, i) => (
+              <Reveal key={e.title} delay={i * 0.06}>
+                <div className="h-full rounded-2xl border border-line bg-white/[0.02] p-7 hover:border-maven-light/40 transition-colors duration-300">
+                  <h3 className="display font-semibold tracking-[0.98px] text-lg text-white mb-3">{e.title}</h3>
+                  <p className="text-mist text-[15px] leading-relaxed">{e.description}</p>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <AboutStory onNavigate={onNavigate} />
+      {/* Testimonial */}
+      <section className="section py-20 md:py-28 bg-[var(--hero-base)] border-t border-line" aria-label="Client testimonial">
+        <div className="container-maven">
+          <Reveal>
+            <figure className="max-w-3xl mx-auto text-center">
+              <blockquote className="font-serif italic text-[clamp(1.4rem,3vw,2rem)] leading-normal text-white">
+                &ldquo;{aboutTestimonial.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mono-label mt-6 text-white/90">
+                {aboutTestimonial.author}
+                <span className="text-mist-dim">, {aboutTestimonial.role}</span>
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Leadership */}
+      <section className="section py-24 md:py-32 border-t border-line" aria-label="Leadership">
+        <div className="container-maven">
+          <Reveal>
+            <Eyebrow label="Leadership" className="mb-8" />
+          </Reveal>
+          <Reveal>
+            <h2 className="display text-[clamp(1.8rem,4.2vw,3.6rem)] text-white max-w-2xl mb-12 md:mb-16">
+              The people behind <span className="grad-text">Maven</span>
+            </h2>
+          </Reveal>
+          <div className="grid sm:grid-cols-3 gap-5">
+            {aboutTeam.map((m, i) => (
+              <Reveal key={m.name} delay={i * 0.06}>
+                <div className="h-full rounded-2xl border border-line bg-white/[0.02] p-8 text-center hover:border-maven-light/40 transition-colors duration-300">
+                  <div className="w-14 h-14 rounded-2xl bg-maven/15 flex items-center justify-center mx-auto mb-5">
+                    <span className="display font-semibold text-lg text-maven-lighter">{m.initials}</span>
+                  </div>
+                  <h3 className="display font-semibold tracking-[0.98px] text-lg text-white mb-1.5">{m.name}</h3>
+                  <p className="text-mist text-md">{m.role}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section py-24 md:py-32 bg-[var(--hero-base)] border-t border-line" aria-label="Start your project">
+        <div className="container-maven text-center">
+          <Reveal>
+            <h2 className="display text-[clamp(2rem,5vw,4rem)] text-white">
+              Let's build <span className="grad-text">what's next.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="mt-5 text-mist text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+              Tell us about your project and a Marketing Maven will reach out to talk it through.
+            </p>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+              <MagneticButton variant="primary" onClick={() => onNavigate('/contact')}>
+                Start Your Project
+                <ArrowRight size={16} />
+              </MagneticButton>
+              <MagneticButton variant="deepOutline" onClick={() => onNavigate('/contact')}>
+                Contact Us
+              </MagneticButton>
+            </div>
+          </Reveal>
+        </div>
+      </section>
     </>
   )
 }

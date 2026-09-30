@@ -1,56 +1,56 @@
-import { story } from '../data/content'
 import { Reveal } from '../components/ui/Reveal'
 import { Eyebrow } from '../components/text/Eyebrow'
 
 /**
- * Story, Maven's history as an elegant vertical timeline: founding, the
- * move into design, management, and full-stack marketing. Editorial rows,
- * no cards.
+ * Story, the live site's "Our Story" block: founding narrative in the left
+ * column with the Chicago skyline in its own column on the right, so the
+ * image never affects the text layout. Mirrors mavenmarketinggroup.com/about.
  */
 export function Story() {
   return (
-    <section id="story" className="bg-[var(--hero-base)] section pt-28 md:pt-36 pb-8 md:pb-12 " aria-label="Company story">
+    <section id="story" className="section py-24 md:py-32" aria-label="Our story">
       <div className="container-maven">
-        <Reveal>
-          <Eyebrow label="Our story" className="mb-8 justify-center" />
-        </Reveal>
-
-        <h2 className="display text-[clamp(2rem,4.6vw,3.8rem)] text-white mb-8 md:mb-14 text-center">
-          Bringing small businesses
-          <br />
-          into <span className="grad-text">the digital age</span>
-        </h2>
-
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
-            <ol className="relative">
-              {/* Rail */}
-              <span aria-hidden="true" className="absolute left-[5px] top-3 bottom-3 w-px bg-gradient-to-b from-maven-light/60 via-line to-transparent" />
+            <Reveal>
+              <Eyebrow label="Our story" className="mb-8" />
+            </Reveal>
 
-              {story.map((entry, i) => (
-                <Reveal as="li" key={entry.title} delay={i * 0.08}>
-                  <div className="group relative pl-10 pb-10 last:pb-2">
-                    {/* Node */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-0 top-2 w-[11px] h-[11px] rounded-full border border-maven-light/60 bg-void transition-all duration-500 group-hover:border-maven-light group-hover:shadow-[0_0_14px_rgba(139,79,191,0.7)]"
-                    >
-                      <span className="absolute inset-[2.5px] rounded-full bg-maven-light transition-transform duration-500 group-hover:scale-110" />
-                    </span>
+            <Reveal>
+              <h2 className="display text-[clamp(1.8rem,4.2vw,3.6rem)] text-white mb-8 md:mb-10">
+                From small-business websites to a{' '}
+                <span className="grad-text">full-service web team</span>
+              </h2>
+            </Reveal>
 
-                    <h3 className="display font-semibold tracking-[0.98px] text-lg text-white transition-colors duration-500 group-hover:text-maven-lighter">
-                      {entry.title}
-                    </h3>
-                    <p className="mt-2.5 text-mist text-[15px] leading-relaxed max-w-lg transition-colors duration-500 group-hover:text-white">
-                      {entry.body}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </ol>
+            <div className="space-y-5 text-mist text-base md:text-lg leading-relaxed">
+              <Reveal>
+                <p>
+                  Maven Marketing Group was founded in 2019 on a simple idea:{' '}
+                  <span className="text-white">
+                    small businesses deserve the same quality of website as the big brands
+                  </span>{' '}
+                  they compete with.
+                </p>
+              </Reveal>
+              <Reveal>
+                <p>
+                  Since then we&rsquo;ve grown into a full-service web design and digital marketing agency. We build and
+                  run sites for construction firms, manufacturers, e-commerce brands, law firms and security-industry
+                  distributors, with clients across the United States.
+                </p>
+              </Reveal>
+              <Reveal>
+                <p>
+                  Many of our clients stay with us long after launch through our website management plans. We handle the
+                  updates, hosting, SEO and content that keep a website working, so they can get back to running their
+                  business.
+                </p>
+              </Reveal>
+            </div>
           </div>
 
-          <div className="relative order-first lg:order-none" data-cursor>
+          <div className="relative" data-cursor>
             <div
               aria-hidden="true"
               className="absolute -inset-3 bg-gradient-to-br from-maven-lighter/8 to-maven-light/15 blur-2xl"
