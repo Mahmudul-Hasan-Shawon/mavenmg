@@ -344,9 +344,12 @@ export default function App() {
           background: 'linear-gradient(160deg, #4a1f6b 0%, #612c8b 45%, #2a1140 100%)',
         }}
       >
-        <span className="absolute bottom-10 left-1/2 -translate-x-1/2 mono-label !text-maven-lighter/80">
-          Maven
-        </span>
+        <img
+          src="/images/logos/logo.png"
+          alt=""
+          draggable={false}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-auto select-none"
+        />
       </div>
 
       <div className="noise-overlay" aria-hidden="true" />
