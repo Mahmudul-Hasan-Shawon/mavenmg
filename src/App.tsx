@@ -58,7 +58,7 @@ const normalizePath = (rawPathname: string) => {
   return noTrailing === '' ? '/' : noTrailing.toLowerCase()
 }
 
-const SITE_URL = 'https://mavenmarketinggroup.com'
+const SITE_URL = 'https://mavenmg.pages.dev'
 const DEFAULT_DESCRIPTION =
   'Maven designs custom websites and delivers website management, SEO, and digital marketing solutions that help businesses grow.'
 

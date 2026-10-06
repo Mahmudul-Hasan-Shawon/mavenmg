@@ -219,7 +219,7 @@ npx wrangler pages deploy dist --project-name mavenmg --branch main
 Cloudflare Pages dashboard (Settings → Environment variables) so the forms
 deliver.
 
-> The canonical production domain is `https://mavenmarketinggroup.com` -
+> The canonical production domain is `https://mavenmg.pages.dev` -
 > defined once as `SITE_URL` in `src/data/site.ts` and referenced by the
 > sitemap generator and data files. Update it there first if it ever changes.
 

@@ -6,7 +6,7 @@ export interface Address {
 }
 
 /** Canonical production origin, e.g. for sitemap.xml and share links. */
-export const SITE_URL = 'https://mavenmarketinggroup.com'
+export const SITE_URL = 'https://mavenmg.pages.dev'
 
 export const site = {
   name: 'Maven Marketing Group',

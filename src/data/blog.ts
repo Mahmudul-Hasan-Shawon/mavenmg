@@ -34,7 +34,7 @@ export interface BlogSection {
   blocks: BlogBlock[]
 }
 
-const base = 'https://mavenmarketinggroup.com'
+const base = 'https://mavenmg.pages.dev'
 const author = 'Brody Quail'
 const authorImage = '/images/blog/brody-quail.jpg'
 

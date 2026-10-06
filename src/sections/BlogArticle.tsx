@@ -24,7 +24,7 @@ function articleUrl(post: BlogPost): string {
   const current =
     typeof window !== 'undefined'
       ? window.location.href
-      : `https://mavenmarketinggroup.com/blog/${post.slug}`
+      : `https://mavenmg.pages.dev/blog/${post.slug}`
   return encodeURIComponent(current)
 }
 
