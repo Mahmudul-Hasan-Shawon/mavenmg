@@ -40,26 +40,22 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
         data-hero-content
         className="relative z-10 flex-1 flex items-center container-maven w-full px-6 md:px-10 pt-28 pb-20"
       >
-        <div className="w-full min-w-0 max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <span className="mono-label !text-mist">{site.tagline}</span>
-          </div>
-
+        <div className="w-full min-w-0 max-w-6xl mx-auto text-center">
           <h1
-            className="text-[clamp(2.5rem,11vw,6.8rem)] text-white"
+            className="whitespace-nowrap text-[min(8.2vw,6.5rem)] text-white"
             style={{ fontFamily: 'var(--font-poppins)', fontWeight: 700, letterSpacing: '0.02em', lineHeight: 1.14 }}
           >
             <AnimatedText trigger="load" mode="words" stagger={0.09} duration={1.1}>
-              We Build
+              AI Consulting
             </AnimatedText>
             <span className="block mt-1">
-              <AnimatedText trigger="load" mode="words" stagger={0.09} delay={0.35} duration={1.1} gradient blur>
-                Websites
+              <AnimatedText trigger="load" mode="words" stagger={0.09} delay={0.3} duration={1.1} gradient blur>
+                SEO, Web Design &amp;
               </AnimatedText>
             </span>
             <span className="block mt-1">
-              <AnimatedText trigger="load" mode="words" stagger={0.09} delay={0.7} duration={1.1}>
-                With a Purpose
+              <AnimatedText trigger="load" mode="words" stagger={0.09} delay={0.6} duration={1.1}>
+                Web Applications
               </AnimatedText>
             </span>
           </h1>

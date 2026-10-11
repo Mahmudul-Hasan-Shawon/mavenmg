@@ -11,10 +11,10 @@ export const SITE_URL = 'https://mavenmg.pages.dev'
 export const site = {
   name: 'Maven Marketing Group',
   shortName: 'Maven',
-  tagline: 'Custom Built Websites',
-  headline: ['We Build Websites', 'With A Purpose'],
+  tagline: 'Maven Marketing Group',
+  headline: ['AI Consulting', 'SEO, Web Design &', 'Web Applications'],
   subhead:
-    'We are a Chicago-based company, with clients all over the United States & world. Your vision mixed with our creative skills will always drive the best results.',
+    'Custom web applications, SEO and AI consulting that turn your vision into measurable results. A Chicago-based team serving clients across the United States and around the world.',
   founded: 2019,
   phone: '(847) 558-9957',
   phoneHref: 'tel:+18475589957',
