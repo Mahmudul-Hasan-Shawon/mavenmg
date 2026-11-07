@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
-import { createPortal } from 'react-dom'
 import { ArrowRight, ChevronDown, Mail, Phone } from 'lucide-react'
 import { gsap, useGsapContext } from '../../hooks/useGsap'
-import { navigation, legalLinks, footerServices, type NavLink } from '../../data/navigation'
+import { navigation, legalLinks, servicesMenu, type NavLink } from '../../data/navigation'
 import { site as siteData } from '../../data/site'
 import { cn } from '../../utils/cn'
 import { MagneticButton } from './MagneticButton'
@@ -23,13 +22,19 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  // Ref, not state: hover flips it often and only the scroll handler reads it,
+  // so there is no reason to re-render the header on every hover change.
+  const servicesOpenRef = useRef(false)
 
   useEffect(() => {
     let lastY = window.scrollY
     const onScroll = () => {
       const y = window.scrollY
       setScrolled(y > 40)
-      if (Math.abs(y - lastY) > 6) setHidden(y > lastY && y > 180)
+      // An open mega menu pins the header: the panel lives inside the header,
+      // so letting the slide-away run would yank the open menu off screen and
+      // resample its backdrop blur mid-hover.
+      if (!servicesOpenRef.current && Math.abs(y - lastY) > 6) setHidden(y > lastY && y > 180)
       lastY = y
     }
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -61,7 +66,9 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
       >
         <div
           className={cn(
-            'mx-auto flex items-center justify-between gap-6 transition-all duration-500',
+            // relative: the services mega panel anchors to this row, so it
+            // drops from the navbar's bottom edge in both header states.
+            'relative mx-auto flex items-center justify-between gap-6 transition-all duration-500',
             scrolled
               ? 'max-w-5xl mt-3 px-5 py-2.5 rounded-full bg-void/70 backdrop-blur-xl border border-line shadow-sm'
               : 'max-w-7xl mt-0 px-6 md:px-10 py-5 border-b border-transparent'
@@ -97,6 +104,9 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
                   link={link}
                   active={isActive(link.href)}
                   go={go}
+                  onOpenChange={(o) => {
+                    servicesOpenRef.current = o
+                  }}
                 />
               ) : (
                 <SmartLink
@@ -160,189 +170,211 @@ function ServicesNavItem({
   link,
   active,
   go,
+  onOpenChange,
 }: {
   link: NavLink
   active: boolean
   go: (href: string) => void
+  /** Tells the header an open panel should pin it against the auto-hide. */
+  onOpenChange?: (open: boolean) => void
 }) {
-  const [open, setOpen] = useState(false)
-  const [shown, setShown] = useState(false)
-  const [pos, setPos] = useState<{ left: number; top: number } | null>(null)
-  const btnRef = useRef<HTMLButtonElement>(null)
-  const panelRef = useRef<HTMLDivElement>(null)
-  const closeTimer = useRef<number | undefined>(undefined)
-
-  const openMenu = () => {
-    if (closeTimer.current) window.clearTimeout(closeTimer.current)
-    if (!computePos()) return
-    setOpen(true)
-  }
-
-  const closeMenu = () => {
-    if (closeTimer.current) window.clearTimeout(closeTimer.current)
-    closeTimer.current = window.setTimeout(() => {
-      setOpen(false)
-      setShown(false)
-    }, 60)
-  }
-
-  const closeNow = () => {
-    if (closeTimer.current) window.clearTimeout(closeTimer.current)
-    setOpen(false)
-    setShown(false)
-  }
-
-  /** Anchor the fixed panel under the trigger; false if the button scrolled out of view. */
-  const computePos = () => {
-    const el = btnRef.current
-    if (!el) return false
-    const r = el.getBoundingClientRect()
-    if (r.top < -40 || r.bottom < 0) return false
-    const width = 340
-    const left = Math.max(16, Math.min(window.innerWidth - width - 16, r.left + r.width / 2 - width / 2))
-    setPos({ left, top: r.bottom })
-    return true
-  }
+  // The mega menu opens via pure CSS :hover on the wrapper (see .services-wrap
+  // in index.css): the panel is a DOM child of the trigger wrapper, so there
+  // is no mount cost, no timers, and open/close are always smooth transitions.
+  // This state only backs the touch tap-toggle, aria-expanded and closing on
+  // outside click or Escape.
+  //
+  // The wrap is deliberately NOT positioned: the panel's containing block is
+  // the navbar row (it has .relative), so the panel hangs off the navbar's
+  // bottom edge rather than right under the trigger. .services-bridge keeps
+  // :hover alive across the gap between the two.
+  const [pinned, setPinned] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  // Set when a link inside the panel is clicked: after the route swap the
+  // pointer can still rest on the wrap, and :hover alone would keep the menu
+  // hanging open on the new page. Cleared by the next deliberate hover.
+  const [dismissed, setDismissed] = useState(false)
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const open = (pinned || hovered) && !dismissed
 
   useEffect(() => {
-    if (!open) return
-    const raf = requestAnimationFrame(() => setShown(true))
-    // The header is fixed, so the panel cannot move on scroll only
-    // re-anchor on resize. During scroll we just close once the header
-    // would slide away (scrolled past 180 while moving down), mirroring
-    // how the dropdown used to scroll off with the header.
-    let lastY = window.scrollY
-    const onScroll = () => {
-      const y = window.scrollY
-      if (y > 180 && y - lastY > 6) {
-        closeNow()
-        return
-      }
-      lastY = y
-    }
+    onOpenChange?.(open)
+  }, [open, onOpenChange])
+
+  useEffect(() => {
+    if (!pinned) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeNow()
+      if (e.key === 'Escape') setPinned(false)
     }
-    const onResize = () => {
-      if (!computePos()) closeNow()
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('keydown', onKey)
-    window.addEventListener('resize', onResize)
-    return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('keydown', onKey)
-      window.removeEventListener('resize', onResize)
-    }
-  }, [open])
-
-  useEffect(() => {
-    if (!open) return
     const onClick = (e: MouseEvent) => {
-      const target = e.target as Node
-      if (panelRef.current?.contains(target) || btnRef.current?.contains(target)) return
-      closeNow()
+      if (!wrapRef.current?.contains(e.target as Node)) setPinned(false)
     }
+    window.addEventListener('keydown', onKey)
     document.addEventListener('mousedown', onClick)
-    return () => document.removeEventListener('mousedown', onClick)
-  }, [open])
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('mousedown', onClick)
+    }
+  }, [pinned])
+
+  const close = () => {
+    setPinned(false)
+    setHovered(false)
+    setDismissed(true)
+  }
 
   return (
-    <>
-      <div className="relative" onMouseEnter={openMenu} onMouseLeave={closeMenu}>
-        <button
-          ref={btnRef}
-          type="button"
-          data-cursor
-          aria-haspopup="menu"
-          aria-expanded={open}
-          onClick={() => (open ? closeNow() : openMenu())}
-          className={cn(
-            'flex items-center gap-1.5 text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300',
-            active ? 'text-white' : 'text-mist hover:text-white'
-          )}
-        >
-          {link.label}
-          <span
-            className={cn('grid place-items-center transition-transform duration-300', open && 'rotate-180')}
-            aria-hidden="true"
-          >
-            <ChevronDown size={14} />
-          </span>
-        </button>
-      </div>
+    <div
+      ref={wrapRef}
+      className="services-wrap group/services-wrap"
+      onMouseEnter={() => {
+        setHovered(true)
+        setDismissed(false)
+      }}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Invisible hover corridor from the trigger down to the panel. It only
+          arms while the wrap is hovered, so brushing the navbar's lower edge
+          with the menu closed cannot open it. */}
+      <span aria-hidden="true" className="services-bridge" />
 
-      {open &&
-        pos &&
-        createPortal(
-          <div
-            ref={panelRef}
-            id={`${link.href.slice(1)}-menu`}
-            role="menu"
-            aria-label="All services"
-            onMouseEnter={openMenu}
-            onMouseLeave={closeMenu}
-            style={{ left: pos.left, top: pos.top }}
-            className={cn(
-              'fixed w-[340px] pt-5 z-[110] transition-transform duration-300 ease-out',
-              shown ? 'translate-y-0' : '-translate-y-2'
-            )}
-          >
-            <div
-              className="relative rounded-2xl border border-line bg-void/80 backdrop-blur-[20px] shadow-[0_30px_70px_-24px_rgba(97,44,139,0.55)] overflow-hidden"
-            >
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -top-16 -right-16 w-44 h-44 rounded-full bg-maven/25 blur-[80px]"
-              />
-              <div className="relative grid gap-0.5 p-2">
-                {footerServices.map((s, i) => (
-                  <SmartLink
-                    key={s.href}
-                    href={s.href}
-                    onNavigate={go}
-                    role="menuitem"
-                    tabIndex={shown ? 0 : -1}
-                    data-cursor
-                    onClick={closeNow}
-                    style={{ transitionDelay: shown ? `${i * 25}ms` : '0ms' }}
-                    className={cn(
-                      'group flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-300',
-                      shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
-                    )}
-                  >
-                    <span className="flex items-center gap-3">
-                      <span className="text-sm font-medium text-white/85 group-hover:text-white transition-colors duration-300">
-                        {s.label}
-                      </span>
-                    </span>
-                    <ArrowRight
-                      size={14}
-                      className="text-maven-light opacity-0 -translate-x-1.5 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
-                    />
-                  </SmartLink>
-                ))}
-              </div>
-              <div className="relative p-2 pt-1.5">
-                <SmartLink
-                  href="/services"
-                  onNavigate={go}
-                  role="menuitem"
-                  tabIndex={shown ? 0 : -1}
-                  data-cursor
-                  onClick={closeNow}
-                  className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-maven/15 hover:bg-maven/25 border border-maven-light/20 transition-colors duration-300 cursor-pointer"
-                >
-                  <span className="text-sm font-semibold text-maven-lighter">View all services</span>
-                  <ArrowRight size={14} className="text-maven-lighter" />
-                </SmartLink>
-              </div>
-            </div>
-          </div>,
-          document.body
+      <button
+        type="button"
+        data-cursor
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => {
+          // Pointer devices open on hover; taps (no hover) pin the menu open.
+          if (window.matchMedia('(hover: none)').matches) {
+            setDismissed(false)
+            setPinned((v) => !v)
+          }
+        }}
+        className={cn(
+          'flex items-center gap-1.5 text-sm font-semibold tracking-wide cursor-pointer transition-colors duration-300 group-hover/services-wrap:text-white',
+          active ? 'text-white' : 'text-mist'
         )}
-    </>
+      >
+        {link.label}
+        <span
+          className={cn(
+            'grid place-items-center transition-transform duration-300 group-hover/services-wrap:rotate-180',
+            open && 'rotate-180'
+          )}
+          aria-hidden="true"
+        >
+          <ChevronDown size={14} />
+        </span>
+      </button>
+
+      <div
+        className={cn(
+          'services-panel flex flex-col lg:flex-row rounded-3xl border border-line bg-void shadow-[0_40px_90px_-28px_rgba(97,44,139,0.6)] overflow-hidden',
+          pinned && 'panel-open',
+          dismissed && 'panel-dismissed'
+        )}
+        aria-label="All services"
+      >
+        {/* Soft radial wash */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'radial-gradient(120% 100% at 88% -20%, rgba(139,79,191,0.22), transparent 62%)',
+          }}
+        />
+
+        {/* Left rail: statement, CTAs, note */}
+        <div className="services-rail lg:w-[252px] shrink-0 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 bg-white/[0.02] px-6 py-7">
+          <p className="mono-label !text-mist-dim mb-4">What we do</p>
+          <p className="display font-semibold text-[1.4rem] leading-snug text-white">
+            Everything your business needs to win online.
+          </p>
+
+          <div className="mt-auto pt-7 space-y-2.5">
+            <SmartLink
+              href={servicesMenu.links[0].href}
+              onNavigate={go}
+              data-cursor
+              onClick={close}
+              className="group flex items-center justify-between gap-3 rounded-full border border-white/15 px-4 py-2.5 text-[13px] font-semibold text-white hover:border-maven-lighter/60 hover:bg-maven/15 transition-all duration-300"
+            >
+              {servicesMenu.links[0].label}
+              <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" />
+            </SmartLink>
+            <SmartLink
+              href={servicesMenu.links[1].href}
+              onNavigate={go}
+              data-cursor
+              onClick={close}
+              className="group flex items-center justify-between gap-3 rounded-full bg-maven-lighter px-4 py-2.5 text-[13px] font-bold text-maven-dark hover:bg-maven-light hover:text-white-solid transition-colors duration-300"
+            >
+              {servicesMenu.links[1].label}
+              <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-1" />
+            </SmartLink>
+          </div>
+
+          <p className="text-xs leading-relaxed text-mist-dim mt-6">{servicesMenu.note}</p>
+        </div>
+
+        {/* Offering columns */}
+        <div className="flex-1 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-9 px-7 py-7">
+          {servicesMenu.columns.map((col) => (
+            <div key={col.title} className="services-col">
+              <div className="border-b border-white/10 pb-2.5 mb-4 flex items-start justify-between gap-2">
+                <SmartLink
+                  href={col.href}
+                  onNavigate={go}
+                  data-cursor
+                  onClick={close}
+                  className="text-[14.5px] font-bold text-white leading-snug hover:text-maven-lighter transition-colors duration-300"
+                >
+                  {col.title}
+                </SmartLink>
+                {col.badge && (
+                  <span className="shrink-0 mt-px px-2 py-px rounded-full bg-maven-lighter text-[10px] font-extrabold tracking-[0.06em] text-maven-dark">
+                    {col.badge}
+                  </span>
+                )}
+              </div>
+
+              <ul className="space-y-2.5">
+                {col.items.map((item) => (
+                  <li key={item.label}>
+                    <SmartLink
+                      href={item.href}
+                      onNavigate={go}
+                      data-cursor
+                      onClick={close}
+                      className="group flex items-center gap-2.5 text-[13.5px] leading-snug text-mist hover:text-white transition-colors duration-300"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="w-1 h-1 rounded-full bg-mist/60 group-hover:bg-maven-light shrink-0 transition-colors duration-300"
+                      />
+                      {item.label}
+                    </SmartLink>
+                  </li>
+                ))}
+              </ul>
+
+              {col.cta && (
+                <SmartLink
+                  href={col.cta.href}
+                  onNavigate={go}
+                  data-cursor
+                  onClick={close}
+                  className="group mt-4 inline-flex items-center gap-1.5 text-[13px] font-bold text-maven-light hover:text-maven-lighter transition-colors duration-300"
+                >
+                  {col.cta.label}
+                  <ArrowRight size={13} className="transition-transform duration-150 group-hover:translate-x-1" />
+                </SmartLink>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
 

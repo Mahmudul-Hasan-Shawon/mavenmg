@@ -353,6 +353,121 @@
     color: var(--maven-light);
   }
 
+  /* ---------- Services mega menu: pure CSS hover, no JS timers ---------- */
+
+  /* The wrap is deliberately not positioned: .services-panel anchors to the
+     navbar row (which has .relative) and hangs off the navbar's bottom edge
+     instead of right under the SERVICES trigger. */
+  .services-bridge {
+    position: absolute;
+    top: 100%;
+    left: 28%;
+    right: 28%;
+    height: 32px;
+    margin-top: -32px;
+    pointer-events: none;
+  }
+
+  .services-wrap:hover .services-bridge {
+    pointer-events: auto;
+  }
+
+  .services-panel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px) scale(0.985);
+    width: min(1280px, calc(100vw - 2rem));
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 110;
+    transition:
+      opacity 0.4s cubic-bezier(0.45, 0, 0.16, 1),
+      transform 0.4s cubic-bezier(0.45, 0, 0.16, 1),
+      visibility 0.4s;
+  }
+
+  /* The panel is opaque: the theme's deep purple in dark, plain white in
+     light, so there is no backdrop blur to sample or flicker while scrolling. */
+  [data-theme='light'] .services-panel {
+    background-color: var(--surface);
+  }
+
+  .services-wrap:hover .services-panel,
+  .services-wrap:focus-within .services-panel,
+  .services-panel.panel-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  /* Rail and columns cascade in on open; on close they leave as one. */
+  .services-rail,
+  .services-col {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 0.45s cubic-bezier(0.45, 0, 0.16, 1),
+      transform 0.45s cubic-bezier(0.45, 0, 0.16, 1);
+  }
+
+  .services-wrap:hover .services-rail,
+  .services-wrap:hover .services-col,
+  .services-panel.panel-open .services-rail,
+  .services-panel.panel-open .services-col {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .services-wrap:hover .services-rail,
+  .services-panel.panel-open .services-rail {
+    transition-delay: 0.05s;
+  }
+
+  .services-wrap:hover .services-col:nth-child(1),
+  .services-panel.panel-open .services-col:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+  .services-wrap:hover .services-col:nth-child(2),
+  .services-panel.panel-open .services-col:nth-child(2) {
+    transition-delay: 0.16s;
+  }
+  .services-wrap:hover .services-col:nth-child(3),
+  .services-panel.panel-open .services-col:nth-child(3) {
+    transition-delay: 0.22s;
+  }
+  .services-wrap:hover .services-col:nth-child(4),
+  .services-panel.panel-open .services-col:nth-child(4) {
+    transition-delay: 0.28s;
+  }
+  .services-wrap:hover .services-col:nth-child(5),
+  .services-panel.panel-open .services-col:nth-child(5) {
+    transition-delay: 0.34s;
+  }
+  .services-wrap:hover .services-col:nth-child(6),
+  .services-panel.panel-open .services-col:nth-child(6) {
+    transition-delay: 0.4s;
+  }
+
+  /* Clicking any link inside the panel dismisses it outright: after the route
+     swap the pointer can still rest on the wrap, and plain :hover would keep
+     the menu open on the new page. Same specificity as the open rules above,
+     later source order, so this wins until the next deliberate hover. */
+  .services-wrap .services-panel.panel-dismissed {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-8px) scale(0.985);
+  }
+
+  .services-wrap .services-panel.panel-dismissed .services-rail,
+  .services-wrap .services-panel.panel-dismissed .services-col {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
   /* ---------- Section chrome ---------- */
 
   .section {
