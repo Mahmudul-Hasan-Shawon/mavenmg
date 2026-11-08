@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import type { ComponentType } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
   ArrowRight,
@@ -40,6 +41,8 @@ import { SectionHeading } from '../components/ui/SectionHeading'
 import { Eyebrow } from '../components/text/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import { AIConsultingCTA } from '../sections/AIConsultingCTA'
+import { CyberSecurityCTA } from '../sections/CyberSecurityCTA'
 import { FinalCTA } from '../sections/FinalCTA'
 import { cn } from '../utils/cn'
 import { gsap, useGsapContext } from '../hooks/useGsap'
@@ -82,7 +85,14 @@ interface ServicePageProps {
   onNavigate: (href: string) => void
 }
 
+/** Service pages with a bespoke closing CTA instead of the standard FinalCTA. */
+const customClosingCTAs: Record<string, ComponentType<{ onNavigate: (href: string) => void }>> = {
+  'ai-consulting': AIConsultingCTA,
+  'cyber-security': CyberSecurityCTA,
+}
+
 export default function ServicePage({ data, onNavigate }: ServicePageProps) {
+  const CustomCTA = customClosingCTAs[data.slug]
   const relatedPages = data.related
     .map((r) => ({ entry: r, page: servicePages.find((p) => p.slug === r.slug) }))
     .filter((x): x is { entry: { slug: string; blurb: string }; page: ServicePageData } => Boolean(x.page))
@@ -99,6 +109,7 @@ export default function ServicePage({ data, onNavigate }: ServicePageProps) {
         lede={data.hero.lede}
         ledeHighlight={data.hero.ledeHighlight}
         image={data.hero.image}
+        imageLight={data.hero.imageLight}
         imageAlt={data.hero.imageAlt}
       />
 
@@ -116,7 +127,7 @@ export default function ServicePage({ data, onNavigate }: ServicePageProps) {
 
       <RelatedSection data={data} relatedPages={relatedPages} onNavigate={onNavigate} />
 
-      <FinalCTA onNavigate={onNavigate} />
+      {CustomCTA ? <CustomCTA onNavigate={onNavigate} /> : <FinalCTA onNavigate={onNavigate} />}
     </>
   )
 }
@@ -316,18 +327,18 @@ function IncludesSection({ data }: { data: ServicePageData }) {
       className="section py-24 md:py-36 bg-[var(--hero-base)] border-t border-line relative overflow-clip"
       aria-label="What's included"
     >
-      <div className="container-maven relative">
+      <div className="container-maven relative max-w-6xl">
         <SectionHeading
           eyebrow="What's included"
           title="Everything you need,"
           accent="nothing you don't"
           accentLight
         />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 gap-5">
           {data.includes.map((item, i) => {
             const Icon = iconMap[item.icon]
             return (
-              <Reveal key={item.title} delay={(i % 3) * 0.06}>
+              <Reveal key={item.title} delay={(i % 2) * 0.06}>
                 <div
                   className="scroll-blur spotlight glow-tl group h-full rounded-2xl border border-line bg-ink-2 p-8 shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:-translate-y-1.5 hover:border-maven-light/40 hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-all duration-500 ease-out"
                   onPointerMove={trackSpotlight}

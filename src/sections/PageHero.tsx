@@ -35,6 +35,8 @@ interface PageHeroProps {
   lede?: string
   /** Optional brand visual shown right of the copy on desktop. */
   image?: string
+  /** Optional light-theme variant of the hero art. */
+  imageLight?: string
   imageAlt?: string
   /** Render the image as an interactive Three.js hologram scene. */
   logo3d?: boolean
@@ -55,7 +57,7 @@ interface PageHeroProps {
 }
 
 /** Compact editorial hero for secondary pages. */
-export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight, ledeHighlight, ledeWide, ledeLines, style }: PageHeroProps) {
+export function PageHero({ id, eyebrow, title, accent, lede, image, imageLight, imageAlt, logo3d, accentHighlight, accentWhite, titleHighlight, ledeHighlight, ledeWide, ledeLines, style }: PageHeroProps) {
   const imageBg = Boolean(image && !logo3d)
 
   const copy = (
@@ -66,7 +68,7 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
       <h1 className="display text-[clamp(2.4rem,6.6vw,5.4rem)] text-white max-w-5xl">
         <AnimatedText trigger="load" mode="words" stagger={0.07} duration={1} highlight={titleHighlight}>
           {title}
-        </AnimatedText>
+        </AnimatedText>{' '}
         {accent && (
           <span className="block mt-1">
             <AnimatedText
@@ -119,8 +121,19 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageAlt, lo
             src={image}
             alt=""
             aria-hidden="true"
-            className="absolute inset-0 -z-20 h-full w-full scale-110 object-cover blur-[4px]"
+            className={cn(
+              'absolute inset-0 -z-20 h-full w-full scale-110 object-cover blur-[4px]',
+              imageLight && 'hero-art-dark'
+            )}
           />
+          {imageLight && (
+            <img
+              src={imageLight}
+              alt=""
+              aria-hidden="true"
+              className="hero-art-light absolute inset-0 -z-20 h-full w-full scale-110 object-cover blur-[4px]"
+            />
+          )}
           <div
             aria-hidden="true"
             className="absolute inset-0 -z-10 bg-gradient-to-t from-void via-void/60 to-void/25"

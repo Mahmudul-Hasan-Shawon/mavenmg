@@ -91,6 +91,115 @@
   color-scheme: light;
 }
 
+/* Theme-aware hero art: swap in a light-compatible image when needed. */
+.hero-art-light {
+  display: none;
+}
+
+[data-theme='light'] .hero-art-dark {
+  display: none;
+}
+
+[data-theme='light'] .hero-art-light {
+  display: block;
+}
+
+/* Cyber security CTA: a slow scan line over the intake card. */
+@keyframes security-scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  88% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(460px);
+    opacity: 0;
+  }
+}
+
+.security-scan {
+  animation: security-scan 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .security-scan {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* AI consulting CTA: pulsing network nodes, traveling data pulses, and
+   satellite rings orbiting behind the headline. */
+@keyframes ai-node-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+.ai-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ai-node-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes ai-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.ai-flow {
+  animation: ai-flow 6s linear infinite;
+}
+
+.ai-flow-delay-1 {
+  animation-delay: 2s;
+}
+
+.ai-flow-delay-2 {
+  animation-delay: 3.5s;
+}
+
+@keyframes ai-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ai-orbit {
+  animation: ai-orbit 28s linear infinite;
+}
+
+.ai-orbit-reverse {
+  animation: ai-orbit 40s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-node,
+  .ai-flow,
+  .ai-orbit,
+  .ai-orbit-reverse {
+    animation: none;
+  }
+}
+
 /* Semantic Tailwind tokens follow the theme vars (inline → utilities
    reference the var directly, so switching data-theme retints everything). */
 @theme inline {

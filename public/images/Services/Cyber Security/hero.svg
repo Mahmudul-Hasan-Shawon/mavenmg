@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Abstract cyber security shield and network visualization">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="80%">
+      <stop offset="0" stop-color="#2c1552"/>
+      <stop offset="0.42" stop-color="#150c26"/>
+      <stop offset="1" stop-color="#05060d"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#dacaff" stop-opacity="0.32"/>
+      <stop offset="0.38" stop-color="#8b4fbf" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#8b4fbf" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shieldFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dacaff" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#8b4fbf" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="shieldStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2ecff" stop-opacity="0.9"/>
+      <stop offset="0.5" stop-color="#b58ce0" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#b98af0" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dacaff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#8b4fbf" stop-opacity="0.05"/>
+    </linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#dacaff" stroke-opacity="0.04"/>
+    </pattern>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.9" fill="#dacaff" fill-opacity="0.09"/>
+    </pattern>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="24"/>
+    </filter>
+    <filter id="glow" x="-90%" y="-90%" width="280%" height="280%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <rect width="1600" height="900" fill="url(#dots)"/>
+
+  <ellipse cx="800" cy="470" rx="420" ry="360" fill="url(#halo)" filter="url(#soft)"/>
+
+  <g stroke="url(#line)" stroke-width="1.3" fill="none">
+    <path d="M800 180 L800 96"/>
+    <path d="M550 285 L350 170 L210 230"/>
+    <path d="M1050 285 L1250 170 L1390 230"/>
+    <path d="M550 520 L260 520 L150 400"/>
+    <path d="M1050 520 L1340 520 L1450 400"/>
+    <path d="M800 820 L800 862"/>
+    <path d="M660 760 L480 836 L330 790"/>
+    <path d="M940 760 L1120 836 L1270 790"/>
+    <path d="M350 170 L480 836"/>
+    <path d="M1250 170 L1120 836"/>
+    <path d="M260 520 L330 790"/>
+    <path d="M1340 520 L1270 790"/>
+    <path d="M210 230 L150 400"/>
+    <path d="M1390 230 L1450 400"/>
+  </g>
+
+  <g>
+    <path
+      d="M800 180 L1050 285 V520 C1050 660 940 760 800 820 C660 760 550 660 550 520 V285 Z"
+      fill="url(#shieldFill)"
+      stroke="url(#shieldStroke)"
+      stroke-width="2.4"
+    />
+    <path
+      d="M800 226 L1004 315 V519 C1004 636 914 722 800 772 C686 722 596 636 596 519 V315 Z"
+      fill="none"
+      stroke="#dacaff"
+      stroke-opacity="0.22"
+      stroke-width="1"
+      stroke-dasharray="4 12"
+    />
+
+    <g stroke="#dacaff" stroke-opacity="0.12" stroke-width="1">
+      <path d="M560 380H1040"/>
+      <path d="M560 470H1040"/>
+      <path d="M560 560H1040"/>
+      <path d="M560 650H1040"/>
+    </g>
+
+    <g>
+      <path
+        d="M755 470V445A45 45 0 0 1 845 445V470"
+        fill="none"
+        stroke="#dacaff"
+        stroke-width="12"
+        stroke-linecap="round"
+        opacity="0.85"
+      />
+      <rect x="730" y="468" width="140" height="115" rx="18" fill="#8b4fbf" fill-opacity="0.18" stroke="#dacaff" stroke-opacity="0.55" stroke-width="1.4"/>
+      <circle cx="800" cy="516" r="10" fill="#dacaff" fill-opacity="0.9"/>
+      <rect x="796" y="524" width="8" height="22" rx="4" fill="#dacaff" fill-opacity="0.9"/>
+    </g>
+  </g>
+
+  <g fill="none" stroke="url(#line)">
+    <circle cx="800" cy="470" r="330" stroke-width="0.9" stroke-dasharray="2 20" stroke-opacity="0.45"/>
+    <ellipse cx="800" cy="470" rx="470" ry="170" stroke-width="0.8" stroke-opacity="0.3"/>
+  </g>
+
+  <g fill="#dacaff">
+    <circle cx="800" cy="96" r="3.4" opacity="0.85"/>
+    <circle cx="210" cy="230" r="2.8" opacity="0.65"/>
+    <circle cx="350" cy="170" r="3" opacity="0.75"/>
+    <circle cx="480" cy="836" r="2.8" opacity="0.65"/>
+    <circle cx="330" cy="790" r="3.2" opacity="0.8"/>
+    <circle cx="800" cy="862" r="3.2" opacity="0.8"/>
+    <circle cx="1120" cy="836" r="2.8" opacity="0.65"/>
+    <circle cx="1270" cy="790" r="3.2" opacity="0.8"/>
+    <circle cx="1390" cy="230" r="2.8" opacity="0.65"/>
+    <circle cx="1250" cy="170" r="3" opacity="0.75"/>
+    <circle cx="1450" cy="400" r="3.2" opacity="0.8"/>
+    <circle cx="150" cy="400" r="3.2" opacity="0.8"/>
+    <circle cx="260" cy="520" r="2.8" opacity="0.65"/>
+    <circle cx="1340" cy="520" r="2.8" opacity="0.65"/>
+  </g>
+
+  <g fill="#f2ecff">
+    <circle cx="350" cy="170" r="2.6" opacity="0.9"/>
+    <circle cx="1250" cy="170" r="2.6" opacity="0.9"/>
+    <circle cx="330" cy="790" r="2.6" opacity="0.9"/>
+    <circle cx="1270" cy="790" r="2.6" opacity="0.9"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <circle cx="800" cy="96" r="2.2" fill="#f2ecff"/>
+    <circle cx="350" cy="170" r="2" fill="#f2ecff"/>
+    <circle cx="1250" cy="170" r="2" fill="#f2ecff"/>
+    <circle cx="330" cy="790" r="2" fill="#f2ecff"/>
+    <circle cx="1270" cy="790" r="2" fill="#f2ecff"/>
+  </g>
+
+  <g fill="none" stroke="#dacaff" stroke-opacity="0.28" stroke-width="1">
+    <path d="M70 70H118"/>
+    <path d="M70 70V118"/>
+    <path d="M1530 70H1482"/>
+    <path d="M1530 70V118"/>
+    <path d="M70 830H118"/>
+    <path d="M70 830V782"/>
+    <path d="M1530 830H1482"/>
+    <path d="M1530 830V782"/>
+  </g>
+
+  <rect width="1600" height="900" fill="none" stroke="#dacaff" stroke-opacity="0.05" stroke-width="2"/>
+</svg>

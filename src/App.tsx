@@ -74,9 +74,9 @@ const STATIC_META: Record<string, RouteMeta> = {
       'Maven Marketing Group is a Chicago-based web design and digital marketing agency serving clients across the US & worldwide. Custom websites, website management, SEO and digital marketing that drive measurable growth.',
   },
   '/services': {
-    title: 'Web Design, Development & Marketing Services | Maven Marketing Group',
+    title: 'Web Design, Development, SEO, AI & Security Services | Maven Marketing Group',
     description:
-      'Custom web design, development, website management, SEO and digital marketing services from Maven Marketing Group — built to drive measurable growth.',
+      'Web design, development, management, SEO & AEO, digital marketing, e-commerce, branding, AI consulting and cyber security — all from one senior team.',
   },
   '/work': {
     title: 'Our Work | Maven Marketing Group',

@@ -70,6 +70,8 @@ export interface ServicePageData {
     /** Words (case-insensitive) in the lede to render in solid maven-light. */
     ledeHighlight?: string[]
     image: string
+    /** Optional light-theme variant of the hero art. */
+    imageLight?: string
     imageAlt: string
   }
   stats: ServiceStat[]
@@ -1040,6 +1042,396 @@ export const servicePages: ServicePageData[] = [
       { slug: 'digital-marketing', blurb: 'An on-brand voice that makes every campaign unmistakably you.' },
       { slug: 'web-design', blurb: 'Your new identity, beautifully applied across your website.' },
       { slug: 'ecommerce', blurb: 'Storefronts that carry your brand from browse to checkout.' },
+    ],
+  },
+  {
+    slug: 'ai-consulting',
+    navLabel: 'AI Consulting',
+    blurb: 'AI strategy, custom development and production-grade automation that pays for itself.',
+    hero: {
+      eyebrow: 'AI Consulting & Implementation',
+      title: 'We build the',
+      accent: 'AI systems that run your business',
+      accentHighlight: ['ai', 'systems'],
+      lede: 'Full-service AI consulting, from enterprise strategy and roadmapping through custom development, production deployment and ongoing optimization. No slide decks without code. No pilots without a plan to ship.',
+      image: '/images/Services/AI Consulting/hero.svg',
+      imageLight: '/images/Services/AI Consulting/hero-light.svg',
+      imageAlt: 'Abstract visualization of an AI network',
+    },
+    stats: [
+      { value: 8, label: 'Core service lines' },
+      { value: 90, suffix: ' days', label: 'Average time to production' },
+      { value: 100, suffix: '%', label: 'Custom-built solutions' },
+      { value: 2, suffix: ' weeks', label: 'Development sprints' },
+    ],
+    overview: {
+      heading: 'AI that ships and pays for itself',
+      headingHighlight: ['ships', 'pays'],
+      paragraphs: [
+        'Every engagement starts with your business goals, not the technology. We design, build and deploy AI systems that fit into your existing operations and deliver measurable ROI.',
+        'Our strategists write code. Every consultant has deployed production systems. We model expected returns before we write a line of code, then track the KPIs that matter after launch.',
+      ],
+      bullets: [
+        'Builders, not advisors: every strategist writes code',
+        'Private, governed systems with audit trails and access controls',
+        'Integration with your CRM, ERP and internal tools',
+        'ROI modeled before we build, then tracked after launch',
+        'Human-in-the-loop controls and ongoing optimization',
+      ],
+      image: '/images/Services/AI Consulting/overview.svg',
+      imageAlt: 'Diagram of an AI core connected to business systems',
+    },
+    includes: [
+      {
+        icon: 'target',
+        title: 'AI Strategy & Roadmapping',
+        description:
+          'A structured approach to AI adoption that starts with your workflows, not the hype cycle. We map every process, model the return, and deliver a phased plan with governance guardrails.',
+      },
+      {
+        icon: 'link',
+        title: 'AI Implementation & Integration',
+        description:
+          'Production-grade integration that connects intelligent systems to your CRM, ERP and internal tools, including data pipelines, APIs, deployment and monitoring.',
+      },
+      {
+        icon: 'code',
+        title: 'Custom AI Development',
+        description:
+          'Private AI systems built from the ground up: internal copilots, RAG systems trained on your knowledge base, and intelligent dashboards.',
+      },
+      {
+        icon: 'zap',
+        title: 'AI Automation Services',
+        description:
+          'Systematic workflow automation that replaces manual work with intelligent processes, from back-office operations to customer-facing workflows.',
+      },
+      {
+        icon: 'megaphone',
+        title: 'AI for Marketing & Sales',
+        description:
+          'AI-powered revenue systems, from intelligent prospecting agents and lead generation to personalized follow-up sequences and campaign optimization.',
+      },
+      {
+        icon: 'life-buoy',
+        title: 'AI Customer Support Systems',
+        description:
+          'Intelligent support infrastructure that handles volume without sacrificing quality, using knowledgebase-powered copilots, smart triage and escalation logic.',
+      },
+      {
+        icon: 'database',
+        title: 'AI Data & Analytics Consulting',
+        description:
+          'Predictive analytics and business intelligence built on AI, from demand forecasting to KPI anomaly detection and decision support.',
+      },
+      {
+        icon: 'sparkles',
+        title: 'AI Agents & Autonomous Systems',
+        description:
+          'Purpose-built agents that reason, plan and execute multi-step tasks across your business systems with human-in-the-loop controls.',
+      },
+    ],
+    process: [
+      {
+        title: 'Discover',
+        description: 'We deep-dive into your workflows, systems and pain points to identify high-impact AI opportunities and model expected ROI.',
+      },
+      {
+        title: 'Architect',
+        description: 'We design the technical blueprint: data flows, model selection, integration points and the governance framework.',
+      },
+      {
+        title: 'Build & Ship',
+        description: 'Iterative development in two-week sprints puts working systems in your hands fast, with continuous feedback loops.',
+      },
+      {
+        title: 'Optimize',
+        description: 'Post-deployment monitoring, performance tuning and expansion planning, measured against the original ROI model.',
+      },
+    ],
+    plans: [
+      {
+        name: 'AI Roadmap',
+        price: 'Custom',
+        priceNote: '2–3 week sprint',
+        blurb: 'A prioritized, ROI-modeled plan for where AI fits in your business.',
+        features: [
+          'Workflow & opportunity audit',
+          'ROI modeling',
+          'Vendor & model selection',
+          'Phased implementation plan',
+          'Governance guardrails',
+        ],
+      },
+      {
+        name: 'AI Build',
+        price: 'Custom',
+        priceNote: 'Project-based',
+        blurb: 'A production-ready AI system deployed into your workflow.',
+        features: [
+          'Custom development',
+          'Data pipelines & integrations',
+          'Two-week delivery sprints',
+          'Deployment & monitoring',
+          'Team training & handover',
+        ],
+        featured: true,
+      },
+      {
+        name: 'AI Partner',
+        price: 'Custom',
+        priceNote: 'Monthly retainer',
+        blurb: 'Ongoing optimization and new agents as you scale.',
+        features: [
+          'Dedicated AI engineer',
+          'Agent monitoring & tuning',
+          'New use cases each quarter',
+          'Security & governance reviews',
+          'Priority support',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'What is AI consulting and how can it help my business?',
+        a: 'AI consulting connects your business goals to practical AI systems. We audit your workflows, identify high-impact opportunities, model the ROI, then build and deploy the solution so AI saves time or grows revenue instead of sitting in a slide deck.',
+      },
+      {
+        q: 'How long does AI implementation typically take?',
+        a: 'Most engagements move from discovery to a production system in about 90 days, delivered in two-week sprints. A focused automation or copilot can ship sooner; complex multi-system integrations take longer. We agree on milestones before work begins.',
+      },
+      {
+        q: 'What types of custom AI solutions can you build?',
+        a: 'Internal copilots, RAG systems trained on your own knowledge base, AI agents, intelligent dashboards, prospecting and follow-up automation, support assistants and predictive analytics, all built around your data and tools.',
+      },
+      {
+        q: 'Do you integrate AI with our existing systems?',
+        a: 'Yes. We connect AI to your CRM, ERP, internal APIs, databases and support tools, including data pipelines, API orchestration, access controls, deployment infrastructure and monitoring.',
+      },
+      {
+        q: 'How do you ensure AI governance and security?',
+        a: 'Governance is designed in from day one: data access controls, audit trails, human-in-the-loop approvals, model and vendor reviews, and compliance alignment for frameworks such as SOC 2, ISO/IEC 42001 and HIPAA.',
+      },
+      {
+        q: 'What industries do you serve?',
+        a: 'We work with professional services, healthcare, finance, manufacturing, e-commerce and B2B teams. The common thread is a workflow worth improving and data we can responsibly use.',
+      },
+      {
+        q: 'What are AI agents and how are they different from chatbots?',
+        a: 'A chatbot responds to a prompt. An AI agent can reason, plan and execute multi-step tasks across your systems, such as qualifying a lead, updating the CRM and scheduling follow-up, with humans approving the sensitive steps.',
+      },
+      {
+        q: 'What kind of AI agents can you build?',
+        a: 'Task-specific agents and multi-agent workflows for sales follow-up, support triage, research, reporting, operations and internal knowledge. Every agent is scoped with clear tools, guardrails and escalation paths.',
+      },
+    ],
+    related: [
+      { slug: 'seo', blurb: 'Get recommended in AI answers with AEO & GEO strategy.' },
+      { slug: 'digital-marketing', blurb: 'Put AI to work in your campaigns, content and lead follow-up.' },
+      { slug: 'web-development', blurb: 'Custom integrations and applications built around your AI systems.' },
+    ],
+  },
+  {
+    slug: 'cyber-security',
+    navLabel: 'Cyber Security',
+    blurb: 'Penetration testing, compliance readiness and audit support that close deals and prove your business is secure.',
+    hero: {
+      eyebrow: 'Cyber Security',
+      title: 'Cyber security services for',
+      accent: 'growing businesses',
+      accentHighlight: ['growing', 'businesses'],
+      lede: 'Your biggest prospects now ask for proof of security before they sign. Maven helps growing businesses pass penetration tests, close compliance gaps and get through SOC 2 and PCI audits without building a security team first.',
+      image: '/images/Services/Cyber Security/hero.svg',
+      imageLight: '/images/Services/Cyber Security/hero-light.svg',
+      imageAlt: 'Abstract visualization of a security shield and network',
+    },
+    stats: [
+      { value: 3, label: 'Core security services' },
+      {
+        value: 77,
+        suffix: '%',
+        label: 'of businesses say stakeholders now demand verified proof of compliance (Vanta, Oct 2025)',
+      },
+      {
+        value: 57,
+        suffix: '%',
+        label: 'have ended a vendor relationship over security concerns (Vanta, Oct 2025)',
+      },
+      {
+        value: 4.99,
+        prefix: '$',
+        suffix: 'M',
+        decimals: 2,
+        label: 'global average cost of a data breach in 2026 (IBM)',
+      },
+    ],
+    overview: {
+      heading: 'Security that stands up to scrutiny',
+      headingHighlight: ['scrutiny'],
+      paragraphs: [
+        'Cybersecurity services are the assessments, controls and audit work that protect your systems and data and prove that protection to customers, auditors and insurers.',
+        'For growing companies, that means penetration testing to find weaknesses, compliance readiness to close gaps against frameworks like SOC 2 and PCI DSS, and coordinated third-party attestation.',
+        'We work with vendors facing a Fortune 1000 security review, companies handling regulated data, and 20-to-250-person teams without a security lead. Maven becomes the fractional owner of your security program and works alongside the IT provider you already have.',
+      ],
+      bullets: [
+        'Penetration testing that finds gaps before buyers or attackers do',
+        'Compliance readiness for SOC 2, HIPAA, ISO 27001, PCI DSS and NIST CSF',
+        'Independent attestation coordinated under one contract',
+        'Reports, policies and letters written for procurement teams',
+        'One partner across web, infrastructure and security',
+        'Chicago-area team, remote delivery nationwide, fixed-scope engagements',
+      ],
+      image: '/images/Services/Cyber Security/overview.svg',
+      imageAlt: 'Security shield connected to business systems',
+    },
+    includes: [
+      {
+        icon: 'shield',
+        title: 'Penetration Testing',
+        description:
+          'Manual, human-led testing of your web applications, external and internal networks before an attacker or enterprise buyer finds the gap. You get a severity-ranked report, a retest and a letter of attestation you can share.',
+      },
+      {
+        icon: 'code',
+        title: 'Web Application Testing',
+        description:
+          'OWASP-aligned testing of your web apps, APIs and authentication flows, with a severity-ranked report and retest.',
+      },
+      {
+        icon: 'server',
+        title: 'Network & Segmentation Testing',
+        description:
+          'External and internal network testing, including PCI DSS segmentation testing to prove cardholder data is isolated.',
+      },
+      {
+        icon: 'search',
+        title: 'Social Engineering & Threat Monitoring',
+        description:
+          'Human-led social engineering plus OSINT and dark web monitoring to expose the people and data risks scanners miss.',
+      },
+      {
+        icon: 'layers',
+        title: 'Compliance Readiness',
+        description:
+          'Gap assessment, remediation roadmap, policies, control implementation and evidence collection for SOC 2, HIPAA, ISO 27001/42001, PCI DSS and NIST CSF 2.0.',
+      },
+      {
+        icon: 'pen',
+        title: 'Attestation & Audit Support',
+        description:
+          'Maven coordinates the independent CPA firm or PCI QSA, manages evidence and scope, and keeps the engagement under one contract.',
+      },
+      {
+        icon: 'credit-card',
+        title: 'SOC 2 & PCI Reports',
+        description:
+          'SOC 1 and SOC 2 Type I/II reports, PCI DSS AOC and ROC, bridge letters and annual renewal support.',
+      },
+      {
+        icon: 'settings',
+        title: 'Remediation & Documentation',
+        description:
+          'We fix what matters, write the policies and collect the evidence, with technical fixes handled by the web and server team that already manages your stack.',
+      },
+    ],
+    process: [
+      {
+        title: 'Scope the Ask',
+        description: 'We start from the actual questionnaire, contract clause or framework your customer named, not a generic checklist.',
+      },
+      {
+        title: 'Assess and Prioritize',
+        description: 'A penetration test, a gap assessment or both. Findings are ranked by business risk and by what is blocking the deal.',
+      },
+      {
+        title: 'Remediate and Document',
+        description: 'We fix what matters, write the policies and collect the evidence. Our web and server team handles technical fixes on stacks it already manages.',
+      },
+      {
+        title: 'Attest and Maintain',
+        description: 'An independent auditor issues the report. We keep the controls current so the next questionnaire is a reuse, not a restart.',
+      },
+    ],
+    plans: [
+      {
+        name: 'Penetration Test',
+        price: 'Custom',
+        priceNote: 'Fixed-scope engagement',
+        blurb: 'Find and rank the gaps before an attacker or enterprise buyer does.',
+        features: [
+          'External and internal network testing',
+          'Web application testing (OWASP)',
+          'Social engineering and OSINT',
+          'PCI DSS segmentation testing',
+          'Severity-ranked report, retest and attestation letter',
+        ],
+      },
+      {
+        name: 'Compliance Readiness',
+        price: 'Custom',
+        priceNote: 'Framework-based program',
+        blurb: 'Close the gaps and build the evidence trail for your audit.',
+        features: [
+          'Gap assessment and remediation roadmap',
+          'Policies and control implementation',
+          'SOC 1/2, HIPAA, ISO 27001 and 42001',
+          'PCI DSS v4.0.1 and NIST CSF 2.0',
+          'Evidence collection and CMMC on request',
+        ],
+        featured: true,
+      },
+      {
+        name: 'Attestation & Audit Support',
+        price: 'Custom',
+        priceNote: 'Independent engagement',
+        blurb: 'Go from readiness to a signed report with one coordinated engagement.',
+        features: [
+          'SOC 1 and SOC 2 Type I and II',
+          'PCI DSS AOC and ROC',
+          'Independent CPA firm and QSA coordination',
+          'Evidence chain-of-custody and scope verification',
+          'Bridge letters and annual renewal',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'What do cybersecurity services include?',
+        a: 'Typically assessment (penetration testing, vulnerability scanning, risk and gap analysis), program build-out (policies, access controls, monitoring, training) and verification (compliance readiness and third-party attestations such as SOC 2 or PCI DSS). Maven focuses on the three pieces growing businesses need when a customer asks for proof: testing, readiness and attestation.',
+      },
+      {
+        q: 'How is cyber security different from website maintenance?',
+        a: 'Website maintenance keeps one site updated, backed up, fast and online. Cybersecurity services go wider: testing your applications and network for exploitable weaknesses, building the controls a framework requires and producing audit evidence. Maintenance reduces risk on one asset; security services prove the whole business is protected.',
+      },
+      {
+        q: 'Do we need this if we already have an MSP or IT provider?',
+        a: "Usually yes. Most MSPs run day-to-day IT and some security tooling, but they rarely perform independent penetration tests, build a compliance program or coordinate a SOC 2 audit. Maven works alongside your IT provider and hands them the remediation list. We don't replace them.",
+      },
+      {
+        q: 'Does Maven issue SOC 2 reports or PCI certifications?',
+        a: 'No, and no agency should. SOC reports must be issued by an independent licensed CPA firm, and PCI Reports on Compliance by a QSA listed with the PCI Security Standards Council. Maven holds the engagement, prepares you, and manages evidence and remediation so the independent examination goes smoothly.',
+      },
+      {
+        q: 'How long does it take to become SOC 2 or PCI compliant?',
+        a: 'Readiness typically takes one to three months depending on how many controls already exist. A SOC 2 Type I can follow soon after; a Type II requires an observation period, usually three to twelve months. PCI timelines depend on your merchant level and whether a self-assessment or a QSA-led ROC is required.',
+      },
+      {
+        q: 'How much do cybersecurity services cost for a mid-size business?',
+        a: "It depends on scope. A penetration test of one web application is priced differently than a SOC 2 Type II readiness program plus the audit. Maven scopes each engagement to the specific requirement or framework you're facing and quotes fixed fees per phase, so you can start with what unblocks the deal.",
+      },
+      {
+        q: 'What is the difference between cybersecurity consulting and managed security services?',
+        a: "Consulting is project-based: assessments, pen tests, readiness programs and audit coordination with a defined start and finish. Managed security services are ongoing operations such as 24/7 monitoring and detection. Maven's core offer is consulting and readiness; for continuous monitoring we recommend or integrate with a managed detection provider.",
+      },
+      {
+        q: 'Will a penetration test take our website or systems offline?',
+        a: "A properly scoped test shouldn't. We agree on scope, test windows and excluded systems up front, use staging environments where possible and never run denial-of-service techniques. Production testing is coordinated with your IT team, and you get a findings report, a remediation plan and a retest.",
+      },
+    ],
+    related: [
+      { slug: 'website-management', blurb: 'The team that keeps your site fast, secure and online can fix the findings.' },
+      { slug: 'ai-consulting', blurb: 'Put governed AI to work without creating new data or security risk.' },
+      { slug: 'web-development', blurb: 'Build security into new applications and integrations from day one.' },
     ],
   },
 ]

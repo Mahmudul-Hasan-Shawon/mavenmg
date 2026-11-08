@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Cyber security shield connected to business systems">
+  <defs>
+    <radialGradient id="bg" cx="52%" cy="46%" r="78%">
+      <stop offset="0" stop-color="#251247"/>
+      <stop offset="0.48" stop-color="#130b23"/>
+      <stop offset="1" stop-color="#05060d"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#dacaff" stop-opacity="0.35"/>
+      <stop offset="0.4" stop-color="#8b4fbf" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#8b4fbf" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dacaff" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#8b4fbf" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dacaff" stop-opacity="0.48"/>
+      <stop offset="1" stop-color="#8b4fbf" stop-opacity="0.07"/>
+    </linearGradient>
+    <linearGradient id="shieldFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dacaff" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#8b4fbf" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="shieldStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2ecff" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#b58ce0" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#b98af0" stop-opacity="0.5"/>
+    </linearGradient>
+    <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#dacaff" fill-opacity="0.1"/>
+    </pattern>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <filter id="glow" x="-90%" y="-90%" width="280%" height="280%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#dots)"/>
+
+  <ellipse cx="600" cy="445" rx="350" ry="310" fill="url(#halo)" filter="url(#soft)"/>
+
+  <g fill="none" stroke="url(#line)" stroke-width="1.3">
+    <path d="M390 300 L210 180 L110 210"/>
+    <path d="M810 300 L990 180 L1090 210"/>
+    <path d="M390 560 L210 720 L110 690"/>
+    <path d="M810 560 L990 720 L1090 690"/>
+    <path d="M320 420 L130 420"/>
+    <path d="M880 420 L1070 420"/>
+    <path d="M600 720 L600 790"/>
+    <path d="M600 190 L600 115"/>
+    <path d="M110 210 L130 420 L110 690"/>
+    <path d="M1090 210 L1070 420 L1090 690"/>
+  </g>
+
+  <g>
+    <path
+      d="M600 190 L805 278 V475 C805 592 710 682 600 730 C490 682 395 592 395 475 V278 Z"
+      fill="url(#shieldFill)"
+      stroke="url(#shieldStroke)"
+      stroke-width="2.2"
+    />
+    <path
+      d="M600 232 L765 307 V474 C765 574 685 650 600 690 C515 650 435 574 435 474 V307 Z"
+      fill="none"
+      stroke="#dacaff"
+      stroke-opacity="0.2"
+      stroke-width="1"
+      stroke-dasharray="4 12"
+    />
+
+    <g>
+      <path
+        d="M567 438V418A33 33 0 0 1 633 418V438"
+        fill="none"
+        stroke="#dacaff"
+        stroke-width="9"
+        stroke-linecap="round"
+        opacity="0.85"
+      />
+      <rect x="550" y="436" width="100" height="82" rx="14" fill="#8b4fbf" fill-opacity="0.18" stroke="#dacaff" stroke-opacity="0.55" stroke-width="1.2"/>
+      <circle cx="600" cy="471" r="7" fill="#dacaff" fill-opacity="0.9"/>
+      <rect x="597" y="477" width="6" height="16" rx="3" fill="#dacaff" fill-opacity="0.9"/>
+    </g>
+  </g>
+
+  <g fill="none" stroke="url(#line)">
+    <circle cx="600" cy="445" r="295" stroke-width="0.9" stroke-dasharray="4 16" stroke-opacity="0.45"/>
+    <ellipse cx="600" cy="445" rx="430" ry="155" stroke-width="0.8" stroke-opacity="0.28"/>
+  </g>
+
+  <g fill="#dacaff">
+    <circle cx="600" cy="115" r="3.2" opacity="0.8"/>
+    <circle cx="600" cy="790" r="3.2" opacity="0.8"/>
+    <circle cx="110" cy="210" r="3" opacity="0.7"/>
+    <circle cx="1090" cy="210" r="3" opacity="0.7"/>
+    <circle cx="110" cy="690" r="3" opacity="0.7"/>
+    <circle cx="1090" cy="690" r="3" opacity="0.7"/>
+    <circle cx="130" cy="420" r="2.8" opacity="0.6"/>
+    <circle cx="1070" cy="420" r="2.8" opacity="0.6"/>
+  </g>
+
+  <g fill="#f2ecff">
+    <circle cx="110" cy="210" r="2.6" opacity="0.9"/>
+    <circle cx="1090" cy="210" r="2.6" opacity="0.9"/>
+    <circle cx="110" cy="690" r="2.6" opacity="0.9"/>
+    <circle cx="1090" cy="690" r="2.6" opacity="0.9"/>
+  </g>
+
+  <g>
+    <rect x="90" y="104" width="220" height="64" rx="14" fill="url(#panel)" stroke="#dacaff" stroke-opacity="0.12"/>
+    <rect x="113" y="126" width="96" height="7" rx="3.5" fill="#dacaff" fill-opacity="0.34"/>
+    <rect x="113" y="143" width="152" height="5" rx="2.5" fill="#dacaff" fill-opacity="0.14"/>
+
+    <rect x="890" y="104" width="220" height="64" rx="14" fill="url(#panel)" stroke="#dacaff" stroke-opacity="0.12"/>
+    <rect x="913" y="126" width="78" height="7" rx="3.5" fill="#dacaff" fill-opacity="0.34"/>
+    <rect x="913" y="143" width="158" height="5" rx="2.5" fill="#dacaff" fill-opacity="0.14"/>
+
+    <rect x="90" y="728" width="220" height="64" rx="14" fill="url(#panel)" stroke="#dacaff" stroke-opacity="0.12"/>
+    <rect x="113" y="750" width="112" height="7" rx="3.5" fill="#dacaff" fill-opacity="0.34"/>
+    <rect x="113" y="767" width="138" height="5" rx="2.5" fill="#dacaff" fill-opacity="0.14"/>
+
+    <rect x="890" y="728" width="220" height="64" rx="14" fill="url(#panel)" stroke="#dacaff" stroke-opacity="0.12"/>
+    <rect x="913" y="750" width="88" height="7" rx="3.5" fill="#dacaff" fill-opacity="0.34"/>
+    <rect x="913" y="767" width="146" height="5" rx="2.5" fill="#dacaff" fill-opacity="0.14"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <circle cx="600" cy="115" r="2.2" fill="#f2ecff"/>
+    <circle cx="110" cy="210" r="2" fill="#f2ecff"/>
+    <circle cx="1090" cy="210" r="2" fill="#f2ecff"/>
+    <circle cx="110" cy="690" r="2" fill="#f2ecff"/>
+    <circle cx="1090" cy="690" r="2" fill="#f2ecff"/>
+  </g>
+
+  <rect width="1200" height="900" fill="none" stroke="#dacaff" stroke-opacity="0.05" stroke-width="2"/>
+</svg>

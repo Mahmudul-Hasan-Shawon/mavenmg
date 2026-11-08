@@ -19,7 +19,9 @@ interface MagneticButtonProps {
   variant?: 'primary' | 'ghost' | 'accent' | 'deep' | 'frost' | 'glass' | 'deepOutline'
   /** Pill size carries padding, font size and weight as one spec. */
   size?: 'default' | 'sm' | 'md' | 'lg'
-  /** Stretch the pill to fill its container (e.g. full-width on mobile). */
+  /** Corner treatment: `pill` (default) or `soft` for a rounded-square CTA. */
+  shape?: 'pill' | 'soft'
+  /** Stretch the CTA to fill its container (e.g. full-width on mobile). */
   fullWidth?: boolean
   className?: string
   strength?: number
@@ -52,7 +54,12 @@ const sizes: Record<NonNullable<MagneticButtonProps['size']>, string> = {
   lg: 'px-8 py-4 text-base sm:px-10 sm:text-lg font-bold',
 }
 
-/** Pill CTA with magnetic pointer attraction and a sliding label. */
+const shapes: Record<NonNullable<MagneticButtonProps['shape']>, string> = {
+  pill: 'rounded-full',
+  soft: 'rounded-xl',
+}
+
+/** Magnetic CTA with pointer attraction and a sliding label. */
 export function MagneticButton({
   children,
   onClick,
@@ -60,6 +67,7 @@ export function MagneticButton({
   external,
   variant = 'primary',
   size = 'default',
+  shape = 'pill',
   fullWidth = false,
   className,
   strength = 0.35,
@@ -103,7 +111,8 @@ export function MagneticButton({
   }
 
   const cls = cn(
-    'group relative inline-flex items-center justify-center gap-2.5 rounded-full tracking-tight overflow-hidden cursor-pointer select-none transition-[color,background-color,border-color,box-shadow] duration-300',
+    'group relative inline-flex items-center justify-center gap-2.5 tracking-tight overflow-hidden cursor-pointer select-none transition-[color,background-color,border-color,box-shadow] duration-300',
+    shapes[shape],
     styles[variant],
     sizes[size],
     fullWidth && 'w-full',

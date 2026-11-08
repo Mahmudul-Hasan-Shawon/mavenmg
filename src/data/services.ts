@@ -1,7 +1,7 @@
 export interface Service {
   id: string
   index: string
-  icon: 'globe' | 'settings' | 'search' | 'trending'
+  icon: 'globe' | 'settings' | 'search' | 'trending' | 'sparkles' | 'shield'
   title: string
   features: string[]
   description: string
@@ -67,5 +67,31 @@ export const services: Service[] = [
       'Companies all around the world use our freelance digital marketing services to generate leads, land new clients, & increase sales!',
     highlights: ['Logo Design', 'Social Media Marketing', 'Google Ads', 'SEO', 'Lead Generation'],
     image: '/images/Services/Digital Marketing/hero.jpg',
+  },
+  {
+    id: 'ai-consulting',
+    index: '05',
+    icon: 'sparkles',
+    title: 'AI Consulting',
+    features: ['AI Strategy & Roadmapping', 'Custom AI Development', 'AI Automation', 'AI Agents'],
+    description:
+      'AI strategy, custom development and production-grade automation that pays for itself, shipped in 90 days or less.',
+    longDescription:
+      'From enterprise strategy and roadmapping through custom development and production deployment: no slide decks without code, no pilots without a plan to ship.',
+    highlights: ['Strategists who write code', '90 days to production', 'Private & governed'],
+    image: '/images/Services/AI Consulting/card.png',
+  },
+  {
+    id: 'cyber-security',
+    index: '06',
+    icon: 'shield',
+    title: 'Cyber Security',
+    features: ['Penetration Testing', 'Compliance Readiness', 'Attestation & Audit Support'],
+    description:
+      'Penetration testing, compliance readiness and audit support that keep your business out of the headlines.',
+    longDescription:
+      'Stay ahead of the threats with practical security work: find the gaps, fix them fast and walk into every customer review ready.',
+    highlights: ['Pen testing', 'SOC 2 & PCI readiness', 'Audit support'],
+    image: '/images/Services/Cyber Security/card.png',
   },
 ]

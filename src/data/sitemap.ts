@@ -84,7 +84,7 @@ export const sitemapGroups: SitemapGroup[] = [
   {
     id: 'services',
     title: 'Services',
-    description: 'Our full range of web design, development, management, and marketing services.',
+    description: 'Our full range of web design, development, management, marketing, AI consulting and security services.',
     links: [
       internal('services/web-design', 'Custom Website Design'),
       internal('services/web-development', 'Website Development'),
@@ -93,6 +93,8 @@ export const sitemapGroups: SitemapGroup[] = [
       internal('services/digital-marketing', 'Digital Marketing'),
       internal('services/ecommerce', 'E-commerce Solutions'),
       internal('services/logo-branding', 'Logo & Branding'),
+      internal('services/ai-consulting', 'AI Consulting'),
+      internal('services/cyber-security', 'Cyber Security'),
       internal('services/web-design', 'Web Design Packages'),
       internal('services/digital-marketing', 'Digital Marketing Services'),
       internal('services/website-management', 'Website Management Services'),

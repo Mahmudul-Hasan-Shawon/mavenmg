@@ -32,6 +32,8 @@ export const footerServices: { label: string; href: string }[] = [
   { label: 'Digital Marketing', href: '/services/digital-marketing' },
   { label: 'E-commerce Solutions', href: '/services/ecommerce' },
   { label: 'Logo & Branding', href: '/services/logo-branding' },
+  { label: 'AI Consulting', href: '/services/ai-consulting' },
+  { label: 'Cyber Security', href: '/services/cyber-security' },
 ]
 
 export interface ServicesMenuItem {
@@ -112,30 +114,31 @@ export const servicesMenu: { columns: ServicesMenuColumn[]; note: string; links:
     },
     {
       title: 'AI Consulting',
-      href: '/services',
+      href: '/services/ai-consulting',
       tagline: 'Practical AI, real workflows.',
       description:
         'From strategy to AI agents: automation and integrations built around the way your team already works.',
       items: [
-        { label: 'AI Strategy & Roadmapping', href: '/services' },
-        { label: 'AI Implementation & Integration', href: '/services' },
-        { label: 'AI Automation', href: '/services' },
-        { label: 'AI Agents', href: '/services' },
+        { label: 'AI Strategy & Roadmapping', href: '/services/ai-consulting' },
+        { label: 'AI Implementation & Integration', href: '/services/ai-consulting' },
+        { label: 'AI Automation', href: '/services/ai-consulting' },
+        { label: 'AI Agents', href: '/services/ai-consulting' },
       ],
-      cta: { label: 'View All AI Services', href: '/services' },
+      cta: { label: 'View All AI Services', href: '/services/ai-consulting' },
     },
     {
       title: 'Cyber Security',
-      href: '/services',
+      href: '/services/cyber-security',
       tagline: 'Stay ahead of the threats.',
       description:
         'Penetration testing, compliance readiness and audit support that keep your business out of the headlines.',
       badge: 'NEW',
       items: [
-        { label: 'Penetration Testing', href: '/services' },
-        { label: 'Compliance Readiness', href: '/services' },
-        { label: 'Attestation & Audit Support', href: '/services' },
+        { label: 'Penetration Testing', href: '/services/cyber-security' },
+        { label: 'Compliance Readiness', href: '/services/cyber-security' },
+        { label: 'Attestation & Audit Support', href: '/services/cyber-security' },
       ],
+      cta: { label: 'View All Cyber Security Services', href: '/services/cyber-security' },
     },
   ],
   note: "Not sure which service you need? Tell us what you're trying to accomplish and a Marketing Maven will recommend the right mix.",
