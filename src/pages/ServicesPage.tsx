@@ -179,6 +179,13 @@ export default function ServicesPage({ onNavigate }: { onNavigate: (href: string
                             ? 'New security service'
                             : 'New capability'
                       }
+                      image={
+                        service.slug === 'ai-consulting'
+                          ? '/images/Services/AI Consulting/card.png'
+                          : service.slug === 'cyber-security'
+                            ? '/images/Services/Cyber Security/card.png'
+                            : undefined
+                      }
                       onNavigate={onNavigate}
                     />
                   ) : (
@@ -405,11 +412,14 @@ function FeaturedService({
   service,
   index,
   label,
+  image,
   onNavigate,
 }: {
   service: ServicePageData
   index: number
   label: string
+  /** Optional background override, e.g. the home What-we-do card art. */
+  image?: string
   onNavigate: (href: string) => void
 }) {
   return (
@@ -421,7 +431,7 @@ function FeaturedService({
       className="scroll-blur group relative flex min-h-[430px] md:min-h-[480px] overflow-hidden rounded-[2rem] border border-line shadow-[0_24px_70px_-34px_rgba(97,44,139,0.55)] transition-shadow duration-500 hover:shadow-[0_36px_90px_-34px_rgba(97,44,139,0.7)]"
     >
       <img
-        src={service.hero.image}
+        src={image ?? service.hero.image}
         alt={service.hero.imageAlt}
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-[1.04]"
