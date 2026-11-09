@@ -1,18 +1,7 @@
-import { lazy, type LazyExoticComponent, type ComponentType } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { site, badges } from '../data/site'
 import { AnimatedText } from '../components/text/AnimatedText'
 import { MagneticButton } from '../components/ui/MagneticButton'
-import { LazyCanvas } from '../three/LazyCanvas'
-import { reducedMotion, skipWebGL } from '../utils/motion'
-
-function lazyScene(
-  load: () => Promise<{ default: ComponentType<any> }>
-): LazyExoticComponent<ComponentType<any>> {
-  return lazy(load)
-}
-
-const MavenNetwork = reducedMotion ? null : lazyScene(() => import('../three/MavenNetwork'))
 
 export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
@@ -25,16 +14,6 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
       className="relative min-h-svh flex flex-col overflow-hidden"
       aria-label="Introduction"
     >
-      {/* WebGL orbital ring system */}
-      <div data-hero-canvas className="absolute inset-0 will-change-transform">
-        <LazyCanvas
-          Scene={MavenNetwork}
-          sceneProps={{ showCore: false }}
-          className="absolute inset-0"
-          fallback={MavenNetwork && !skipWebGL ? undefined : <HeroFallback />}
-        />
-      </div>
-
       {/* Content */}
       <div
         data-hero-content
@@ -94,15 +73,5 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
         </div>
       </div>
     </section>
-  )
-}
-
-/** CSS-only ambient fallback for low-power devices. */
-function HeroFallback() {
-  return (
-    <div className="absolute inset-0" aria-hidden="true">
-      <div className="absolute top-1/4 right-[10%] w-[520px] h-[520px] rounded-full bg-maven/20 blur-[140px]" />
-      <div className="absolute bottom-0 left-[5%] w-[420px] h-[420px] rounded-full bg-maven-light/12 blur-[130px]" />
-    </div>
   )
 }

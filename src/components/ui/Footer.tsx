@@ -69,9 +69,41 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
               loading="lazy"
             />
             <p className="text-[#a89fc0] text-md leading-relaxed max-w-[34ch] mx-auto md:mx-0">
-              Custom built websites and digital marketing services for businesses of all sizes. Based in Lake Zurich,
-              IL, serving clients nationwide and worldwide.
+              We build websites with a purpose, then keep them fast, secure and bringing in leads.
             </p>
+
+            <div className="mt-7 max-w-[34ch] mx-auto md:mx-0 text-left border-t border-white/10 pt-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-maven-digest mb-4">
+                Our offices
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-maven/20 text-maven-digest">
+                    <MapPin size={14} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white-solid">Lake Zurich</p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-[#a89fc0]">
+                      715 Ela Rd., Lake Zurich, IL 60047
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-maven/20 text-maven-digest">
+                    <MapPin size={14} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white-solid">Deerfield</p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-[#a89fc0]">
+                      400 Lake Cook Rd., Ste. 106, Deerfield, IL 60015
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="flex gap-3 mt-6 justify-center md:justify-start">
               {site.social.map((s) => (
                 <a

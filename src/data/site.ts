@@ -18,7 +18,7 @@ export const site = {
   founded: 2019,
   phone: '(847) 558-9957',
   phoneHref: 'tel:+18475589957',
-  email: 'info@mavenmarketinggroup.com',
+  email: 'info@mavenmgofficial.com',
   address: {
     street: '715 Ela Rd.',
     city: 'Lake Zurich',
