@@ -31,8 +31,9 @@ interface MagneticButtonProps {
 }
 
 const styles: Record<NonNullable<MagneticButtonProps['variant']>, string> = {
-  primary:
-    'bg-maven text-white-solid hover:bg-maven-light border border-maven-light/40 shadow-[0_10px_32px_-10px_rgba(139,79,191,0.55)] hover:shadow-[0_0_36px_-4px_rgba(139,79,191,0.6)]',
+  /* Shiny button: rotating conic border + shine sweep (see .shiny-btn in
+     index.css), ported from vault.hyperiux.com/demo/shiny-button. */
+  primary: 'shiny-btn',
   ghost:
     'bg-transparent text-white border border-line hover:border-maven-lighter/50 hover:bg-maven-lighter/[0.04]',
   accent:
@@ -125,6 +126,12 @@ export function MagneticButton({
     </span>
   )
 
+  /* Breathing hover glow for the shiny variant. Anchored to the button box
+     itself, NOT the magnetic label span: the span carries transforms (and
+     position:relative), which would hijack the glow's containing block and
+     let its square edges poke outside the pill. */
+  const glow = variant === 'primary' ? <span className="shiny-glow" aria-hidden="true" /> : null
+
   const baseProps = {
     onMouseMove: onMove,
     onMouseLeave: onLeave,
@@ -135,10 +142,12 @@ export function MagneticButton({
 
   return href ? (
     <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} {...baseProps}>
+      {glow}
       {inner}
     </a>
   ) : (
     <button type={type} onClick={onClick} {...baseProps}>
+      {glow}
       {inner}
     </button>
   )

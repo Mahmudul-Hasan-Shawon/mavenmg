@@ -600,11 +600,9 @@
      so the wash stays visible on the pale base. */
   #testimonials {
     background-color: var(--hero-base);
-    background-image: radial-gradient(
-      ellipse 85% 65% at 50% 100%,
-      var(--hero-glow) 0%,
-      var(--hero-base) 100%
-    );
+background-image:
+  radial-gradient(ellipse 85% 65% at 50% 0%, rgb(108 65 161 / 30%), transparent 70%),
+  radial-gradient(ellipse 85% 65% at 50% 100%, rgb(108 65 161 / 20%), transparent 70%);
   }
 
   [data-theme='light'] #testimonials {
@@ -1111,3 +1109,928 @@ html:not([data-theme='light']) .marquee-badge {
 [data-theme="light"] [data-filter-card]:hover .project-arrow-circle svg {
   color: #ffffff;
 }
+
+/* ------------------------------------------------------------------
+   Leadership section (About): faithful rebuild of the Framer
+   "hover team" wall (diverse-unicorn-464220.framer.app). All colors are
+   section-scoped vars (--hts-*): site-theme values by default, with the
+   original white-demo palette restored under [data-theme="light"].
+
+   Structure per card:
+   .ht-item > .ht-pendulum (sway) > .ht-ceiling-anchor + .ht-fine-wire
+   > .ht-card-hit (perspective + holo vars) > .ht-tilt (pointer tilt)
+   > .ht-eyelet + .ht-flipper (flip) > .ht-face x2.
+   ------------------------------------------------------------------ */
+.ht-section {
+  /* Dark-theme palette (site default). */
+  --hts-card-bg: rgba(218, 202, 255, 0.04);
+  --hts-card-fg: var(--fg);
+  --hts-muted: var(--mist);
+  --hts-muted-dim: var(--mist-dim);
+  --hts-divider: var(--line);
+  --hts-divider-soft: rgba(218, 202, 255, 0.06);
+  --hts-metal: #6f7480;
+  --hts-wire: #7d828e;
+  --hts-cord: #8b8f98;
+  --hts-em: var(--maven-lighter);
+  --hts-portrait-bg: rgba(218, 202, 255, 0.07);
+  --hts-link: var(--maven-lighter);
+  --hts-holo-blend: screen;
+  --hts-card-shadow:
+    0 18px 44px -22px rgba(0, 0, 0, 0.6),
+    0 26px 64px -32px rgba(97, 44, 139, 0.5);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  background: transparent;
+  color: var(--fg);
+  border-top: 1px solid var(--line);
+  box-sizing: border-box;
+  padding-top: 65px;
+  padding-bottom: 160px;
+  font-family: 'Inter', 'Inter Placeholder', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Light theme: the original white-demo palette, verbatim. */
+[data-theme="light"] .ht-section {
+  --hts-card-bg: rgba(0, 0, 0, 0.04);
+  --hts-card-fg: rgb(37, 37, 42);
+  --hts-muted: rgb(154, 156, 171);
+  --hts-muted-dim: rgb(123, 123, 128);
+  --hts-divider: rgba(39, 39, 41, 0.1);
+  --hts-divider-soft: rgba(39, 39, 41, 0.06);
+  --hts-metal: rgb(196, 201, 208);
+  --hts-wire: rgb(164, 170, 184);
+  --hts-cord: rgb(116, 122, 140);
+  --hts-em: rgb(173, 168, 232);
+  --hts-portrait-bg: #d8d7d5;
+  --hts-link: #5158ca;
+  --hts-holo-blend: color-burn;
+  --hts-card-shadow:
+    0 14px 34px -16px rgba(23, 24, 33, 0.22),
+    0 3px 10px rgba(23, 24, 33, 0.05);
+}
+
+.ht-section *,
+.ht-section *::before,
+.ht-section *::after {
+  box-sizing: border-box;
+}
+
+.ht-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.ht-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.ht-heading-left {
+  min-width: 0;
+  text-align: left;
+}
+
+.ht-title {
+  margin: 21px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ht-title span,
+.ht-title em {
+  display: block;
+  max-width: 100%;
+}
+
+.ht-title span {
+  font-size: 50px;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1.05em;
+  color: var(--fg);
+}
+
+.ht-title em {
+  font-size: 54px;
+  font-style: normal;
+  letter-spacing: -0.045em;
+  line-height: 1.05em;
+  color: var(--hts-em);
+}
+
+.ht-scroll-outer {
+  width: 100%;
+  max-width: 1300px;
+  margin: 48px auto 0;
+}
+
+.ht-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.ht-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.ht-track {
+  position: relative;
+  width: max-content;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0 auto;
+  padding-bottom: 43px;
+}
+
+.ht-rail-cord {
+  position: absolute;
+  top: 0;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0.65;
+  z-index: 0;
+}
+
+.ht-rail-cord path {
+  stroke: var(--hts-cord);
+}
+
+.ht-enter {
+  position: relative;
+  flex: none;
+  animation: ht-arrive 1050ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ht-arrive {
+  0% {
+    opacity: 0;
+    transform: translateY(-28px) rotate(-4deg);
+  }
+  36% {
+    opacity: 1;
+    transform: translateY(6px) rotate(3deg);
+  }
+  58% {
+    transform: translateY(-3px) rotate(-2deg);
+  }
+  78% {
+    transform: translateY(1px) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ht-item {
+  position: relative;
+}
+
+.ht-pendulum {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-origin: 50% 13px;
+  transform: rotate(var(--ht-rest, 0deg));
+  animation: ht-sway 5.8s ease-in-out infinite alternate;
+}
+
+.ht-item:hover .ht-pendulum {
+  animation-play-state: paused;
+}
+
+/* Gentle idle swing around each card's rest angle (the reference drives
+   this from scroll velocity; a slow CSS swing reads the same at rest). */
+@keyframes ht-sway {
+  from {
+    transform: rotate(calc(var(--ht-rest, 0deg) - 1.1deg));
+  }
+  to {
+    transform: rotate(calc(var(--ht-rest, 0deg) + 1.1deg));
+  }
+}
+
+/* Installation hardware: ceiling anchor, wire, and the eyelet the card
+   hangs from. */
+.ht-ceiling-anchor {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  transform: translateX(-50%);
+  border: 1px solid var(--hts-metal);
+  border-radius: 50%;
+  background: var(--hts-metal);
+  box-shadow: 0 0 0 2px #17182128;
+  pointer-events: none;
+}
+
+.ht-fine-wire {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 13px;
+  transform: translateX(-50%);
+  width: 1.15px;
+  background: var(--hts-wire);
+  opacity: 0.85;
+  box-shadow: 0 0 1px #ffffff24;
+  pointer-events: none;
+}
+
+.ht-card-hit {
+  position: absolute;
+  left: 0;
+  width: 268px;
+  height: 376px;
+  perspective: 900px;
+}
+
+.ht-tilt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: 50% 0;
+  transform: rotateX(var(--ht-rx, 0deg)) rotateY(var(--ht-ry, 0deg));
+  transition: transform 0.18s ease-out;
+}
+
+.ht-eyelet {
+  position: absolute;
+  z-index: 8;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid var(--hts-metal);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px #00000020, 0 1px 2px #00000020;
+  pointer-events: none;
+}
+
+.ht-eyelet::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #777d8a70;
+}
+
+.ht-eyelet span {
+  position: absolute;
+  z-index: 1;
+  width: 23px;
+  height: 7px;
+  left: 50%;
+  top: 9px;
+  transform: translateX(-50%);
+  border-radius: 0 0 4px 4px;
+  background: var(--hts-metal);
+  opacity: 0.92;
+}
+
+.ht-flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  transform-style: preserve-3d;
+  transition: transform 760ms cubic-bezier(0.2, 0.82, 0.19, 1);
+}
+
+.ht-flipper.ht-flipped {
+  transform: rotateY(180deg);
+}
+
+.ht-face {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+.ht-front {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  font: inherit;
+  font-family: inherit;
+  background: var(--hts-card-bg);
+  color: var(--hts-card-fg);
+  border-radius: 24px;
+  padding: 19px;
+  box-shadow: var(--hts-card-shadow);
+  --ht-divider: var(--hts-divider);
+  --ht-tag-fill: rgba(244, 242, 238, 0.89);
+  --ht-img-radius: 14px;
+  --ht-img-height: 60%;
+}
+
+.ht-card-topline,
+.ht-back-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: none;
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1em;
+  color: var(--hts-muted-dim);
+}
+
+.ht-back-heading {
+  letter-spacing: 0.1em;
+}
+
+.ht-portrait {
+  margin-top: 11px;
+  height: var(--ht-img-height, 60%);
+  width: 100%;
+  background: var(--hts-portrait-bg);
+  border-radius: var(--ht-img-radius, 14px);
+  overflow: hidden;
+  position: relative;
+  flex: none;
+}
+
+.ht-portrait img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 32%;
+}
+
+.ht-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 55% 0 0;
+  background: linear-gradient(transparent, #00000024);
+  pointer-events: none;
+}
+
+.ht-portrait-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-size: 80px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.ht-person-info {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 13px;
+}
+
+.ht-person-name {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.055em;
+  color: var(--hts-card-fg);
+  text-align: left;
+  transform: translate(-2px, -1px);
+  overflow-wrap: anywhere;
+}
+
+.ht-role {
+  margin-top: 4px;
+  font-size: 13.5px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--hts-muted);
+  text-align: left;
+  transform: translate(0, -2px);
+}
+
+.ht-card-bottomline {
+  margin-top: auto;
+  border-top: 1px solid var(--ht-divider, rgba(39, 39, 41, 0.1));
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  line-height: 1em;
+}
+
+/* Pointer-tracked holographic sheen, verbatim from the reference:
+   a rainbow tint in color-burn plus a white gloss in screen, both
+   driven by --ht-illumination and parked at --ht-px/--ht-py. */
+.ht-holo,
+.ht-holo-gloss {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--ht-illumination, 0);
+  transition: opacity 0.25s;
+}
+
+.ht-holo {
+  background:
+    radial-gradient(circle at var(--ht-px, 50%) var(--ht-py, 50%), #ffffffad 0%, transparent 38%),
+    linear-gradient(112deg, #ff4f8500 4%, #fd6ca55b 22%, #6fcaff6b 40%, #d9f47b48 54%, #a16bff6b 71%, #ff8b6500 95%);
+  background-size: 100% 100%, 210% 210%;
+  background-position: center, var(--ht-px, 50%) var(--ht-py, 50%);
+  mix-blend-mode: var(--hts-holo-blend);
+}
+
+.ht-holo-gloss {
+  background: radial-gradient(ellipse 72% 42% at var(--ht-px, 50%) var(--ht-py, 50%), #ffffffc2 0%, #ffffff2d 40%, transparent 74%);
+  mix-blend-mode: screen;
+}
+
+.ht-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  background: var(--hts-card-bg);
+  color: var(--hts-card-fg);
+  border-radius: 24px;
+  padding: 19px;
+  box-shadow: var(--hts-card-shadow);
+  --ht-divider: var(--hts-divider);
+}
+
+.ht-flipped .ht-front {
+  pointer-events: none;
+}
+
+.ht-flipped .ht-back {
+  pointer-events: auto;
+}
+
+.ht-back-close {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 2px 4px;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--hts-muted-dim);
+  cursor: pointer;
+}
+
+.ht-back-close:hover {
+  color: var(--hts-card-fg);
+}
+
+.ht-back-main {
+  min-height: 0;
+  text-align: left;
+}
+
+.ht-back-identity {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ht-back-avatar {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 17px;
+  overflow: hidden;
+}
+
+.ht-back-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.ht-back-intro {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ht-back-intro strong {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1em;
+  color: var(--hts-card-fg);
+}
+
+.ht-back-intro span {
+  font-size: 9px;
+  line-height: 1em;
+  color: var(--hts-muted-dim);
+}
+
+.ht-back-location {
+  margin-top: 8px;
+  font-size: 9px;
+  line-height: 1em;
+  color: var(--hts-muted-dim);
+}
+
+.ht-about {
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--hts-muted);
+  margin: 10px 0 8px;
+}
+
+.ht-back-section {
+  border-top: 1px solid var(--ht-divider, rgba(39, 39, 41, 0.1));
+  padding-top: 9px;
+  text-align: left;
+}
+
+.ht-back-label {
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  line-height: 1em;
+  color: var(--hts-muted-dim);
+  margin-bottom: 5px;
+}
+
+.ht-project-link {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  text-decoration: none;
+  border-bottom: 1px solid var(--hts-divider-soft);
+  color: var(--hts-card-fg);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1em;
+}
+
+.ht-project-link:hover {
+  color: var(--hts-link);
+}
+
+.ht-back-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--ht-divider, rgba(39, 39, 41, 0.1));
+  display: flex;
+  gap: 6px;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 9px;
+  min-height: 0;
+}
+
+.ht-back-contact {
+  min-width: 0;
+  flex: 1;
+}
+
+.ht-email {
+  display: block;
+  font-size: 9px;
+  line-height: 1em;
+  font-weight: 400;
+  color: var(--hts-card-fg);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ht-email:hover {
+  text-decoration: underline;
+}
+
+.ht-qr {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.ht-qr svg {
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 5px;
+  display: block;
+  flex: none;
+  shape-rendering: crispEdges;
+}
+
+.ht-qr span {
+  font-size: 6px;
+  letter-spacing: 0.13em;
+  font-weight: 700;
+  color: var(--hts-muted-dim);
+}
+
+.ht-front:focus-visible,
+.ht-back-close:focus-visible,
+.ht-email:focus-visible {
+  outline: 2px solid #3d57f7;
+  outline-offset: -3px;
+}
+
+/* Narrow containers: stack the header, shrink the title, keep the
+   track horizontally scrollable. */
+@media (max-width: 900px) {
+  .ht-section {
+    padding-top: 52px;
+    padding-bottom: 84px;
+  }
+
+  .ht-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .ht-title span {
+    font-size: 31px;
+  }
+
+  .ht-title em {
+    font-size: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ht-enter {
+    animation: none;
+  }
+
+  .ht-pendulum {
+    animation: none;
+  }
+
+  .ht-flipper {
+    transition-duration: 0.01ms;
+  }
+
+  .ht-tilt {
+    transform: none;
+  }
+
+  .ht-holo,
+  .ht-holo-gloss {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Shiny button (.shiny-btn): port of the Hyperium Vault "Shiny Button"
+   (vault.hyperiux.com/demo/shiny-button), recolored to the maven violet
+   palette. A conic-gradient border rotates forever around a dark base;
+   a dot-grid sparkle and a sweeping shine ray ride the same angle;
+   hovering widens the bright arc, shifts it, and warms the shine.
+   Applied to the `primary` MagneticButton variant.
+   ------------------------------------------------------------------ */
+@property --shiny-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --shiny-offset {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --shiny-arc {
+  syntax: "<percentage>";
+  initial-value: 5%;
+  inherits: false;
+}
+
+@property --shiny-shine {
+  syntax: "<color>";
+  initial-value: white;
+  inherits: false;
+}
+
+.shiny-btn {
+  --gleam-base: #0b0614;
+  --gleam-inset: #26173a;
+  --gleam-label: #ffffff;
+  --gleam-accent: #8b4fbf;
+  --gleam-accent-soft: #dacaff;
+  --animation: shiny-angle linear infinite;
+  --duration: 3s;
+  --shadow-size: 2px;
+  --transition: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  isolation: isolate;
+  outline-offset: 4px;
+  border: 2px solid transparent;
+  color: var(--gleam-label);
+  background:
+    linear-gradient(var(--gleam-base), var(--gleam-base)) padding-box,
+    conic-gradient(
+      from calc(var(--shiny-angle) - var(--shiny-offset)),
+      transparent,
+      var(--gleam-accent) var(--shiny-arc),
+      var(--shiny-shine) calc(var(--shiny-arc) * 2),
+      var(--gleam-accent) calc(var(--shiny-arc) * 3),
+      transparent calc(var(--shiny-arc) * 4)
+    ) border-box;
+  box-shadow: inset 0 0 0 1px var(--gleam-inset);
+  transition: var(--transition);
+  transition-property: --shiny-offset, --shiny-arc, --shiny-shine;
+}
+
+.shiny-btn::before,
+.shiny-btn::after,
+.shiny-btn span::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+}
+
+.shiny-btn:active {
+  translate: 0 1px;
+}
+
+/* Rotating dot-grid sparkle under the face, masked to a conic wedge. */
+.shiny-btn::before {
+  --size: calc(100% - var(--shadow-size) * 3);
+  --position: 2px;
+  --space: calc(var(--position) * 2);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(
+    circle at var(--position) var(--position),
+    white calc(var(--position) / 4),
+    transparent 0
+  ) padding-box;
+  background-size: var(--space) var(--space);
+  background-repeat: space;
+  mask-image: conic-gradient(
+    from calc(var(--shiny-angle) + 45deg),
+    black,
+    transparent 10% 90%,
+    black
+  );
+  border-radius: inherit;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+/* Sweeping shine ray: a 1:1 layer rotating around the button. */
+.shiny-btn::after {
+  --animation: shiny-spin linear infinite;
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(-50deg, transparent, var(--gleam-accent), transparent);
+  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+  opacity: 0.6;
+}
+
+.shiny-btn span {
+  z-index: 1;
+}
+
+/* Breathing bottom glow, revealed on hover/focus. A real element (not a
+   span pseudo) so it anchors to the button box: the label span is
+   position:relative for the magnetic pull, which would otherwise turn it
+   into the pseudo's containing block and let the square poke outside the
+   pill. The button's overflow:hidden clips it to a soft inner bloom. */
+.shiny-btn .shiny-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: calc(100% + 1rem);
+  height: calc(100% + 1rem);
+  border-radius: inherit;
+  box-shadow: inset 0 -1ex 2rem 4px var(--gleam-accent);
+  opacity: 0;
+  transition: opacity var(--transition);
+  animation: calc(var(--duration) * 1.5) shiny-breathe linear infinite;
+  pointer-events: none;
+}
+
+/* The composed pair: one copy runs forever, a second runs reversed but
+   paused, so hovering releases it and the angle/ray sweep the other way
+   on top of the base motion (animation-composition: add). */
+.shiny-btn,
+.shiny-btn::before,
+.shiny-btn::after {
+  animation: var(--animation) var(--duration),
+    var(--animation) calc(var(--duration) / 0.4) reverse paused;
+  animation-composition: add;
+}
+
+.shiny-btn:is(:hover, :focus-visible) {
+  --shiny-arc: 20%;
+  --shiny-offset: 95deg;
+  --shiny-shine: var(--gleam-accent-soft);
+}
+
+.shiny-btn:is(:hover, :focus-visible),
+.shiny-btn:is(:hover, :focus-visible)::before,
+.shiny-btn:is(:hover, :focus-visible)::after {
+  animation-play-state: running;
+}
+
+.shiny-btn:is(:hover, :focus-visible) .shiny-glow {
+  opacity: 1;
+}
+
+@keyframes shiny-angle {
+  to {
+    --shiny-angle: 360deg;
+  }
+}
+
+@keyframes shiny-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes shiny-breathe {
+  from,
+  to {
+    scale: 1;
+  }
+  50% {
+    scale: 1.2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shiny-btn,
+  .shiny-btn::before,
+  .shiny-btn::after,
+  .shiny-btn .shiny-glow {
+    animation: none !important;
+  }
+
+  .shiny-btn:is(:hover, :focus-visible),
+  .shiny-btn:is(:hover, :focus-visible)::before,
+  .shiny-btn:is(:hover, :focus-visible)::after {
+    animation-play-state: paused !important;
+  }
+
+  .shiny-btn:is(:hover, :focus-visible) .shiny-glow {
+    opacity: 0;
+  }
+
+  .shiny-btn {
+    transition: none;
+  }
+}
+
+/* (Closing CTA backdrop styles were removed with the horizon concept;
+   the card now carries only its base wash and the outlined "12".) */

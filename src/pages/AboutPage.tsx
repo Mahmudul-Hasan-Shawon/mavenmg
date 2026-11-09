@@ -2,10 +2,11 @@ import { ArrowRight } from 'lucide-react'
 import { PageHero } from '../sections/PageHero'
 import { Story } from '../sections/Story'
 import { AboutStory } from '../sections/AboutStory'
+import { Leadership } from '../sections/Leadership'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 import { Eyebrow } from '../components/text/Eyebrow'
-import { aboutStats, aboutExpect, aboutTestimonial, aboutTeam } from '../data/content'
+import { aboutStats, aboutExpect, aboutTestimonial } from '../data/content'
 
 /**
  * About, mirroring mavenmarketinggroup.com/about: brand hero with actions and
@@ -110,31 +111,7 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
       </section>
 
       {/* Leadership */}
-      <section className="section py-24 md:py-32 border-t border-line" aria-label="Leadership">
-        <div className="container-maven">
-          <Reveal>
-            <Eyebrow label="Leadership" className="mb-8" />
-          </Reveal>
-          <Reveal>
-            <h2 className="display text-[clamp(1.8rem,4.2vw,3.6rem)] text-white max-w-2xl mb-12 md:mb-16">
-              The people behind <span className="grad-text">Maven</span>
-            </h2>
-          </Reveal>
-          <div className="grid sm:grid-cols-3 gap-5">
-            {aboutTeam.map((m, i) => (
-              <Reveal key={m.name} delay={i * 0.06}>
-                <div className="h-full rounded-2xl border border-line bg-white/[0.02] p-8 text-center hover:border-maven-light/40 transition-colors duration-300">
-                  <div className="w-14 h-14 rounded-2xl bg-maven/15 flex items-center justify-center mx-auto mb-5">
-                    <span className="display font-semibold text-lg text-maven-lighter">{m.initials}</span>
-                  </div>
-                  <h3 className="display font-semibold tracking-[0.98px] text-lg text-white mb-1.5">{m.name}</h3>
-                  <p className="text-mist text-md">{m.role}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Leadership />
 
       {/* CTA */}
       <section className="section py-24 md:py-32 bg-[var(--hero-base)] border-t border-line" aria-label="Start your project">

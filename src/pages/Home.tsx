@@ -4,6 +4,7 @@ import { Services } from '../sections/Services'
 import { WhyMaven } from '../sections/WhyMaven'
 import { BusinessGrowth } from '../sections/BusinessGrowth'
 import { Results } from '../sections/Results'
+import { ClientLogos } from '../sections/ClientLogos'
 import { Philosophy } from '../sections/Philosophy'
 import { WorkShowcase } from '../sections/WorkShowcase'
 import { Testimonials } from '../sections/Testimonials'
@@ -18,6 +19,7 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
       <Partners />
       <Services onNavigate={onNavigate} />
       <Results />
+      <ClientLogos />
       <WhyMaven onNavigate={onNavigate} />
       <BusinessGrowth onNavigate={onNavigate} />
       <Testimonials />
