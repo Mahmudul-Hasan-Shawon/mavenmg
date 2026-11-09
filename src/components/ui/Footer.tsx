@@ -91,7 +91,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
 
           <div>
             <h4 className="text-sm uppercase footer-col-heading">Services</h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3 font-inter">
               {footerServices.map((s) => (
                 <li key={s.href}>
                   <SmartLink

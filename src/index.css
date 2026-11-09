@@ -223,6 +223,7 @@
 
 @theme {
   --font-dm: 'DM Sans', sans-serif;
+  --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-poppins: 'Poppins', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-serif: 'Playfair Display', Georgia, serif;
@@ -965,6 +966,19 @@ html:not([data-theme='light']) [data-logo='light'] {
 
 [data-theme='light'] [data-logo='dark'] {
   display: none;
+}
+
+/* Client logo wall: each cell stacks the whole client pool, but only the
+   cell's active page-one logo sits in view (aria-hidden=false); the rest
+   wait translated below the cell. GSAP mirrors this inline before its
+   first flip, and this rule keeps the first paint and reduced-motion
+   rendering correct without it. Unlayered so it always wins. */
+[data-logo-img] {
+  transform: translateY(300%);
+}
+
+[data-logo-img][aria-hidden='false'] {
+  transform: translateY(0);
 }
 
 /* Hero marquee badges: inverted in dark theme, natural in light theme. */

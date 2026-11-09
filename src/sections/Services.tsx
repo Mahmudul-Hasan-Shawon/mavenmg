@@ -15,14 +15,14 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
     <section id="services" className="section py-28 md:py-36" aria-label="Services">
       <div className="container-maven">
         <SectionHeading
-          eyebrow="What we do"
-          title="Everything your Business"
-          accent="needs to win online"
-          highlight={['business', 'win']}
-          lede="Affordable web design services and digital marketing that fit your business needs, from first design to daily management."
+          eyebrow="Our services"
+          title="Six Ways We Grow"
+          accent="Your Business"
+          highlight={['grow', 'business']}
+          lede="Take one service or hand us the whole thing. Every line below is planned, built and measured by the same team."
         />
 
-        <div className="grid sm:grid-cols-2 gap-6 mt-14 md:mt-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14 md:mt-20">
           {services.map((service, i) => (
             <Reveal key={service.id} delay={i * 0.06}>
               <article className="scroll-blur panel panel-hover group relative block h-full overflow-hidden rounded-2xl shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500">
