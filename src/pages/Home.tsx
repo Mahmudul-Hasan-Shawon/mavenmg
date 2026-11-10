@@ -2,13 +2,11 @@ import { Hero } from '../sections/Hero'
 import { Partners } from '../sections/Partners'
 import { Services } from '../sections/Services'
 import { WhyMaven } from '../sections/WhyMaven'
-import { BusinessGrowth } from '../sections/BusinessGrowth'
 import { Results } from '../sections/Results'
 import { ClientLogos } from '../sections/ClientLogos'
 import { Philosophy } from '../sections/Philosophy'
-import { WorkShowcase } from '../sections/WorkShowcase'
+import { FeaturedWork } from '../sections/FeaturedWork'
 import { Testimonials } from '../sections/Testimonials'
-import { MavensTeam } from '../sections/MavensTeam'
 import { FinalCTA } from '../sections/FinalCTA'
 
 /** The full narrative experience Maven's home page. */
@@ -21,11 +19,9 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
       <Results />
       <ClientLogos />
       <WhyMaven onNavigate={onNavigate} />
-      <BusinessGrowth onNavigate={onNavigate} />
+      <FeaturedWork onNavigate={onNavigate} />
       <Testimonials />
       <Philosophy />
-      <WorkShowcase onNavigate={onNavigate} limit={6} variant="depth" />
-      <MavensTeam id="mavens-team" className="pt-16 md:pt-24 pb-8 md:pb-16" />
       <FinalCTA onNavigate={onNavigate} />
     </>
   )
