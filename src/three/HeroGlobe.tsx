@@ -6,19 +6,21 @@ import { retintMaterial, watchSceneTheme } from './scenePalette'
 
 /* =====================================================================
    HeroGlobe — the "midnight planet" hero backdrop: a dark violet globe
-   seen from ~58° above the equator, a soft atmospheric rim, a pole bloom
-   and a lighthouse beam sweeping around the limb. Everything renders in
-   the site's own palette on top of the hero's existing glow, so the
-   section keeps its look and just gains the globe.
+   sized to fit the viewport and centred in the middle of the hero, seen
+   from ~58° above the equator. A soft atmospheric rim, a pole bloom and
+   a lighthouse beam sweeping around the limb complete the scene.
+   Everything renders in the site's own palette on top of the hero's
+   existing glow, so the section keeps its look and just gains
+   the globe.
 
    Technique notes (values are tuned constants, not magic):
    - The beam is a camera-facing plane running the reference lobe math:
      Gaussian core + Lorentzian halo/outer rings, a raised-cosine
      angular arc so the sweep has no seam, and a soft window at the
      buffer edge. It orbits the globe's limb like a searchlight.
-   - Placement mirrors the reference layout: the disc is
-     max(min(1.337·vw, 2054px), 1.3·vh) wide, centred horizontally, with
-     its centre parked below the fold so only the polar cap shows.
+   - Placement: the ball's diameter is min(0.9·viewport-height,
+     0.8·viewport-width) and its centre sits at the vertical middle of
+     the hero, so the rim, beam and pole stay on screen at every size.
    ===================================================================== */
 
 /* ------------------------------ tunables ------------------------------ */
@@ -45,6 +47,10 @@ const GLOBE = {
   fov: 42,
   rampSeconds: 1.5, // entrance bloom duration
   scrollFadeVh: 0.85, // fully faded once this much viewport is scrolled
+  /** Visible-ball sizing: the globe diameter as a fraction of the viewport.
+   *  Height-capped so the whole ball + beam ring always fit on screen. */
+  sizeVh: 0.9,
+  sizeVw: 0.8,
 }
 
 const DARK = {
@@ -76,11 +82,11 @@ const LIGHT = {
 
 /* ------------------------------ helpers ------------------------------ */
 
-/** Reference hero layout: disc size + centre position in px. */
+/** Hero layout: the globe ball is sized to fit the viewport and parked in
+ *  the vertical middle of the hero, behind the content. */
 function heroFrame(vw: number, vh: number) {
-  const artW = Math.max(Math.min(1.337 * vw, 2054), 1.3 * vh)
-  const artCY = Math.max(0.3 * vh, vh + 40 - artW) + artW / 2
-  return { artW, artCX: vw / 2, artCY }
+  const artW = Math.min(GLOBE.sizeVh * vh, GLOBE.sizeVw * vw)
+  return { artW, artCX: vw / 2, artCY: vh / 2 }
 }
 
 const clamp01 = (v: number) => THREE.MathUtils.clamp(v, 0, 1)
@@ -381,13 +387,21 @@ function PolarGlobe() {
     const close = clamp01(scrollState.y / Math.max(size.height * GLOBE.scrollFadeVh, 1))
     s.fade.value = ramp * (1 - close)
 
-    // Responsive placement: park the disc like the reference hero layout.
+    // Responsive placement: centred ball at the intended on-screen size.
+    // The naive linear px->world conversion overshoots for spheres this
+    // large (the silhouette sits nearer the camera than the centre plane),
+    // so the radius is solved from the tangent geometry instead.
     const { artW, artCX, artCY } = heroFrame(size.width, size.height)
     const dist = GLOBE.cameraDistance
     const fov = (camera as THREE.PerspectiveCamera).fov
-    const worldPerPx = (2 * dist * Math.tan(((fov * Math.PI) / 180) / 2)) / size.height
+    const tanHalf = Math.tan(((fov * Math.PI) / 180) / 2)
+    const k = ((artW / 2) * tanHalf) / (size.height / 2)
+    const sphereR = (dist * k) / Math.sqrt(1 + k * k)
     const settle = 0.965 + 0.035 * ramp // tiny scale-in on entrance
-    group.scale.setScalar((artW / 2) * worldPerPx * settle)
+    group.scale.setScalar(sphereR * settle)
+    // The beam billboard lives in the sphere's centre plane, so its ring
+    // lands inside the silhouette by 1/sqrt(1+k^2); rescale it onto the limb.
+    if (beamRef.current) beamRef.current.scale.setScalar(Math.sqrt(1 + k * k))
     const ndcX = (artCX / size.width) * 2 - 1
     const ndcY = 1 - (artCY / size.height) * 2
     tmpRef.current.set(ndcX, ndcY, 0.5).unproject(camera).sub(camera.position).normalize()
