@@ -1,16 +1,70 @@
-import { ArrowUpRight } from 'lucide-react'
-import { services } from '../data/services'
+import { useRef, useState, type CSSProperties } from 'react'
+import {
+  ArrowUpRight,
+  ChevronDown,
+  Globe,
+  Search,
+  Settings,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  type LucideIcon,
+} from 'lucide-react'
+import { services, type Service } from '../data/services'
 import { SectionHeading } from '../components/ui/SectionHeading'
-import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import { SmartLink } from '../components/ui/SmartLink'
+import { Reveal } from '../components/ui/Reveal'
+import { gsap, useGsapContext } from '../hooks/useGsap'
 
 /**
- * ServiceExplorer, Maven's services as image-top cards built on the Work
- * page's card concept: panel shell, image zoom on hover, stroked index
- * number, and highlight chips. The card itself never translates on hover,
- * so no seams appear under the image.
+ * ServiceDeck, a fully redesigned services rail.
+ *
+ * Desktop (lg+): an expanding accordion of vertical panels. Collapsed panels
+ * show only a rotated title, a mono index and an orbiting satellite icon.
+ * Hovering (or focusing) a panel grows it across the row while a clipped
+ * image wipe, description, highlight chips and a CTA crossfade in. Pure CSS
+ * flex-grow transition, no JS per-panel state on desktop.
+ *
+ * Mobile: the same markup becomes a vertical accordion. Tapping a header
+ * expands it (grid-template-rows 0fr -> 1fr trick); one panel open at a
+ * time, the first open by default.
  */
+const iconMap: Record<Service['icon'], LucideIcon> = {
+  globe: Globe,
+  settings: Settings,
+  search: Search,
+  trending: TrendingUp,
+  sparkles: Sparkles,
+  shield: ShieldCheck,
+}
+
 export function Services({ onNavigate }: { onNavigate: (href: string) => void }) {
+  const deckRef = useRef<HTMLDivElement>(null)
+  const [open, setOpen] = useState<string | null>(null)
+
+  useGsapContext(
+    deckRef,
+    () => {
+      const panels = deckRef.current?.querySelectorAll<HTMLElement>('.svc-panel')
+      if (!panels?.length) return
+      gsap.fromTo(
+        panels,
+        { opacity: 0, y: 48 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.1,
+          stagger: 0.09,
+          ease: 'expo.out',
+          scrollTrigger: { trigger: deckRef.current, start: 'top 86%', once: true },
+          clearProps: 'all',
+        }
+      )
+    },
+    []
+  )
+
   return (
     <section id="services" className="section py-28 md:py-36" aria-label="Services">
       <div className="container-maven">
@@ -22,50 +76,92 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
           lede="Take one service or hand us the whole thing. Every line below is planned, built and measured by the same team."
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-14 md:mt-20">
-          {services.map((service, i) => (
-            <Reveal key={service.id} delay={i * 0.06}>
-              <article className="scroll-blur panel panel-hover group relative block h-full overflow-hidden rounded-2xl shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500">
-                {/* Image */}
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1.2s] ease-out"
-                  />
-                  <span
-                    className="absolute top-4 left-5 font-poppins font-bold text-4xl text-stroke select-none"
-                    aria-hidden="true"
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                </div>
+        <div ref={deckRef} className="svc-deck mt-14 md:mt-20">
+          {services.map((service, i) => {
+            const Icon = iconMap[service.icon]
+            const isOpen = open === service.id
+            const href = `/services/${service.id}`
+            return (
+              <article
+                key={service.id}
+                className="svc-panel"
+                data-open={isOpen ? 'true' : undefined}
+                style={{ '--svc-i': i } as CSSProperties}
+              >
+                {/* Desktop: invisible full-panel hit link (whole panel is clickable) */}
+                <SmartLink
+                  href={href}
+                  onNavigate={onNavigate}
+                  className="svc-hit"
+                  aria-label={`Explore ${service.title}`}
+                />
 
-                {/* Meta */}
-                <div className="p-5 md:p-6">
-                  <h3 className="display font-semibold text-xl text-white mb-2 tracking-[0.01em]">{service.title}</h3>
-                  <p className="text-mist text-base leading-relaxed mb-5">{service.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {service.highlights.map((h) => (
-                      <span
-                        key={h}
-                        className="px-3 py-1 rounded-full border border-line text-xs tracking-wide text-mist"
-                      >
-                        {h}
-                      </span>
-                    ))}
+                {/* Rail: collapsed identity (desktop) / expandable header (mobile) */}
+                <header
+                  className="svc-rail"
+                  onClick={() => setOpen(isOpen ? null : service.id)}
+                >
+                  <span className="svc-index" aria-hidden="true">
+                    {service.index}
+                  </span>
+                  <h3 className="svc-vtitle">{service.title}</h3>
+                  <div className="svc-orb" aria-hidden="true">
+                    <Icon size={17} strokeWidth={1.7} />
+                    <span className="svc-orbit" />
+                  </div>
+                  <button
+                    type="button"
+                    className="svc-toggle"
+                    aria-expanded={isOpen}
+                    aria-controls={`svc-body-${service.id}`}
+                    aria-label={isOpen ? `Collapse ${service.title}` : `Expand ${service.title}`}
+                    onClick={() => setOpen(isOpen ? null : service.id)}
+                  >
+                    <ChevronDown size={15} strokeWidth={2.2} />
+                  </button>
+                </header>
+
+                {/* Expanded body: image wipe + copy + chips + CTA */}
+                <div className="svc-body-wrap" id={`svc-body-${service.id}`}>
+                  <div className="svc-clip">
+                    <div className="svc-body">
+                      <div className="svc-head">
+                        <span className="svc-index" aria-hidden="true">
+                          {service.index}
+                        </span>
+                        <span className="svc-btitle">{service.title}</span>
+                      </div>
+                      <figure className="svc-media" aria-hidden="true">
+                        <img src={service.image} alt="" loading="lazy" />
+                        <span className="svc-media-scrim" />
+                      </figure>
+                      <p className="svc-desc">{service.description}</p>
+                      <ul className="svc-chips">
+                        {service.highlights.slice(0, 3).map((h) => (
+                          <li key={h}>{h}</li>
+                        ))}
+                      </ul>
+                      <SmartLink href={href} onNavigate={onNavigate} className="svc-cta">
+                        Explore service
+                        <span className="svc-cta-dot">
+                          <ArrowUpRight size={13} strokeWidth={2.2} />
+                        </span>
+                      </SmartLink>
+                    </div>
                   </div>
                 </div>
               </article>
-            </Reveal>
-          ))}
+            )
+          })}
         </div>
 
-        <Reveal delay={0.1} className="mt-12 flex justify-center">
+        <Reveal delay={0.1} className="mt-12 flex justify-center items-center gap-6">
           <MagneticButton variant="primary" onClick={() => onNavigate('/contact')}>
             Discuss your project <ArrowUpRight size={16} />
           </MagneticButton>
+          <SmartLink href="/services" onNavigate={onNavigate} className="svc-view-all">
+            View all services
+          </SmartLink>
         </Reveal>
       </div>
     </section>
