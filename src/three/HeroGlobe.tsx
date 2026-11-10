@@ -6,11 +6,10 @@ import { retintMaterial, watchSceneTheme } from './scenePalette'
 
 /* =====================================================================
    HeroGlobe — the "midnight planet" hero backdrop: a dark violet globe
-   seen from ~58° above the equator, graticule lines converging at the
-   pole, a soft atmospheric rim, and a lighthouse beam sweeping around
-   the limb. Everything renders in the site's own palette on top of the
-   hero's existing glow, so the section keeps its look and just gains
-   the globe.
+   seen from ~58° above the equator, a soft atmospheric rim, a pole bloom
+   and a lighthouse beam sweeping around the limb. Everything renders in
+   the site's own palette on top of the hero's existing glow, so the
+   section keeps its look and just gains the globe.
 
    Technique notes (values are tuned constants, not magic):
    - The beam is a camera-facing plane running the reference lobe math:
@@ -40,8 +39,6 @@ const BEAM = {
 }
 
 const GLOBE = {
-  meridians: 24,
-  parallels: 11, // every 15°, poles excluded
   spin: 0.032, // slow self-rotation, rad/s
   cameraElevation: 58, // degrees above the equator
   cameraDistance: 5.37,
@@ -51,8 +48,6 @@ const GLOBE = {
 }
 
 const DARK = {
-  line: '#DACAFF',
-  lineGain: 0.75,
   atmo: '#612C8B',
   atmoGain: 0.55,
   pole: '#DACAFF',
@@ -66,8 +61,6 @@ const DARK = {
 }
 
 const LIGHT = {
-  line: '#2c1846',
-  lineGain: 0.5,
   atmo: '#6d2fa5',
   atmoGain: 0.3,
   pole: '#4a3070',
@@ -92,59 +85,11 @@ function heroFrame(vw: number, vh: number) {
 
 const clamp01 = (v: number) => THREE.MathUtils.clamp(v, 0, 1)
 
-/** Meridian + parallel wireframe. `aBright` bakes line intensity so the
- *  convergence at the pole glows without per-frame work. */
-function graticuleGeometry(): THREE.BufferGeometry {
-  const pos: number[] = []
-  const bright: number[] = []
-  const push = (x: number, y: number, z: number, b: number) => {
-    pos.push(x, y, z)
-    bright.push(b)
-  }
-  const brightAt = (sinLat: number) => 0.26 + 0.5 * Math.abs(sinLat) ** 2.5
-
-  // Meridians: full great circles through both poles.
-  const meridianSteps = 160
-  for (let m = 0; m < GLOBE.meridians; m++) {
-    const lon = (m / GLOBE.meridians) * Math.PI * 2
-    for (let i = 0; i < meridianSteps; i++) {
-      for (const t of [i, i + 1]) {
-        const lat = -Math.PI / 2 + (t / meridianSteps) * Math.PI
-        const cl = Math.cos(lat)
-        const sl = Math.sin(lat)
-        push(cl * Math.sin(lon), sl, cl * Math.cos(lon), brightAt(sl))
-      }
-    }
-  }
-
-  // Parallels: latitude circles.
-  const parallelSteps = 144
-  for (let p = 1; p <= GLOBE.parallels; p++) {
-    const lat = -Math.PI / 2 + (p / (GLOBE.parallels + 1)) * Math.PI
-    const cl = Math.cos(lat)
-    const sl = Math.sin(lat)
-    const b = brightAt(sl) * 0.85
-    for (let i = 0; i < parallelSteps; i++) {
-      for (const t of [i, i + 1]) {
-        const lon = (t / parallelSteps) * Math.PI * 2
-        push(cl * Math.sin(lon), sl, cl * Math.cos(lon), b)
-      }
-    }
-  }
-
-  const g = new THREE.BufferGeometry()
-  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3))
-  g.setAttribute('aBright', new THREE.Float32BufferAttribute(bright, 1))
-  return g
-}
-
 /* -------------------------------- scene ------------------------------- */
 
 interface GlobeSet {
   bodyGeo: THREE.SphereGeometry
   bodyMat: THREE.ShaderMaterial
-  linesGeo: THREE.BufferGeometry
-  linesMat: THREE.ShaderMaterial
   atmoGeo: THREE.SphereGeometry
   atmoMat: THREE.ShaderMaterial
   poleGeo: THREE.PlaneGeometry
@@ -218,37 +163,6 @@ function PolarGlobe() {
           float sheen = pow(max(dot(normalize(vNormalW), normalize(vec3(0.15, 0.85, 0.5))), 0.0), 3.0);
           vec3 col = uBase + uSheen * sheen * 0.35 + uRim * fres * 0.5;
           fragColor = vec4(col, 1.0);
-        }
-      `,
-    })
-
-    const linesGeo = graticuleGeometry()
-    const linesMat = new THREE.ShaderMaterial({
-      glslVersion: THREE.GLSL3,
-      transparent: true,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-      uniforms: {
-        uColor: { value: new THREE.Color(DARK.line) },
-        uGain: { value: DARK.lineGain },
-        uFade: fade,
-      },
-      vertexShader: /* glsl */ `
-        in float aBright;
-        out float vBright;
-        void main() {
-          vBright = aBright;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: /* glsl */ `
-        uniform vec3 uColor;
-        uniform float uGain;
-        uniform float uFade;
-        in float vBright;
-        out vec4 fragColor;
-        void main() {
-          fragColor = vec4(uColor, vBright * uGain * uFade);
         }
       `,
     })
@@ -401,8 +315,6 @@ function PolarGlobe() {
     const built: GlobeSet = {
       bodyGeo,
       bodyMat,
-      linesGeo,
-      linesMat,
       atmoGeo,
       atmoMat,
       poleGeo,
@@ -417,8 +329,6 @@ function PolarGlobe() {
       setRef.current = null
       built.bodyGeo.dispose()
       built.bodyMat.dispose()
-      built.linesGeo.dispose()
-      built.linesMat.dispose()
       built.atmoGeo.dispose()
       built.atmoMat.dispose()
       built.poleGeo.dispose()
@@ -433,11 +343,6 @@ function PolarGlobe() {
     if (!set) return
     return watchSceneTheme((theme) => {
       const pal = theme === 'light' ? LIGHT : DARK
-      retintMaterial(set.linesMat, theme, (m) => {
-        const sm = m as THREE.ShaderMaterial
-        sm.uniforms.uColor.value.set(pal.line)
-        sm.uniforms.uGain.value = pal.lineGain
-      })
       retintMaterial(set.atmoMat, theme, (m) => {
         const sm = m as THREE.ShaderMaterial
         sm.uniforms.uColor.value.set(pal.atmo)
@@ -500,7 +405,6 @@ function PolarGlobe() {
     <group ref={groupRef}>
       <group ref={spinRef}>
         {set && <mesh geometry={set.bodyGeo} material={set.bodyMat} renderOrder={0} />}
-        {set && <lineSegments geometry={set.linesGeo} material={set.linesMat} renderOrder={1} />}
       </group>
       {set && <mesh geometry={set.atmoGeo} material={set.atmoMat} renderOrder={2} />}
       {set && (
