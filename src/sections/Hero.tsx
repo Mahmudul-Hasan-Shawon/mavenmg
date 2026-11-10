@@ -5,6 +5,7 @@ import { AnimatedText } from '../components/text/AnimatedText'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { LazyCanvas } from '../three/LazyCanvas'
 import { reducedMotion, skipWebGL } from '../utils/motion'
+import { useMinWidth } from '../hooks/useDevice'
 
 function lazyScene(
   load: () => Promise<{ default: ComponentType<any> }>
@@ -14,7 +15,14 @@ function lazyScene(
 
 const HeroGlobe = reducedMotion ? null : lazyScene(() => import('../three/HeroGlobe'))
 
+/** The globe is desktop-only. Below the lg breakpoint (phones, portrait
+ *  tablets) the disc is wider than the viewport, so it reads as clutter
+ *  behind the stacked hero content — there it is skipped entirely: no
+ *  chunk download, no WebGL context, just the plain hero gradient. */
+const GLOBE_MIN_WIDTH = 1024
+
 export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
+  const showGlobe = useMinWidth(GLOBE_MIN_WIDTH)
   return (
     <section
       id="hero"
@@ -26,14 +34,16 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
       aria-label="Introduction"
     >
       {/* Polar globe backdrop (keeps the hero palette, adds the globe + beam) */}
-      <div data-hero-canvas className="absolute inset-0" aria-hidden="true">
-        <LazyCanvas
-          Scene={HeroGlobe}
-          className="absolute inset-0"
-          fallback={HeroGlobe && !skipWebGL ? undefined : <HeroGlobeFallback />}
-        />
-        <div className="hero-globe-fade absolute inset-0" />
-      </div>
+      {showGlobe && (
+        <div data-hero-canvas className="absolute inset-0" aria-hidden="true">
+          <LazyCanvas
+            Scene={HeroGlobe}
+            className="absolute inset-0"
+            fallback={HeroGlobe && !skipWebGL ? undefined : <HeroGlobeFallback />}
+          />
+          <div className="hero-globe-fade absolute inset-0" />
+        </div>
+      )}
 
       {/* Content */}
       <div
