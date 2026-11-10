@@ -1,5 +1,6 @@
 import { Hero } from '../sections/Hero'
 import { Partners } from '../sections/Partners'
+import { GrowWithYou } from '../sections/GrowWithYou'
 import { Services } from '../sections/Services'
 import { WhyMaven } from '../sections/WhyMaven'
 import { Results } from '../sections/Results'
@@ -14,10 +15,11 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
   return (
     <>
       <Hero onNavigate={onNavigate} />
-      <Partners />
-      <Services onNavigate={onNavigate} />
       <Results />
       <ClientLogos />
+      <Partners />
+      <GrowWithYou onNavigate={onNavigate} />
+      <Services onNavigate={onNavigate} />
       <WhyMaven onNavigate={onNavigate} />
       <FeaturedWork onNavigate={onNavigate} />
       <Testimonials />
