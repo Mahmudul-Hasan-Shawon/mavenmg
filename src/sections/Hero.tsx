@@ -1,7 +1,18 @@
+import { lazy, type LazyExoticComponent, type ComponentType } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { site, badges } from '../data/site'
 import { AnimatedText } from '../components/text/AnimatedText'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import { LazyCanvas } from '../three/LazyCanvas'
+import { reducedMotion, skipWebGL } from '../utils/motion'
+
+function lazyScene(
+  load: () => Promise<{ default: ComponentType<any> }>
+): LazyExoticComponent<ComponentType<any>> {
+  return lazy(load)
+}
+
+const HeroGlobe = reducedMotion ? null : lazyScene(() => import('../three/HeroGlobe'))
 
 export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
@@ -14,6 +25,16 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
       className="relative min-h-svh flex flex-col overflow-hidden"
       aria-label="Introduction"
     >
+      {/* Polar globe backdrop (keeps the hero palette, adds the globe + beam) */}
+      <div data-hero-canvas className="absolute inset-0" aria-hidden="true">
+        <LazyCanvas
+          Scene={HeroGlobe}
+          className="absolute inset-0"
+          fallback={HeroGlobe && !skipWebGL ? undefined : <HeroGlobeFallback />}
+        />
+        <div className="hero-globe-fade absolute inset-0" />
+      </div>
+
       {/* Content */}
       <div
         data-hero-content
@@ -73,5 +94,14 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
         </div>
       </div>
     </section>
+  )
+}
+
+/** CSS-only stand-in for the polar globe when WebGL is skipped: a dim violet
+ *  disc with a slowly orbiting conic sweep, sized and parked to match the
+ *  WebGL scene's layout math. */
+function HeroGlobeFallback() {
+  return (
+    <div className="hero-globe-fallback-disc" />
   )
 }
