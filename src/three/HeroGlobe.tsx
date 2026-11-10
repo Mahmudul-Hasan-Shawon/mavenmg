@@ -6,21 +6,19 @@ import { retintMaterial, watchSceneTheme } from './scenePalette'
 
 /* =====================================================================
    HeroGlobe — the "midnight planet" hero backdrop: a dark violet globe
-   sized to fit the viewport and centred in the middle of the hero, seen
-   from ~58° above the equator. A soft atmospheric rim, a pole bloom and
-   a lighthouse beam sweeping around the limb complete the scene.
-   Everything renders in the site's own palette on top of the hero's
-   existing glow, so the section keeps its look and just gains
-   the globe.
+   seen from ~58° above the equator, a soft atmospheric rim, a pole bloom
+   and a lighthouse beam sweeping around the limb. Everything renders in
+   the site's own palette on top of the hero's existing glow, so the
+   section keeps its look and just gains the globe.
 
    Technique notes (values are tuned constants, not magic):
    - The beam is a camera-facing plane running the reference lobe math:
      Gaussian core + Lorentzian halo/outer rings, a raised-cosine
      angular arc so the sweep has no seam, and a soft window at the
      buffer edge. It orbits the globe's limb like a searchlight.
-   - Placement: the ball's diameter is min(0.9·viewport-height,
-     0.8·viewport-width) and its centre sits at the vertical middle of
-     the hero, so the rim, beam and pole stay on screen at every size.
+   - Placement mirrors the reference layout: the disc is
+     max(min(1.337·vw, 2054px), 1.3·vh) wide, centred horizontally, with
+     its centre parked below the fold so only the polar cap shows.
    ===================================================================== */
 
 /* ------------------------------ tunables ------------------------------ */
@@ -29,14 +27,14 @@ const BEAM = {
   spin: 13.5, // orbit speed, degrees/second (~27s per revolution)
   phase: 74, // starting angle, degrees
   arcPower: 12, // lobe tightness of the sweep
-  exposure: 1.5,
+  exposure: 1.35,
   coreGain: 0.62,
-  haloGain: 0.8,
-  outerGain: 0.22,
+  haloGain: 0.6,
+  outerGain: 0.12,
   haloInner: 0.3, // halo squeeze factor inside the ring
   coreWidth: 0.016, // art-relative widths (fractions of globe diameter)
   haloWidth: 0.0492,
-  outerWidth: 0.18,
+  outerWidth: 0.14,
   span: 1.9, // beam plane size in globe diameters
 }
 
@@ -47,20 +45,18 @@ const GLOBE = {
   fov: 42,
   rampSeconds: 1.5, // entrance bloom duration
   scrollFadeVh: 0.85, // fully faded once this much viewport is scrolled
-  /** Visible-ball sizing: the globe diameter as a fraction of the viewport.
-   *  Height-capped so the whole ball + beam ring always fit on screen. */
-  sizeVh: 0.9,
-  sizeVw: 0.8,
 }
 
 const DARK = {
   atmo: '#612C8B',
-  atmoGain: 0.55,
+  atmoGain: 0.3,
   pole: '#DACAFF',
-  poleGain: 0.4,
-  body: '#060213',
+  poleGain: 0.3,
+  body: '#04020c',
   bodyRim: '#8B4FBF',
   bodySheen: '#3A1355',
+  terrain: '#c3b2ef',
+  terrainGain: 1.1,
   beamCore: '#EDE8FF',
   beamHalo: '#B98AF0',
   beamOuter: '#612C8B',
@@ -74,6 +70,8 @@ const LIGHT = {
   body: '#ece7f6',
   bodyRim: '#6d2fa5',
   bodySheen: '#c9bce4',
+  terrain: '#9d84d4',
+  terrainGain: 0.4,
   beamCore: '#5b2a86',
   beamHalo: '#6d2fa5',
   beamOuter: '#4a3070',
@@ -82,11 +80,11 @@ const LIGHT = {
 
 /* ------------------------------ helpers ------------------------------ */
 
-/** Hero layout: the globe ball is sized to fit the viewport and parked in
- *  the vertical middle of the hero, behind the content. */
+/** Reference hero layout: disc size + centre position in px. */
 function heroFrame(vw: number, vh: number) {
-  const artW = Math.min(GLOBE.sizeVh * vh, GLOBE.sizeVw * vw)
-  return { artW, artCX: vw / 2, artCY: vh / 2 }
+  const artW = Math.max(Math.min(1.337 * vw, 2054), 1.3 * vh)
+  const artCY = Math.max(0.3 * vh, vh + 40 - artW) + artW / 2
+  return { artW, artCX: vw / 2, artCY }
 }
 
 const clamp01 = (v: number) => THREE.MathUtils.clamp(v, 0, 1)
@@ -137,11 +135,13 @@ function PolarGlobe() {
       out vec3 vNormalV;
       out vec3 vViewV;
       out vec3 vNormalW;
+      out vec3 vObj;
       void main() {
         vNormalV = normalize(normalMatrix * normal);
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
         vViewV = normalize(-mv.xyz);
         vNormalW = normalize(mat3(modelMatrix) * normal);
+        vObj = position;
         gl_Position = projectionMatrix * mv;
       }
     `
@@ -153,27 +153,80 @@ function PolarGlobe() {
         uBase: { value: new THREE.Color(DARK.body) },
         uRim: { value: new THREE.Color(DARK.bodyRim) },
         uSheen: { value: new THREE.Color(DARK.bodySheen) },
+        uTerrain: { value: new THREE.Color(DARK.terrain) },
+        uTerrainGain: { value: DARK.terrainGain },
+        uTime: { value: 0 },
       },
       vertexShader: viewVertex,
       fragmentShader: /* glsl */ `
         uniform vec3 uBase;
         uniform vec3 uRim;
         uniform vec3 uSheen;
+        uniform vec3 uTerrain;
+        uniform float uTerrainGain;
+        uniform float uTime;
         in vec3 vNormalV;
         in vec3 vViewV;
         in vec3 vNormalW;
+        in vec3 vObj;
         out vec4 fragColor;
+
+        // Value-noise fbm in object space, so the terrain rotates with the
+        // sphere and only drifts against it by the tiny uTime terms.
+        float hash(vec3 p) {
+          p = fract(p * 0.3183099 + vec3(0.1, 0.2, 0.3));
+          p *= 17.0;
+          return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+        }
+        float vnoise(vec3 x) {
+          vec3 i = floor(x);
+          vec3 f = fract(x);
+          f = f * f * (3.0 - 2.0 * f);
+          return mix(
+            mix(mix(hash(i), hash(i + vec3(1, 0, 0)), f.x),
+                mix(hash(i + vec3(0, 1, 0)), hash(i + vec3(1, 1, 0)), f.x), f.y),
+            mix(mix(hash(i + vec3(0, 0, 1)), hash(i + vec3(1, 0, 1)), f.x),
+                mix(hash(i + vec3(0, 1, 1)), hash(i + vec3(1, 1, 1)), f.x), f.y),
+            f.z);
+        }
+        float fbm(vec3 p) {
+          float v = 0.0;
+          float a = 0.5;
+          for (int i = 0; i < 5; i++) {
+            v += a * vnoise(p);
+            p = p * 2.03 + vec3(1.7, 1.3, 1.1);
+            a *= 0.55;
+          }
+          return v;
+        }
+
         void main() {
           float ndv = max(dot(normalize(vNormalV), normalize(vViewV)), 0.0);
-          float fres = pow(1.0 - ndv, 2.6);
+          float fres = pow(1.0 - ndv, 3.2);
           float sheen = pow(max(dot(normalize(vNormalW), normalize(vec3(0.15, 0.85, 0.5))), 0.0), 3.0);
-          vec3 col = uBase + uSheen * sheen * 0.35 + uRim * fres * 0.5;
+
+          // Frosted terrain relief, warped by a second fbm field so the
+          // filaments curl like the reference planet's rim texture.
+          vec3 q = vObj * 9.0;
+          float base = fbm(q + uTime * 0.008);
+          float detail = fbm(q * 3.1 + base * 2.2 - uTime * 0.012);
+          float ridges = smoothstep(0.34, 0.72, base * 0.72 + detail * 0.42);
+
+          // Limb band: the disc centre stays near-black like the reference
+          // planet; terrain catches light approaching the silhouette.
+          float limb = smoothstep(0.22, 0.8, fres);
+          float surface = ridges * limb;
+
+          vec3 col = uBase
+            + uTerrain * surface * uTerrainGain
+            + uRim * fres * 0.4
+            + uSheen * sheen * 0.18;
           fragColor = vec4(col, 1.0);
         }
       `,
     })
 
-    const atmoGeo = new THREE.SphereGeometry(1.055, 64, 48)
+    const atmoGeo = new THREE.SphereGeometry(1.03, 64, 48)
     const atmoMat = new THREE.ShaderMaterial({
       glslVersion: THREE.GLSL3,
       transparent: true,
@@ -194,13 +247,13 @@ function PolarGlobe() {
         in vec3 vViewV;
         out vec4 fragColor;
         void main() {
-          float rim = pow(clamp(1.0 + dot(normalize(vNormalV), normalize(vViewV)), 0.0, 1.0), 3.4);
+          float rim = pow(clamp(1.0 + dot(normalize(vNormalV), normalize(vViewV)), 0.0, 1.0), 4.4);
           fragColor = vec4(uColor, rim * uGain * uFade);
         }
       `,
     })
 
-    const poleGeo = new THREE.PlaneGeometry(0.42, 0.42)
+    const poleGeo = new THREE.PlaneGeometry(0.16, 0.16)
     const poleMat = new THREE.ShaderMaterial({
       glslVersion: THREE.GLSL3,
       transparent: true,
@@ -369,6 +422,8 @@ function PolarGlobe() {
       set.bodyMat.uniforms.uBase.value.set(pal.body)
       set.bodyMat.uniforms.uRim.value.set(pal.bodyRim)
       set.bodyMat.uniforms.uSheen.value.set(pal.bodySheen)
+      set.bodyMat.uniforms.uTerrain.value.set(pal.terrain)
+      set.bodyMat.uniforms.uTerrainGain.value = pal.terrainGain
     })
   }, [set])
 
@@ -386,22 +441,15 @@ function PolarGlobe() {
     const ramp = rampT * rampT * (3 - 2 * rampT)
     const close = clamp01(scrollState.y / Math.max(size.height * GLOBE.scrollFadeVh, 1))
     s.fade.value = ramp * (1 - close)
+    s.bodyMat.uniforms.uTime.value = t
 
-    // Responsive placement: centred ball at the intended on-screen size.
-    // The naive linear px->world conversion overshoots for spheres this
-    // large (the silhouette sits nearer the camera than the centre plane),
-    // so the radius is solved from the tangent geometry instead.
+    // Responsive placement: park the disc like the reference hero layout.
     const { artW, artCX, artCY } = heroFrame(size.width, size.height)
     const dist = GLOBE.cameraDistance
     const fov = (camera as THREE.PerspectiveCamera).fov
-    const tanHalf = Math.tan(((fov * Math.PI) / 180) / 2)
-    const k = ((artW / 2) * tanHalf) / (size.height / 2)
-    const sphereR = (dist * k) / Math.sqrt(1 + k * k)
+    const worldPerPx = (2 * dist * Math.tan(((fov * Math.PI) / 180) / 2)) / size.height
     const settle = 0.965 + 0.035 * ramp // tiny scale-in on entrance
-    group.scale.setScalar(sphereR * settle)
-    // The beam billboard lives in the sphere's centre plane, so its ring
-    // lands inside the silhouette by 1/sqrt(1+k^2); rescale it onto the limb.
-    if (beamRef.current) beamRef.current.scale.setScalar(Math.sqrt(1 + k * k))
+    group.scale.setScalar((artW / 2) * worldPerPx * settle)
     const ndcX = (artCX / size.width) * 2 - 1
     const ndcY = 1 - (artCY / size.height) * 2
     tmpRef.current.set(ndcX, ndcY, 0.5).unproject(camera).sub(camera.position).normalize()
