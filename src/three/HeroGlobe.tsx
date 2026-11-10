@@ -27,14 +27,14 @@ const BEAM = {
   spin: 13.5, // orbit speed, degrees/second (~27s per revolution)
   phase: 74, // starting angle, degrees
   arcPower: 12, // lobe tightness of the sweep
-  exposure: 1.35,
+  exposure: 1.5,
   coreGain: 0.62,
-  haloGain: 0.6,
-  outerGain: 0.12,
+  haloGain: 0.8,
+  outerGain: 0.22,
   haloInner: 0.3, // halo squeeze factor inside the ring
   coreWidth: 0.016, // art-relative widths (fractions of globe diameter)
   haloWidth: 0.0492,
-  outerWidth: 0.14,
+  outerWidth: 0.18,
   span: 1.9, // beam plane size in globe diameters
 }
 
@@ -49,14 +49,12 @@ const GLOBE = {
 
 const DARK = {
   atmo: '#612C8B',
-  atmoGain: 0.3,
+  atmoGain: 0.55,
   pole: '#DACAFF',
-  poleGain: 0.3,
-  body: '#04020c',
+  poleGain: 0.4,
+  body: '#060213',
   bodyRim: '#8B4FBF',
   bodySheen: '#3A1355',
-  terrain: '#c3b2ef',
-  terrainGain: 1.1,
   beamCore: '#EDE8FF',
   beamHalo: '#B98AF0',
   beamOuter: '#612C8B',
@@ -70,8 +68,6 @@ const LIGHT = {
   body: '#ece7f6',
   bodyRim: '#6d2fa5',
   bodySheen: '#c9bce4',
-  terrain: '#9d84d4',
-  terrainGain: 0.4,
   beamCore: '#5b2a86',
   beamHalo: '#6d2fa5',
   beamOuter: '#4a3070',
@@ -135,13 +131,11 @@ function PolarGlobe() {
       out vec3 vNormalV;
       out vec3 vViewV;
       out vec3 vNormalW;
-      out vec3 vObj;
       void main() {
         vNormalV = normalize(normalMatrix * normal);
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
         vViewV = normalize(-mv.xyz);
         vNormalW = normalize(mat3(modelMatrix) * normal);
-        vObj = position;
         gl_Position = projectionMatrix * mv;
       }
     `
@@ -153,80 +147,27 @@ function PolarGlobe() {
         uBase: { value: new THREE.Color(DARK.body) },
         uRim: { value: new THREE.Color(DARK.bodyRim) },
         uSheen: { value: new THREE.Color(DARK.bodySheen) },
-        uTerrain: { value: new THREE.Color(DARK.terrain) },
-        uTerrainGain: { value: DARK.terrainGain },
-        uTime: { value: 0 },
       },
       vertexShader: viewVertex,
       fragmentShader: /* glsl */ `
         uniform vec3 uBase;
         uniform vec3 uRim;
         uniform vec3 uSheen;
-        uniform vec3 uTerrain;
-        uniform float uTerrainGain;
-        uniform float uTime;
         in vec3 vNormalV;
         in vec3 vViewV;
         in vec3 vNormalW;
-        in vec3 vObj;
         out vec4 fragColor;
-
-        // Value-noise fbm in object space, so the terrain rotates with the
-        // sphere and only drifts against it by the tiny uTime terms.
-        float hash(vec3 p) {
-          p = fract(p * 0.3183099 + vec3(0.1, 0.2, 0.3));
-          p *= 17.0;
-          return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
-        }
-        float vnoise(vec3 x) {
-          vec3 i = floor(x);
-          vec3 f = fract(x);
-          f = f * f * (3.0 - 2.0 * f);
-          return mix(
-            mix(mix(hash(i), hash(i + vec3(1, 0, 0)), f.x),
-                mix(hash(i + vec3(0, 1, 0)), hash(i + vec3(1, 1, 0)), f.x), f.y),
-            mix(mix(hash(i + vec3(0, 0, 1)), hash(i + vec3(1, 0, 1)), f.x),
-                mix(hash(i + vec3(0, 1, 1)), hash(i + vec3(1, 1, 1)), f.x), f.y),
-            f.z);
-        }
-        float fbm(vec3 p) {
-          float v = 0.0;
-          float a = 0.5;
-          for (int i = 0; i < 5; i++) {
-            v += a * vnoise(p);
-            p = p * 2.03 + vec3(1.7, 1.3, 1.1);
-            a *= 0.55;
-          }
-          return v;
-        }
-
         void main() {
           float ndv = max(dot(normalize(vNormalV), normalize(vViewV)), 0.0);
-          float fres = pow(1.0 - ndv, 3.2);
+          float fres = pow(1.0 - ndv, 2.6);
           float sheen = pow(max(dot(normalize(vNormalW), normalize(vec3(0.15, 0.85, 0.5))), 0.0), 3.0);
-
-          // Frosted terrain relief, warped by a second fbm field so the
-          // filaments curl like the reference planet's rim texture.
-          vec3 q = vObj * 9.0;
-          float base = fbm(q + uTime * 0.008);
-          float detail = fbm(q * 3.1 + base * 2.2 - uTime * 0.012);
-          float ridges = smoothstep(0.34, 0.72, base * 0.72 + detail * 0.42);
-
-          // Limb band: the disc centre stays near-black like the reference
-          // planet; terrain catches light approaching the silhouette.
-          float limb = smoothstep(0.22, 0.8, fres);
-          float surface = ridges * limb;
-
-          vec3 col = uBase
-            + uTerrain * surface * uTerrainGain
-            + uRim * fres * 0.4
-            + uSheen * sheen * 0.18;
+          vec3 col = uBase + uSheen * sheen * 0.35 + uRim * fres * 0.5;
           fragColor = vec4(col, 1.0);
         }
       `,
     })
 
-    const atmoGeo = new THREE.SphereGeometry(1.03, 64, 48)
+    const atmoGeo = new THREE.SphereGeometry(1.055, 64, 48)
     const atmoMat = new THREE.ShaderMaterial({
       glslVersion: THREE.GLSL3,
       transparent: true,
@@ -247,13 +188,13 @@ function PolarGlobe() {
         in vec3 vViewV;
         out vec4 fragColor;
         void main() {
-          float rim = pow(clamp(1.0 + dot(normalize(vNormalV), normalize(vViewV)), 0.0, 1.0), 4.4);
+          float rim = pow(clamp(1.0 + dot(normalize(vNormalV), normalize(vViewV)), 0.0, 1.0), 3.4);
           fragColor = vec4(uColor, rim * uGain * uFade);
         }
       `,
     })
 
-    const poleGeo = new THREE.PlaneGeometry(0.16, 0.16)
+    const poleGeo = new THREE.PlaneGeometry(0.42, 0.42)
     const poleMat = new THREE.ShaderMaterial({
       glslVersion: THREE.GLSL3,
       transparent: true,
@@ -422,8 +363,6 @@ function PolarGlobe() {
       set.bodyMat.uniforms.uBase.value.set(pal.body)
       set.bodyMat.uniforms.uRim.value.set(pal.bodyRim)
       set.bodyMat.uniforms.uSheen.value.set(pal.bodySheen)
-      set.bodyMat.uniforms.uTerrain.value.set(pal.terrain)
-      set.bodyMat.uniforms.uTerrainGain.value = pal.terrainGain
     })
   }, [set])
 
@@ -441,7 +380,6 @@ function PolarGlobe() {
     const ramp = rampT * rampT * (3 - 2 * rampT)
     const close = clamp01(scrollState.y / Math.max(size.height * GLOBE.scrollFadeVh, 1))
     s.fade.value = ramp * (1 - close)
-    s.bodyMat.uniforms.uTime.value = t
 
     // Responsive placement: park the disc like the reference hero layout.
     const { artW, artCX, artCY } = heroFrame(size.width, size.height)
