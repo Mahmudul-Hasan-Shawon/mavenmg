@@ -6,7 +6,7 @@ import { retintMaterial, watchSceneTheme } from './scenePalette'
 
 /* =====================================================================
    HeroGlobe — the "midnight planet" hero backdrop: a dark violet globe
-   seen from ~58° above the equator, a soft atmospheric rim, a pole bloom
+   seen from ~58° above the equator, a pole bloom
    and a lighthouse beam sweeping around the limb. Everything renders in
    the site's own palette on top of the hero's existing glow, so the
    section keeps its look and just gains the globe.
@@ -48,8 +48,6 @@ const GLOBE = {
 }
 
 const DARK = {
-  atmo: '#612C8B',
-  atmoGain: 0.55,
   pole: '#DACAFF',
   poleGain: 0.4,
   body: '#060213',
@@ -61,8 +59,6 @@ const DARK = {
 }
 
 const LIGHT = {
-  atmo: '#6d2fa5',
-  atmoGain: 0.3,
   pole: '#4a3070',
   poleGain: 0.28,
   body: '#ece7f6',
@@ -90,8 +86,6 @@ const clamp01 = (v: number) => THREE.MathUtils.clamp(v, 0, 1)
 interface GlobeSet {
   bodyGeo: THREE.SphereGeometry
   bodyMat: THREE.ShaderMaterial
-  atmoGeo: THREE.SphereGeometry
-  atmoMat: THREE.ShaderMaterial
   poleGeo: THREE.PlaneGeometry
   poleMat: THREE.ShaderMaterial
   beamGeo: THREE.PlaneGeometry
@@ -163,33 +157,6 @@ function PolarGlobe() {
           float sheen = pow(max(dot(normalize(vNormalW), normalize(vec3(0.15, 0.85, 0.5))), 0.0), 3.0);
           vec3 col = uBase + uSheen * sheen * 0.35 + uRim * fres * 0.5;
           fragColor = vec4(col, 1.0);
-        }
-      `,
-    })
-
-    const atmoGeo = new THREE.SphereGeometry(1.055, 64, 48)
-    const atmoMat = new THREE.ShaderMaterial({
-      glslVersion: THREE.GLSL3,
-      transparent: true,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-      side: THREE.BackSide,
-      uniforms: {
-        uColor: { value: new THREE.Color(DARK.atmo) },
-        uGain: { value: DARK.atmoGain },
-        uFade: fade,
-      },
-      vertexShader: viewVertex,
-      fragmentShader: /* glsl */ `
-        uniform vec3 uColor;
-        uniform float uGain;
-        uniform float uFade;
-        in vec3 vNormalV;
-        in vec3 vViewV;
-        out vec4 fragColor;
-        void main() {
-          float rim = pow(clamp(1.0 + dot(normalize(vNormalV), normalize(vViewV)), 0.0, 1.0), 3.4);
-          fragColor = vec4(uColor, rim * uGain * uFade);
         }
       `,
     })
@@ -315,8 +282,6 @@ function PolarGlobe() {
     const built: GlobeSet = {
       bodyGeo,
       bodyMat,
-      atmoGeo,
-      atmoMat,
       poleGeo,
       poleMat,
       beamGeo,
@@ -329,8 +294,6 @@ function PolarGlobe() {
       setRef.current = null
       built.bodyGeo.dispose()
       built.bodyMat.dispose()
-      built.atmoGeo.dispose()
-      built.atmoMat.dispose()
       built.poleGeo.dispose()
       built.poleMat.dispose()
       built.beamGeo.dispose()
@@ -343,11 +306,6 @@ function PolarGlobe() {
     if (!set) return
     return watchSceneTheme((theme) => {
       const pal = theme === 'light' ? LIGHT : DARK
-      retintMaterial(set.atmoMat, theme, (m) => {
-        const sm = m as THREE.ShaderMaterial
-        sm.uniforms.uColor.value.set(pal.atmo)
-        sm.uniforms.uGain.value = pal.atmoGain
-      })
       retintMaterial(set.poleMat, theme, (m) => {
         const sm = m as THREE.ShaderMaterial
         sm.uniforms.uColor.value.set(pal.pole)
@@ -406,7 +364,6 @@ function PolarGlobe() {
       <group ref={spinRef}>
         {set && <mesh geometry={set.bodyGeo} material={set.bodyMat} renderOrder={0} />}
       </group>
-      {set && <mesh geometry={set.atmoGeo} material={set.atmoMat} renderOrder={2} />}
       {set && (
         <mesh ref={poleRef} geometry={set.poleGeo} material={set.poleMat} position={[0, 1.02, 0]} renderOrder={5} />
       )}
