@@ -69,10 +69,36 @@ export const mavens = {
 
 export const philosophy = {
   eyebrow: 'Our Philosophy',
-  vision:
-    'We excel in crafting custom websites and marketing strategies that truly connect with your audience. Every design decision is made with your audience in mind, blending aesthetics with performance to create digital experiences that resonate and convert.',
-  mission:
-    'As a leading website management and digital marketing agency, our expertise covers website management, conversion rate optimization, SEO, and UI/UX design, offering a comprehensive approach that consistently delivers results.',
+  headline: 'Simple beliefs,',
+  headlineAccent: 'serious results',
+  manifesto:
+    'Fancy does not pay invoices. Every site we ship and every campaign we run is built for one audience, your future customer, and judged by one verdict: the numbers you care about.',
+  beliefs: [
+    {
+      num: '01',
+      key: 'clarity',
+      title: 'Clarity beats clever',
+      body: 'The best-performing pages are the easiest to understand. We strip away the noise until your offer, your message and the next step are impossible to miss.',
+    },
+    {
+      num: '02',
+      key: 'vision',
+      title: 'Vision before pixels',
+      body: 'Every project starts with where you are going: the market you want, the customers you want, and the number that proves it. Design is how we get there, not why.',
+    },
+    {
+      num: '03',
+      key: 'momentum',
+      title: 'Momentum over perfection',
+      body: 'We ship strong, then sharpen with real data. A good page live this month teaches more than a perfect one stuck in review for a quarter.',
+    },
+    {
+      num: '04',
+      key: 'ownership',
+      title: 'Your numbers are the grade',
+      body: 'Traffic, leads, revenue, retention. If a change does not move a metric you care about, it does not count as work done.',
+    },
+  ],
 }
 
 /** About page hero stats, mirroring mavenmarketinggroup.com/about. */

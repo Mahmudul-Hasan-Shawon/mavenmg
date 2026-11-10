@@ -459,50 +459,33 @@
     filter: grayscale(1) sepia(1) hue-rotate(225deg) saturate(3.2) brightness(0.9);
   }
 
-  /* ---------- GrowthArt SVG scenes (BusinessGrowth cards) ---------- */
-
-  /* Theme-dependent strokes/fills. Brand hexes live inside the SVG since the
-     dark-purple subjects sit on both themes; only the environment adapts. */
-  .growth-art {
-    --ga-glass: rgba(218, 202, 255, 0.06);
-    --ga-glass-strong: rgba(218, 202, 255, 0.1);
-    --ga-line: rgba(218, 202, 255, 0.18);
-    --ga-line-faint: rgba(218, 202, 255, 0.1);
-    --ga-dot: #dacaff;
-    --ga-shadow: rgba(3, 1, 8, 0.5);
-  }
-
-  [data-theme="light"] .growth-art {
-    --ga-glass: rgba(24, 17, 43, 0.04);
-    --ga-glass-strong: rgba(24, 17, 43, 0.07);
-    --ga-line: rgba(24, 17, 43, 0.18);
-    --ga-line-faint: rgba(24, 17, 43, 0.1);
-    --ga-dot: #2c1846;
-    --ga-shadow: rgba(24, 17, 43, 0.14);
-  }
-
-  .growth-art .ga-float {
-    animation: ga-float 7s ease-in-out infinite;
-  }
-
-  @keyframes ga-float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .growth-art .ga-float {
-      animation: none;
-    }
-  }
-
   .grad-text {
     color: var(--maven-light);
+  }
+
+  /* ---------- Philosophy beliefs rail ---------- */
+
+  /* Belief numerals are ghosted stroked type; while a belief holds the
+     middle of the viewport (.is-live via ScrollTrigger) its numeral fills
+     with brand violet and its title brightens. */
+  .phil-belief .belief-num {
+    -webkit-text-stroke: 1.5px var(--stroke);
+    color: transparent;
+    transition: color 0.6s ease, -webkit-text-stroke-color 0.6s ease;
+  }
+
+  .phil-belief.is-live .belief-num {
+    color: var(--maven-light);
+    -webkit-text-stroke-color: transparent;
+  }
+
+  .phil-belief h3 {
+    color: var(--mist);
+    transition: color 0.5s ease;
+  }
+
+  .phil-belief.is-live h3 {
+    color: var(--fg);
   }
 
   /* ---------- Services mega menu: pure CSS hover, no JS timers ---------- */
@@ -1130,6 +1113,37 @@ html:not([data-theme='light']) .marquee-badge {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-globe-fallback-disc::after {
+    animation: none;
+  }
+}
+
+/* FeaturedWork (home) index + stage showcase: the autoplay hairline runs
+   one scaleX sweep per selection beat, and the live stage image drifts
+   into a slow Ken Burns zoom while it holds the stage. */
+@keyframes fw-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fw-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.fw-live {
+  animation: fw-kenburns 7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fw-live {
     animation: none;
   }
 }

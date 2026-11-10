@@ -1,59 +1,69 @@
-import { useEffect, useRef, useState } from 'react'
-import { Code, Megaphone } from 'lucide-react'
-import { mavens, philosophy } from '../data/content'
+import { useEffect, useRef } from 'react'
+import { philosophy } from '../data/content'
 import { gsap, useGsapContext } from '../hooks/useGsap'
-import { reducedMotion } from '../utils/motion'
 import { Eyebrow } from '../components/text/Eyebrow'
 
 /**
- * Philosophy a zigzag of Vision and Mission. Each row pairs an editorial
- * text block with a giant ghosted numeral floating in the section's particle
- * field, alternating sides on desktop. Blocks fade up as they enter.
+ * Philosophy, the manifesto as a numbered beliefs rail.
+ *
+ * A centered manifesto statement opens the section, then four beliefs run
+ * down a vertical hairline that fills with brand violet as you scroll
+ * (scrubbed to the rail's position). While a belief holds the middle of the
+ * viewport, its ghosted numeral fills with violet and its title brightens,
+ * so the page literally spotlights each belief as you pass it. The fine
+ * particle dust stays as the section's atmosphere.
  */
 export function Philosophy() {
   const rootRef = useRef<HTMLElement>(null)
 
   useGsapContext(
     rootRef,
-    () => {
-      gsap.utils.toArray<HTMLElement>('[data-phil-block]').forEach((el) => {
+    ({ ScrollTrigger }) => {
+      // Manifesto block rises as one piece.
+      gsap.fromTo(
+        '[data-phil-head]',
+        { opacity: 0, y: 44 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.05,
+          ease: 'expo.out',
+          scrollTrigger: { trigger: '[data-phil-head]', start: 'top 82%', once: true },
+        }
+      )
+
+      gsap.utils.toArray<HTMLElement>('[data-belief]').forEach((el) => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 48 },
+          { opacity: 0, y: 52 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.1,
+            duration: 0.95,
             ease: 'expo.out',
-            scrollTrigger: { trigger: el, start: 'top 82%', once: true },
+            scrollTrigger: { trigger: el, start: 'top 84%', once: true },
           }
         )
+        // Spotlight the belief while it holds the viewport's middle band.
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 62%',
+          end: 'bottom 42%',
+          onToggle: (self) => el.classList.toggle('is-live', self.isActive),
+        })
       })
 
-      // Parallax images drift down while text drifts up, scrubbed across the
-      // whole section for a gentle depth separation.
-      gsap.utils.toArray<HTMLElement>('[data-phil-visual]').forEach((el) => {
-        gsap.fromTo(
-          el,
-          { yPercent: -8 },
-          {
-            yPercent: 8,
-            ease: 'none',
-            scrollTrigger: { trigger: rootRef.current, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
-          }
-        )
-      })
-      gsap.utils.toArray<HTMLElement>('[data-phil-copy]').forEach((el) => {
-        gsap.fromTo(
-          el,
-          { yPercent: 5 },
-          {
-            yPercent: -5,
-            ease: 'none',
-            scrollTrigger: { trigger: rootRef.current, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
-          }
-        )
-      })
+      // The rail fills top-to-bottom, scrubbed to scroll position.
+      gsap.fromTo(
+        '[data-rail-fill]',
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: 'none',
+          transformOrigin: 'top center',
+          scrollTrigger: { trigger: '[data-rail]', start: 'top 68%', end: 'bottom 58%', scrub: 0.6 },
+        }
+      )
     },
     []
   )
@@ -62,11 +72,10 @@ export function Philosophy() {
     <section
       ref={rootRef}
       id="philosophy"
-      className="section py-28 md:py-36 border-t border-line relative overflow-hidden"
+      className="section relative py-28 md:py-36 border-t border-line overflow-hidden"
       aria-label="Our philosophy"
       style={{ background: 'linear-gradient(180deg, var(--bg) 0%, var(--surface) 50%, var(--bg) 100%)' }}
     >
-      {/* Particle dust + ambient glows */}
       <ParticleField />
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[10%] left-[12%] w-[420px] h-[420px] rounded-full bg-maven/12 blur-[150px]" />
@@ -74,236 +83,48 @@ export function Philosophy() {
       </div>
 
       <div className="container-maven relative">
-        <Eyebrow label={philosophy.eyebrow} align="center" className="mb-16 md:mb-24" />
-
-        {/* Intro The Marketing Mavens */}
-        <div data-phil-block className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          <div data-phil-copy className="order-2 lg:order-1">
-            <h2 className="text-5xl md:text-8xl font-bold mb-6">
-              <span className="block">The</span>
-              <span className="block text-white">Marketing</span>
-              <span className="block text-maven-light">Mavens</span>
-            </h2>
-            <p className="text-mist text-base pt-2 md:text-lg leading-relaxed mb-9">
-              {mavens.intro}
-            </p>
-            <MavensTabs />
-          </div>
-          <div data-phil-visual className="relative order-1 lg:order-2 flex justify-center lg:block">
-            <div className="absolute -inset-3 bg-gradient-to-r from-[#DACAFF]/5 to-[#8B4FBF]/15 blur-2xl" aria-hidden="true" />
-            <img
-              alt="The Marketing Mavens"
-              className="relative rounded-3xl w-full max-w-xs sm:max-w-sm lg:max-w-none object-cover"
-              loading="lazy"
-              src="/images/maven.png"
-            />
-          </div>
+        {/* Manifesto */}
+        <div className="max-w-3xl mx-auto text-center" data-phil-head>
+          <Eyebrow label={philosophy.eyebrow} align="center" className="mb-6" />
+          <h2 className="display text-[clamp(2rem,5vw,3.8rem)] mb-7">
+            {philosophy.headline} <span className="grad-text">{philosophy.headlineAccent}</span>
+          </h2>
+          <p className="text-mist text-base md:text-lg leading-relaxed text-balance">{philosophy.manifesto}</p>
         </div>
 
-        <div className="space-y-24 lg:space-y-0">
-          {/* Vision image first on mobile, text left on desktop */}
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/vision.png" label="Vision" className="order-1 lg:order-2" />
-            <div data-phil-block data-phil-copy className="order-2 lg:order-1">
-              <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
-                Our <span className="text-maven-light text-[clamp(3rem,4vw,7rem)]">
-  Vision
-</span>
-              </h3>
-              <p className="text-mist text-center text-base md:text-lg leading-relaxed max-w-xl">
-                {philosophy.vision}
-              </p>
-            </div>
-          </div>
+        {/* Beliefs rail */}
+        <ol className="relative mt-16 md:mt-24 max-w-4xl mx-auto" data-rail aria-label="What we believe">
+          <span
+            aria-hidden="true"
+            className="hidden sm:block absolute left-0 top-3 bottom-3 w-px bg-line"
+          />
+          <span
+            aria-hidden="true"
+            data-rail-fill
+            className="hidden sm:block absolute left-0 top-3 bottom-3 w-px bg-maven-light origin-top scale-y-0"
+          />
 
-          {/* Mission image first on mobile, numeral left on desktop */}
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">            <Phil image="/images/mission.png" label="Mission" className="order-1" floatClass="animate-float-drift-alt" />
-            <div data-phil-block data-phil-copy className="order-2">
-              <h3 className="display text-center text-3xl md:text-5xl text-white mb-5">
-                Our <span className="text-maven-light text-[clamp(3rem,4vw,7rem)]">
-  Mission
-</span>
-              </h3>
-              <p className="text-mist text-center text-base md:text-lg leading-relaxed max-w-xl">
-                {philosophy.mission}
-              </p>
-            </div>
-          </div>
-        </div>
+          {philosophy.beliefs.map((b) => (
+            <li
+              key={b.num}
+              data-belief
+              className="phil-belief relative grid sm:grid-cols-[112px_1fr] gap-x-8 gap-y-4 py-9 md:py-12 pl-6 sm:pl-10 border-b border-line last:border-b-0"
+            >
+              <div className="flex sm:flex-col items-center sm:items-start gap-4">
+                <span aria-hidden="true" className="belief-num display font-bold text-6xl md:text-7xl leading-none select-none">
+                  {b.num}
+                </span>
+                <span className="mono-label !text-mist-dim rounded-full border border-line px-3 py-1">{b.key}</span>
+              </div>
+              <div className="min-w-0">
+                <h3 className="display font-semibold text-2xl md:text-3xl mb-3 tracking-[0.01em]">{b.title}</h3>
+                <p className="text-mist text-base md:text-lg leading-relaxed max-w-xl">{b.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
-  )
-}
-
-/**
- * Web Masters / Online Marketers toggle pill buttons swap the active
- * discipline copy with a blur/fade transition. Same content as the Mavens
- * section's discipline switcher.
- */
-function MavensTabs() {
-  const [mode, setMode] = useState(0)
-  const modeRef = useRef(0)
-  const animating = useRef(false)
-  const copyRef = useRef<HTMLDivElement>(null)
-  const rootRef = useRef<HTMLDivElement>(null)
-  const resetScrollAcc = useRef<() => void>(() => {})
-
-  // Scroll-driven switching with hysteresis: while the block is in view, a
-  // *sustained* scroll of THRESHOLD px in one direction switches tabs down
-  // advances to "Online Marketers", up returns to "Web Masters" (the default).
-  // Jitter and tiny adjustments never flip the tab, and one gesture switches
-  // at most once.
-  useEffect(() => {
-    if (reducedMotion) return
-    const root = rootRef.current
-    if (!root) return
-
-    const THRESHOLD = 140
-    let lastY = window.scrollY
-    let acc = 0
-    let inView = false
-
-    // Only switch while the block is clearly visible (at least half on screen).
-    const io = new IntersectionObserver(([entry]) => (inView = entry.intersectionRatio >= 0.5), {
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-    })
-    io.observe(root)
-
-    const onScroll = () => {
-      const y = window.scrollY
-      const dy = y - lastY
-      lastY = y
-      if (!inView || dy === 0) return
-      // Changing direction wipes accumulated distance.
-      if (Math.sign(dy) !== Math.sign(acc)) acc = 0
-      acc += dy
-      if (Math.abs(acc) >= THRESHOLD) {
-        const up = acc < 0
-        acc = 0
-        select(up ? 0 : 1)
-      }
-    }
-
-    resetScrollAcc.current = () => (acc = 0)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => {
-      io.disconnect()
-      window.removeEventListener('scroll', onScroll)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const disciplines = [
-    { ...mavens.webMasters, icon: Code },
-    { ...mavens.marketers, icon: Megaphone },
-  ]
-  const Active = disciplines[mode]
-
-  const select = (next: number) => {
-    if (next === modeRef.current || animating.current) return
-    resetScrollAcc.current()
-    modeRef.current = next
-    const el = copyRef.current
-    if (!el) {
-      setMode(next)
-      animating.current = false
-      return
-    }
-    animating.current = true
-    gsap.killTweensOf(el)
-    gsap.to(el, {
-      opacity: 0,
-      y: -16,
-      filter: 'blur(6px)',
-      duration: 0.35,
-      ease: 'power2.in',
-      onComplete: () => {
-        setMode(next)
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 24, filter: 'blur(6px)' },
-          {
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            duration: 0.5,
-            ease: 'power3.out',
-            onComplete: () => (animating.current = false),
-          }
-        )
-      },
-    })
-  }
-
-  return (
-    <div ref={rootRef}>
-      <div className="flex gap-3 mb-9">
-        {disciplines.map((d, i) => (
-          <button
-            key={d.label}
-            type="button"
-            data-cursor
-            onClick={() => select(i)}
-            aria-pressed={mode === i}
-            className={`flex items-center gap-2.5 px-5 py-2.5 rounded-full border text-sm font-medium tracking-tight transition-all duration-400 cursor-pointer ${
-              mode === i
-                ? 'border-maven bg-maven text-white-solid'
-                : 'border-line text-mist-dim hover:text-mist hover:border-mist/30'
-            }`}
-          >
-            <d.icon size={15} aria-hidden="true" />
-            {d.label}
-          </button>
-        ))}
-      </div>
-
-      <div ref={copyRef}>
-        <p className="text-mist text-md md:text-lg leading-relaxed max-w-xl">{Active.body}</p>
-      </div>
-
-      <div className="mt-12 pt-8 pb-8 border-t border-b border-line max-w-xl">
-        <p className="text-maven-lighter/70 text-base leading-relaxed italic">{mavens.callout}</p>
-      </div>
-    </div>
-  )
-}
-
-/**
- * The visual half of a zigzag row an illustration floating over a blurred
- * echo of itself and a soft glow.
- */
-function Phil({
-  image,
-  label,
-  className = '',
-  floatClass = 'animate-float-drift',
-}: {
-  image: string
-  label: string
-  className?: string
-  /** Float animation variant alternate it between rows so their images
-      drift out of phase instead of mirroring each other. */
-  floatClass?: string
-}) {
-  return (
-    <div data-phil-block className={`relative flex flex-col items-center py-6 ${className}`}>
-      <Eyebrow label={`Our ${label}`} className="mb-8 self-center lg:hidden" />
-      <div className="relative flex items-center justify-center w-full" data-phil-visual>
-        <div aria-hidden="true" className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-maven/15 blur-[110px]" />
-        <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none blur-2xl opacity-40 select-none">
-          <img
-            src={image}
-            alt=""
-            className={`duotone-maven ${floatClass} w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain`}
-          />
-        </div>
-        <img
-          src={image}
-          alt={label}
-          className={`duotone-maven ${floatClass} relative w-full max-w-[14rem] sm:max-w-sm lg:max-w-md object-contain`}
-          loading="lazy"
-        />
-      </div>
-    </div>
   )
 }
 
