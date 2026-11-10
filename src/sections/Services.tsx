@@ -80,7 +80,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
           {services.map((service, i) => {
             const Icon = iconMap[service.icon]
             const isOpen = open === service.id
-            const href = `/services/${service.id}`
+            const href = `/services/${service.slug}`
             return (
               <article
                 key={service.id}
@@ -107,7 +107,6 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                   <h3 className="svc-vtitle">{service.title}</h3>
                   <div className="svc-orb" aria-hidden="true">
                     <Icon size={17} strokeWidth={1.7} />
-                    <span className="svc-orbit" />
                   </div>
                   <button
                     type="button"
@@ -155,7 +154,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
           })}
         </div>
 
-        <Reveal delay={0.1} className="mt-12 flex justify-center items-center gap-6">
+        <Reveal delay={0.1} className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
           <MagneticButton variant="primary" onClick={() => onNavigate('/contact')}>
             Discuss your project <ArrowUpRight size={16} />
           </MagneticButton>

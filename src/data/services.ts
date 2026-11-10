@@ -1,5 +1,7 @@
 export interface Service {
   id: string
+  /** Route slug under /services, e.g. "website-management" → /services/website-management */
+  slug: string
   index: string
   icon: 'globe' | 'settings' | 'search' | 'trending' | 'sparkles' | 'shield'
   title: string
@@ -13,6 +15,7 @@ export interface Service {
 export const services: Service[] = [
   {
     id: 'web-design',
+    slug: 'web-design',
     index: '01',
     icon: 'globe',
     title: 'Custom Website Solutions',
@@ -26,6 +29,7 @@ export const services: Service[] = [
   },
   {
     id: 'management',
+    slug: 'website-management',
     index: '02',
     icon: 'settings',
     title: 'Website Management',
@@ -44,6 +48,7 @@ export const services: Service[] = [
   },
   {
     id: 'seo',
+    slug: 'seo',
     index: '03',
     icon: 'search',
     title: 'Search Engine Optimization',
@@ -57,6 +62,7 @@ export const services: Service[] = [
   },
   {
     id: 'marketing',
+    slug: 'digital-marketing',
     index: '04',
     icon: 'trending',
     title: 'Digital Marketing',
@@ -70,6 +76,7 @@ export const services: Service[] = [
   },
   {
     id: 'ai-consulting',
+    slug: 'ai-consulting',
     index: '05',
     icon: 'sparkles',
     title: 'AI Consulting',
@@ -83,6 +90,7 @@ export const services: Service[] = [
   },
   {
     id: 'cyber-security',
+    slug: 'cyber-security',
     index: '06',
     icon: 'shield',
     title: 'Cyber Security',

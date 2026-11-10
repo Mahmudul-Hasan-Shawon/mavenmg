@@ -1359,28 +1359,6 @@ html:not([data-theme='light']) .marquee-badge {
 }
 
 /* Satellite dot riding a race around the orb. */
-.svc-orbit {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: svc-orbit 8s linear infinite;
-  animation-delay: calc(var(--svc-i, 0) * -1.8s);
-}
-
-.svc-orbit::before {
-  content: '';
-  position: absolute;
-  top: -2.5px;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  margin-left: -2.5px;
-  border-radius: 50%;
-  background: var(--maven-lighter);
-  box-shadow: 0 0 10px 2px rgba(139, 79, 191, 0.55);
-}
-
 .svc-toggle {
   flex: none;
   width: 34px;
@@ -1749,12 +1727,6 @@ html:not([data-theme='light']) .marquee-badge {
   }
 }
 
-@keyframes svc-orbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes svc-sheen {
   0% {
     transform: translateY(-110%);
@@ -1777,13 +1749,8 @@ html:not([data-theme='light']) .marquee-badge {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .svc-orbit,
   .svc-panel::after {
     animation: none;
-  }
-
-  .svc-orbit {
-    opacity: 0;
   }
 
   .svc-panel,
