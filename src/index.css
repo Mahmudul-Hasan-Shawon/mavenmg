@@ -459,6 +459,48 @@
     filter: grayscale(1) sepia(1) hue-rotate(225deg) saturate(3.2) brightness(0.9);
   }
 
+  /* ---------- GrowthArt SVG scenes (BusinessGrowth cards) ---------- */
+
+  /* Theme-dependent strokes/fills. Brand hexes live inside the SVG since the
+     dark-purple subjects sit on both themes; only the environment adapts. */
+  .growth-art {
+    --ga-glass: rgba(218, 202, 255, 0.06);
+    --ga-glass-strong: rgba(218, 202, 255, 0.1);
+    --ga-line: rgba(218, 202, 255, 0.18);
+    --ga-line-faint: rgba(218, 202, 255, 0.1);
+    --ga-dot: #dacaff;
+    --ga-shadow: rgba(3, 1, 8, 0.5);
+  }
+
+  [data-theme="light"] .growth-art {
+    --ga-glass: rgba(24, 17, 43, 0.04);
+    --ga-glass-strong: rgba(24, 17, 43, 0.07);
+    --ga-line: rgba(24, 17, 43, 0.18);
+    --ga-line-faint: rgba(24, 17, 43, 0.1);
+    --ga-dot: #2c1846;
+    --ga-shadow: rgba(24, 17, 43, 0.14);
+  }
+
+  .growth-art .ga-float {
+    animation: ga-float 7s ease-in-out infinite;
+  }
+
+  @keyframes ga-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .growth-art .ga-float {
+      animation: none;
+    }
+  }
+
   .grad-text {
     color: var(--maven-light);
   }

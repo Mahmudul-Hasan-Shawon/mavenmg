@@ -12,9 +12,9 @@ export const site = {
   name: 'Maven Marketing Group',
   shortName: 'Maven',
   tagline: 'Maven Marketing Group',
-  headline: ['AI Consulting', 'SEO, Web Design &', 'Web Applications'],
+  headline: ['Your Growth Partner', 'for Search, Websites,', 'AI and Security'],
   subhead:
-    'Custom web applications, SEO and AI consulting that turn your vision into measurable results. A Chicago-based team serving clients across the United States and around the world.',
+    "Maven helps growing businesses get found, convert more visitors, automate the busywork and prove they're enterprise-ready. One team for SEO & AEO, custom websites, AI consulting and cyber security, measured by the leads and revenue it brings in.",
   founded: 2019,
   phone: '(847) 558-9957',
   phoneHref: 'tel:+18475589957',

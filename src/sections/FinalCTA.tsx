@@ -10,7 +10,7 @@ import { Reveal } from '../components/ui/Reveal'
  */
 export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
-    <section id="final-cta" className="py-20 md:py-28" aria-label="Start your project">
+    <section id="final-cta" className="section py-20 md:py-28" aria-label="Start your project">
       <div className="container-maven">
         <Reveal>
           <div className="relative overflow-hidden rounded-[2rem] border border-line shadow-[0_28px_80px_-28px_rgba(97,44,139,0.55)]">

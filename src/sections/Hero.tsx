@@ -21,20 +21,20 @@ export function Hero({ onNavigate }: { onNavigate: (href: string) => void }) {
       >
         <div className="w-full min-w-0 max-w-6xl mx-auto text-center">
           <h1
-            className="whitespace-nowrap text-[min(8.2vw,6.5rem)] text-white"
+            className="whitespace-nowrap text-[min(7.2vw,6rem)] text-white"
             style={{ fontFamily: 'var(--font-poppins)', fontWeight: 700, letterSpacing: '0.02em', lineHeight: 1.14 }}
           >
             <AnimatedText trigger="load" mode="words" stagger={0.09} duration={1.1}>
-              AI Consulting
+              Your Growth Partner
             </AnimatedText>
             <span className="block mt-1">
               <AnimatedText trigger="load" mode="words" stagger={0.09} delay={0.3} duration={1.1} gradient blur>
-                SEO, Web Design &amp;
+                for Search, Websites,
               </AnimatedText>
             </span>
             <span className="block mt-1">
               <AnimatedText trigger="load" mode="words" stagger={0.09} delay={0.6} duration={1.1}>
-                Web Applications
+                AI and Security
               </AnimatedText>
             </span>
           </h1>

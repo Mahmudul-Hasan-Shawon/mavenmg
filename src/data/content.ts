@@ -7,27 +7,27 @@ export interface Reason {
 export const reasons: Reason[] = [
   {
     index: '01',
-    title: 'Custom Website Solutions',
+    title: 'We Implement, Not Just Recommend',
     description:
-      'Every business is unique. We craft tailor-made web design and marketing strategies that align perfectly with your specific business goals and brand identity. Every site is designed around your business and the customers you are actually trying to reach.'
+      'The team that plans the work builds it, on your site, in your stack. No slide decks that sit in a folder.',
   },
   {
     index: '02',
-    title: 'Expertise and Experience',
+    title: 'One Team Across Growth and Governance',
     description:
-      'With years of experience in web development and digital marketing, Maven has a deep understanding of the digital landscape and the latest technologies and trends. ',
+      'Search, websites, AI and security are planned together, so a fix never bounces between three vendors.',
   },
   {
     index: '03',
-    title: 'Results-Driven Approach',
+    title: 'Measured by Leads and Revenue',
     description:
-      'Our focus is on delivering measurable results and increasing your bottom line, with data-driven strategies where every marketing dollar contributes to your objectives.',
+      '$500M+ in client revenue and 3.6M+ leads. We report on what the business sees, not on vanity metrics.',
   },
   {
     index: '04',
-    title: 'Exceptional Customer Service',
+    title: 'Chicago-Area Offices, Clients Nationwide',
     description:
-      'Clear communication, regular updates, and ongoing support, we pride ourselves on service that ensures your needs are met and exceeded.',
+      'Lake Zurich and Deerfield, Illinois, with remote delivery across the US and on-site work in Chicagoland.',
   },
   {
     index: '05',

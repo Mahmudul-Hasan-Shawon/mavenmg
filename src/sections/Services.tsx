@@ -7,8 +7,8 @@ import { MagneticButton } from '../components/ui/MagneticButton'
 /**
  * ServiceExplorer, Maven's services as image-top cards built on the Work
  * page's card concept: panel shell, image zoom on hover, stroked index
- * number, ink gradient fade, and highlight chips. The card itself never
- * translates on hover, so no seams appear under the image.
+ * number, and highlight chips. The card itself never translates on hover,
+ * so no seams appear under the image.
  */
 export function Services({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
@@ -34,7 +34,6 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1.2s] ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
                   <span
                     className="absolute top-4 left-5 font-poppins font-bold text-4xl text-stroke select-none"
                     aria-hidden="true"

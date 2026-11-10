@@ -340,7 +340,7 @@ function ServiceCatalogSection({ onNavigate }: { onNavigate: (href: string) => v
                           {String(i + 1).padStart(2, '0')}
                         </span>
                         <span className="h-px w-7 bg-maven-light/40" aria-hidden="true" />
-                        <span className="mono-label !text-mist">{category.tagline}</span>
+                        <span className="text-sm text-mist">{category.tagline}</span>
                       </div>
 
                       <h3 className="display font-semibold text-[clamp(2.1rem,4.6vw,3.8rem)] leading-[1.02] text-white mb-5">
@@ -370,7 +370,7 @@ function ServiceCatalogSection({ onNavigate }: { onNavigate: (href: string) => v
                     </div>
 
                     <div className="lg:border-l lg:border-line lg:pl-12">
-                      <p className="mono-label !text-mist-dim mb-2">Services</p>
+                      <p className="text-sm text-mist-dim mb-2">Services</p>
                       <ul className="grid sm:grid-cols-2 gap-x-8">
                         {category.items.map((item) => (
                           <li key={item.label}>

@@ -3,19 +3,20 @@ import { ArrowRight, ChevronDown, ChevronRight } from 'lucide-react'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Eyebrow } from '../components/text/Eyebrow'
+import { GrowthArt } from '../components/art/GrowthArt'
 
 interface GrowthTier {
   tag: string
   title: string
   description: string
-  image: string
+  stage: 1 | 2 | 3
 }
 
 /**
  * BusinessGrowth Maven's growth journey as three progressive tiers:
  * Small Business → Medium Business → Enterprise Solutions. Each tier pairs a
- * square illustration with its stage copy, and connector arrows lead the eye
- * along the scaling path.
+ * hand-built SVG scene (GrowthArt) with its stage copy, and connector arrows
+ * lead the eye along the scaling path.
  */
 const tiers: GrowthTier[] = [
   {
@@ -23,21 +24,21 @@ const tiers: GrowthTier[] = [
     title: 'Small Business',
 description:
       'Every empire starts somewhere. We give small businesses a website and brand that punch far above their weight, so the first impression is the right one.',
-      image: '/images/growth/small-business.png',
+      stage: 1,
   },
   {
     tag: '02 · Momentum',
     title: 'Mid-Sized Business',
 description:
       'Systems replace guesswork. As you scale, we automate campaigns, sharpen your funnel, and turn steady traffic into predictable revenue.',
-      image: '/images/growth/medium-business.png',
+      stage: 2,
   },
   {
     tag: '03 · Enterprise',
     title: 'Enterprise Solution',
 description:
       'Enterprise-grade performance with a hands-on crew. We run integrated marketing engines across every channel so your teams can go bigger.',
-      image: '/images/growth/enterprise-solution.png',
+      stage: 3,
   },
 ]
 
@@ -91,16 +92,10 @@ export function BusinessGrowth({ onNavigate }: { onNavigate?: (href: string) => 
 
                   <div className="scroll-blur panel panel-hover group relative h-full rounded-3xl overflow-hidden shadow-[0_14px_40px_-22px_rgba(97,44,139,0.3)] hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)] transition-shadow duration-500">
                     {/* Illustration */}
-                    <div className="relative aspect-[4/3] overflow-hidden bg-void">
-                      <div className="absolute inset-0 opacity-25 blur-2xl scale-125 transition-transform duration-700 group-hover:scale-150">
-                        <img src={tier.image} alt="" loading="lazy" className="duotone-maven w-full h-full object-contain" />
+                    <div className="relative aspect-[4/3] overflow-hidden border-b border-line">
+                      <div className="absolute inset-0 p-4 md:p-6 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+                        <GrowthArt stage={tier.stage} className="w-full h-full" />
                       </div>
-                      <img
-                        src={tier.image}
-                        alt={`${tier.title} growth illustration`}
-                        loading="lazy"
-                        className="duotone-maven relative w-full h-full object-contain p-4 md:p-6 transition-transform duration-700 ease-out group-hover:scale-105"
-                      />
                     </div>
 
                     {/* Copy */}

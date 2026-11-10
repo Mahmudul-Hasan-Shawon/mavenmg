@@ -48,12 +48,10 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
       <div className="container-maven relative">
         <SectionHeading
           eyebrow="Why Maven"
-          title="Why Choose Maven"
-          accent={'For Web Design &\nMarketing Services?'}
-          highlight={['maven']}
+          title="The Agency That Builds"
+          accent="What It Recommends"
           accentLight
-          accentWhite={['&', 'for']}
-          lede="Seven reasons businesses across the US and beyond trust Maven with their digital presence."
+          lede="Since 2019 we've helped more than 300 businesses build, grow and manage their online presence. Here's what stays the same on every engagement."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
