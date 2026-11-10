@@ -66,7 +66,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
   )
 
   return (
-    <section id="services" className="section py-28 md:py-36" aria-label="Services">
+    <section id="services" className="section pt-14 pb-28 md:pt-16 md:pb-36" aria-label="Services">
       <div className="container-maven">
         <SectionHeading
           eyebrow="Our services"
