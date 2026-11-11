@@ -314,7 +314,7 @@ function ServicesNavItem({
             </SmartLink>
           </div>
 
-          <p className="text-xs leading-relaxed text-mist-dim mt-6">{servicesMenu.note}</p>
+          <p className="text-xs font-medium leading-relaxed text-[#c7c0e0] mt-6">{servicesMenu.note}</p>
         </div>
 
         {/* Offering columns */}
@@ -346,7 +346,7 @@ function ServicesNavItem({
                       onNavigate={go}
                       data-cursor
                       onClick={close}
-                      className="group flex items-center gap-2.5 text-[13.5px] leading-snug text-mist hover:text-white transition-colors duration-300"
+                      className="group flex items-center gap-2.5 text-[13.5px] font-medium leading-snug text-[#c7c0e0] hover:text-white transition-colors duration-300"
                     >
                       <span
                         aria-hidden="true"
