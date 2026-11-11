@@ -47,6 +47,18 @@ function hslToHex(h: number, s: number, l: number) {
   return toHex(hue2rgb(p, q, h + 1 / 3) * 255, hue2rgb(p, q, h) * 255, hue2rgb(p, q, h - 1 / 3) * 255)
 }
 
+/** Normalize any brand hex into the same vivid, mid-light accent range the
+ *  image sampler produces, so dark fallback brand colors (e.g. #1A1A2E)
+ *  stay readable as text and borders on both themes. */
+export function normalizeAccentHex(hex: string): string {
+  const m = hex.replace('#', '')
+  const full = m.length === 3 ? m.split('').map((c) => c + c).join('') : m
+  const num = Number.parseInt(full, 16)
+  if (Number.isNaN(num)) return hex
+  const [h, s, l] = rgbToHsl((num >> 16) & 255, (num >> 8) & 255, num & 255)
+  return hslToHex(h, Math.max(s, 0.5), Math.min(0.62, Math.max(0.52, l)))
+}
+
 export function dominantImageColor(src: string): Promise<string | null> {
   const cached = cache.get(src)
   if (cached) return Promise.resolve(cached)

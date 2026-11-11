@@ -78,7 +78,7 @@ export const projects: Project[] = [
     services: 'Website Design, Website Development, Website Management',
     color: '#7B2CBF',
     image: '/images/projects/p6.jpg',
-    blurb: 'A custom web presence built to convert visitors into customers.',
+    blurb: 'An ongoing SEO content program for a CEIA security-screening distributor: 880% return in 12 months, a 42% conversion rate and 200+ leads a month.',
     url: 'https://gxc-inc.com/',
   },
   {

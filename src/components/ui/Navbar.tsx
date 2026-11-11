@@ -131,6 +131,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
               <MagneticButton
                 variant={scrolled ? 'primary' : 'deepOutline'}
                 size="sm"
+                className="backdrop-blur-md"
                 onClick={() => go('/contact')}
               >
                 Start Your Project
@@ -286,9 +287,9 @@ function ServicesNavItem({
 
         {/* Left rail: statement, CTAs, note */}
         <div className="services-rail lg:w-[252px] shrink-0 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 bg-white/[0.02] px-6 py-7">
-          <p className="mono-label !text-mist-dim mb-4">What we do</p>
+          {/* <p className="mono-label !text-mist-dim mb-4">What we do</p> */}
           <p className="display font-semibold text-[1.4rem] leading-snug text-white">
-            Everything your business needs to win online.
+            Everything your brand needs to stand out and grow.
           </p>
 
           <div className="mt-auto pt-7 space-y-2.5">

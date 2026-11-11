@@ -1054,8 +1054,8 @@ export const servicePages: ServicePageData[] = [
       accent: 'AI systems that run your business',
       accentHighlight: ['ai', 'systems'],
       lede: 'Full-service AI consulting, from enterprise strategy and roadmapping through custom development, production deployment and ongoing optimization. No slide decks without code. No pilots without a plan to ship.',
-      image: '/images/Services/AI Consulting/hero.svg',
-      imageLight: '/images/Services/AI Consulting/hero-light.svg',
+      image: '/images/Services/AI Consulting/card.png',
+      imageLight: '/images/Services/AI Consulting/card.png',
       imageAlt: 'Abstract visualization of an AI network',
     },
     stats: [
@@ -1078,7 +1078,7 @@ export const servicePages: ServicePageData[] = [
         'ROI modeled before we build, then tracked after launch',
         'Human-in-the-loop controls and ongoing optimization',
       ],
-      image: '/images/Services/AI Consulting/overview.svg',
+      image: '/images/Services/AI Consulting/overview.png',
       imageAlt: 'Diagram of an AI core connected to business systems',
     },
     includes: [
@@ -1241,8 +1241,8 @@ export const servicePages: ServicePageData[] = [
       accent: 'growing businesses',
       accentHighlight: ['growing', 'businesses'],
       lede: 'Your biggest prospects now ask for proof of security before they sign. Maven helps growing businesses pass penetration tests, close compliance gaps and get through SOC 2 and PCI audits without building a security team first.',
-      image: '/images/Services/Cyber Security/hero.svg',
-      imageLight: '/images/Services/Cyber Security/hero-light.svg',
+      image: '/images/Services/Cyber Security/card.png',
+      imageLight: '/images/Services/Cyber Security/card.png',
       imageAlt: 'Abstract visualization of a security shield and network',
     },
     stats: [
@@ -1281,7 +1281,7 @@ export const servicePages: ServicePageData[] = [
         'One partner across web, infrastructure and security',
         'Chicago-area team, remote delivery nationwide, fixed-scope engagements',
       ],
-      image: '/images/Services/Cyber Security/overview.svg',
+      image: '/images/Services/Cyber Security/overview.png',
       imageAlt: 'Security shield connected to business systems',
     },
     includes: [

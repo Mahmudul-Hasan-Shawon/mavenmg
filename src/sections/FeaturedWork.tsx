@@ -5,7 +5,7 @@ import { Eyebrow } from '../components/text/Eyebrow'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { gsap, useGsapContext } from '../hooks/useGsap'
 import { reducedMotion } from '../utils/motion'
-import { dominantImageColor } from '../utils/imageColor'
+import { dominantImageColor, normalizeAccentHex } from '../utils/imageColor'
 
 /**
  * FeaturedWork, the home page's project showcase as an editorial
@@ -27,11 +27,24 @@ const AUTOPLAY_MS = 5200
 export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => void }) {
   const shown = useMemo(() => projects.slice(0, 6), [])
   const [active, setActive] = useState(0)
+  const [prevActive, setPrevActive] = useState<number | null>(null)
   const [paused, setPaused] = useState(false)
   const [imageColors, setImageColors] = useState<Record<number, string>>({})
   const rootRef = useRef<HTMLElement>(null)
+  const lastActive = useRef(0)
 
   const current = shown[active]
+
+  // Layered crossfade: the outgoing image stays fully visible underneath
+  // while the incoming one fades in on top, so the dissolve never dips
+  // dark. Once covered (fade done), the old image is dropped silently.
+  useEffect(() => {
+    if (active === lastActive.current) return
+    setPrevActive(lastActive.current)
+    lastActive.current = active
+    const t = window.setTimeout(() => setPrevActive(null), 1100)
+    return () => window.clearTimeout(t)
+  }, [active])
 
   // Sample each project image once; the accent lives off the image's own
   // dominant color, falling back to the project's brand color until the
@@ -48,7 +61,7 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
     }
   }, [shown])
 
-  const accentOf = (p: (typeof shown)[number]) => imageColors[p.id] ?? p.color
+  const accentOf = (p: (typeof shown)[number]) => imageColors[p.id] ?? normalizeAccentHex(p.color)
   const accent = accentOf(current)
 
   const select = (i: number) => setActive(((i % shown.length) + shown.length) % shown.length)
@@ -187,7 +200,7 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
           <div className="order-1 lg:order-2">
             <figure
               className="fw-stage relative m-0 h-full rounded-3xl overflow-hidden panel border border-line transition-[box-shadow] duration-700"
-              style={{ boxShadow: `0 44px 130px -48px ${accent}66` }}
+              style={{ boxShadow: `0 24px 70px -46px ${accent}40` }}
             >
               <div
                 role="group"
@@ -197,34 +210,38 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
                 onKeyDown={onStageKey}
                 className="relative h-[64vw] max-h-[440px] min-h-[300px] sm:h-[56vw] lg:h-full lg:max-h-none lg:min-h-[440px] outline-none focus-visible:ring-2 focus-visible:ring-maven-light/70 rounded-3xl"
               >
-                {/* Live crossfade stack */}
+                {/* Layered crossfade: new image fades in over the old one */}
                 {shown.map((p, i) => {
                   const name = p.name.replace(/\n/g, ' ')
+                  const isLive = i === active
+                  const isPrev = i === prevActive
                   return (
                     <img
                       key={p.id}
                       src={p.image}
                       alt={`${name}, ${p.category} website by Maven Marketing Group`}
                       loading={i === 0 ? 'eager' : 'lazy'}
-                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-                        i === active && !reducedMotion ? 'fw-live' : ''
-                      } ${i === active ? 'opacity-100' : 'opacity-0'}`}
+                      className={`absolute inset-0 w-full h-full object-cover ${
+                        isLive ? 'z-10 opacity-100' : isPrev ? 'z-0 opacity-100' : 'z-0 opacity-0'
+                      } ${isLive && !reducedMotion ? 'fw-live transition-opacity duration-[900ms] ease-in-out' : ''}`}
                     />
                   )
                 })}
 
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
+                <div className="absolute inset-0 z-20 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
 
-                {/* Caption */}
-                <figcaption className="absolute inset-x-0 bottom-0 p-6 md:p-8 pb-7 md:pb-9 flex flex-wrap items-end justify-between gap-4">
-                  <div className="max-w-[52ch] min-w-0">
-                    <p className="mono-label mb-2" style={{ color: accent }}>
+                {/* Caption — keyed so the text glides in on every switch */}
+                <figcaption className="absolute inset-x-0 bottom-0 z-30 p-6 md:p-8 pb-7 md:pb-9 flex flex-wrap items-end justify-between gap-4">
+                  <div key={active} className="fw-cap max-w-[52ch] min-w-0">
+                    <p className="mono-label !text-white/85 mb-2">
                       {current.category}
                     </p>
                     <p className="display font-semibold text-lg md:text-2xl text-white mb-2 tracking-[0.01em]">
                       {current.name.replace(/\n/g, ' ')}
                     </p>
-                    <p className="text-mist text-sm md:text-base leading-relaxed line-clamp-2">{current.blurb}</p>
+                    <p className="font-dm font-medium text-[15px] md:text-[16.5px] leading-[1.65] tracking-[0.01em] text-white text-balance">
+                      {current.blurb}
+                    </p>
                   </div>
 
                   {current.url ? (
@@ -257,7 +274,7 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
 
                 {/* Autoplay progress hairline */}
                 {!reducedMotion && (
-                  <div aria-hidden="true" className="absolute bottom-0 inset-x-0 h-[3px] bg-white/5">
+                  <div aria-hidden="true" className="absolute bottom-0 inset-x-0 z-30 h-[3px] bg-white/5">
                     <span
                       key={active}
                       className="block h-full origin-left scale-x-0"
