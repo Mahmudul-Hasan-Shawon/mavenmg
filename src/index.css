@@ -1339,12 +1339,23 @@ html:not([data-theme='light']) .marquee-badge {
   user-select: none;
 }
 
+/* Stage numeral: ghosted stroked display type instead of a mono label;
+   fills solid while its panel is open. */
 .svc-index {
   flex: none;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.28em;
+  font-family: var(--font-poppins);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--maven-light);
+  transition: color 0.5s ease, -webkit-text-stroke-color 0.5s ease;
+}
+
+.svc-panel[data-open] .svc-index {
   color: var(--maven-light);
+  -webkit-text-stroke-color: transparent;
 }
 
 .svc-vtitle {
