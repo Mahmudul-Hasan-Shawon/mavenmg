@@ -4,6 +4,11 @@ export interface Testimonial {
   company: string
   quote: string
   image?: string
+  /**
+   * How the logo fills its disc: 'contain' (default) keeps it whole on the
+   * white disc; 'cover' lets a full-bleed artwork fill the disc edge-to-edge.
+   */
+  logoFit?: 'cover' | 'contain'
 }
 
 export const testimonials: Testimonial[] = [
@@ -12,6 +17,7 @@ export const testimonials: Testimonial[] = [
     role: 'Founder & CEO',
     company: 'Blueberry',
     image: '/images/testimonials/slater-heil.jpg',
+    logoFit: 'cover',
     quote:
       "When we at Blueberry needed a site to match our next-gen DeFi vision, Maven delivered something unreal. Their design is unmatched in this cutting-edge space, sleek, futuristic, and screaming innovation, it's like they pulled our protocol's soul straight onto the screen.",
   },
@@ -44,6 +50,7 @@ export const testimonials: Testimonial[] = [
     role: 'Owner',
     company: 'Eminent Limo',
     image: '/images/testimonials/quam-opere.png',
+    logoFit: 'cover',
     quote:
       "Eminent Limo was stuck at zero, nothing coming through the website, until Maven turned it around. They shot us from $0 to averaging $50K a month, knocking out every competitor in search rankings. Maven's design and SEO magic are unreal.",
   },
