@@ -156,7 +156,7 @@ export function WhyMaven({ onNavigate }: { onNavigate?: (href: string) => void }
                   </div>
 
                   <div className="relative">
-                    <span className="mono-label !text-white-solid/70 mb-4 block">Next step</span>
+                    {/* <span className="mono-label !text-white-solid/70 mb-4 block">Next step</span> */}
                     <p className="display font-semibold text-2xl md:text-[1.75rem] leading-tight text-white-solid">
                       Ready to build a website that converts?
                     </p>
