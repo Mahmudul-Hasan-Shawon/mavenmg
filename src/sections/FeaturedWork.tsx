@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FocusEvent, type KeyboardEvent } from 'react'
-import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { projects } from '../data/projects'
 import { Eyebrow } from '../components/text/Eyebrow'
 import { MagneticButton } from '../components/ui/MagneticButton'
@@ -113,7 +113,7 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
       ref={rootRef}
       id="featured-work"
       className="section relative py-28 md:py-36 border-t border-line overflow-clip"
-      style={{ backgroundColor: 'var(--hero-base)' }}
+      style={{ backgroundColor: '#0f0817' }}
       aria-label="Featured work"
     >
       {/* Ambient washes; the right one takes the active project's color */}
@@ -126,39 +126,12 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
       </div>
 
       <div className="container-maven relative">
-        {/* Header + show controls */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
-          <div>
-            <Eyebrow label="Featured work" className="mb-6" />
-            <h2 className="display text-[clamp(2rem,5vw,3.8rem)]">
-              Growth You Can <span className="grad-text">Point To</span>
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <p className="index-tag" aria-live="polite">
-              <span className="!text-white">{String(active + 1).padStart(2, '0')}</span>
-              <span className="text-mist-dim"> / {String(shown.length).padStart(2, '0')}</span>
-            </p>
-            <button
-              type="button"
-              data-cursor
-              aria-label="Previous project"
-              onClick={() => select(active - 1)}
-              className="w-10 h-10 rounded-full border border-line flex items-center justify-center text-mist-dim transition-colors duration-300 hover:text-white hover:border-line-hover cursor-pointer"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              type="button"
-              data-cursor
-              aria-label="Next project"
-              onClick={() => select(active + 1)}
-              className="w-10 h-10 rounded-full border border-line flex items-center justify-center text-mist-dim transition-colors duration-300 hover:text-white hover:border-line-hover cursor-pointer"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
+        {/* Header */}
+        <div className="max-w-3xl mb-12 md:mb-16">
+          <Eyebrow label="Featured work" className="mb-6" />
+          <h2 className="display text-[clamp(2rem,5vw,3.8rem)]">
+            Growth You Can <span className="grad-text">Point To</span>
+          </h2>
         </div>
 
         {/* Index + stage. Hover/focus anywhere here holds the autoplay. */}
@@ -193,12 +166,6 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
                       }`}
                       style={{ backgroundColor: accentOf(p) }}
                     />
-                    <span
-                      className="index-tag shrink-0 transition-colors duration-300"
-                      style={isActive ? { color: accentOf(p) } : undefined}
-                    >
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
                     <span className="display font-semibold text-xl md:text-2xl lg:text-[1.65rem] tracking-[0.01em] flex-1 min-w-0">
                       {name}
                     </span>
@@ -247,14 +214,6 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
                 })}
 
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
-
-                {/* Giant index numeral */}
-                <span
-                  aria-hidden="true"
-                  className="absolute top-3 right-5 md:top-5 md:right-7 font-poppins font-bold text-[clamp(3rem,7vw,5.5rem)] leading-none text-stroke select-none"
-                >
-                  {String(active + 1).padStart(2, '0')}
-                </span>
 
                 {/* Caption */}
                 <figcaption className="absolute inset-x-0 bottom-0 p-6 md:p-8 pb-7 md:pb-9 flex flex-wrap items-end justify-between gap-4">
