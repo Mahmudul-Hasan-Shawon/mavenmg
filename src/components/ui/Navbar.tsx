@@ -391,6 +391,7 @@ function MobileMenu({
 }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const tlRef = useRef<gsap.core.Timeline | null>(null)
+  const [servicesOpen, setServicesOpen] = useState(false)
   const lastFocused = useRef<HTMLElement | null>(null)
   // Visibility is owned by React (not GSAP) so the menu still opens when
   // prefers-reduced-motion skips the timeline setup entirely.
@@ -449,6 +450,7 @@ function MobileMenu({
   useEffect(() => {
     if (!open) {
       lastFocused.current?.focus()
+      setServicesOpen(false)
       return
     }
     lastFocused.current = document.activeElement as HTMLElement | null
@@ -509,6 +511,84 @@ function MobileMenu({
           <nav aria-label="Mobile" className="flex flex-col items-center">
             {navigation.map((link) => {
               const active = isActive(link.href)
+
+              // SERVICES expands in place (arrow rotates) and reveals the
+              // full offering, organized like the desktop mega menu.
+              if (link.href === '/services') {
+                return (
+                  <div key={link.href} className="w-full flex flex-col items-center" style={{ overflow: 'hidden' }}>
+                    <button
+                      type="button"
+                      data-menu-link
+                      data-cursor
+                      aria-expanded={servicesOpen}
+                      aria-controls="mobile-services-panel"
+                      onClick={() => setServicesOpen((v) => !v)}
+                      className={cn(
+                        'group flex items-center gap-3.5 py-2.5 cursor-pointer transition-colors duration-300',
+                        active || servicesOpen ? 'text-white' : 'text-mist hover:text-white'
+                      )}
+                    >
+                      <span className="display font-semibold text-[clamp(1.9rem,8vw,2.6rem)] leading-tight tracking-[0.01em] transition-transform duration-400 group-hover:translate-x-1.5">
+                        {link.label}
+                      </span>
+                      <ArrowRight
+                        size={22}
+                        aria-hidden="true"
+                        className={cn('transition-transform duration-500', servicesOpen && 'rotate-90 text-maven-light')}
+                      />
+                    </button>
+
+                    <div
+                      id="mobile-services-panel"
+                      className={cn(
+                        'grid w-full transition-[grid-template-rows,opacity] duration-500 ease-out',
+                        servicesOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      )}
+                    >
+                      <div className="min-h-0 overflow-hidden">
+                        <div className="mx-auto w-full max-w-[21rem] px-2 pt-2 pb-3 text-left">
+                          <SmartLink
+                            href="/services"
+                            onNavigate={onNavigate}
+                            data-cursor
+                            onClick={onClose}
+                            className="group flex items-center justify-between gap-2 rounded-full border border-line px-4 py-2 text-[12.5px] font-semibold text-[#c7c0e0] hover:text-white hover:border-maven-light/60 transition-colors duration-300"
+                          >
+                            All Services
+                            <ArrowRight
+                              size={13}
+                              className="transition-transform duration-150 group-hover:translate-x-1"
+                              aria-hidden="true"
+                            />
+                          </SmartLink>
+
+                          <ul className="mt-5 flex flex-col gap-2.5">
+                            {servicesMenu.columns.map((col) => (
+                              <li key={col.href}>
+                                <SmartLink
+                                  href={col.href}
+                                  onNavigate={onNavigate}
+                                  data-cursor
+                                  onClick={onClose}
+                                  className="group flex items-center gap-2.5 text-[14px] font-semibold leading-snug text-[#c7c0e0] transition-colors duration-300 hover:text-white"
+                                >
+                                  <span
+                                    aria-hidden="true"
+                                    className="h-1.5 w-1.5 shrink-0 rotate-45 rounded-[1px] bg-mist/50 transition-all duration-300 group-hover:bg-maven-light group-hover:rotate-[135deg]"
+                                  />
+                                  {col.title}
+                                </SmartLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+
               return (
                 <div key={link.href} style={{ overflow: 'hidden' }}>
                   <SmartLink
