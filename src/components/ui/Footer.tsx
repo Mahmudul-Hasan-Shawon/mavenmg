@@ -48,7 +48,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
   }
 
   return (
-    <footer className="relative border-t border-white/10 bg-[#170a24]" aria-label="Footer">
+    <footer className="relative border-t border-white/10 bg-[#0f0817]" aria-label="Footer">
       <div className="container-maven px-6 md:px-10 pt-10 md:pt-16">
         {/* Columns */}
         <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr] gap-10 pb-14 md:pb-16 [&>*]:min-w-0">
@@ -79,8 +79,8 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
 
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-maven/20 text-maven-digest">
-                    <MapPin size={14} aria-hidden="true" />
+                  <span className="mt-0.5 shrink-0 text-maven-digest">
+                    <MapPin size={16} aria-hidden="true" />
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-white-solid">Lake Zurich</p>
@@ -91,8 +91,8 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-maven/20 text-maven-digest">
-                    <MapPin size={14} aria-hidden="true" />
+                  <span className="mt-0.5 shrink-0 text-maven-digest">
+                    <MapPin size={16} aria-hidden="true" />
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-white-solid">Deerfield</p>
@@ -176,12 +176,6 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                   {site.email}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-[#a89fc0]">
-                <MapPin size={15} className="mt-0.5 shrink-0 text-[#a89fc0]" aria-hidden="true" />
-                <span>
-                  {site.address.street}, {site.address.city}, {site.address.state} {site.address.zip}
-                </span>
-              </li>
             </ul>
 
             {/* Maven Digest newsletter */}
@@ -246,7 +240,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
 
       <div className="border-t border-white/10">
         <div className="container-maven px-6 md:px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[#a89fc0] text-xs">
+          <p className="text-[#c7c0e0] text-xs font-medium">
             © {year} {site.name}. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
@@ -259,7 +253,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                   onNavigate(l.href)
                 }}
                 data-cursor
-                className="text-xs text-[#a89fc0] hover:text-white-solid cursor-pointer transition-colors"
+                className="text-xs font-medium text-[#c7c0e0] hover:text-white-solid cursor-pointer transition-colors"
               >
                 {l.name}
               </a>
