@@ -85,13 +85,20 @@ export interface ServicePageData {
     imageAlt: string
   }
   includes: { icon: ServiceIcon; title: string; description: string }[]
-  process: { title: string; description: string }[]
+  /** Optional: pages without a process array skip the How-it-works section. */
+  process?: { title: string; description: string }[]
   plans: ServicePlan[]
   faq: ServiceFaq[]
   /** Related-service slugs to cross-link at the bottom of the page. */
   related: { slug: string; blurb: string }[]
   /** Optional partner/tool logos rendered as a strip. */
   tech?: { src: string; alt: string }[]
+  /** Optional overrides for the shared Includes / Plans / FAQ headings. */
+  headings?: {
+    includes?: { eyebrow: string; title: string; accent?: string }
+    plans?: { eyebrow: string; title: string; accent?: string; lede?: string }
+    faq?: { eyebrow: string; title: string; accent?: string }
+  }
 }
 
 export const servicePages: ServicePageData[] = [
@@ -631,6 +638,600 @@ export const servicePages: ServicePageData[] = [
       { slug: 'digital-marketing', blurb: 'Paid ads and content that amplify your organic wins.' },
       { slug: 'website-management', blurb: 'A fast, healthy site that ranks better over time.' },
       { slug: 'web-design', blurb: 'Conversion-ready design that turns SEO traffic into customers.' },
+    ],
+  },
+  {
+    slug: 'aeo-geo',
+    navLabel: 'AEO & GEO',
+    blurb: 'Get recommended in AI answers with AEO & GEO strategy.',
+    hero: {
+      eyebrow: 'AEO & GEO Services',
+      title: 'Get cited in',
+      accent: 'AI answers.',
+      accentHighlight: ['AI answers.'],
+      lede: 'Answer engine optimization structures your content, entities and technical signals so Google AI Overviews, ChatGPT and Perplexity retrieve, cite and recommend you. We build that visibility on top of your SEO foundation and measure it in citations, not just rankings.',
+      ledeHighlight: ['retrieve, cite and recommend'],
+      image: '/images/Services/SEO Services/hero.jpg',
+      imageAlt: 'AI answer engines citing website content',
+    },
+    stats: [
+      { value: 68, suffix: '%', label: 'Of Google searches now end without a click' },
+      { value: 16, suffix: 'X', label: 'Growth in AI search referral traffic, 2024 to 2026' },
+      { value: 76, suffix: '%', label: 'Of AI Overview citations come from the organic top 10' },
+      { value: 6, label: 'Months for citation share to compound' },
+    ],
+    overview: {
+      heading: 'The AI visibility layer on your SEO',
+      headingHighlight: ['AI visibility'],
+      paragraphs: [
+        'Answer engine optimization (AEO) makes your content, entities and technical signals easy for AI answer engines to retrieve, trust and cite: Google AI Overviews and AI Mode, ChatGPT, Perplexity, Gemini and Copilot. Generative engine optimization (GEO) is the same discipline applied to any generative engine, and Maven delivers both as one program.',
+        'If your buyers already ask AI for recommendations before they ever visit a site, ranking well in Google is no longer enough. AEO is the layer that keeps you present and described accurately where decisions actually happen, built on the SEO foundation you already have.',
+      ],
+      bullets: [
+        'Businesses whose buyers ask ChatGPT or AI Overviews for recommendations first',
+        'Brands that rank well in Google but are absent or misdescribed in AI answers',
+        'Companies with a working SEO program that need an AI visibility layer, not a replacement',
+        'Measured in AI citations, share of voice and referral sessions, not just rankings',
+      ],
+      image: '/images/Services/SEO Services/overview.png',
+      imageAlt: 'AEO and GEO visibility strategy',
+    },
+    includes: [
+      {
+        icon: 'search',
+        title: 'AI Visibility Audit & Prompt Mapping',
+        description: 'A baseline across every engine: the prompt set from your buyers real questions, who gets cited, where you are absent or wrong, and the citation-gap roadmap.',
+      },
+      {
+        icon: 'share',
+        title: 'Entity & Brand Signal Optimization',
+        description: 'Organization, Person and Service schema with sameAs links, consistent facts everywhere and author credentials, so engines know exactly who you are.',
+      },
+      {
+        icon: 'pen',
+        title: 'Answer-Ready Content Engineering',
+        description: 'Question headings, 40-to-90-word direct answers, comparison tables and lists an engine can lift whole, refreshing the pages buyers already ask about first.',
+      },
+      {
+        icon: 'settings',
+        title: 'Technical AI Readiness',
+        description: 'Crawler access for OAI-SearchBot, PerplexityBot and Google-Extended, server-rendered HTML, schema that matches visible text, sitemaps and Core Web Vitals.',
+      },
+      {
+        icon: 'sparkles',
+        title: 'AI Overviews & AI Mode Optimization',
+        description: 'AI Mode fans one question into many sub-queries. We map that fan-out and make sure a page of yours answers each one while holding the rankings citations are drawn from.',
+      },
+      {
+        icon: 'link',
+        title: 'Third-Party Citations & Mentions',
+        description: 'Engines trust what other sources say about you. We earn placements in the roundups, reviews and trade press they already cite, and correct wrong facts at the source.',
+      },
+      {
+        icon: 'database',
+        title: 'Original Data & Proof Assets',
+        description: 'Statistics, benchmarks and case results quotable by name. A page that only restates what everyone else says has nothing to be cited for.',
+      },
+      {
+        icon: 'trending',
+        title: 'AI Visibility Tracking & Reporting',
+        description: 'Share of voice and citation share by engine, mention accuracy and sentiment, AI referrals in GA4 and branded-search lift, reported monthly on your SEO report.',
+      },
+    ],
+    plans: [
+      {
+        name: 'AI Visibility Audit',
+        price: 'Fixed',
+        priceNote: 'One-time scope',
+        blurb: 'Find out where you stand in every engine.',
+        features: [
+          'Prompt set from real buyer questions',
+          'Competitor citation analysis',
+          'Accuracy and sentiment report',
+          'Citation-gap roadmap',
+        ],
+      },
+      {
+        name: 'AEO & GEO Retainer',
+        price: 'Custom',
+        priceNote: 'Monthly program',
+        blurb: 'The full program: schema, content, citations and reporting.',
+        features: [
+          'All eight deliverables, implemented',
+          'Prompt set tracked monthly',
+          'Citation outreach and corrections',
+          'Layered on your existing SEO report',
+        ],
+        featured: true,
+      },
+      {
+        name: 'AEO + Managed SEO',
+        price: 'Custom',
+        priceNote: 'Monthly bundle',
+        blurb: 'One program for classic rankings and AI citations.',
+        features: [
+          'Managed SEO plus the full AEO layer',
+          'Top-10 rankings that feed AI citations',
+          'Content refresh and new page builds',
+          'Quarterly roadmap reviews',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'What is the difference between AEO and SEO?',
+        a: 'SEO earns rankings and clicks in search results. AEO earns citations and recommendations inside AI-generated answers. They share the same foundation of crawlable, authoritative, well-structured content, which is why Maven runs them as one program rather than two.',
+      },
+      {
+        q: 'What is the difference between AEO and GEO?',
+        a: 'Mostly history, not substance. Answer engine optimization grew out of featured-snippet work; generative engine optimization describes the same goal for LLM-based engines and leans harder on third-party sources and cross-engine monitoring. Maven delivers both as a single service.',
+      },
+      {
+        q: 'Do I still need SEO if I invest in AEO?',
+        a: 'Yes. Google says AI features need no special markup beyond being indexed and snippet-eligible, and about 76% of AI Overview citations come from pages already ranking in the top 10. AEO is a layer on SEO, not a substitute.',
+      },
+      {
+        q: 'How long does it take to get cited in ChatGPT or AI Overviews?',
+        a: 'Owned-page wins, such as AI Overview inclusion on questions you already rank for, usually appear in the first quarter. Citation share across ChatGPT and Perplexity moves over three to six months as third-party mentions accumulate, and it compounds from there.',
+      },
+      {
+        q: 'How do you measure AEO results?',
+        a: 'A fixed prompt set is re-run monthly across every engine. We report share of voice, citation share, accuracy and sentiment, AI Overview inclusion, AI referral sessions in GA4 and branded-search lift, using a monitoring platform named in your proposal.',
+      },
+      {
+        q: 'Can you pay to appear in AI answers or guarantee placement?',
+        a: 'No. Source selection inside AI answers is probabilistic and changes with every model update; nobody can buy or guarantee a citation. Treat any agency promising guaranteed placement as a red flag.',
+      },
+    ],
+    related: [
+      { slug: 'seo', blurb: 'The rankings floor AI visibility is built on.' },
+      { slug: 'ai-consulting', blurb: 'The AI practice behind our first-hand entity authority.' },
+      { slug: 'website-management', blurb: 'Hosting, crawler rules and speed, managed between audits.' },
+    ],
+  },
+  {
+    slug: 'penetration-testing',
+    navLabel: 'Penetration Testing',
+    blurb: 'Manual, human-led pen tests that clear enterprise security reviews.',
+    hero: {
+      eyebrow: 'Penetration Testing Services',
+      title: 'Penetration Testing Services',
+      accent: 'That Pass Enterprise Vendor Security Reviews',
+      accentHighlight: ['Enterprise Vendor Security Reviews'],
+      lede: 'Manual, human-led tests of your web applications, networks and people by a Chicago-area team that also builds and maintains the systems under test. You get a severity-ranked report, a retest and a letter of attestation your prospects, auditors and insurers will accept.',
+      ledeHighlight: ['severity-ranked report', 'letter of attestation'],
+      image: '/images/Services/Cyber Security/card.png',
+      imageAlt: 'Penetration testing and security review artwork',
+    },
+    stats: [
+      { value: 5, label: 'Business days for your full report' },
+      { value: 30, suffix: '+', label: 'Day retest window included' },
+      { value: 6, label: 'Test types, scoped individually or combined' },
+      { value: 1, label: 'Page attestation letter for buyers and auditors' },
+    ],
+    overview: {
+      heading: 'What Is Penetration Testing?',
+      headingHighlight: ['Penetration Testing'],
+      paragraphs: [
+        'A penetration test is an authorized, simulated attack in which a skilled tester finds and exploits weaknesses in your applications, networks or people the way a real adversary would. Unlike an automated vulnerability scan, it chains findings together to prove actual business impact and ends with a prioritized remediation report.',
+        'The trigger is rarely a breach: it is a customer. The moment a deal reaches a large company procurement team, the question "when was your last penetration test?" is on the form, and the answer decides whether you are an approved vendor.',
+      ],
+      bullets: [
+        'Companies answering enterprise vendor security questionnaires or SOC 2 auditors',
+        'Merchants and service providers in PCI DSS scope (Requirement 11.4)',
+        'Any business whose website, portal or app handles customer data',
+        'A scan lists weaknesses; a pen test exploits and chains them to prove impact',
+      ],
+      image: '/images/Services/Cyber Security/overview.png',
+      imageAlt: 'Penetration testing attack paths and compliance evidence',
+    },
+    headings: {
+      includes: { eyebrow: "What's included", title: 'Our Penetration Testing', accent: 'Services' },
+      plans: {
+        eyebrow: 'Penetration testing pricing',
+        title: 'How a penetration test',
+        accent: 'is scoped',
+        lede: 'Price depends on the number of external IPs and internal hosts, application size and complexity, the test types combined, and whether social engineering is included. Every engagement is quoted as a fixed fee with the retest built in.',
+      },
+      faq: { eyebrow: 'FAQ', title: 'Penetration Testing', accent: 'Questions' },
+    },
+    includes: [
+      {
+        icon: 'shield',
+        title: 'External Penetration Testing',
+        description: 'Attacking your internet-facing perimeter with no prior access: public IPs, VPNs, mail, DNS, exposed services and cloud entry points. Maps to PCI DSS 11.4.2.',
+      },
+      {
+        icon: 'server',
+        title: 'Internal Penetration Testing',
+        description: 'Assumed-breach testing from the access a phished employee would have: Active Directory attack paths, lateral movement and sensitive data. Maps to PCI DSS 11.4.3.',
+      },
+      {
+        icon: 'code',
+        title: 'Web Application Penetration Testing',
+        description: 'Authenticated and unauthenticated testing of web apps, portals, WordPress and WooCommerce and APIs against the OWASP Top 10 and WSTG, including business-logic flaws scanners miss.',
+      },
+      {
+        icon: 'mail',
+        title: 'Social Engineering Testing',
+        description: 'Phishing, vishing, smishing and help-desk pretexting built on your real org chart, with click, credential and report rates by department plus training recommendations.',
+      },
+      {
+        icon: 'search',
+        title: 'OSINT & Dark Web Monitoring',
+        description: 'Your public footprint mapped the way an attacker does it, plus breach-corpus and marketplace searches for exposed credentials, with optional continuous alerting.',
+      },
+      {
+        icon: 'layers',
+        title: 'Network Segmentation Testing (PCI)',
+        description: 'Bidirectional connectivity tests proving your cardholder data environment is isolated, with audit-ready evidence for your QSA or SAQ. Required annually for most, twice yearly for service providers.',
+      },
+    ],
+    plans: [
+      {
+        name: 'Focused Test',
+        price: 'Fixed fee',
+        priceNote: 'Quoted per scope',
+        blurb: 'One external or web application test, end to end.',
+        features: [
+          'PTES and NIST SP 800-115 aligned',
+          'CVSS 3.1 severity-ranked report',
+          'Remediation retest included',
+          'Letter of attestation',
+        ],
+      },
+      {
+        name: 'Combined Scope',
+        price: 'Fixed fee',
+        priceNote: 'Quoted per scope',
+        blurb: 'External, internal, web app and segmentation together.',
+        features: [
+          'All six test types available',
+          'Attack-path chaining and MITRE ATT&CK mapping',
+          'On-site Chicagoland or remote nationwide',
+          'Executive debrief and questionnaire answers',
+        ],
+        featured: true,
+      },
+      {
+        name: 'People & Exposure',
+        price: 'Fixed fee',
+        priceNote: 'Campaign or annual',
+        blurb: 'Social engineering plus OSINT and dark web monitoring.',
+        features: [
+          'Phishing, vishing and smishing campaigns',
+          'Department-level click and report rates',
+          'Breached-credential exposure report',
+          'Optional continuous dark web alerting',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Does SOC 2 require a penetration test?',
+        a: 'Not explicitly. The Trust Services Criteria do not name one, but auditors and enterprise customers expect a penetration test under the Security criteria, and most Type II reports include one performed inside the observation period. Annual testing is the accepted baseline.',
+      },
+      {
+        q: 'What does PCI DSS require for penetration testing?',
+        a: 'PCI DSS v4.0.1 Requirement 11.4 calls for internal and external penetration testing at least every twelve months and after significant changes, fixing and retesting exploitable findings, and segmentation testing annually, or every six months for service providers. The tester must be qualified and organizationally independent.',
+      },
+      {
+        q: 'What is the difference between a penetration test and a vulnerability scan?',
+        a: 'A vulnerability scan is automated and produces a list of known weaknesses. A penetration test is a human exploiting and chaining those weaknesses to prove real impact. A scan alone does not satisfy PCI Requirement 11.4 or most customer security reviews.',
+      },
+      {
+        q: 'How much does a penetration test cost?',
+        a: 'It depends on asset count, application complexity and the test types combined. A focused external or web application test typically starts in the low five figures; combined scopes cost more. Maven quotes a fixed fee, retest included, after a short scoping call.',
+      },
+      {
+        q: 'How long does a penetration test take?',
+        a: 'One to two weeks of active testing for a focused scope, three to four for combined external, internal and web application scopes, plus about a week for reporting and a 30-to-60-day retest window.',
+      },
+      {
+        q: 'Will testing disrupt our systems?',
+        a: 'We agree on testing windows, exclusions and an emergency-stop contact before starting, never use denial-of-service techniques, and report critical findings immediately. Staging environments are used wherever they exist.',
+      },
+      {
+        q: 'What is a letter of attestation, and can we share it?',
+        a: 'A one-page confirmation of who tested what, when, how and the outcome. It is written to be shared with prospects, auditors and insurers instead of the full report, which stays internal or goes out under NDA.',
+      },
+      {
+        q: 'Black box, grey box or white box?',
+        a: 'Black box simulates an outsider with no knowledge; white box gives us architecture and source for depth. We recommend grey box, with credentials and documentation, for the best coverage per dollar.',
+      },
+    ],
+    related: [
+      { slug: 'cyber-security', blurb: 'Compliance readiness for SOC 2, PCI and beyond.' },
+      { slug: 'website-management', blurb: 'On sites we manage, we fix what we find ourselves.' },
+      { slug: 'website-management', blurb: 'On sites we manage, we fix what we find ourselves.' },
+    ],
+  },
+  {
+    slug: 'compliance-readiness',
+    navLabel: 'Compliance Readiness',
+    blurb: 'Close the gap between taking security seriously and proving it.',
+    hero: {
+      eyebrow: 'Compliance Readiness Services',
+      title: 'Compliance Readiness Services',
+      accent: 'That Get Enterprise Deals Unstuck',
+      accentHighlight: ['Enterprise Deals Unstuck'],
+      lede: 'A prospect asked for your SOC 2 report, a HIPAA attestation, an ISO certificate or a 200-question security questionnaire, and the deal paused. Maven’s compliance readiness services close the gap between “we take security seriously” and “here is the evidence,” then hand you to an independent auditor ready to pass.',
+      ledeHighlight: ['here is the evidence'],
+      image: '/images/Services/Cyber Security/card.png',
+      imageAlt: 'Compliance readiness and audit preparation artwork',
+    },
+    stats: [
+      { value: 7, label: 'Steps from scoping to auditor handoff' },
+      { value: 14, label: 'Weeks to SOC 2 Type I-ready, typical range' },
+      { value: 93, label: 'Annex A controls in ISO 27001:2022' },
+      { value: 12, label: 'Months of Type II observation, then the report' },
+    ],
+    overview: {
+      heading: 'What Is a Compliance Readiness Assessment?',
+      headingHighlight: ['Compliance Readiness Assessment'],
+      paragraphs: [
+        'A compliance readiness assessment is a pre-audit review that compares your current controls, policies and evidence against a framework such as SOC 2, HIPAA, ISO 27001 or PCI DSS, then produces a prioritized plan to close every gap before an independent auditor looks. Readiness is preparation; the audit itself is performed separately by a licensed CPA firm, certification body or QSA.',
+        'The trigger is a customer, not a regulator. Procurement asks for a SOC 2 report, a HIPAA risk analysis, an ISO 27001 certificate or a completed questionnaire, and without it the vendor is excluded from the RFP. Readiness turns a scramble into a program: you learn exactly which controls the framework expects, which ones you already have, which ones are missing, and the shortest sequence to close them before the audit clock starts.',
+      ],
+      bullets: [
+        'SaaS and service companies whose enterprise prospects require a SOC 2 report or ISO certificate',
+        'Healthcare vendors and business associates asked for HIPAA evidence; firms handling client, card or AI-processed data',
+        'Manufacturers and suppliers being asked about NIST CSF or CMMC by a prime contractor',
+        'Most delays happen in readiness, not in the audit, which is why Maven implements the technical fixes itself',
+      ],
+      image: '/images/Services/Cyber Security/overview.png',
+      imageAlt: 'Compliance frameworks and readiness roadmap',
+    },
+    includes: [
+      {
+        icon: 'target',
+        title: 'Scoping and Framework Selection',
+        description: 'Which framework the customer actually asked for, which Trust Services Criteria, HIPAA safeguards or Annex A controls apply, and which systems, people and vendors are in scope.',
+      },
+      {
+        icon: 'search',
+        title: 'Compliance Gap Assessment',
+        description: 'Current controls versus required controls, scored and documented in a gap report with an owner and an effort estimate for every finding.',
+      },
+      {
+        icon: 'trending',
+        title: 'Remediation Roadmap',
+        description: 'A prioritized, effort-sized plan sequenced to the deal: what unblocks the customer first, what the auditor needs next, what can wait for year two.',
+      },
+      {
+        icon: 'pen',
+        title: 'Policy and Procedure Writing',
+        description: 'Information security, risk assessment, vendor management, incident response, access control and change management policies written for your stack, not downloaded from a template library.',
+      },
+      {
+        icon: 'settings',
+        title: 'Control Implementation Support',
+        description: 'MFA, access reviews, logging, endpoint management, backups and training. Maven implements directly on systems it manages and coordinates with your IT provider on the rest.',
+      },
+      {
+        icon: 'file',
+        title: 'Evidence Collection and Mock Audit',
+        description: 'A control-to-evidence map, dry-run sample requests and population exports, so failures are fixed before they become findings.',
+      },
+      {
+        icon: 'life-buoy',
+        title: 'Auditor Selection and Handoff',
+        description: 'Help choosing an independent CPA firm (SOC), accredited certification body (ISO) or QSA (PCI), with support through fieldwork. Maven does not issue the report.',
+      },
+    ],
+    plans: [
+      {
+        name: 'Gap Assessment',
+        price: 'Fixed fee',
+        priceNote: 'One-time',
+        blurb: 'Know exactly where you stand before anything else.',
+        features: [
+          'Framework mapping from your questionnaire',
+          'Scored gap report with owners',
+          'Remediation roadmap sequenced to your deal',
+          'Readiness call and written findings',
+        ],
+      },
+      {
+        name: 'Full Readiness Program',
+        price: '$8K–$25K',
+        priceNote: 'Fixed fee by scope',
+        blurb: 'Readiness with implementation support, market-rate scope.',
+        features: [
+          'Policy and procedure set for your stack',
+          'Control implementation support',
+          'Evidence map and mock audit',
+          'Auditor shortlist and fieldwork check-ins',
+        ],
+        featured: true,
+      },
+      {
+        name: 'Multi-Framework Bundle',
+        price: 'Custom',
+        priceNote: 'One evidence set',
+        blurb: 'SOC 2 plus ISO 27001 or 42001 from shared evidence.',
+        features: [
+          'Overlapping controls mapped once',
+          'ISO 42001 AI governance option',
+          'NIST CSF 2.0 profile for vague asks',
+          'Sequenced so year two costs less',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'What is the difference between readiness and the audit?',
+        a: 'Readiness is preparation and remediation performed by a consultant like Maven. The audit is an independent examination by a licensed CPA firm (SOC), accredited certification body (ISO) or QSA (PCI) that produces the report or certificate.',
+      },
+      {
+        q: 'Can the same firm do readiness and the SOC 2 audit?',
+        a: 'Generally no for the same engagement. AICPA independence rules prevent an auditor from evaluating controls it designed or operated, so the two roles are kept separate. Maven handles readiness and helps you select an independent auditor.',
+      },
+      {
+        q: 'How long does SOC 2 readiness take?',
+        a: 'Companies with some practices in place are usually Type I-ready in six to fourteen weeks. A Type II then needs an observation period of three to twelve months before the report can be issued.',
+      },
+      {
+        q: 'Is there a HIPAA certification?',
+        a: 'No. HHS does not certify organizations as HIPAA compliant. Compliance is demonstrated through a documented risk analysis, policies, training, access controls and business associate agreements. Third-party HIPAA attestations exist and can help with customers, but they are not a government certificate.',
+      },
+      {
+        q: 'SOC 2 or ISO 27001?',
+        a: 'Check what your customers and contracts specify. SOC 2 is the North American default; ISO 27001 is a globally recognized certificate favored in Europe and APAC. The controls overlap heavily, so many companies pursue both from one evidence set.',
+      },
+      {
+        q: 'How much does compliance readiness cost?',
+        a: 'It depends on the frameworks, your size and your maturity. Market rates put a gap assessment in the low thousands and readiness with implementation support in the $8K to $25K range; the audit is priced separately by the auditor. Maven quotes a fixed fee after a readiness call.',
+      },
+    ],
+    related: [
+      { slug: 'attestation-audit-support', blurb: 'Move from readiness to a SOC 1, SOC 2 or PCI report under one contract.' },
+      { slug: 'penetration-testing', blurb: 'SOC 2 auditors, HIPAA risk analyses and PCI 11.4 all expect regular testing.' },
+      { slug: 'ai-consulting', blurb: 'AI governance and usage policies that satisfy ISO 42001 and SOC 2 questions.' },
+    ],
+  },
+  {
+    slug: 'attestation-audit-support',
+    navLabel: 'Attestation & Audit Support',
+    blurb: 'SOC 1, SOC 2 and PCI DSS attestations, managed from readiness to report.',
+    hero: {
+      eyebrow: 'Attestation & Audit Support',
+      title: 'SOC 1, SOC 2 & PCI DSS Attestation Services',
+      accent: 'Managed From Readiness to Report',
+      accentHighlight: ['Readiness to Report'],
+      lede: 'Maven runs the entire attestation project under one contract: scoping, readiness, remediation, evidence, auditor procurement and pass-through documentation that puts the finished report in your hands. The examination itself is performed by an independent licensed CPA firm or a PCI SSC-listed Qualified Security Assessor.',
+      ledeHighlight: ['one contract'],
+      image: '/images/Services/Cyber Security/card.png',
+      imageAlt: 'Attestation and audit support artwork',
+    },
+    stats: [
+      { value: 4, label: 'Pass-through documents for a clean title transfer' },
+      { value: 2, label: 'Independent examiner types: licensed CPA firm or QSA' },
+      { value: 12, label: 'Months a SOC 2 Type II observation period runs' },
+      { value: 1, label: 'Contract, with the auditor fee itemized separately' },
+    ],
+    overview: {
+      heading: 'What Is Attestation, and Who Is Allowed to Issue It?',
+      headingHighlight: ['Attestation'],
+      paragraphs: [
+        'Attestation is a formal written opinion from an independent, qualified third party that your controls meet a published standard. SOC 1 and SOC 2 reports can only be issued by a licensed CPA firm under AICPA attestation standards (SSAE 18). A PCI DSS Report on Compliance can only be completed by a PCI SSC-qualified QSA.',
+        'Maven is neither. We procure the examination on your behalf, manage everything around it and pass the finished deliverables through to you with documented chain of title, while the auditor keeps its own scope, procedures, fees and conclusions.',
+      ],
+      bullets: [
+        'SaaS, software and service companies selling into enterprise procurement',
+        'Agencies, MSPs, healthcare vendors and data processors handling client data',
+        'E-commerce and subscription businesses storing or transmitting card data',
+        'Pass-through paperwork most firms skip: chain of custody, title reconciliation and bill of sale',
+      ],
+      image: '/images/Services/Cyber Security/overview.png',
+      imageAlt: 'Attestation reports and audit evidence',
+    },
+    includes: [
+      {
+        icon: 'target',
+        title: 'Scoping Call',
+        description: 'Which report, who is asking, target date, systems in scope and which Trust Services Criteria or PCI validation path apply.',
+      },
+      {
+        icon: 'search',
+        title: 'Readiness and Gap Assessment',
+        description: 'Current controls versus the standard, scored and owned, delivered through our compliance readiness services.',
+      },
+      {
+        icon: 'settings',
+        title: 'Remediation Sprint',
+        description: 'Policies written, controls implemented, evidence made reproducible. Technical fixes applied by Maven on systems it manages.',
+      },
+      {
+        icon: 'file',
+        title: 'Asset Verification and Transfer Review',
+        description: 'Before fieldwork we inventory every in-scope system, account and data flow, confirm ownership, and document what transfers to the auditor and returns to you.',
+      },
+      {
+        icon: 'share',
+        title: 'Auditor Procurement and Fieldwork Coordination',
+        description: 'Maven engages a pre-vetted independent CPA firm or QSA company, runs the evidence request list, prepares populations and samples, schedules interviews and keeps the auditor unblocked.',
+      },
+      {
+        icon: 'trending',
+        title: 'Report Issuance and Title Reconciliation',
+        description: 'The CPA firm issues your SOC report; the QSA completes the ROC and co-signs the AOC. Maven reconciles the deliverable against the scope you bought and executes the title transfer.',
+      },
+      {
+        icon: 'refresh',
+        title: 'Trust-Center Kit, Bridge Letters and Renewal',
+        description: 'The kit sales can use immediately, management bridge letters between periods, and a renewal plan so year two costs less than year one.',
+      },
+    ],
+    plans: [
+      {
+        name: 'SOC 2 Attestation',
+        price: 'Fixed + pass-through',
+        priceNote: 'Type I or Type II',
+        blurb: 'The most common enterprise ask for SaaS and MSPs.',
+        features: [
+          'Readiness, remediation sprint and evidence',
+          'Independent CPA firm procurement',
+          'Trust-center kit and bridge letters',
+          'Renewal plan for year two',
+        ],
+      },
+      {
+        name: 'PCI DSS ROC + AOC',
+        price: 'Fixed + pass-through',
+        priceNote: 'Annual',
+        blurb: 'Requirement 11 evidence through a QSA-managed assessment.',
+        features: [
+          'CDE scoping and segmentation evidence',
+          'QSA partner procurement',
+          'SAQ selection and validation',
+          'AOC signature coordination',
+        ],
+        featured: true,
+      },
+      {
+        name: 'SOC 1 + Multi-Report',
+        price: 'Fixed + pass-through',
+        priceNote: 'Type I / Type II',
+        blurb: 'Financial-reporting controls, bundled with SOC 2.',
+        features: [
+          'SSAE 18 / AT-C 320 scope management',
+          'SOC 1 and SOC 2 from one evidence set',
+          'Auditor and QSA coordination',
+          'Annual renewal planning',
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: 'Who can issue a SOC report?',
+        a: 'Only a licensed CPA firm working under AICPA attestation standards (SSAE 18). Maven is not a CPA firm; reports for Maven clients are issued by an independent licensed CPA firm that Maven engages on your behalf under a pass-through agreement, with the engagement letter and opinion in your company’s name.',
+      },
+      {
+        q: 'What does pass-through attestation mean?',
+        a: 'You contract with Maven once. Maven procures the examination from an independent CPA firm or QSA company, manages readiness and fieldwork, and transfers the finished report to you with chain of custody certification, asset verification, title reconciliation and a bill of sale. The auditor’s independence, scope and conclusions are unchanged.',
+      },
+      {
+        q: 'What is the difference between SOC 1 and SOC 2?',
+        a: 'SOC 1 covers controls affecting your customers’ financial reporting and is used by their financial auditors. SOC 2 covers security, availability, processing integrity, confidentiality and privacy and is used by security and vendor-risk teams. Many companies need both.',
+      },
+      {
+        q: 'Type I vs. Type II: what is the difference?',
+        a: 'A Type I report says controls were suitably designed and in place at a point in time. A Type II also tests that they operated effectively over a three-to-twelve-month period. Enterprise customers generally expect a Type II.',
+      },
+      {
+        q: 'What is the difference between a PCI AOC and a ROC, and who signs?',
+        a: 'The ROC is the full assessment against every PCI DSS requirement, completed by a PCI SSC-qualified QSA or trained internal ISA. The AOC is the one-form attestation you share with acquirers and customers, signed by an authorized officer of your company and by the QSA when a QSA assessed.',
+      },
+      {
+        q: 'How long is a SOC 2 report or AOC valid, and what is a bridge letter?',
+        a: 'SOC reports have no formal expiration, but most customers reject reports whose period ended more than twelve months ago, so renew annually; PCI validation is annual. A bridge letter is a statement from your own management covering the gap between the last report period and today.',
+      },
+    ],
+    related: [
+      { slug: 'compliance-readiness', blurb: 'Where every attestation starts: gaps, policies, controls and evidence.' },
+      { slug: 'penetration-testing', blurb: 'Pen test evidence for SOC 2 and PCI DSS Requirement 11.' },
+      { slug: 'website-management', blurb: 'Monitoring, patching and hosting that double as Type II evidence.' },
     ],
   },
   {

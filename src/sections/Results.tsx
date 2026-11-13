@@ -61,7 +61,7 @@ export function Results() {
       </div>
 
       <div className="container-maven relative">
-        <Eyebrow label="The Maven impact" className="mb-14 md:mb-20" />
+        <Eyebrow label="The Maven impact" align="center" className="mb-14 md:mb-20" />
 
         {/* One panel, three stats hairline dividers between them */}
         <div

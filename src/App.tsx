@@ -345,7 +345,7 @@ export default function App() {
         }}
       >
         <img
-          src="/images/logos/logo.png"
+          src="/images/logos/maven-wordmark-white.svg"
           alt=""
           draggable={false}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-auto select-none"

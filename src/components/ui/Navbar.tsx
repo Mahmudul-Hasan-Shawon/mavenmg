@@ -82,16 +82,8 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
             data-cursor
           >
             <img
-              src="/images/logos/logo.png"
+              src="/images/logos/maven-wordmark-white.svg"
               alt={siteData.name}
-              data-logo="dark"
-              className={cn('w-auto transition-all duration-500', scrolled ? 'h-7' : 'h-9')}
-            />
-            <img
-              src="/images/logos/mavenlogo_light.png"
-              alt=""
-              aria-hidden="true"
-              data-logo="light"
               className={cn('w-auto transition-all duration-500', scrolled ? 'h-7' : 'h-9')}
             />
           </SmartLink>
@@ -498,7 +490,10 @@ function MobileMenu({
       aria-label="Menu"
       tabIndex={-1}
       onKeyDown={onTrapKeyDown}
-      className={cn('fixed inset-0 z-[90] overflow-y-auto overflow-x-hidden', !visible && 'invisible')}
+      className={cn(
+        'fixed inset-0 z-[90] overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+        !visible && 'invisible'
+      )}
       style={{
         backgroundColor: 'var(--hero-base)',
         backgroundImage: 'radial-gradient(ellipse 85% 65% at 50% 0%, var(--hero-glow) 0%, var(--hero-base) 100%)',

@@ -119,7 +119,7 @@ export default function ServicePage({ data, onNavigate }: ServicePageProps) {
 
       {data.tech && <TechStrip data={data} />}
 
-      <ProcessSection data={data} />
+      {data.process && <ProcessSection data={data} />}
 
       <PlansSection data={data} onNavigate={onNavigate} />
 
@@ -329,9 +329,9 @@ function IncludesSection({ data }: { data: ServicePageData }) {
     >
       <div className="container-maven relative max-w-6xl">
         <SectionHeading
-          eyebrow="What's included"
-          title="Everything you need,"
-          accent="nothing you don't"
+          eyebrow={data.headings?.includes?.eyebrow ?? "What's included"}
+          title={data.headings?.includes?.title ?? 'Everything you need,'}
+          accent={data.headings?.includes?.accent ?? "nothing you don't"}
           accentLight
         />
         <div className="grid sm:grid-cols-2 gap-5">
@@ -384,6 +384,7 @@ function TechStrip({ data }: { data: ServicePageData }) {
 }
 
 function ProcessSection({ data }: { data: ServicePageData }) {
+  if (!data.process) return null
   return (
     <section
       id={`${data.slug}-process`}
@@ -426,10 +427,13 @@ function PlansSection({ data, onNavigate }: { data: ServicePageData; onNavigate:
     >
       <div className="container-maven relative">
         <SectionHeading
-          eyebrow="Plans & pricing"
-          title="Pick the plan that fits"
-          accent="your goals"
-          lede="Transparent pricing, no hidden fees. Every plan comes with the Maven quality guarantee and a real team behind you."
+          eyebrow={data.headings?.plans?.eyebrow ?? 'Plans & pricing'}
+          title={data.headings?.plans?.title ?? 'Pick the plan that fits'}
+          accent={data.headings?.plans?.accent ?? 'your goals'}
+          lede={
+            data.headings?.plans?.lede ??
+            'Transparent pricing, no hidden fees. Every plan comes with the Maven quality guarantee and a real team behind you.'
+          }
           align="center"
         />
 
@@ -492,10 +496,13 @@ function FaqSection({ data, onNavigate }: { data: ServicePageData; onNavigate: (
       <div className="container-maven grid lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20">
         <div>
           <Reveal>
-            <Eyebrow label="FAQ" className="mb-7" />
+            <Eyebrow label={data.headings?.faq?.eyebrow ?? 'FAQ'} className="mb-7" />
           </Reveal>
           <Reveal delay={0.05}>
-            <h2 className="display font-semibold text-[clamp(2rem,4.4vw,3.4rem)] text-white mb-5">Questions, <span className="text-maven-light">Answered</span></h2>
+            <h2 className="display font-semibold text-[clamp(2rem,4.4vw,3.4rem)] text-white mb-5">
+              {data.headings?.faq?.title ?? 'Questions,'}{' '}
+              <span className="text-maven-light">{data.headings?.faq?.accent ?? 'Answered'}</span>
+            </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-mist text-base md:text-lg leading-relaxed mb-8">

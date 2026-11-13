@@ -5,11 +5,11 @@ import { Reveal } from '../components/ui/Reveal'
 export function Partners() {
   return (
     <div className="bg-[var(--hero-base)]">
-      <div className="container-maven px-6 md:px-12 py-10">
+      {/* <div className="container-maven px-6 md:px-12 py-10">
         <Reveal>
           <p className="card-tag text-white text-center">Trusted by startups, creatives, and suits alike</p>
         </Reveal>
-      </div>
+      </div> */}
       <section id="partners" className="pt-12 pb-12 border-y border-line" aria-label="Partners">
         <div className="relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-24 md:w-[22rem] bg-gradient-to-r from-[var(--hero-base)] to-transparent z-10" />

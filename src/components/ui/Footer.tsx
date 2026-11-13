@@ -9,6 +9,15 @@ type SubscribeState = 'idle' | 'loading' | 'success' | 'error'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+/* Upcoming content pages: labels ship now, routes go live when the pages
+   are built. Until then they fall through to the site's 404 page. */
+const featuredServices = [
+  { label: 'AEO & GEO', href: '/services/aeo-geo' },
+  { label: 'Penetration Testing', href: '/services/penetration-testing' },
+  { label: 'Compliance Readiness', href: '/services/compliance-readiness' },
+  { label: 'Attestation & Audit Support', href: '/services/attestation-audit-support' },
+]
+
 export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
   const year = new Date().getFullYear()
   const [subscribeState, setSubscribeState] = useState<SubscribeState>('idle')
@@ -51,25 +60,16 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
     <footer className="relative border-t border-white/10 bg-[#0f0817]" aria-label="Footer">
       <div className="container-maven px-6 md:px-10 pt-10 md:pt-16">
         {/* Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr] gap-10 pb-14 md:pb-16 [&>*]:min-w-0">
+        <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr_1fr] gap-10 pb-14 md:pb-16 [&>*]:min-w-0">
           <div className="col-span-2 md:col-span-1 text-center md:text-left">
             <img
-              src="/images/logos/logo.png"
+              src="/images/logos/maven-wordmark-white.svg"
               alt={site.name}
-              data-logo="dark"
-              className="h-11 w-auto mb-5 mx-auto md:mx-0"
-              loading="lazy"
-            />
-            <img
-              src="/images/logos/mavenlogo_light.png"
-              alt=""
-              aria-hidden="true"
-              data-logo="light"
               className="h-11 w-auto mb-5 mx-auto md:mx-0"
               loading="lazy"
             />
             <p className="text-[#a89fc0] text-md leading-relaxed max-w-[34ch] mx-auto md:mx-0">
-              We build websites with a purpose, then keep them fast, secure and bringing in leads.
+              Websites that work as hard as you do. Built to convert, kept fast and secure, measured in leads.
             </p>
 
             <div className="mt-7 max-w-[34ch] mx-auto md:mx-0 text-left border-t border-white/10 pt-5">
@@ -151,6 +151,25 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
                     className="text-sm text-[#a89fc0] hover:text-white-solid transition-colors"
                   >
                     {link.label}
+                  </SmartLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Future content pages: routes exist here before the pages ship */}
+          <nav aria-label="Featured services">
+            <h4 className="text-sm uppercase footer-col-heading">Featured</h4>
+            <ul className="space-y-3 text-sm text-[#a89fc0]">
+              {featuredServices.map((s) => (
+                <li key={s.href}>
+                  <SmartLink
+                    href={s.href}
+                    onNavigate={onNavigate}
+                    data-cursor
+                    className="text-sm text-[#a89fc0] hover:text-white-solid transition-colors"
+                  >
+                    {s.label}
                   </SmartLink>
                 </li>
               ))}
