@@ -315,7 +315,7 @@ function Card({
           src={project.image}
           alt={`${name}, ${project.category} website by Maven Marketing Group`}
           loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1.2s] ease-out"
+          className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
         <span className="absolute top-4 left-5 font-poppins font-bold text-4xl text-stroke select-none" aria-hidden="true">

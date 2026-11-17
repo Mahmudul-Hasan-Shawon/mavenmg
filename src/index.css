@@ -1053,8 +1053,7 @@ html:not([data-theme='light']) .marquee-badge {
 }
 
 /* FeaturedWork (home) index + stage showcase: the autoplay hairline runs
-   one scaleX sweep per selection beat, and the live stage image drifts
-   into a slow Ken Burns zoom while it holds the stage. */
+   one scaleX sweep per selection beat. */
 @keyframes fw-progress {
   from {
     transform: scaleX(0);
@@ -1062,19 +1061,6 @@ html:not([data-theme='light']) .marquee-badge {
   to {
     transform: scaleX(1);
   }
-}
-
-@keyframes fw-kenburns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.06);
-  }
-}
-
-.fw-live {
-  animation: fw-kenburns 7s ease-out both;
 }
 
 /* Caption text glides in each time the stage switches projects. */
@@ -1239,6 +1225,66 @@ html:not([data-theme='light']) .marquee-badge {
    accordion using the grid-template-rows 0fr -> 1fr trick keyed off
    [data-open]. The sheen sweep is staggered per panel by --svc-i.
    ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------
+   Services scroll deck (home #services, ServiceDeck.tsx): pinned
+   trove-style stage. Sliding tab pill, ghost index numeral, animated
+   step counter and scroll progress line.
+   ------------------------------------------------------------------ */
+
+.svc-tab-pill {
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, width;
+}
+
+/* Giant stroked numeral sitting behind a deck card's copy column. */
+.svc-ghost-index {
+  position: absolute;
+  bottom: -0.22em;
+  left: -0.06em;
+  font-family: var(--font-poppins);
+  font-weight: 700;
+  font-size: clamp(7rem, 11vw, 12rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--maven-lighter) 22%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Counter digit flip when the active service step changes. */
+.svc-counter-digit {
+  display: inline-block;
+  animation: svc-digit-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes svc-digit-in {
+  from {
+    opacity: 0;
+    transform: translateY(70%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.svc-progress-fill {
+  transform-origin: left center;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-tab-pill {
+    transition: none;
+  }
+  .svc-counter-digit {
+    animation: none;
+  }
+}
 
 .svc-deck {
   display: grid;

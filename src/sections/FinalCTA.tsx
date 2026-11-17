@@ -1,11 +1,13 @@
 import { ArrowRight } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
+import { Starfield } from '../components/ui/Starfield'
 
 /**
  * Closing CTA as a single card: content taken from
- * mavenmarketinggroup.com's closing block. The dark card carries a soft
- * violet floor glow and a giant outlined "12" watermark; no moving parts.
+ * mavenmarketinggroup.com's closing block. The dark card carries a quiet
+ * twinkling starfield (after reflex-template.framer.ai's blog hero) under
+ * a soft violet floor glow and a giant outlined "2027" watermark.
  * Stays dark in both themes, like the old gradient CTA did.
  */
 export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void }) {
@@ -24,6 +26,8 @@ export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void })
                     'radial-gradient(ellipse 75% 60% at 50% 108%, rgba(139,79,191,0.5) 0%, rgba(5,3,8,0) 65%)',
                 }}
               />
+              {/* Twinkling starfield */}
+              <Starfield className="absolute inset-0 h-full w-full" />
               {/* Giant outlined year watermark */}
               <div
                 className="absolute -bottom-8 right-[1%] hidden md:block select-none leading-none text-[8rem] lg:text-[11rem] font-dm font-[1000] opacity-80"

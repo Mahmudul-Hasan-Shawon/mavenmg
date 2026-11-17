@@ -12,15 +12,14 @@ import { dominantImageColor, normalizeAccentHex } from '../utils/imageColor'
  * "index + stage" piece.
  *
  * Left: the project index, oversized numbered rows in display type. Right:
- * a large glass-framed stage that live-crossfades the active project with a
- * slow Ken Burns drift and an ambient glow tinted by that project's own
- * brand color. The stage autoplays; hovering or focusing anything in the
- * piece pauses it, and the hairline progress bar along the stage's bottom
- * edge tracks the beat. The active row's accent bar, index numeral and
- * visit link all pick up the project color, so switching rows visibly
- * re-themes the section.
+ * a large glass-framed stage that live-crossfades the active project, with
+ * an ambient glow tinted by that project's own brand color. The stage
+ * autoplays; hovering or focusing anything in the piece pauses it, and the
+ * hairline progress bar along the stage's bottom edge tracks the beat. The
+ * active row's accent bar, index numeral and visit link all pick up the
+ * project color, so switching rows visibly re-themes the section.
  *
- * Reduced motion: no autoplay, no drift, static crossfades.
+ * Reduced motion: no autoplay, static crossfades.
  */
 const AUTOPLAY_MS = 5200
 
@@ -223,7 +222,7 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
                       loading={i === 0 ? 'eager' : 'lazy'}
                       className={`absolute inset-0 w-full h-full object-cover ${
                         isLive ? 'z-10 opacity-100' : isPrev ? 'z-0 opacity-100' : 'z-0 opacity-0'
-                      } ${isLive && !reducedMotion ? 'fw-live transition-opacity duration-[900ms] ease-in-out' : ''}`}
+                      } ${isLive ? 'transition-opacity duration-[900ms] ease-in-out' : ''}`}
                     />
                   )
                 })}

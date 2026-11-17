@@ -133,10 +133,14 @@ export function ClientLogos() {
             <span className="mono-label">Who we work with</span>
             <span className="h-px w-10 bg-maven-light/50" aria-hidden="true" />
           </div>
-          <h2 className="display text-[clamp(1.9rem,4.2vw,3.2rem)] text-white mt-5 mb-4">
-            <span className="grad-text font-bold">300+</span>{' '}
-            <span className="font-semibold">businesses,</span>{' '}
-            <span className="text-mist/90 font-medium">from national brands to local firms</span>
+          <h2 className="display text-white mt-5 mb-4">
+            <span className="block text-[clamp(2.3rem,5.2vw,4rem)]">
+              <span className="grad-text font-bold">300+</span>{' '}
+              <span className="font-semibold">Businesses</span>
+            </span>
+            <span className="block text-[clamp(2.3rem,5.2vw,4rem)]">
+              <span className="text-mist/90 font-semibold">National Brands to Local Firms</span>
+            </span>
           </h2>
           <p className="max-w-2xl text-base md:text-lg leading-relaxed text-mist">
             From law firms to home service companies, we partner with ambitious businesses to build

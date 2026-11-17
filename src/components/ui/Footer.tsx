@@ -63,7 +63,7 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
         <div className="grid grid-cols-2 md:grid-cols-[1.35fr_1fr_1fr_1fr_1fr] gap-10 pb-14 md:pb-16 [&>*]:min-w-0">
           <div className="col-span-2 md:col-span-1 text-center md:text-left">
             <img
-              src="/images/logos/maven-wordmark-white.svg"
+              src="/images/logos/maven-wordmark.svg"
               alt={site.name}
               className="h-11 w-auto mb-5 mx-auto md:mx-0"
               loading="lazy"
@@ -278,6 +278,22 @@ export function Footer({ onNavigate }: { onNavigate: (href: string) => void }) {
               </a>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Giant wordmark, cropped at the footer's bottom edge */}
+      <div aria-hidden="true" className="relative overflow-hidden select-none pointer-events-none">
+        <div
+          className="display font-bold text-center whitespace-nowrap leading-[0.78] tracking-[-0.02em] text-[26vw] translate-y-[22%]"
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, rgba(139, 79, 191, 0.32) 0%, rgba(139, 79, 191, 0.05) 72%)',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'transparent',
+          }}
+        >
+          MAVEN
         </div>
       </div>
     </footer>

@@ -82,7 +82,7 @@ export function Navbar({ activePath, onNavigate }: NavbarProps) {
             data-cursor
           >
             <img
-              src="/images/logos/maven-wordmark-white.svg"
+              src="/images/logos/maven-wordmark.svg"
               alt={siteData.name}
               className={cn('w-auto transition-all duration-500', scrolled ? 'h-7' : 'h-9')}
             />
