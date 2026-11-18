@@ -6,6 +6,8 @@ import { MagneticButton } from '../components/ui/MagneticButton'
 import { SmartLink } from '../components/ui/SmartLink'
 import { Reveal } from '../components/ui/Reveal'
 import { gsap, ScrollTrigger, useIsoLayoutEffect } from '../hooks/useGsap'
+import { getLenis } from '../utils/lenis'
+import { reducedMotion } from '../utils/motion'
 import { cn } from '../utils/cn'
 
 /** Short tab labels (the titles are too long for the rail). */
@@ -151,12 +153,28 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
     return () => ctx.revert()
   }, [])
 
-  // Tab click: smooth-scroll to that step's scroll offset.
+  // Tab click: glide to that step's scroll offset. The deck cards are
+  // scrubbed to scroll position, so the scroll speed *is* the card
+  // animation speed. Lenis drives the move with a long, gentle ease so the
+  // outgoing card fades and the incoming one rises smoothly instead of
+  // snapping (native `behavior: 'smooth'` is far too quick for that).
   const goToStep = (i: number) => {
     const el = runwayRef.current
-    if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY
-    window.scrollTo({ top: top + i * DECK_STEP_SVH * 0.01 * window.innerHeight, behavior: 'smooth' })
+    if (!el || i === active) return
+    const top =
+      el.getBoundingClientRect().top + window.scrollY + i * DECK_STEP_SVH * 0.01 * window.innerHeight
+    const lenis = getLenis()
+    if (lenis && !reducedMotion) {
+      // Scale the glide with the distance jumped: ~1.1s per adjacent step,
+      // capped so multi-tab jumps don't drag on forever.
+      const steps = Math.abs(i - active)
+      lenis.scrollTo(top, {
+        duration: Math.min(2.4, 0.7 + steps * 0.4),
+        easing: (t: number) => 1 - Math.pow(1 - t, 3), // easeOutCubic
+      })
+    } else {
+      window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' })
+    }
   }
 
   // Sliding active pill: match the pill to the active button's geometry.
