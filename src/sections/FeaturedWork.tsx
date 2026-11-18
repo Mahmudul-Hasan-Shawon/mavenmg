@@ -27,6 +27,8 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
   const shown = useMemo(() => projects.slice(0, 6), [])
   const [active, setActive] = useState(0)
   const [prevActive, setPrevActive] = useState<number | null>(null)
+  /** Navigation direction: 1 = next, -1 = previous. Slides flow along it. */
+  const [dir, setDir] = useState(1)
   const [paused, setPaused] = useState(false)
   const [imageColors, setImageColors] = useState<Record<number, string>>({})
   const rootRef = useRef<HTMLElement>(null)
@@ -34,16 +36,21 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
 
   const current = shown[active]
 
-  // Layered crossfade: the outgoing image stays fully visible underneath
-  // while the incoming one fades in on top, so the dissolve never dips
-  // dark. Once covered (fade done), the old image is dropped silently.
+  // Layered handoff: the outgoing card stays visible underneath while the
+  // incoming one flows over it, so the dissolve never dips dark. Once
+  // covered (transitions done), the old card is dropped silently.
   useEffect(() => {
     if (active === lastActive.current) return
+    // Nearest path around the ring, so wrapping from the last project to
+    // the first still reads as "next" and animates in the right direction.
+    const n = shown.length
+    const diff = (active - lastActive.current + n) % n
+    setDir(diff <= n / 2 ? 1 : -1)
     setPrevActive(lastActive.current)
     lastActive.current = active
-    const t = window.setTimeout(() => setPrevActive(null), 1100)
+    const t = window.setTimeout(() => setPrevActive(null), 1200)
     return () => window.clearTimeout(t)
-  }, [active])
+  }, [active, shown.length])
 
   // Sample each project image once; the accent lives off the image's own
   // dominant color, falling back to the project's brand color until the
@@ -209,23 +216,63 @@ export function FeaturedWork({ onNavigate }: { onNavigate: (href: string) => voi
                 onKeyDown={onStageKey}
                 className="relative h-[64vw] max-h-[440px] min-h-[300px] sm:h-[56vw] lg:h-full lg:max-h-none lg:min-h-[440px] outline-none focus-visible:ring-2 focus-visible:ring-maven-light/70 rounded-3xl"
               >
-                {/* Layered crossfade: new image fades in over the old one */}
+                {/* Direction-aware card flow: the incoming card glides in
+                    from the side you navigated toward with a slow Ken-Burns
+                    zoom settle, while the outgoing card recedes the other
+                    way — drifting, dimming and blurring into depth. The old
+                    card stays underneath during the overlap so the handoff
+                    never dips dark. */}
                 {shown.map((p, i) => {
                   const name = p.name.replace(/\n/g, ' ')
                   const isLive = i === active
                   const isPrev = i === prevActive
+                  const from = dir > 0 ? 7 : -7
                   return (
-                    <img
+                    <div
                       key={p.id}
-                      src={p.image}
-                      alt={`${name}, ${p.category} website by Maven Marketing Group`}
-                      loading={i === 0 ? 'eager' : 'lazy'}
-                      className={`absolute inset-0 w-full h-full object-cover ${
-                        isLive ? 'z-10 opacity-100' : isPrev ? 'z-0 opacity-100' : 'z-0 opacity-0'
-                      } ${isLive ? 'transition-opacity duration-[900ms] ease-in-out' : ''}`}
-                    />
+                      aria-hidden={!isLive}
+                      className={`fw-slide absolute inset-0 ${isLive ? 'z-10' : 'z-0'}`}
+                      style={{
+                        opacity: isLive || isPrev ? 1 : 0,
+                        transform: isLive
+                          ? 'translate3d(0,0,0) scale(1)'
+                          : isPrev
+                            ? `translate3d(${dir > 0 ? -4 : 4}%, 0, 0) scale(0.96)`
+                            : `translate3d(${from}%, 0, 0) scale(1.06)`,
+                        filter: isLive
+                          ? 'blur(0px) brightness(1)'
+                          : isPrev
+                            ? 'blur(6px) brightness(0.55)'
+                            : 'blur(8px) brightness(0.8)',
+                      }}
+                    >
+                      <img
+                        src={p.image}
+                        alt={`${name}, ${p.category} website by Maven Marketing Group`}
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                        decoding="async"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
                   )
                 })}
+
+                {/* Accent light sweep: a skewed bar in the project's own
+                    color lacquers across the stage on every switch, tying
+                    the card handoff to the section's re-theming story.
+                    Keyed by `active` so the animation restarts each time. */}
+                {!reducedMotion && (
+                  <div
+                    key={`fw-veil-${active}`}
+                    aria-hidden="true"
+                    className="fw-veil pointer-events-none absolute inset-y-0 left-0 z-[15] w-[46%]"
+                    style={{
+                      background: `linear-gradient(100deg, transparent 0%, ${accent}14 18%, ${accent}66 50%, ${accent}14 82%, transparent 100%)`,
+                      mixBlendMode: 'screen',
+                      animation: `fw-veil-${dir > 0 ? 'next' : 'prev'} 1.15s cubic-bezier(0.65, 0, 0.35, 1) both`,
+                    }}
+                  />
+                )}
 
                 <div className="absolute inset-0 z-20 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
 

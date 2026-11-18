@@ -1076,13 +1076,74 @@ html:not([data-theme='light']) .marquee-badge {
 }
 
 .fw-cap {
-  animation: fw-cap-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fw-cap-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+}
+
+/* Stage slides flow as cards along the navigation direction: the incoming
+   card glides in and settles its zoom with the shared expo-out curve while
+   the outgoing card recedes, dims and blurs into depth. */
+.fw-slide {
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity, filter;
+}
+
+/* Accent light sweep across the stage on every switch. The bar is 46% of
+   the stage wide; translateX percentages are relative to the bar itself,
+   so ±115% parks it fully off-stage on either side. */
+.fw-veil {
+  filter: blur(2px);
+  will-change: transform, opacity;
+}
+
+@keyframes fw-veil-next {
+  from {
+    transform: translateX(-115%) skewX(-14deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(275%) skewX(-14deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fw-veil-prev {
+  from {
+    transform: translateX(275%) skewX(14deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-115%) skewX(14deg);
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .fw-live,
   .fw-cap {
     animation: none;
+  }
+  .fw-slide {
+    transition: opacity 0.4s ease;
+    transform: none !important;
+    filter: none !important;
+  }
+  .fw-veil {
+    display: none;
   }
 }
 
