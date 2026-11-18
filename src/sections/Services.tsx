@@ -79,6 +79,18 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
           autoAlpha: i === 0 ? 1 : 0,
           filter: 'blur(0px)',
         })
+        // Pre-apply the intro from-states of every future card's content so
+        // the FIRST pass through the deck behaves like later ones. The
+        // content tweens sit later in the timeline than the card's own
+        // entrance, and fromTo tweens only apply their from-state when the
+        // playhead first reaches them — without this pre-set, a rising card
+        // briefly shows its text at natural position before it snaps hidden
+        // and staggers back up, which reads as scattered text on first view.
+        if (i > 0) {
+          gsap.set(card.querySelectorAll('[data-svc-el]'), { y: 28, autoAlpha: 0 })
+          const frame = card.querySelector('[data-svc-frame]')
+          if (frame) gsap.set(frame, { scale: 1.07, autoAlpha: 0 })
+        }
       })
 
       const tl = gsap.timeline({
