@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { gsap } from '../../hooks/useGsap'
+import { gsap, ScrollTrigger } from '../../hooks/useGsap'
 import { getLenis } from '../../utils/lenis'
 import { markAppReady, reducedMotion } from '../../utils/motion'
 
@@ -52,6 +52,13 @@ export function ReadyVeil() {
       document.documentElement.style.overflow = ''
       getLenis()?.start()
       setHidden(true)
+      // Removing `overflow: hidden` brings the page scrollbar back, which
+      // reflows the document (viewport width shrinks, text re-wraps). All
+      // ScrollTrigger start/end offsets were measured during the scrollbar-
+      // free state, so recalculate once the layout has settled — otherwise
+      // scrubbed sections (the services deck) scatter on the first
+      // interaction after load.
+      requestAnimationFrame(() => ScrollTrigger.refresh())
     }
 
     const reveal = () => {

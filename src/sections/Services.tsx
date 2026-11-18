@@ -149,6 +149,11 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
         }
       }
       ScrollTrigger.refresh()
+      // Webfont swap changes text metrics (headings re-wrap as the real
+      // font arrives), which shifts the runway offset. Re-measure once
+      // fonts finish loading so the scrub mapping stays true on the first
+      // tab clicks after load.
+      document.fonts?.ready.then(() => ScrollTrigger.refresh())
     }, runwayRef)
     return () => ctx.revert()
   }, [])
