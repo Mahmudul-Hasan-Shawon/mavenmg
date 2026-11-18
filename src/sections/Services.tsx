@@ -320,7 +320,7 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
 
           {/* Deck area: the settled card plus the peeking stack below.
               Capped width keeps the card from spanning the whole stage. */}
-          <div className="relative z-10 mx-auto w-full max-w-[1040px] h-[calc(100svh-200px)] max-lg:h-[calc(100svh-16px)]">
+          <div className="relative z-10 mx-auto w-full max-w-[1120px] h-[calc(100svh-200px)] max-lg:h-[calc(100svh-16px)]">
             {services.map((service, i) => {
               const href = `/services/${service.slug}`
               const Icon = SERVICE_ICONS[service.icon] ?? Globe

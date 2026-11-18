@@ -1052,6 +1052,27 @@ html:not([data-theme='light']) .marquee-badge {
   }
 }
 
+/* Testimonials "Client words" orbit carousel (home): the autoplay progress
+   arc fills along the dashed ring once per beat, ending back at the seated
+   disc at the top of the circle. */
+@keyframes t-ring-fill {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-word] {
+    transition: none;
+  }
+  .t-ring {
+    animation: none;
+  }
+}
+
 /* FeaturedWork (home) index + stage showcase: the autoplay hairline runs
    one scaleX sweep per selection beat. */
 @keyframes fw-progress {

@@ -3,6 +3,8 @@ export interface Testimonial {
   role: string
   company: string
   quote: string
+  /** Short outcome badge shown above the quote (e.g. "$0 → $50K/mo"). */
+  metric?: string
   image?: string
   /**
    * How the logo fills its disc: 'contain' (default) keeps it whole on the
@@ -16,6 +18,7 @@ export const testimonials: Testimonial[] = [
     name: 'Slater Heil',
     role: 'Founder & CEO',
     company: 'Blueberry',
+    metric: 'Next-gen DeFi design',
     image: '/images/testimonials/slater-heil.jpg',
     logoFit: 'cover',
     quote:
@@ -25,6 +28,7 @@ export const testimonials: Testimonial[] = [
     name: 'Edric Bol',
     role: 'Owner',
     company: 'Bolco Construction',
+    metric: 'Clean, no-nonsense rebuild',
     image: '/images/testimonials/edric-bol.png',
     quote:
       "Maven stepped up and delivered exactly what I wanted: simple and effective. They built a clean, no-nonsense site that puts our work front and center with great photos, easy navigation, and a straightforward layout that doesn't confuse anyone.",
@@ -33,6 +37,7 @@ export const testimonials: Testimonial[] = [
     name: 'Mike Wall',
     role: 'Owner',
     company: 'Simpson Cleaning',
+    metric: 'Lower fees, tougher store',
     image: '/images/testimonials/mike-wall.png',
     quote:
       'Before maven we were on BigCommerce, high fees eating us alive. Maven swooped in, got us off that mess, and saved us a ton on monthly costs. The site they built? Tough, slick, and all-American.',
@@ -41,6 +46,7 @@ export const testimonials: Testimonial[] = [
     name: 'Jason Collicot',
     role: 'Owner',
     company: 'Crypto Cache',
+    metric: 'Crypto-savvy redesign',
     image: '/images/testimonials/jason-collicot.png',
     quote:
       "Maven's management of our Crypto Cache website has been phenomenal. They've transformed it with a bold, cutting-edge design, sharp visuals, seamless flow, and a crypto-savvy vibe that grabs attention.",
@@ -49,6 +55,7 @@ export const testimonials: Testimonial[] = [
     name: 'Quam Opere',
     role: 'Owner',
     company: 'Eminent Limo',
+    metric: '$0 → $50K/mo',
     image: '/images/testimonials/quam-opere.png',
     logoFit: 'cover',
     quote:
@@ -58,6 +65,7 @@ export const testimonials: Testimonial[] = [
     name: 'John Skalla',
     role: 'Owner',
     company: '',
+    metric: 'Best-in-class service',
     image: '/images/testimonials/john-skalla.png',
     quote:
       "If Maven Marketing Group was an NHL team they would be the Stanley Cup Champions. They shoot and always score. I wouldn't let anyone else touch my websites. The best.",
@@ -66,6 +74,7 @@ export const testimonials: Testimonial[] = [
     name: 'Genaro Cavazos',
     role: 'Chief Executive Officer',
     company: '',
+    metric: 'Top-notch industry presence',
     image: '/images/testimonials/genaro-cavazos.png',
     quote:
       'Connor and his team were absolutely fantastic. They professionalized our website and have helped us cement ourselves as a top-notch provider in the Security Industry. I wish I had found them sooner!',
@@ -74,6 +83,7 @@ export const testimonials: Testimonial[] = [
     name: 'Jim Hack',
     role: 'Owner',
     company: 'Haq Pickleball',
+    metric: 'Lightning-fast checkout',
     image: '/images/testimonials/jim-hack.png',
     quote:
       "Running Haq Pickle, I needed a site that screams our bold vibe and Maven delivered big time. The checkout? Smooth, and lightning-fast. It's not just a website; it's Haq Pickle to a T.",
@@ -82,6 +92,7 @@ export const testimonials: Testimonial[] = [
     name: 'Jean Jodoin',
     role: 'Partner',
     company: 'LSC Development',
+    metric: 'Zero post-launch issues',
     image: '/images/testimonials/jean-jodoin.png',
     quote:
       'Maven Marketing Group gave us exactly what we asked for; A functional site that we could use to communicate. We have had zero issues updating the site after launch and could not be more happy.',
@@ -90,6 +101,7 @@ export const testimonials: Testimonial[] = [
     name: 'Mike Piraino',
     role: 'Owner',
     company: 'PirTano Construction',
+    metric: 'Featured-projects showcase',
     image: '/images/testimonials/mike-piraino.png',
     quote:
       "At PirTano Construction, we take pride in our work, and Maven's design of our featured projects on our website has been a big win for us. Maven keeps the site clean, updated, and easy to navigate.",
@@ -98,6 +110,7 @@ export const testimonials: Testimonial[] = [
     name: 'Gus Alexander',
     role: 'Owner',
     company: 'Simpson Pressure Washers',
+    metric: 'Smooth, fast, easy to use',
     image: '/images/testimonials/gus-alexander.png',
     quote:
       "Our site needed help, outdated, and a mess for our brand. Maven swooped in and saved it with their top-notch maintenance and management services. Now it's smooth, fast, and easy to use.",
@@ -106,6 +119,7 @@ export const testimonials: Testimonial[] = [
     name: 'Robert Rajfer',
     role: 'Founder & CEO',
     company: '',
+    metric: 'Measurable growth',
     image: '/images/testimonials/robert-rajfer.png',
     quote:
       'Their website is not only visually stunning but also incredibly user-friendly, making navigation a breeze. Their marketing strategies are unparalleled, driving tangible results and elevating my online presence beyond expectations.',
