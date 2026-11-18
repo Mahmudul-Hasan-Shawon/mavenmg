@@ -149,11 +149,18 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
         }
       }
       ScrollTrigger.refresh()
-      // Webfont swap changes text metrics (headings re-wrap as the real
-      // font arrives), which shifts the runway offset. Re-measure once
-      // fonts finish loading so the scrub mapping stays true on the first
-      // tab clicks after load.
-      document.fonts?.ready.then(() => ScrollTrigger.refresh())
+      // Webfont swap changes text metrics (headings re-wrap), which shifts
+      // the runway offset — re-measure once fonts are in. Never mid-glide
+      // though: a refresh while the scrub is moving snaps the playhead and
+      // throws the cards off their positions.
+      document.fonts?.ready.then(() => {
+        if ((tl.scrollTrigger?.progress ?? 0) === 0) ScrollTrigger.refresh()
+      })
+      // Pre-decode the service images off the interaction path so the first
+      // sweep through the deck doesn't hitch on image decoding.
+      cards.forEach((card) => {
+        card.querySelector('img')?.decode().catch(() => {})
+      })
     }, runwayRef)
     return () => ctx.revert()
   }, [])
