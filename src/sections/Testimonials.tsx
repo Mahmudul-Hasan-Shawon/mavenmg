@@ -3,7 +3,8 @@ import { ChevronDown, ChevronUp, Pause, Play } from 'lucide-react'
 import { testimonials } from '../data/testimonials'
 import { dominantImageColor } from '../utils/imageColor'
 import { SectionHeading } from '../components/ui/SectionHeading'
-import { gsap, useGsapContext } from '../hooks/useGsap'
+import { gsap, useGsapContext, useIsoLayoutEffect } from '../hooks/useGsap'
+import { useMinWidth } from '../hooks/useDevice'
 import { reducedMotion } from '../utils/motion'
 import { cn } from '../utils/cn'
 
@@ -15,7 +16,7 @@ const SWIPE_PX = 48
  * edge; each chip is placed with rotate(angle) translateX(R) rotate(-angle)
  * so it stays upright while sliding along the arc. The active chip sits at
  * 0deg, its ±1 neighbors at ±18deg, ±2 at ±36deg — exactly five chips fill
- * the 400×460 stage, and a dashed guide circle runs under them. */
+ * the 400×460 stage. */
 const STAGE_W = 400
 const STAGE_H = 460
 const CENTER_X = -245
@@ -78,17 +79,19 @@ function useStageScale() {
  *
  * A faithful port of the reference design: a left-aligned heading, then one
  * white rounded card (1040px, centered) split in two. The left stage carries
- * five reviewer chips riding a dashed circular arc — the active chip parks at
+ * five reviewer chips riding a circular arc — the active chip parks at
  * the arc's crest with a timer ring filling once per autoplay beat, its
  * neighbors step down ±18°/±36° with avatars scaling 72→44px and copy fading
  * toward the edges. The right panel holds the aggregate score, the quote
- * (word-by-word rise + blur, direction-aware), the author line, and a row of
- * circular up/down arrows plus an icon-only Pause/Play toggle. Hovering or
- * focusing pauses autoplay (WCAG 2.2.2); arrow keys steer; the card is
- * swipeable; reduced motion gets a quiet crossfade with a static arc.
+ * (word-by-word rise + blur, direction-aware), a role line with a Boxicons
+ * briefcase-alt-2 icon, and a row of circular up/down arrows plus an
+ * icon-only Pause/Play toggle. Hovering or focusing pauses autoplay
+ * (WCAG 2.2.2); arrow keys steer; the card is swipeable. Below lg the arc is
+ * swapped for a compact reviewer header and a lighter quote entrance.
  */
 export function Testimonials() {
   const total = testimonials.length
+  const isDesktop = useMinWidth(1024)
   const [index, setIndex] = useState(0)
   // Autoplay pauses while hovered, keyboard-focused (WCAG 2.2.2), or when
   // the reader toggles the Pause button.
@@ -100,31 +103,31 @@ export function Testimonials() {
   /** Dominant color per logo, extracted from the artwork itself; chips fall
    *  back to the cycling palette until (and unless) a sample lands. */
   const [logoColors, setLogoColors] = useState<Record<string, string>>({})
-  const quoteTextRef = useRef<HTMLParagraphElement>(null)
-  const authorRef = useRef<HTMLParagraphElement>(null)
+  const quoteRef = useRef<HTMLQuoteElement>(null)
+  const roleRef = useRef<HTMLDivElement>(null)
   const animating = useRef(false)
   const pendingIn = useRef(false)
   const interacting = useRef(false)
   const touchX = useRef(0)
-  /** 1 = next, -1 = previous; signs the word/author travel. */
+  /** 1 = next, -1 = previous; signs the desktop word/author travel. */
   const dirRef = useRef<1 | -1>(1)
 
   const paused = autoPaused || userPaused
   const avg = '5.0'
 
-  /** Out: words lift and blur away, then the swap queues the entrance. */
+  /** Desktop keeps the original out-then-in word/author choreography; below
+   *  lg the swap is immediate and the lighter entrance below runs instead. */
   const transitionTo = (next: number) => {
     if (animating.current || next === index) return
+    const words = quoteRef.current?.querySelectorAll('[data-word]')
+    if (!isDesktop || reducedMotion || !words?.length) {
+      setIndex(next)
+      return
+    }
     animating.current = true
     const diff = (next - index + total) % total
     dirRef.current = diff <= total / 2 ? 1 : -1
     const d = dirRef.current
-    const words = quoteTextRef.current?.querySelectorAll('[data-word]')
-    if (reducedMotion || !words || words.length === 0) {
-      setIndex(next)
-      animating.current = false
-      return
-    }
     gsap
       .timeline({
         onComplete: () => {
@@ -140,7 +143,7 @@ export function Testimonials() {
         stagger: 0.012,
         ease: 'power2.in',
       }, 0)
-      .to(authorRef.current, {
+      .to(roleRef.current, {
         opacity: 0,
         y: -10 * d,
         filter: 'blur(4px)',
@@ -155,19 +158,30 @@ export function Testimonials() {
     goRef.current = go
   })
 
-  // Word-level entrance after the swap (the out tween queued it).
+  // Autoplay; disabled entirely for reduced motion.
   useEffect(() => {
-    if (!pendingIn.current) return
-    pendingIn.current = false
-    const d = dirRef.current
-    const words = quoteTextRef.current?.querySelectorAll('[data-word]')
-    if (!words || words.length === 0) {
-      animating.current = false
-      return
-    }
-    gsap
-      .timeline({ onComplete: () => (animating.current = false) })
-      .fromTo(words, { opacity: 0, y: 16 * d, filter: 'blur(4px)' }, {
+    if (paused || reducedMotion) return
+    const t = setInterval(() => goRef.current(1), AUTOPLAY_MS)
+    return () => clearInterval(t)
+  }, [index, paused])
+
+  // Word-level entrance after the swap. On desktop this is the original
+  // direction-aware rise + blur, queued by the out tween in transitionTo.
+  // Below lg a lighter fade-up keeps the full quote readable while it plays.
+  useIsoLayoutEffect(() => {
+    if (reducedMotion) return
+    const words = quoteRef.current?.querySelectorAll('[data-word]')
+
+    if (isDesktop) {
+      if (!pendingIn.current) return
+      pendingIn.current = false
+      const d = dirRef.current
+      if (!words?.length) {
+        animating.current = false
+        return
+      }
+      const tl = gsap.timeline({ onComplete: () => (animating.current = false) })
+      tl.fromTo(words, { opacity: 0, y: 16 * d, filter: 'blur(4px)' }, {
         opacity: 1,
         y: 0,
         filter: 'blur(0px)',
@@ -175,21 +189,42 @@ export function Testimonials() {
         stagger: 0.014,
         ease: 'power3.out',
       }, 0)
-      .fromTo(authorRef.current, { opacity: 0, y: 14 * d, filter: 'blur(4px)' }, {
+        .fromTo(roleRef.current, { opacity: 0, y: 14 * d, filter: 'blur(4px)' }, {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 0.6,
+          ease: 'power3.out',
+        }, 0.05)
+      return () => {
+        tl.kill()
+      }
+    }
+
+    const tl = gsap.timeline()
+    if (words?.length) {
+      tl.fromTo(words, { opacity: 0.55, y: 8 }, {
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
-        duration: 0.6,
+        duration: 0.55,
+        stagger: 0.014,
         ease: 'power3.out',
-      }, 0.05)
-  }, [index])
-
-  // Autoplay; disabled entirely for reduced motion.
-  useEffect(() => {
-    if (paused || reducedMotion) return
-    const t = setInterval(() => goRef.current(1), AUTOPLAY_MS)
-    return () => clearInterval(t)
-  }, [index, paused])
+        force3D: true,
+      }, 0)
+    }
+    if (roleRef.current) {
+      tl.fromTo(roleRef.current, { opacity: 0, y: 6 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.55,
+        ease: 'power3.out',
+        force3D: true,
+      }, 0.08)
+    }
+    return () => {
+      tl.kill()
+    }
+  }, [index, isDesktop])
 
   // Sample each logo's dominant color once so the timer ring and the active
   // glow can follow the artwork's own hue.
@@ -289,15 +324,15 @@ export function Testimonials() {
 
           <div
             data-testi-card
-            className="grid lg:grid-cols-[400px_1fr] gap-8 lg:gap-0 rounded-[28px] overflow-hidden"
+            className="grid lg:grid-cols-[400px_1fr] rounded-[28px] overflow-hidden"
             style={{ background: CARD_BG, border: `1px solid ${BORDER}`, boxShadow: '0 1px 2px rgba(20,19,43,0.04), 0 12px 32px -8px rgba(20,19,43,0.1)' }}
           >
-            {/* ===== Left stage: chips riding the dashed arc ===== */}
+            {/* ===== Left stage: chips riding the arc ===== */}
             <div
               role="group"
               aria-label="Client reviews"
               ref={stageRef}
-              className="relative w-full overflow-hidden"
+              className="relative hidden w-full overflow-hidden lg:block"
               style={{ height: STAGE_H * stageScale }}
             >
               <div
@@ -309,21 +344,6 @@ export function Testimonials() {
                   transformOrigin: '0 0',
                 }}
               >
-                {/* Dashed guide circle, center parked off-card to the left */}
-                <svg width={STAGE_W} height={STAGE_H} viewBox={`0 0 ${STAGE_W} ${STAGE_H}`} aria-hidden="true" className="absolute left-0 top-0">
-                  <circle
-                    cx={CENTER_X}
-                    cy={CENTER_Y}
-                    r={RADIUS}
-                    fill="none"
-                    stroke={MUTED}
-                    strokeOpacity={0.5}
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeDasharray="0.5 8"
-                  />
-                </svg>
-
                 {testimonials.map((c, i) => {
                   const d = SIGNED(i, index, total)
                   const ad = Math.abs(d)
@@ -363,7 +383,7 @@ export function Testimonials() {
                         onClick={() => transitionTo(i)}
                         aria-current={isActive ? 'true' : undefined}
                         aria-label={`View review from ${c.name}`}
-                        className="font-poppins"
+                        className="font-sora"
                         style={{
                           position: 'absolute',
                           left: 0,
@@ -412,46 +432,9 @@ export function Testimonials() {
                             }}
                           />
                           {/* Autoplay timer ring around the seated avatar */}
-                          {isActive && (
-                            <svg
-                              viewBox="0 0 36 36"
-                              aria-hidden="true"
-                              className={cn('t-ring', reducedMotion && 'motion-reduce:animate-none')}
-                              style={{
-                                position: 'absolute',
-                                left: '50%',
-                                top: '50%',
-                                width: 88,
-                                height: 88,
-                                margin: -44,
-                                transform: 'rotate(-90deg)',
-                              }}
-                            >
-                              <circle
-                                key={index}
-                                cx={18}
-                                cy={18}
-                                r={17}
-                                pathLength={1}
-                                fill="none"
-                                stroke={accent}
-                                strokeWidth={1}
-                                strokeLinecap="round"
-                                strokeDasharray={1}
-                                style={{
-                                  strokeDashoffset: 0,
-                                  animation: reducedMotion
-                                    ? undefined
-                                    : `t-ring-fill ${AUTOPLAY_MS}ms linear forwards`,
-                                  animationPlayState: paused ? 'paused' : 'running',
-                                }}
-                              />
-                            </svg>
-                          )}
-                          {/* Card-colored disc masking the arc behind the avatar —
-                              sized a touch past the logo edge so the dotted rail
-                              always hides behind it; the 41.5px timer ring still
-                              clears the 40px mask. */}
+                          {isActive && <TimerRing accent={accent} index={index} paused={paused} />}
+                          {/* Card-colored disc masking the glow behind the avatar;
+                              the 41.5px timer ring still clears the 40px mask. */}
                           <span
                             aria-hidden="true"
                             style={{
@@ -537,9 +520,7 @@ export function Testimonials() {
                               overflow: 'hidden',
                             }}
                           >
-                            <svg width={13} height={13} viewBox="0 0 24 24" aria-hidden="true" fill={STAR} style={{ display: 'block', flexShrink: 0 }}>
-                              <path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5l-5.9 3.1 1.2-6.5L2.5 9.5l6.6-.9z" />
-                            </svg>
+                            <i className="fa-solid fa-star" aria-hidden="true" style={{ color: STAR, fontSize: 13, lineHeight: 1 }} />
                             {avg} · {c.company || c.role}
                           </span>
                         </span>
@@ -550,66 +531,114 @@ export function Testimonials() {
               </div>
             </div>
 
-            {/* ===== Right panel: aggregate, quote, author, controls ===== */}
+            {/* ===== Below lg: compact reviewer header instead of the scaled
+                  arc, so the full quote gets the card's entire width. No pill
+                  selector — the arrows below and swipes steer the reviews. */}
+            <div
+              role="group"
+              aria-label="Client reviews"
+              className="flex items-center gap-3 px-5 pt-6 pb-1 sm:px-8 sm:pt-8 lg:hidden"
+            >
+              <span
+                className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
+                style={{ background: t.image ? '#FFFFFF' : activeAccent, boxShadow: `0 0 0 1px ${BORDER}` }}
+              >
+                <TimerRing accent={activeAccent} index={index} paused={paused} size={62} />
+                {t.image ? (
+                  <img
+                    src={t.image}
+                    alt=""
+                    loading="lazy"
+                    className="h-9 w-9 rounded-full"
+                    style={{ objectFit: t.logoFit === 'cover' ? 'cover' : 'contain' }}
+                  />
+                ) : (
+                  <span className="text-base font-semibold text-white-solid">{initialsOf(t.name)}</span>
+                )}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="font-sora text-base font-semibold" style={{ color: INK }}>
+                  {t.name}
+                </p>
+                <p
+                  className="mt-0.5 flex items-center gap-1.5 text-xs"
+                  style={{ color: MUTED }}
+                  aria-label={`Rated ${avg} out of 5`}
+                >
+                  <i className="fa-solid fa-star" aria-hidden="true" style={{ color: STAR, fontSize: 13, lineHeight: 1 }} />
+                  <span>{avg}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{total} reviews</span>
+                </p>
+              </div>
+              <span className="shrink-0 text-xs tabular-nums" style={{ color: MUTED }}>
+                {String(index + 1).padStart(2, '0')} / {total}
+              </span>
+            </div>
+
+            {/* ===== Right panel: quote, author, controls ===== */}
             <div
               aria-live="off"
-              className="flex flex-col justify-start gap-6 p-6 sm:p-8 lg:py-10 lg:pr-14 lg:pl-8 min-w-0"
+              className="flex flex-col justify-start gap-5 p-5 sm:gap-6 sm:p-8 lg:py-10 lg:pr-14 lg:pl-8 min-w-0"
             >
-              {/* Aggregate: five stars instead of the raw score text */}
-              <p className="flex items-center gap-2 text-sm" style={{ color: MUTED }} aria-label={`Rated ${avg} out of 5`}>
+              {/* Aggregate: five stars instead of the raw score text — the
+                  compact mobile header already carries the rating. */}
+              <p className="hidden items-center gap-2 text-sm lg:flex lg:self-end" style={{ color: MUTED }} aria-label={`Rated ${avg} out of 5`}>
                 <span className="flex items-center gap-1" aria-hidden="true">
                   {Array.from({ length: 5 }).map((_, s) => (
-                    <svg key={s} width={16} height={16} viewBox="0 0 24 24" style={{ display: 'block' }}>
-                      <path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5l-5.9 3.1 1.2-6.5L2.5 9.5l6.6-.9z" fill={STAR} />
-                    </svg>
+                    <i
+                      key={s}
+                      className="fa-solid fa-star"
+                      style={{ color: activeAccent, fontSize: 16, lineHeight: 1, transition: 'color 300ms ease' }}
+                    />
                   ))}
                 </span>
                 <span>· {total} reviews</span>
               </p>
 
-              <div style={{ minHeight: '5.2em' }}>
-                <blockquote
-                  className="font-poppins font-medium text-balance flex flex-col"
-                  style={{
-                    margin: 0,
-                    fontSize: 'clamp(1.2rem, 2vw, 1.6rem)',
-                    lineHeight: 1.26,
-                    letterSpacing: '-0.025em',
-                    color: INK,
-                  }}
-                >
-                  <QuoteMark color={activeAccent} className="mb-4" />
-                  <p ref={quoteTextRef}>
-                    {t.quote.split(' ').map((word, i) => (
-                      <Fragment key={i}>
-                        <span data-word className="inline-block will-change-transform">
-                          {highlightNames(word)}
-                        </span>{' '}
-                      </Fragment>
-                    ))}
-                  </p>
-                  <QuoteMark color={activeAccent} flip className="mt-5 self-end" />
-                </blockquote>
-              </div>
-
-              {/* Author + controls, one row like the reference */}
-              <div className="flex items-center justify-between flex-wrap gap-4">
-                <p
-                  ref={authorRef}
-                  className="text-sm font-semibold"
-                  style={{ color: 'var(--maven-lighter)' }}
-                >
-                  {t.role}
-                  {t.company ? `, ${t.company}` : ''}
+              <blockquote
+                key={index}
+                ref={quoteRef}
+                className="font-sora font-medium text-balance flex flex-col"
+                style={{
+                  margin: 0,
+                  fontSize: 'clamp(1.2rem, 2vw, 1.6rem)',
+                  lineHeight: 1.26,
+                  letterSpacing: '-0.025em',
+                  color: INK,
+                }}
+              >
+                <QuoteMark color={activeAccent} className="mb-3 lg:mb-4" />
+                <p>
+                  {t.quote.split(' ').map((word, i) => (
+                    <Fragment key={i}>
+                      <span data-word className="inline-block will-change-transform">
+                        {highlightNames(word)}
+                      </span>{' '}
+                    </Fragment>
+                  ))}
                 </p>
+                <QuoteMark color={activeAccent} flip className="mt-3 self-end lg:mt-5" />
+              </blockquote>
 
-                <div className="flex gap-2">
+              {/* Author + controls: stacked on phones for full-width readable
+                  copy, one row like the reference from sm up. */}
+              <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+                <div key={index} ref={roleRef} className="flex items-center gap-2">
+                  <BriefcaseAlt2Icon color={activeAccent} />
+                  <span className="text-sm font-semibold" style={{ color: 'var(--maven-lighter)' }}>
+                    {t.role}
+                    {t.company ? `, ${t.company}` : ''}
+                  </span>
+                </div>
+
+                <div className="testi-controls flex gap-2">
                   <button
                     type="button"
                     onClick={() => go(-1)}
                     data-cursor
                     aria-label="Previous review"
-                    className="w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 cursor-pointer"
+                    className="h-11 w-11 rounded-full flex items-center justify-center transition-transform hover:scale-110 cursor-pointer sm:h-10 sm:w-10"
                     style={{ border: `1px solid ${BORDER}`, color: INK, background: 'transparent' }}
                   >
                     <ChevronUp size={16} strokeWidth={2} />
@@ -619,7 +648,7 @@ export function Testimonials() {
                     onClick={() => go(1)}
                     data-cursor
                     aria-label="Next review"
-                    className="w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 cursor-pointer"
+                    className="h-11 w-11 rounded-full flex items-center justify-center transition-transform hover:scale-110 cursor-pointer sm:h-10 sm:w-10"
                     style={{ border: `1px solid ${BORDER}`, color: INK, background: 'transparent' }}
                   >
                     <ChevronDown size={16} strokeWidth={2} />
@@ -630,7 +659,7 @@ export function Testimonials() {
                     data-cursor
                     aria-label={userPaused ? 'Play autoplay' : 'Pause autoplay'}
                     aria-pressed={userPaused}
-                    className="w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 cursor-pointer"
+                    className="h-11 w-11 rounded-full flex items-center justify-center transition-transform hover:scale-110 cursor-pointer sm:h-10 sm:w-10"
                     style={{ border: `1px solid ${BORDER}`, color: INK, background: 'transparent' }}
                   >
                     {userPaused ? <Play size={14} /> : <Pause size={14} />}
@@ -666,6 +695,80 @@ function highlightNames(text: string): React.ReactNode[] {
     ) : (
       part
     )
+  )
+}
+
+/**
+ * Boxicons v3.0.8 "briefcase-alt-2" — exact SVG (regular / basic), inlined so
+ * the role caption needs no extra package or stylesheet. currentColor lets it
+ * follow the seated client's accent like the quote marks.
+ */
+function BriefcaseAlt2Icon({ color }: { color: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      style={{ color, display: 'block', flexShrink: 0, transition: `color ${reducedMotion ? 0 : 600}ms ease` }}
+    >
+      {/* Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free */}
+      <path d="M20 6h-3V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2M9 4h6v2H9zM8 8h12v3.07l-.83.39a16.78 16.78 0 0 1-14.34 0L4 11.07V8zM4 20v-6.72c2.54 1.19 5.27 1.79 8 1.79s5.46-.6 8-1.79V20z" />
+    </svg>
+  )
+}
+
+/**
+ * Autoplay progress ring around whichever avatar is seated. Shared by the
+ * desktop arc chips and the compact mobile header; the keyed circle restarts
+ * the one-beat fill every time the active review changes.
+ */
+function TimerRing({
+  accent,
+  index,
+  paused,
+  size = 88,
+}: {
+  accent: string
+  index: number
+  paused: boolean
+  size?: number
+}) {
+  return (
+    <svg
+      viewBox="0 0 36 36"
+      aria-hidden="true"
+      className={cn('t-ring', reducedMotion && 'motion-reduce:animate-none')}
+      style={{
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: size,
+        height: size,
+        margin: -size / 2,
+        transform: 'rotate(-90deg)',
+      }}
+    >
+      <circle
+        key={index}
+        cx={18}
+        cy={18}
+        r={17}
+        pathLength={1}
+        fill="none"
+        stroke={accent}
+        strokeWidth={1}
+        strokeLinecap="round"
+        strokeDasharray={1}
+        style={{
+          strokeDashoffset: 0,
+          animation: reducedMotion ? undefined : `t-ring-fill ${AUTOPLAY_MS}ms linear forwards`,
+          animationPlayState: paused ? 'paused' : 'running',
+        }}
+      />
+    </svg>
   )
 }
 

@@ -53,7 +53,6 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
   const railRef = useRef<HTMLDivElement>(null)
   const railBtnRefs = useRef<Array<HTMLButtonElement | null>>([])
   const pillRef = useRef<HTMLDivElement>(null)
-  const progressFillRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
 
   // Manual layout effect: the scrub is user-driven so it also runs for
@@ -102,9 +101,6 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             setActive(Math.round(self.progress * (n - 1)))
-            if (progressFillRef.current) {
-              progressFillRef.current.style.transform = `scaleX(${self.progress})`
-            }
           },
         },
       })
@@ -254,24 +250,6 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
             }}
           />
 
-          {/* Deck status row: step counter + scroll progress line */}
-          <div className="mb-4 hidden lg:flex items-center justify-center gap-5">
-            <div className="flex items-baseline gap-1.5 font-mono text-xs tracking-[0.2em] text-mist-dim">
-              <span key={active} className="svc-counter-digit text-[15px] font-semibold text-maven-lighter">
-                {String(active + 1).padStart(2, '0')}
-              </span>
-              <span aria-hidden="true" className="text-mist-dim/60">/</span>
-              <span>{String(services.length).padStart(2, '0')}</span>
-            </div>
-            <div className="relative h-px w-44 overflow-hidden bg-line">
-              <div
-                ref={progressFillRef}
-                className="svc-progress-fill absolute inset-0 bg-gradient-to-r from-maven-light to-maven-lighter"
-                style={{ transform: 'scaleX(0)' }}
-              />
-            </div>
-          </div>
-
           {/* Tab rail (desktop): dark glass pill bar matching the theme —
               the active step is a violet pill that slides between tabs,
               click jumps to that card */}
@@ -344,15 +322,6 @@ export function Services({ onNavigate }: { onNavigate: (href: string) => void })
 
                   {/* Left: kicker, title, copy, links */}
                   <div className="relative flex max-w-[460px] shrink-0 flex-col justify-center max-lg:max-w-full">
-                    {/* Ghost numeral: huge stroked index tucked behind the copy */}
-                    <span
-                      aria-hidden="true"
-                      className="svc-ghost-index max-lg:hidden"
-                      style={{ zIndex: 0 }}
-                    >
-                      {service.index}
-                    </span>
-
                     <div className="relative z-10">
                       <div className="flex items-center gap-3" data-svc-el>
                         <span

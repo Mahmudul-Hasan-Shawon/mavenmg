@@ -160,6 +160,7 @@
   --font-dm: 'DM Sans', sans-serif;
   --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-poppins: 'Poppins', sans-serif;
+  --font-sora: 'Sora', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-serif: 'Playfair Display', Georgia, serif;
 }
@@ -1053,8 +1054,7 @@ html:not([data-theme='light']) .marquee-badge {
 }
 
 /* Testimonials "Client words" orbit carousel (home): the autoplay progress
-   arc fills along the dashed ring once per beat, ending back at the seated
-   disc at the top of the circle. */
+   ring fills once per beat, ending back at the seated avatar. */
 @keyframes t-ring-fill {
   from {
     stroke-dashoffset: 1;
@@ -1064,12 +1064,34 @@ html:not([data-theme='light']) .marquee-badge {
   }
 }
 
+/* Quote and role entrances are GSAP timelines in Testimonials.tsx. */
 @media (prefers-reduced-motion: reduce) {
   [data-word] {
     transition: none;
   }
   .t-ring {
     animation: none;
+  }
+}
+
+/* Desktop with a real pointer keeps the up/down and pause buttons tucked
+   away until the card is hovered (or focused for keyboard users). Touch
+   devices have no hover, so they always show the controls. */
+@media (min-width: 1024px) and (hover: hover) {
+  [data-testi-card] .testi-controls {
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition:
+      opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  [data-testi-card]:hover .testi-controls,
+  [data-testi-card]:focus-within .testi-controls {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
   }
 }
 
@@ -1310,8 +1332,7 @@ html:not([data-theme='light']) .marquee-badge {
 
 /* ------------------------------------------------------------------
    Services scroll deck (home #services, ServiceDeck.tsx): pinned
-   trove-style stage. Sliding tab pill, ghost index numeral, animated
-   step counter and scroll progress line.
+   trove-style stage with a sliding tab pill.
    ------------------------------------------------------------------ */
 
 .svc-tab-pill {
@@ -1321,50 +1342,9 @@ html:not([data-theme='light']) .marquee-badge {
   will-change: transform, width;
 }
 
-/* Giant stroked numeral sitting behind a deck card's copy column. */
-.svc-ghost-index {
-  position: absolute;
-  bottom: -0.22em;
-  left: -0.06em;
-  font-family: var(--font-poppins);
-  font-weight: 700;
-  font-size: clamp(7rem, 11vw, 12rem);
-  line-height: 0.8;
-  letter-spacing: -0.02em;
-  color: transparent;
-  -webkit-text-stroke: 1px color-mix(in srgb, var(--maven-lighter) 22%, transparent);
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Counter digit flip when the active service step changes. */
-.svc-counter-digit {
-  display: inline-block;
-  animation: svc-digit-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@keyframes svc-digit-in {
-  from {
-    opacity: 0;
-    transform: translateY(70%);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.svc-progress-fill {
-  transform-origin: left center;
-  will-change: transform;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .svc-tab-pill {
     transition: none;
-  }
-  .svc-counter-digit {
-    animation: none;
   }
 }
 
