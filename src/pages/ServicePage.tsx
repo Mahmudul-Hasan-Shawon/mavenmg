@@ -43,6 +43,7 @@ import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { AIConsultingCTA } from '../sections/AIConsultingCTA'
 import { CyberSecurityCTA } from '../sections/CyberSecurityCTA'
+import { GlowPricing } from '../sections/GlowPricing'
 import { FinalCTA } from '../sections/FinalCTA'
 import { cn } from '../utils/cn'
 import { gsap, useGsapContext } from '../hooks/useGsap'
@@ -121,7 +122,11 @@ export default function ServicePage({ data, onNavigate }: ServicePageProps) {
 
       {data.process && <ProcessSection data={data} />}
 
-      <PlansSection data={data} onNavigate={onNavigate} />
+      {data.plansVariant === 'glow' ? (
+        <GlowPricing data={data} onNavigate={onNavigate} />
+      ) : (
+        <PlansSection data={data} onNavigate={onNavigate} />
+      )}
 
       <FaqSection data={data} onNavigate={onNavigate} />
 

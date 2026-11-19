@@ -46,6 +46,13 @@ export interface ServicePlan {
   blurb: string
   features: string[]
   featured?: boolean
+  /** Glow card extras (read by GlowPricing; ignored by the standard plan cards). */
+  /** Small audience tag in the card's top panel, e.g. "For local businesses". */
+  audience?: string
+  /** CTA button label, e.g. "Start with Local Reach". */
+  cta?: string
+  /** Fine-print line under the CTA, e.g. "Cancel anytime". */
+  note?: string
 }
 
 export interface ServiceFaq {
@@ -88,6 +95,8 @@ export interface ServicePageData {
   /** Optional: pages without a process array skip the How-it-works section. */
   process?: { title: string; description: string }[]
   plans: ServicePlan[]
+  /** Set to 'glow' to render the plans with the GlowPricing card design. */
+  plansVariant?: 'glow'
   faq: ServiceFaq[]
   /** Related-service slugs to cross-link at the bottom of the page. */
   related: { slug: string; blurb: string }[]
@@ -577,12 +586,16 @@ export const servicePages: ServicePageData[] = [
       { title: 'Build', description: 'Content and authority campaigns that earn real, lasting rankings.' },
       { title: 'Refine', description: 'Monthly analysis lets us double down on what is working.' },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Local Reach',
-        price: '$600/mo',
-        priceNote: 'Monthly',
+        audience: 'For local businesses',
+        price: '$600/month',
+        priceNote: 'Billed monthly',
         blurb: 'Dominating your city and service area.',
+        cta: 'Start with Local Reach',
+        note: 'Cancel anytime',
         features: [
           'Local keyword targeting',
           'Google Business optimization',
@@ -592,9 +605,12 @@ export const servicePages: ServicePageData[] = [
       },
       {
         name: 'Growth Ranking',
-        price: '$1,200/mo',
-        priceNote: 'Monthly',
+        audience: 'For growing companies',
+        price: '$1,200/month',
+        priceNote: 'Billed monthly',
         blurb: 'A full SEO engine for serious organic growth.',
+        cta: 'Start with Growth Ranking',
+        note: 'No long-term contract',
         features: [
           'Full keyword strategy',
           'Content optimization',
@@ -606,9 +622,12 @@ export const servicePages: ServicePageData[] = [
       },
       {
         name: 'Enterprise SEO',
+        audience: 'For national brands',
         price: 'Custom',
-        priceNote: 'Monthly',
+        priceNote: 'Pricing on request',
         blurb: 'National, multi-location, and high-competition markets.',
+        cta: 'Talk to sales',
+        note: 'Scope and quote in one call',
         features: ['Multi-location strategy', 'Advanced technical SEO', 'Dedicated SEO team', 'Quarterly strategy'],
       },
     ],
