@@ -23,7 +23,8 @@ import { cn } from '../utils/cn'
  *
  * Template tokens used:
  *   light card  #ffffff / panel #f5f5f1 / ink #0f110e / muted #6a6d66 / border #e4e4de
- *   dark card   #0f110e / panel #1a1d18 / ink #f4f5f0 / muted #9c9f96
+ *   dark card   pure black (client call; the template's is #0f110e) / panel #1a1d18 /
+ *               ink #f4f5f0 / muted #9c9f96
  *   accent      #e2fa84 (badge, glow, arrow chips, featured CTA)
  */
 
@@ -74,7 +75,7 @@ function GlowCard({ plan, onNavigate }: { plan: ServicePlan; onNavigate: (href: 
         className={cn(
           'relative h-full flex flex-col rounded-[28px] border p-1.5',
           featured
-            ? 'border-[#0f110e] bg-[#0f110e] shadow-[0_2px_4px_rgba(15,17,14,0.12),0_28px_56px_-16px_rgba(15,17,14,0.4)]'
+            ? 'border-black bg-black shadow-[0_2px_4px_rgba(15,17,14,0.12),0_28px_56px_-16px_rgba(15,17,14,0.4)]'
             : 'border-[#e4e4de] bg-white-solid shadow-[0_1px_2px_rgba(15,17,14,0.04),0_12px_32px_-12px_rgba(15,17,14,0.1)]'
         )}
       >
