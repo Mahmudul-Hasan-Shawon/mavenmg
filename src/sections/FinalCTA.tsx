@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import { InteractiveNeuralVortexBackground } from '../components/ui/interactive-neural-vortex-background'
 import { Reveal } from '../components/ui/Reveal'
 import { Starfield } from '../components/ui/Starfield'
 import { cn } from '../utils/cn'
@@ -28,6 +29,7 @@ export function FinalCTA({
     </>
   ),
   stacked = false,
+  vortex = false,
 }: {
   onNavigate: (href: string) => void
   /** Optional copy overrides so other pages can reuse the same card. */
@@ -35,6 +37,8 @@ export function FinalCTA({
   description?: ReactNode
   /** Put the description under the heading instead of beside it on wide screens. */
   stacked?: boolean
+  /** Swap the starfield for the pointer-reactive neural vortex shader (home). */
+  vortex?: boolean
 }) {
   return (
     <section id="final-cta" className="section py-20 md:py-28" aria-label="Start your project">
@@ -51,8 +55,12 @@ export function FinalCTA({
                     'radial-gradient(ellipse 75% 60% at 50% 108%, rgba(139,79,191,0.5) 0%, rgba(5,3,8,0) 65%)',
                 }}
               />
-              {/* Twinkling starfield */}
-              <Starfield className="absolute inset-0 h-full w-full" />
+              {/* Twinkling starfield, or the neural vortex shader on the home page */}
+              {vortex ? (
+                <InteractiveNeuralVortexBackground className="pointer-events-none absolute inset-0 h-full w-full opacity-90" />
+              ) : (
+                <Starfield className="absolute inset-0 h-full w-full" />
+              )}
               {/* Giant outlined year watermark */}
               <div
                 className="absolute -bottom-8 right-[1%] hidden md:block select-none leading-none text-[8rem] lg:text-[11rem] font-dm font-[1000] opacity-80"
