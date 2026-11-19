@@ -184,19 +184,26 @@ export const servicePages: ServicePageData[] = [
       { title: 'Build & Refine', description: 'We craft the site, then test, tweak, and polish every interaction.' },
       { title: 'Launch & Grow', description: 'We go live, verify performance, and set you up to keep improving.' },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Essentials',
         price: '$1,500+',
         priceNote: 'One-time',
-        blurb: 'For startups and simple brochure sites that need to look great.',
+        blurb: 'For startups and simple brochure sites that need to look great.',        audience: 'For small businesses',
+        cta: 'Start with Essentials',
+        note: 'Fixed quote, no surprises',
+
         features: ['Up to 5 custom pages', 'Responsive on all devices', 'Basic SEO setup', 'Contact form & analytics'],
       },
       {
         name: 'Growth',
         price: '$3,000+',
         priceNote: 'One-time',
-        blurb: 'Marketing-ready websites built to actively sell for you.',
+        blurb: 'Marketing-ready websites built to actively sell for you.',        audience: 'For growing companies',
+        cta: 'Start with Growth',
+        note: 'Timeline agreed before kickoff',
+
         features: [
           'Up to 12 pages',
           'Custom UI/UX design',
@@ -210,7 +217,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Enterprise',
         price: 'Custom',
         priceNote: 'Project-based',
-        blurb: 'Complex, high-touch builds for established brands.',
+        blurb: 'Complex, high-touch builds for established brands.',        audience: 'For complex builds',
+        cta: 'Talk to sales',
+        note: 'Scope & quote in one call',
+
         features: ['Unlimited pages & sections', 'Custom applications', 'Full design system', 'Ongoing optimization'],
       },
     ],
@@ -314,19 +324,26 @@ export const servicePages: ServicePageData[] = [
       { title: 'Test', description: 'Automated checks, cross-browser QA, and performance audits catch issues early.' },
       { title: 'Launch', description: 'Zero-downtime deploys with monitoring and post-launch support built in.' },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Starter Site',
         price: '$2,500+',
         priceNote: 'One-time',
-        blurb: 'A fast, secure brochure site with the essentials handled.',
+        blurb: 'A fast, secure brochure site with the essentials handled.',        audience: 'For simple sites',
+        cta: 'Start with Starter Site',
+        note: 'Fixed quote, no surprises',
+
         features: ['Up to 8 pages', 'CMS integration', 'Responsive build', 'Basic SEO foundation'],
       },
       {
         name: 'Custom Build',
         price: '$6,000+',
         priceNote: 'One-time',
-        blurb: 'Tailored features and integrations for growing businesses.',
+        blurb: 'Tailored features and integrations for growing businesses.',        audience: 'For growing businesses',
+        cta: 'Start with Custom Build',
+        note: 'Sprints with fixed pricing',
+
         features: [
           'Custom features & workflows',
           'API & third-party integrations',
@@ -339,7 +356,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Enterprise Platform',
         price: 'Custom',
         priceNote: 'Project-based',
-        blurb: 'Complex systems, headless architectures, and high traffic.',
+        blurb: 'Complex systems, headless architectures, and high traffic.',        audience: 'For complex platforms',
+        cta: 'Talk to sales',
+        note: 'Architecture call first',
+
         features: ['Headless & API-first builds', 'Multi-site & scaling', 'Dedicated engineering team', 'SLA support'],
       },
     ],
@@ -445,12 +465,16 @@ export const servicePages: ServicePageData[] = [
       { title: 'Maintain', description: 'Updates, monitoring, and content go on autopilot.' },
       { title: 'Report', description: 'You get clear insight into exactly what happened every month.' },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Essential Maintenance',
-        price: '$500/mo',
+        price: '$500/month',
         priceNote: 'Monthly',
-        blurb: 'Keep your website secure, backed up, and up to date.',
+        blurb: 'Keep your website secure, backed up, and up to date.',        audience: 'For live sites',
+        cta: 'Start with Essential',
+        note: 'Cancel anytime',
+
         features: [
           'Monthly core & plugin updates',
           'Uptime monitoring',
@@ -461,9 +485,12 @@ export const servicePages: ServicePageData[] = [
       },
       {
         name: 'Proactive Management',
-        price: '$1,500/mo',
+        price: '$1,500/month',
         priceNote: 'Monthly',
-        blurb: 'Hands-on management with content and reporting included.',
+        blurb: 'Hands-on management with content and reporting included.',        audience: 'For growing sites',
+        cta: 'Start with Proactive',
+        note: 'No long-term contract',
+
         features: [
           'Everything in Essential',
           'Weekly content updates',
@@ -477,7 +504,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Premier Management',
         price: 'Custom',
         priceNote: 'Monthly',
-        blurb: 'A dedicated team for your most important digital asset.',
+        blurb: 'A dedicated team for your most important digital asset.',        audience: 'For high-traffic sites',
+        cta: 'Talk to sales',
+        note: 'Custom care plan',
+
         features: [
           'Dedicated website manager',
           'Unlimited change requests',
@@ -737,12 +767,16 @@ export const servicePages: ServicePageData[] = [
         description: 'Share of voice and citation share by engine, mention accuracy and sentiment, AI referrals in GA4 and branded-search lift, reported monthly on your SEO report.',
       },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'AI Visibility Audit',
         price: 'Fixed',
         priceNote: 'One-time scope',
-        blurb: 'Find out where you stand in every engine.',
+        blurb: 'Find out where you stand in every engine.',        audience: 'For a fast start',
+        cta: 'Book the audit',
+        note: 'One-time, fixed scope',
+
         features: [
           'Prompt set from real buyer questions',
           'Competitor citation analysis',
@@ -754,7 +788,10 @@ export const servicePages: ServicePageData[] = [
         name: 'AEO & GEO Retainer',
         price: 'Custom',
         priceNote: 'Monthly program',
-        blurb: 'The full program: schema, content, citations and reporting.',
+        blurb: 'The full program: schema, content, citations and reporting.',        audience: 'For AI-first brands',
+        cta: 'Start the retainer',
+        note: 'Monthly, cancel anytime',
+
         features: [
           'All eight deliverables, implemented',
           'Prompt set tracked monthly',
@@ -767,7 +804,10 @@ export const servicePages: ServicePageData[] = [
         name: 'AEO + Managed SEO',
         price: 'Custom',
         priceNote: 'Monthly bundle',
-        blurb: 'One program for classic rankings and AI citations.',
+        blurb: 'One program for classic rankings and AI citations.',        audience: 'For full visibility',
+        cta: 'Talk to sales',
+        note: 'Bundles SEO + AEO',
+
         features: [
           'Managed SEO plus the full AEO layer',
           'Top-10 rankings that feed AI citations',
@@ -886,12 +926,16 @@ export const servicePages: ServicePageData[] = [
         description: 'Bidirectional connectivity tests proving your cardholder data environment is isolated, with audit-ready evidence for your QSA or SAQ. Required annually for most, twice yearly for service providers.',
       },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Focused Test',
         price: 'Fixed fee',
         priceNote: 'Quoted per scope',
-        blurb: 'One external or web application test, end to end.',
+        blurb: 'One external or web application test, end to end.',        audience: 'For a single app or network',
+        cta: 'Request a quote',
+        note: 'Scoped in one call',
+
         features: [
           'PTES and NIST SP 800-115 aligned',
           'CVSS 3.1 severity-ranked report',
@@ -904,6 +948,9 @@ export const servicePages: ServicePageData[] = [
         price: 'Fixed fee',
         priceNote: 'Quoted per scope',
         blurb: 'External, internal, web app and segmentation together.',
+        audience: 'For full coverage',
+        cta: 'Scope the combined test',
+        note: 'All test types, one engagement',
         features: [
           'All six test types available',
           'Attack-path chaining and MITRE ATT&CK mapping',
@@ -917,6 +964,9 @@ export const servicePages: ServicePageData[] = [
         price: 'Fixed fee',
         priceNote: 'Campaign or annual',
         blurb: 'Social engineering plus OSINT and dark web monitoring.',
+        audience: 'For the human layer',
+        cta: 'Request a quote',
+        note: 'Scoped in one call',
         features: [
           'Phishing, vishing and smishing campaigns',
           'Department-level click and report rates',
@@ -1038,12 +1088,16 @@ export const servicePages: ServicePageData[] = [
         description: 'Help choosing an independent CPA firm (SOC), accredited certification body (ISO) or QSA (PCI), with support through fieldwork. Maven does not issue the report.',
       },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Gap Assessment',
         price: 'Fixed fee',
         priceNote: 'One-time',
-        blurb: 'Know exactly where you stand before anything else.',
+        blurb: 'Know exactly where you stand before anything else.',        audience: 'For first compliance steps',
+        cta: 'Book a gap assessment',
+        note: 'One-time, fixed scope',
+
         features: [
           'Framework mapping from your questionnaire',
           'Scored gap report with owners',
@@ -1055,7 +1109,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Full Readiness Program',
         price: '$8K–$25K',
         priceNote: 'Fixed fee by scope',
-        blurb: 'Readiness with implementation support, market-rate scope.',
+        blurb: 'Readiness with implementation support, market-rate scope.',        audience: 'For audit-bound teams',
+        cta: 'Start readiness',
+        note: 'Fixed fee by scope',
+
         features: [
           'Policy and procedure set for your stack',
           'Control implementation support',
@@ -1068,7 +1125,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Multi-Framework Bundle',
         price: 'Custom',
         priceNote: 'One evidence set',
-        blurb: 'SOC 2 plus ISO 27001 or 42001 from shared evidence.',
+        blurb: 'SOC 2 plus ISO 27001 or 42001 from shared evidence.',        audience: 'For multi-framework teams',
+        cta: 'Talk to sales',
+        note: 'One evidence set',
+
         features: [
           'Overlapping controls mapped once',
           'ISO 42001 AI governance option',
@@ -1182,12 +1242,16 @@ export const servicePages: ServicePageData[] = [
         description: 'The kit sales can use immediately, management bridge letters between periods, and a renewal plan so year two costs less than year one.',
       },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'SOC 2 Attestation',
         price: 'Fixed + pass-through',
         priceNote: 'Type I or Type II',
-        blurb: 'The most common enterprise ask for SaaS and MSPs.',
+        blurb: 'The most common enterprise ask for SaaS and MSPs.',        audience: 'For SaaS companies',
+        cta: 'Start SOC 2',
+        note: 'Type I or Type II',
+
         features: [
           'Readiness, remediation sprint and evidence',
           'Independent CPA firm procurement',
@@ -1199,7 +1263,10 @@ export const servicePages: ServicePageData[] = [
         name: 'PCI DSS ROC + AOC',
         price: 'Fixed + pass-through',
         priceNote: 'Annual',
-        blurb: 'Requirement 11 evidence through a QSA-managed assessment.',
+        blurb: 'Requirement 11 evidence through a QSA-managed assessment.',        audience: 'For card-data handlers',
+        cta: 'Start PCI DSS',
+        note: 'Annual assessment',
+
         features: [
           'CDE scoping and segmentation evidence',
           'QSA partner procurement',
@@ -1212,7 +1279,10 @@ export const servicePages: ServicePageData[] = [
         name: 'SOC 1 + Multi-Report',
         price: 'Fixed + pass-through',
         priceNote: 'Type I / Type II',
-        blurb: 'Financial-reporting controls, bundled with SOC 2.',
+        blurb: 'Financial-reporting controls, bundled with SOC 2.',        audience: 'For multi-report needs',
+        cta: 'Talk to sales',
+        note: 'Combined engagement',
+
         features: [
           'SSAE 18 / AT-C 320 scope management',
           'SOC 1 and SOC 2 from one evidence set',
@@ -1325,12 +1395,16 @@ export const servicePages: ServicePageData[] = [
       { title: 'Optimize', description: 'Daily testing and tweaks improve performance week over week.' },
       { title: 'Scale', description: 'We re-invest in what works and cut what does not.' },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Starter Campaign',
-        price: '$800/mo',
+        price: '$800/month',
         priceNote: 'Monthly',
-        blurb: 'Get one channel performing before you scale.',
+        blurb: 'Get one channel performing before you scale.',        audience: 'For first campaigns',
+        cta: 'Start with Starter',
+        note: 'Cancel anytime',
+
         features: [
           'Single-channel focus',
           'Ad creative & copy',
@@ -1340,9 +1414,12 @@ export const servicePages: ServicePageData[] = [
       },
       {
         name: 'Growth Bundle',
-        price: '$1,600/mo',
+        price: '$1,600/month',
         priceNote: 'Monthly',
-        blurb: 'Multi-channel campaigns with conversion assets built in.',
+        blurb: 'Multi-channel campaigns with conversion assets built in.',        audience: 'For scaling brands',
+        cta: 'Start with Growth Bundle',
+        note: 'No long-term contract',
+
         features: [
           'Multi-channel (Ads + Social)',
           'Content calendar & creation',
@@ -1356,7 +1433,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Full-Funnel Partner',
         price: 'Custom',
         priceNote: 'Monthly',
-        blurb: 'Your outsourced marketing team, end to end.',
+        blurb: 'Your outsourced marketing team, end to end.',        audience: 'For full-funnel growth',
+        cta: 'Talk to sales',
+        note: 'Custom channel mix',
+
         features: [
           'All channels & funnels',
           'Dedicated strategist',
@@ -1471,19 +1551,26 @@ export const servicePages: ServicePageData[] = [
       { title: 'Launch', description: 'Payments, shipping, and orders are tested until flawless.' },
       { title: 'Scale', description: 'Conversion tests and marketing turn browsers into buyers.' },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Starter Store',
         price: '$1,500+',
         priceNote: 'One-time',
-        blurb: 'Launch your first store and start selling fast.',
+        blurb: 'Launch your first store and start selling fast.',        audience: 'For new stores',
+        cta: 'Start with Starter Store',
+        note: 'Fixed quote, no surprises',
+
         features: ['Up to 20 products', 'Platform setup & theme', 'Payments & shipping', 'Mobile optimized'],
       },
       {
         name: 'Growth Storefront',
         price: '$4,000+',
         priceNote: 'One-time',
-        blurb: 'A full store optimized to convert and scale.',
+        blurb: 'A full store optimized to convert and scale.',        audience: 'For growing stores',
+        cta: 'Start with Growth Storefront',
+        note: 'Timeline agreed before kickoff',
+
         features: [
           'Unlimited products',
           'Custom design',
@@ -1497,7 +1584,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Headless Enterprise',
         price: 'Custom',
         priceNote: 'Project-based',
-        blurb: 'Complex catalogs and custom buyer journeys.',
+        blurb: 'Complex catalogs and custom buyer journeys.',        audience: 'For high-volume brands',
+        cta: 'Talk to sales',
+        note: 'Architecture call first',
+
         features: ['Headless architecture', 'Complex integrations', 'Dedicated dev team', 'SLA & scaling support'],
       },
     ],
@@ -1601,19 +1691,26 @@ export const servicePages: ServicePageData[] = [
       { title: 'Refine', description: 'You pick a favorite; we polish it to perfection.' },
       { title: 'Deliver', description: 'Every file, format, and guideline you need to go to market.' },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Logo Essential',
         price: '$500+',
         priceNote: 'One-time',
-        blurb: 'A memorable logo that starts your brand the right way.',
+        blurb: 'A memorable logo that starts your brand the right way.',        audience: 'For quick launches',
+        cta: 'Start with Logo Essential',
+        note: 'Fixed quote, no surprises',
+
         features: ['3 logo concepts', 'Vector & print files', 'Color & typography spec', 'Usage guide'],
       },
       {
         name: 'Brand Identity Kit',
         price: '$1,500+',
         priceNote: 'One-time',
-        blurb: 'Everything you need to look professional everywhere.',
+        blurb: 'Everything you need to look professional everywhere.',        audience: 'For rebrands',
+        cta: 'Start with Brand Identity',
+        note: 'Revision rounds included',
+
         features: [
           'Full logo suite',
           'Color & type system',
@@ -1627,7 +1724,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Complete Brand System',
         price: 'Custom',
         priceNote: 'Project-based',
-        blurb: 'A full identity, voice, and rollout for serious brands.',
+        blurb: 'A full identity, voice, and rollout for serious brands.',        audience: 'For full brand systems',
+        cta: 'Talk to sales',
+        note: 'Scope & quote in one call',
+
         features: [
           'Everything in Identity Kit',
           'Brand voice & messaging',
@@ -1769,12 +1869,16 @@ export const servicePages: ServicePageData[] = [
         description: 'Post-deployment monitoring, performance tuning and expansion planning, measured against the original ROI model.',
       },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'AI Roadmap',
         price: 'Custom',
         priceNote: '2–3 week sprint',
-        blurb: 'A prioritized, ROI-modeled plan for where AI fits in your business.',
+        blurb: 'A prioritized, ROI-modeled plan for where AI fits in your business.',        audience: 'For AI planning',
+        cta: 'Book the sprint',
+        note: 'Scoped in one call',
+
         features: [
           'Workflow & opportunity audit',
           'ROI modeling',
@@ -1787,7 +1891,10 @@ export const servicePages: ServicePageData[] = [
         name: 'AI Build',
         price: 'Custom',
         priceNote: 'Project-based',
-        blurb: 'A production-ready AI system deployed into your workflow.',
+        blurb: 'A production-ready AI system deployed into your workflow.',        audience: 'For shipping AI',
+        cta: 'Start your build',
+        note: 'Project-based pricing',
+
         features: [
           'Custom development',
           'Data pipelines & integrations',
@@ -1801,7 +1908,10 @@ export const servicePages: ServicePageData[] = [
         name: 'AI Partner',
         price: 'Custom',
         priceNote: 'Monthly retainer',
-        blurb: 'Ongoing optimization and new agents as you scale.',
+        blurb: 'Ongoing optimization and new agents as you scale.',        audience: 'For ongoing AI needs',
+        cta: 'Talk to sales',
+        note: 'Monthly retainer',
+
         features: [
           'Dedicated AI engineer',
           'Agent monitoring & tuning',
@@ -1972,12 +2082,16 @@ export const servicePages: ServicePageData[] = [
         description: 'An independent auditor issues the report. We keep the controls current so the next questionnaire is a reuse, not a restart.',
       },
     ],
+    plansVariant: 'glow',
     plans: [
       {
         name: 'Penetration Test',
         price: 'Custom',
         priceNote: 'Fixed-scope engagement',
-        blurb: 'Find and rank the gaps before an attacker or enterprise buyer does.',
+        blurb: 'Find and rank the gaps before an attacker or enterprise buyer does.',        audience: 'For a security check',
+        cta: 'Request a test',
+        note: 'Fixed-scope engagement',
+
         features: [
           'External and internal network testing',
           'Web application testing (OWASP)',
@@ -1990,7 +2104,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Compliance Readiness',
         price: 'Custom',
         priceNote: 'Framework-based program',
-        blurb: 'Close the gaps and build the evidence trail for your audit.',
+        blurb: 'Close the gaps and build the evidence trail for your audit.',        audience: 'For compliance goals',
+        cta: 'Start readiness',
+        note: 'Framework-based program',
+
         features: [
           'Gap assessment and remediation roadmap',
           'Policies and control implementation',
@@ -2004,7 +2121,10 @@ export const servicePages: ServicePageData[] = [
         name: 'Attestation & Audit Support',
         price: 'Custom',
         priceNote: 'Independent engagement',
-        blurb: 'Go from readiness to a signed report with one coordinated engagement.',
+        blurb: 'Go from readiness to a signed report with one coordinated engagement.',        audience: 'For audit support',
+        cta: 'Talk to sales',
+        note: 'Independent engagement',
+
         features: [
           'SOC 1 and SOC 2 Type I and II',
           'PCI DSS AOC and ROC',

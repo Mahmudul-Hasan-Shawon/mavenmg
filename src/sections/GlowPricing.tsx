@@ -53,7 +53,8 @@ export function GlowPricing({ data, onNavigate }: GlowPricingProps) {
           align="center"
         />
 
-        <div className="grid lg:grid-cols-3 gap-5 items-stretch">
+        {/* Pages with a single plan (penetration-testing) get one centred card. */}
+        <div className={data.plans.length === 1 ? 'mx-auto max-w-md' : 'grid lg:grid-cols-3 gap-5 items-stretch'}>
           {data.plans.map((plan, i) => (
             <Reveal key={plan.name} delay={i * 0.06} className="h-full">
               <GlowCard plan={plan} onNavigate={onNavigate} />
