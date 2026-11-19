@@ -5,18 +5,15 @@ import { quality } from '../utils/motion'
 
 /* =====================================================================
    AboutLogo the Maven "m" mark as an interactive hologram: the logo
-   texture on a shader plane with a travelling light sweep and breathing
-   pulse, floating in 3D, tilting toward the cursor, and wrapped in a
-   halo of slowly orbiting violet particles.
+   texture on a shader plane with a breathing luminance pulse, floating in
+   3D and tilting toward the cursor.
    ===================================================================== */
 
 const LOGO_BASE = 3.3 // plane height in world units
 
 function LogoPlane({ src }: { src: string }) {
   const [tex, setTex] = useState<THREE.Texture | null>(null)
-  const [haloGeo, setHaloGeo] = useState<THREE.BufferGeometry | null>(null)
   const group = useRef<THREE.Group>(null)
-  const halo = useRef<THREE.Points>(null)
   const pointer = useRef({ x: 0, y: 0 })
   const target = useRef({ x: 0, y: 0 })
 
@@ -52,7 +49,7 @@ function LogoPlane({ src }: { src: string }) {
     return () => window.removeEventListener('pointermove', onMove)
   }, [])
 
-  // Logo shader: texture + diagonal light sweep + gentle alpha breathing.
+  // Logo shader: plain texture + gentle luminance breathing.
   const logoMat = useMemo(() => {
     if (!tex) return null
     return new THREE.ShaderMaterial({
@@ -77,65 +74,21 @@ function LogoPlane({ src }: { src: string }) {
           vec4 tex = texture(uTex, vUv);
           if (tex.a < 0.01) discard;
 
-          // Diagonal light sweep travelling across the mark.
-          float d = (vUv.x + vUv.y) * 0.5;
-          float head = fract(uTime * 0.16) * 1.6 - 0.3;
-          float sweep = smoothstep(0.0, 0.14, d - head) * (1.0 - smoothstep(0.14, 0.34, d - head));
-
-          vec3 violet = vec3(0.545, 0.31, 0.749); // #8B4FBF
-          vec3 col = tex.rgb + violet * sweep * 0.7;
-
           // Breathing luminance.
           float breathe = 0.94 + 0.06 * sin(uTime * 1.3);
-          fragColor = vec4(col * breathe, tex.a);
+          fragColor = vec4(tex.rgb * breathe, tex.a);
         }
       `,
     })
   }, [tex])
 
-  // Halo of orbiting particles around the mark. Built in an effect (not
-  // useMemo) so the random scatter never runs during render — render stays
-  // pure — and disposed when it is replaced or on unmount.
-  useEffect(() => {
-    const count = quality.tier === 'high' ? 220 : 120
-    const pos = new Float32Array(count * 3)
-    for (let i = 0; i < count; i++) {
-      const a = Math.random() * Math.PI * 2
-      const r = LOGO_BASE * (0.62 + Math.random() * 0.38)
-      pos[i * 3] = Math.cos(a) * r
-      pos[i * 3 + 1] = Math.sin(a) * r * 0.75
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 1.4
-    }
-    const g = new THREE.BufferGeometry()
-    g.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-    setHaloGeo(g)
-    return () => {
-      g.dispose()
-    }
-  }, [])
-
-  const haloMat = useMemo(
-    () =>
-      new THREE.PointsMaterial({
-        color: new THREE.Color('#8B4FBF'),
-        size: 0.045,
-        transparent: true,
-        opacity: 0.75,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        sizeAttenuation: true,
-      }),
-    []
-  )
-
-  // R3F only auto-disposes objects it creates itself; the material above and
-  // the shader material below are ours, so sweep them on rotate/unmount.
+  // R3F only auto-disposes objects it creates itself; our shader material is
+  // ours, so dispose it on replace/unmount.
   useEffect(() => {
     return () => {
       logoMat?.dispose()
-      haloMat.dispose()
     }
-  }, [logoMat, haloMat])
+  }, [logoMat])
 
   const aspect = tex ? (tex.image as HTMLImageElement).width / (tex.image as HTMLImageElement).height : 1
 
@@ -154,20 +107,15 @@ function LogoPlane({ src }: { src: string }) {
       g.rotation.x = -pointer.current.y * 0.26
       g.position.y = Math.sin(t * 0.9) * 0.1
     }
-    if (halo.current) {
-      halo.current.rotation.z += dt * 0.06
-      halo.current.rotation.y = -pointer.current.x * 0.12
-    }
   })
 
-  if (!tex || !logoMat || !haloGeo) return null
+  if (!tex || !logoMat) return null
 
   return (
     <group ref={group}>
       <mesh material={logoMat} scale={[LOGO_BASE * aspect, LOGO_BASE, 1]}>
         <planeGeometry />
       </mesh>
-      <points ref={halo} geometry={haloGeo} material={haloMat} />
     </group>
   )
 }

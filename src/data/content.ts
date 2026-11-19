@@ -159,13 +159,6 @@ export const aboutExpect = [
   },
 ]
 
-export const aboutTestimonial = {
-  quote:
-    'Connor and his team were absolutely fantastic. They professionalized our website and have helped us cement ourselves as a top-notch provider in the Security Industry. I wish I had found them sooner!',
-  author: 'Genaro Cavazos',
-  role: 'Chief Executive Officer',
-}
-
 export const aboutTeam = [
   { initials: 'CM', name: 'Connor McNerney', role: 'President & Managing Member' },
   { initials: 'KD', name: 'Kolton Durment', role: 'Chief Technical Officer' },

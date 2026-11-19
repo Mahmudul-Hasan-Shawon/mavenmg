@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 import { Starfield } from '../components/ui/Starfield'
+import { cn } from '../utils/cn'
 
 /**
  * Closing CTA as a single card: content taken from
@@ -10,7 +12,30 @@ import { Starfield } from '../components/ui/Starfield'
  * a soft violet floor glow and a giant outlined "2027" watermark.
  * Stays dark in both themes, like the old gradient CTA did.
  */
-export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void }) {
+export function FinalCTA({
+  onNavigate,
+  title = (
+    <>
+      Tell us where you want the business to be in{' '}
+      <span className="grad-text whitespace-nowrap">twelve months.</span>
+    </>
+  ),
+  description = (
+    <>
+      Share what you&rsquo;re trying to accomplish and a Marketing Maven will map the
+      right mix of search, web, AI and security to get there. No pitch deck, just a
+      plan.
+    </>
+  ),
+  stacked = false,
+}: {
+  onNavigate: (href: string) => void
+  /** Optional copy overrides so other pages can reuse the same card. */
+  title?: ReactNode
+  description?: ReactNode
+  /** Put the description under the heading instead of beside it on wide screens. */
+  stacked?: boolean
+}) {
   return (
     <section id="final-cta" className="section py-20 md:py-28" aria-label="Start your project">
       <div className="container-maven">
@@ -48,16 +73,25 @@ export function FinalCTA({ onNavigate }: { onNavigate: (href: string) => void })
                 <span className="mono-label hidden sm:block">Search · Web · AI · Security</span>
               </div>
 
-              <div className="grid gap-10 md:grid-cols-12 md:gap-8">
-                <h2 className="display text-[clamp(1.9rem,4.4vw,3.6rem)] leading-[1.06] text-white md:col-span-7">
-                  Tell us where you want the business to be in{' '}
-                  <span className="grad-text whitespace-nowrap">twelve months.</span>
+              <div className={cn(stacked ? 'flex flex-col gap-5' : 'grid gap-10 md:grid-cols-12 md:gap-8')}>
+                <h2
+                  className={cn(
+                    'display text-[clamp(1.9rem,4.4vw,3.6rem)] leading-[1.06] text-white',
+                    stacked ? 'max-w-3xl' : 'md:col-span-7',
+                  )}
+                >
+                  {title}
                 </h2>
 
-                <p className="text-mist text-base md:text-lg leading-relaxed md:col-span-5 md:pt-2 md:max-w-sm md:justify-self-end">
-                  Share what you&rsquo;re trying to accomplish and a Marketing Maven will map the
-                  right mix of search, web, AI and security to get there. No pitch deck, just a
-                  plan.
+                <p
+                  className={cn(
+                    'text-mist text-base md:text-lg leading-relaxed',
+                    stacked
+                      ? 'max-w-xl'
+                      : 'md:col-span-5 md:pt-2 md:max-w-sm md:justify-self-end',
+                  )}
+                >
+                  {description}
                 </p>
               </div>
 

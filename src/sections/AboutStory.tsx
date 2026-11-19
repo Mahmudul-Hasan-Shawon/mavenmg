@@ -32,7 +32,7 @@ export function AboutStory() {
           {aboutServices.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.06}>
               <div
-                className="scroll-blur spotlight glow-tl h-full flex flex-col rounded-2xl border border-line bg-void p-7 md:p-8 shadow-[0_24px_60px_-24px_rgba(97,44,139,0.45)] transition-shadow duration-500 hover:shadow-[0_28px_70px_-28px_rgba(97,44,139,0.55)]"
+                className="scroll-blur spotlight glow-tl h-full flex flex-col rounded-2xl border border-line bg-void p-7 md:p-8"
                 onPointerMove={trackSpotlight}
               >
                 <h3 className="display font-semibold tracking-[0.98px] text-xl text-white mb-3">{s.title}</h3>

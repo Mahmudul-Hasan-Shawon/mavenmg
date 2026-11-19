@@ -3,15 +3,15 @@ import { PageHero } from '../sections/PageHero'
 import { Story } from '../sections/Story'
 import { AboutStory } from '../sections/AboutStory'
 import { Leadership } from '../sections/Leadership'
+import { FinalCTA } from '../sections/FinalCTA'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 import { Eyebrow } from '../components/text/Eyebrow'
-import { aboutStats, aboutExpect, aboutTestimonial } from '../data/content'
+import { aboutStats, aboutExpect } from '../data/content'
 
 /**
  * About, mirroring mavenmarketinggroup.com/about: brand hero with actions and
- * stats, Our Story, What We Do, How We Work, a client testimonial, Leadership,
- * and the closing CTA.
+ * stats, Our Story, What We Do, How We Work, Leadership, and the closing CTA.
  */
 export default function AboutPage({ onNavigate }: { onNavigate: (href: string) => void }) {
   return (
@@ -93,52 +93,20 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="section py-20 md:py-28 bg-[var(--hero-base)] border-t border-line" aria-label="Client testimonial">
-        <div className="container-maven">
-          <Reveal>
-            <figure className="max-w-3xl mx-auto text-center">
-              <blockquote className="font-serif italic text-[clamp(1.4rem,3vw,2rem)] leading-normal text-white">
-                &ldquo;{aboutTestimonial.quote}&rdquo;
-              </blockquote>
-              <figcaption className="mono-label mt-6 text-white/90">
-                {aboutTestimonial.author}
-                <span className="text-mist-dim">, {aboutTestimonial.role}</span>
-              </figcaption>
-            </figure>
-          </Reveal>
-        </div>
-      </section>
-
       {/* Leadership */}
       <Leadership />
 
       {/* CTA */}
-      <section className="section py-24 md:py-32 bg-[var(--hero-base)] border-t border-line" aria-label="Start your project">
-        <div className="container-maven text-center">
-          <Reveal>
-            <h2 className="display text-[clamp(2rem,5vw,4rem)] text-white">
-              Let's build <span className="grad-text">what's next.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <p className="mt-5 text-mist text-base md:text-lg leading-relaxed max-w-xl mx-auto">
-              Tell us about your project and a Marketing Maven will reach out to talk it through.
-            </p>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-              <MagneticButton variant="primary" onClick={() => onNavigate('/contact')}>
-                Start Your Project
-                <ArrowRight size={16} />
-              </MagneticButton>
-              <MagneticButton variant="deepOutline" onClick={() => onNavigate('/contact')}>
-                Contact Us
-              </MagneticButton>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <FinalCTA
+        onNavigate={onNavigate}
+        stacked
+        title={
+          <>
+            Let&rsquo;s build <span className="grad-text whitespace-nowrap">what&rsquo;s next.</span>
+          </>
+        }
+        description="Tell us about your project and a Marketing Maven will reach out to talk it through."
+      />
     </>
   )
 }

@@ -4,10 +4,10 @@ import { teamQrPath } from '../data/leaderQr'
 /**
  * Leadership: a faithful rebuild of the Framer "hover team" wall at
  * https://diverse-unicorn-464220.framer.app/. Cards hang from thin wires off a
- * sagging rail cord, sway on their pendulums, tilt toward the pointer with a
- * holographic sheen on hover, and flip on click to a profile back with
- * location, bio, selected projects, email and a QR badge. Light theme on
- * purpose: the section is a self-contained white island on the dark page.
+ * sagging rail cord, sway on their pendulums, tilt toward the pointer, and
+ * flip on click to a profile back with location, bio, selected projects, email
+ * and a QR badge. Light theme on purpose: the section is a self-contained
+ * white island on the dark page.
  */
 
 type Member = {
@@ -32,7 +32,7 @@ const members: Member[] = [
   {
     name: 'Connor McNerney',
     role: 'President & Managing Member',
-    photo: undefined,
+    photo: '/images/team/connor.jpg',
     accent: '#7765ee',
     location: 'Illinois, US',
     about: 'Leads every project from first call to launch, keeping the work tied to business goals.',
@@ -47,7 +47,7 @@ const members: Member[] = [
   {
     name: 'Kolton Durment',
     role: 'Chief Technical Officer',
-    photo: undefined,
+    photo: '/images/team/kolton.jpg',
     accent: '#b678ed',
     location: 'Illinois, US',
     about: 'Owns the technical side of every build: performance, security and long-term care.',
@@ -62,7 +62,7 @@ const members: Member[] = [
   {
     name: 'David Rodriguez',
     role: 'Executive Administrator',
-    photo: undefined,
+    photo: '/images/team/david.jpg',
     accent: '#28b88d',
     location: 'Illinois, US',
     about: 'Keeps projects moving and clients informed, from scheduling to day-to-day delivery.',
@@ -140,7 +140,7 @@ function TeamCard({ member, index }: { member: Member; index: number }) {
   const [flipped, setFlipped] = useState(false)
   const num = String(index + 1).padStart(2, '0')
 
-  /** Track the pointer: tilt the badge and park the holographic sheen under it. */
+  /** Track the pointer to tilt the card toward it. */
   const handleMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = hitRef.current
     if (!el || flipped) return
@@ -151,9 +151,6 @@ function TeamCard({ member, index }: { member: Member; index: number }) {
     const rx = -((py - 50) / 50) * TILT_X
     el.style.setProperty('--ht-rx', `${rx.toFixed(2)}deg`)
     el.style.setProperty('--ht-ry', `${ry.toFixed(2)}deg`)
-    el.style.setProperty('--ht-px', `${px.toFixed(1)}%`)
-    el.style.setProperty('--ht-py', `${py.toFixed(1)}%`)
-    el.style.setProperty('--ht-illumination', '1')
   }
 
   const handleLeave = () => {
@@ -161,7 +158,6 @@ function TeamCard({ member, index }: { member: Member; index: number }) {
     if (!el) return
     el.style.setProperty('--ht-rx', '0deg')
     el.style.setProperty('--ht-ry', '0deg')
-    el.style.setProperty('--ht-illumination', '0')
   }
 
   return (
@@ -230,8 +226,6 @@ function TeamCard({ member, index }: { member: Member; index: number }) {
                   <span>VIEW PROFILE</span>
                   <span>&#8599;</span>
                 </div>
-                <span className="ht-holo" aria-hidden="true" />
-                <span className="ht-holo-gloss" aria-hidden="true" />
               </button>
 
               <div className="ht-face ht-back" aria-hidden={!flipped}>
@@ -291,8 +285,6 @@ function TeamCard({ member, index }: { member: Member; index: number }) {
                     <span>SCAN ME</span>
                   </div>
                 </div>
-                <span className="ht-holo" aria-hidden="true" />
-                <span className="ht-holo-gloss" aria-hidden="true" />
               </div>
             </div>
           </div>
