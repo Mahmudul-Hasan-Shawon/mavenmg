@@ -1,20 +1,14 @@
 import type { ReactNode } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
-import { ShaderArt } from '../components/ui/shader-art'
 import { Reveal } from '../components/ui/Reveal'
-import { Starfield } from '../components/ui/Starfield'
 import { cn } from '../utils/cn'
-
-/** The violet horizon rising off the card floor, shared by both backdrops. */
-const FLOOR_GLOW =
-  'radial-gradient(ellipse 75% 60% at 50% 108%, rgba(139,79,191,0.5) 0%, rgba(5,3,8,0) 65%)'
 
 /**
  * Closing CTA as a single card: content taken from
  * mavenmarketinggroup.com's closing block. The dark card carries a quiet
- * twinkling starfield (after reflex-template.framer.ai's blog hero) under
- * a soft violet floor glow and a giant outlined "2027" watermark.
+ * violet gradient under a soft violet floor glow and a giant outlined
+ * "2027" watermark.
  * Stays dark in both themes, like the old gradient CTA did.
  */
 export function FinalCTA({
@@ -33,7 +27,6 @@ export function FinalCTA({
     </>
   ),
   stacked = false,
-  shader = false,
 }: {
   onNavigate: (href: string) => void
   /** Optional copy overrides so other pages can reuse the same card. */
@@ -41,8 +34,6 @@ export function FinalCTA({
   description?: ReactNode
   /** Put the description under the heading instead of beside it on wide screens. */
   stacked?: boolean
-  /** Swap the starfield for the pointer-reactive ShaderArt field (home). */
-  shader?: boolean
 }) {
   return (
     <section id="final-cta" className="section py-20 md:py-28" aria-label="Start your project">
@@ -51,27 +42,14 @@ export function FinalCTA({
           <div className="relative overflow-hidden rounded-[2rem] border border-line shadow-[0_28px_80px_-28px_rgba(97,44,139,0.55)]">
             {/* Horizon backdrop, clipped to the card */}
             <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-              {shader ? (
-                <>
-                  {/* The animated field carries the base colour itself */}
-                  <ShaderArt
-                    className="absolute inset-0"
-                    colors={{ base: '#050308', accent: '#a06fdb', ink: '#dacaff' }}
-                    intensity={0.8}
-                    speed={0.9}
-                  />
-                  <div className="absolute inset-0" style={{ backgroundImage: FLOOR_GLOW }} />
-                </>
-              ) : (
-                <>
-                  <div
-                    className="absolute inset-0"
-                    style={{ backgroundColor: '#050308', backgroundImage: FLOOR_GLOW }}
-                  />
-                  {/* Twinkling starfield */}
-                  <Starfield className="absolute inset-0 h-full w-full" />
-                </>
-              )}
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundColor: '#050308',
+                  backgroundImage:
+                    'radial-gradient(ellipse 75% 60% at 50% 108%, rgba(139,79,191,0.5) 0%, rgba(5,3,8,0) 65%)',
+                }}
+              />
               {/* Giant outlined year watermark */}
               <div
                 className="absolute -bottom-8 right-[1%] hidden md:block select-none leading-none text-[8rem] lg:text-[11rem] font-dm font-[1000] opacity-80"

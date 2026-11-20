@@ -24,8 +24,8 @@ export default function AboutPage({ onNavigate }: { onNavigate: (href: string) =
         accent="built to stick around after launch."
         accentHighlight={['stick', 'around']}
         lede="Maven Marketing Group designs, builds and manages websites for businesses across the country, then keeps them fast, secure and bringing in leads. We started in 2019 to bring small businesses into the digital age. That's still the job."
-        image="/images/logos/3dlogomaven.png"
-        imageAlt="Maven Marketing Group 3D logo"
+        image="/images/logos/mavenmascot.png"
+        imageAlt="Maven Marketing Group mascot"
         logo3d
         style={{
           backgroundColor: 'var(--hero-base)',

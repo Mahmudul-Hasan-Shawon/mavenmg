@@ -158,7 +158,7 @@ export function PageHero({ id, eyebrow, title, accent, lede, image, imageLight, 
                 {logo3d ? (
                   <div className="relative flex flex-col items-center justify-center gap-6 lg:h-full lg:justify-end">
                     <div className="relative flex justify-center lg:justify-end w-full">
-                      <div className="relative w-64 sm:w-80 lg:w-full lg:max-w-md aspect-square">
+                      <div className="relative w-72 sm:w-96 lg:w-full lg:max-w-xl aspect-square">
                         <LazyCanvas
                           Scene={AboutLogo}
                           className="absolute inset-0"

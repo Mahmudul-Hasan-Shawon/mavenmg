@@ -8,7 +8,7 @@ import { Eyebrow } from '../components/text/Eyebrow'
  */
 export function Story() {
   return (
-    <section id="story" className="section py-24 md:py-32" aria-label="Our story">
+    <section id="story" className="section py-24 md:py-32 bg-[var(--hero-base)] border-t border-line" aria-label="Our story">
       <div className="container-maven">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>

@@ -9,7 +9,7 @@ import { quality } from '../utils/motion'
    3D and tilting toward the cursor.
    ===================================================================== */
 
-const LOGO_BASE = 3.3 // plane height in world units
+const LOGO_BASE = 3.9 // plane height in world units
 
 function LogoPlane({ src }: { src: string }) {
   const [tex, setTex] = useState<THREE.Texture | null>(null)
@@ -121,7 +121,7 @@ function LogoPlane({ src }: { src: string }) {
 }
 
 export default function AboutLogoCanvas({
-  src = '/images/logos/3dlogomaven.png',
+  src = '/images/logos/mavenmascot.png',
   frameloop = 'always',
 }: {
   src?: string
