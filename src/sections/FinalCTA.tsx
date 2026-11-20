@@ -1,10 +1,14 @@
 import type { ReactNode } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
-import { InteractiveNeuralVortexBackground } from '../components/ui/interactive-neural-vortex-background'
+import { ShaderArt } from '../components/ui/shader-art'
 import { Reveal } from '../components/ui/Reveal'
 import { Starfield } from '../components/ui/Starfield'
 import { cn } from '../utils/cn'
+
+/** The violet horizon rising off the card floor, shared by both backdrops. */
+const FLOOR_GLOW =
+  'radial-gradient(ellipse 75% 60% at 50% 108%, rgba(139,79,191,0.5) 0%, rgba(5,3,8,0) 65%)'
 
 /**
  * Closing CTA as a single card: content taken from
@@ -29,7 +33,7 @@ export function FinalCTA({
     </>
   ),
   stacked = false,
-  vortex = false,
+  shader = false,
 }: {
   onNavigate: (href: string) => void
   /** Optional copy overrides so other pages can reuse the same card. */
@@ -37,8 +41,8 @@ export function FinalCTA({
   description?: ReactNode
   /** Put the description under the heading instead of beside it on wide screens. */
   stacked?: boolean
-  /** Swap the starfield for the pointer-reactive neural vortex shader (home). */
-  vortex?: boolean
+  /** Swap the starfield for the pointer-reactive ShaderArt field (home). */
+  shader?: boolean
 }) {
   return (
     <section id="final-cta" className="section py-20 md:py-28" aria-label="Start your project">
@@ -47,19 +51,26 @@ export function FinalCTA({
           <div className="relative overflow-hidden rounded-[2rem] border border-line shadow-[0_28px_80px_-28px_rgba(97,44,139,0.55)]">
             {/* Horizon backdrop, clipped to the card */}
             <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundColor: '#050308',
-                  backgroundImage:
-                    'radial-gradient(ellipse 75% 60% at 50% 108%, rgba(139,79,191,0.5) 0%, rgba(5,3,8,0) 65%)',
-                }}
-              />
-              {/* Twinkling starfield, or the neural vortex shader on the home page */}
-              {vortex ? (
-                <InteractiveNeuralVortexBackground className="pointer-events-none absolute inset-0 h-full w-full opacity-90" />
+              {shader ? (
+                <>
+                  {/* The animated field carries the base colour itself */}
+                  <ShaderArt
+                    className="absolute inset-0"
+                    colors={{ base: '#050308', accent: '#a06fdb', ink: '#dacaff' }}
+                    intensity={0.8}
+                    speed={0.9}
+                  />
+                  <div className="absolute inset-0" style={{ backgroundImage: FLOOR_GLOW }} />
+                </>
               ) : (
-                <Starfield className="absolute inset-0 h-full w-full" />
+                <>
+                  <div
+                    className="absolute inset-0"
+                    style={{ backgroundColor: '#050308', backgroundImage: FLOOR_GLOW }}
+                  />
+                  {/* Twinkling starfield */}
+                  <Starfield className="absolute inset-0 h-full w-full" />
+                </>
               )}
               {/* Giant outlined year watermark */}
               <div

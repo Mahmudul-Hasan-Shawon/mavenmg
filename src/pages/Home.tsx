@@ -24,7 +24,7 @@ export default function Home({ onNavigate }: { onNavigate: (href: string) => voi
       <FeaturedWork onNavigate={onNavigate} />
       <Testimonials />
       <Philosophy />
-      <FinalCTA onNavigate={onNavigate} vortex />
+      <FinalCTA onNavigate={onNavigate} shader />
     </>
   )
 }
