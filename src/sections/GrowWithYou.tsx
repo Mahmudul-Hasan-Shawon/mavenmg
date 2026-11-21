@@ -111,9 +111,9 @@ export function GrowWithYou({ onNavigate }: { onNavigate: (href: string) => void
       </div>
 
       <div className="container-maven relative">
-        <div data-gwy-head className="max-w-6xl">
+        <div data-gwy-head className="max-w-3xl">
           <Eyebrow label="How we grow with you" className="mb-6" />
-          <h2 className="display text-[clamp(2rem,5vw,3.8rem)] leading-[1.12] mb-6">
+          <h2 className="display text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.12] mb-6">
             Wherever Your Business Is Today, We Meet You{' '}
             <span className="text-maven-light">There and Take You Further</span>
           </h2>
