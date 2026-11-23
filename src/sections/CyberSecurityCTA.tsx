@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Clock, FileText, ShieldCheck } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { CubeWavePanel } from '../components/ui/CubeWavePanel'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
@@ -91,31 +91,15 @@ export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
                       Contact Us <ArrowUpRight size={18} />
                     </MagneticButton>
                   </div>
-
-                  <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-[#a89fc0]">
-                    <span className="inline-flex items-center gap-2">
-                      <Clock size={14} className="text-[#dacaff]" /> 15 minutes
-                    </span>
-                    <span className="inline-flex items-center gap-2">
-                      <ShieldCheck size={14} className="text-[#dacaff]" /> No obligation
-                    </span>
-                    <span className="inline-flex items-center gap-2">
-                      <FileText size={14} className="text-[#dacaff]" /> Fixed-fee phases
-                    </span>
-                  </div>
                 </div>
 
                 {/* Live PODIE / Threecn CubeWave — original instanced radial
                     wave on a square stage that matches the dark CTA. */}
-                <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-3xl bg-[#0d0915]/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_60px_-30px_rgba(0,0,0,0.9)] lg:ml-auto lg:max-w-none">
+                <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-3xl shadow-[0_24px_60px_-30px_rgba(0,0,0,0.9)] lg:ml-auto lg:max-w-none">
                   <CubeWavePanel />
                   <div
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#09060f] to-transparent"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(218,202,255,0.5),transparent)]"
                   />
                 </div>
               </div>
