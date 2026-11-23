@@ -36,7 +36,7 @@ export function AIConsultingCTA({ onNavigate }: AIConsultingCTAProps) {
             </div>
 
             {/* Content */}
-            <div className="relative p-8 pb-0 md:p-14 md:pb-0">
+            <div className="relative p-8 md:p-14">
               <div className="grid items-center gap-10 md:grid-cols-12 md:gap-8">
                 <div className="md:col-span-7">
                   <h2 className="display text-[clamp(1.9rem,4.4vw,3.6rem)] leading-[1.06] text-white">
@@ -76,9 +76,6 @@ export function AIConsultingCTA({ onNavigate }: AIConsultingCTAProps) {
                   />
                 </div>
               </div>
-
-              {/* Breathing room above the horizon floor */}
-              <div className="h-4 md:h-6" aria-hidden="true" />
             </div>
           </div>
         </Reveal>

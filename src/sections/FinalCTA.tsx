@@ -71,7 +71,7 @@ export function FinalCTA({
             </div>
 
             {/* Content */}
-            <div className="relative p-8 pb-0 md:p-14 md:pb-0">
+            <div className="relative p-8 md:p-14">
               {showOrb ? (
                 <div className="grid items-center gap-10 md:grid-cols-12 md:gap-8">
                   <div className="md:col-span-7">
@@ -115,8 +115,9 @@ export function FinalCTA({
                 </>
               )}
 
-              {/* Breathing room above the horizon floor */}
-              <div className={cn('h-24 md:h-32', showOrb && 'h-4 md:h-6')} aria-hidden="true" />
+              {/* Breathing room above the horizon floor (non-orb layout only;
+                  the orb layout keeps its padding symmetric instead) */}
+              {!showOrb && <div className="h-24 md:h-32" aria-hidden="true" />}
             </div>
           </div>
         </Reveal>
