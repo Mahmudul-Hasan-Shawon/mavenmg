@@ -1,0 +1,55 @@
+<div align="center">
+
+# 21ST.DEV — Public Work by [@kedhareswer](https://21st.dev/@kedhareswer)
+
+**Every component and library I publish on 21st.dev lives here.**
+
+*Good design = satisfaction. Bad design = trend.*
+
+[![See my work on 21st.dev](https://img.shields.io/badge/See_my_work_on-21st.dev-000?style=for-the-badge)](https://21st.dev/@kedhareswer)
+[![Portfolio](https://img.shields.io/badge/Portfolio-kedhar.vercel.app-4f46e5?style=for-the-badge)](https://kedhar.vercel.app/?ref=21st.dev)
+
+</div>
+
+---
+
+## What this is
+
+The authoring repo behind my [21st.dev profile](https://21st.dev/@kedhareswer). If a piece is live on the profile, its source is here. If it isn't here, it isn't public.
+
+- **`components/`** — copy-paste-ready React UI pieces. **17 live**, including Alice Scroll Story, Anchored Action Bar, Festivity Hero, Glass Clock, Liquid Glass Cards, Mouse Trail, Particle Animation, Scroll Book, Snow Ball Loading Spinner.
+- **`library/`** — larger reusable collections published under my namespace.
+
+This repo is the source, 21st.dev is the distribution channel. Every publish is a commit, so nothing is hand-edited downstream and any version is one `git log` away.
+
+## Use it
+
+**Install from 21st** — open a piece on [the profile](https://21st.dev/@kedhareswer) and run its command:
+
+```bash
+npx shadcn@latest add "https://21st.dev/r/kedhareswer/<slug>"
+```
+
+**Or copy the source** — grab `components/<slug>/` straight from this repo. Each folder is self-contained: Tailwind + one component file, no local imports to chase.
+
+Built with React + TypeScript + Tailwind, shadcn-compatible.
+
+## Docs
+
+| | |
+|---|---|
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Repo layout, naming rules, publishing workflow, folder anatomy |
+| [Issues](../../issues) | Found a bug? Include the folder name, repro steps, and a screenshot |
+
+## Links
+
+- **21st.dev** — https://21st.dev/@kedhareswer
+- **Portfolio** — https://kedhar.vercel.app/?ref=21st.dev
+- **GitHub** — https://github.com/Kedhareswer
+
+---
+
+*Free to view, copy, and adapt unless a folder says otherwise. Attribution appreciated.*
+
+Source: https://github.com/Kedhareswer/21stdev-my-components/tree/8a8fcd62851c09119fd378fa76478100e63feb6d/components/foundation-primitives
+Adapter: scoped import paths and authored JSX entry. Original source files retained in originals/.

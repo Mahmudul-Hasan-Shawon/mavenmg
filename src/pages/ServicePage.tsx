@@ -43,6 +43,7 @@ import { Reveal } from '../components/ui/Reveal'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { AIConsultingCTA } from '../sections/AIConsultingCTA'
 import { CyberSecurityCTA } from '../sections/CyberSecurityCTA'
+import { DigitalMarketingCTA } from '../sections/DigitalMarketingCTA'
 import { GlowPricing } from '../sections/GlowPricing'
 import { FinalCTA } from '../sections/FinalCTA'
 import { cn } from '../utils/cn'
@@ -90,6 +91,7 @@ interface ServicePageProps {
 const customClosingCTAs: Record<string, ComponentType<{ onNavigate: (href: string) => void }>> = {
   'ai-consulting': AIConsultingCTA,
   'cyber-security': CyberSecurityCTA,
+  'digital-marketing': DigitalMarketingCTA,
 }
 
 export default function ServicePage({ data, onNavigate }: ServicePageProps) {
