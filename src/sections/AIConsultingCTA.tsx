@@ -41,7 +41,17 @@ export function AIConsultingCTA({ onNavigate }: AIConsultingCTAProps) {
                 <div className="md:col-span-7">
                   <h2 className="display text-[clamp(1.9rem,4.4vw,3.6rem)] leading-[1.06] text-white">
                     Ready to build your{' '}
-                    <span className="grad-text whitespace-nowrap">AI advantage?</span>
+                    <span
+                      className="whitespace-nowrap"
+                      style={{
+                        backgroundImage: 'linear-gradient(100deg, #f2ecff 0%, #c9a6f5 50%, #8b4fbf 100%)',
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                      }}
+                    >
+                      AI advantage?
+                    </span>
                   </h2>
                   <p className="mt-5 max-w-xl text-base leading-relaxed text-mist md:text-lg">
                     Book a free discovery call. We&apos;ll map your highest-impact AI opportunities and
@@ -59,7 +69,11 @@ export function AIConsultingCTA({ onNavigate }: AIConsultingCTAProps) {
                   </div>
                 </div>
                 <div className="relative mx-auto aspect-square w-[260px] max-w-full sm:w-[340px] md:col-span-5 md:w-full md:max-w-[380px] lg:max-w-[440px]">
-                  <GenerativeArtScene className="pointer-events-none absolute inset-0" color="#a06fdb" />
+                  <GenerativeArtScene
+                    className="pointer-events-none absolute inset-0"
+                    color="#a06fdb"
+                    scale={1.35}
+                  />
                 </div>
               </div>
 

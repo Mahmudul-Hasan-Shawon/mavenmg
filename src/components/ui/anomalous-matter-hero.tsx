@@ -19,12 +19,15 @@ import * as THREE from "three";
 export type GenerativeArtSceneProps = {
   /** Colour of the wireframe anomaly; any CSS colour THREE.Color parses. */
   color?: string;
+  /** Uniform size multiplier for the anomaly (1 = original). */
+  scale?: number;
   /** Classes on the mount (it fills its positioned parent). */
   className?: string;
 };
 
 export function GenerativeArtScene({
   color = "#a06fdb",
+  scale = 1,
   className = "pointer-events-none absolute inset-0 h-full w-full",
 }: GenerativeArtSceneProps) {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -137,6 +140,7 @@ export function GenerativeArtScene({
       wireframe: true,
     });
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.scale.setScalar(scale);
     scene.add(mesh);
 
     const pointLight = new THREE.PointLight(0xffffff, 1, 100);
@@ -215,7 +219,7 @@ export function GenerativeArtScene({
         currentMount.removeChild(renderer.domElement);
       }
     };
-  }, [color]);
+  }, [color, scale]);
 
   return <div ref={mountRef} className={className} />;
 }
