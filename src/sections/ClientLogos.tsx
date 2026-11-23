@@ -44,7 +44,7 @@ const CLIENTS = [
   { file: 'crx-hd', name: 'CRX Engines' },
   { file: 'cryptocache', name: 'Crypto Cache' },
   { file: 'gxc', name: 'GXC Inc' },
-  { file: 'rod-safety-group', name: 'Rod Safety Group' },
+  { file: 'couponpharm', name: 'Coupon Pharm' },
 ]
 
 const CELL_COUNT = 12

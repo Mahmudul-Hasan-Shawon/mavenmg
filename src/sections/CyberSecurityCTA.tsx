@@ -1,4 +1,5 @@
-import { ArrowRight, ArrowUpRight, Check, Clock, FileText, Fingerprint, ShieldCheck } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Clock, FileText, ShieldCheck } from 'lucide-react'
+import { CubeWavePanel } from '../components/ui/CubeWavePanel'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 
@@ -9,17 +10,18 @@ interface CyberSecurityCTAProps {
 /**
  * Cyber-security-specific closing CTA. Built as a dark "security intake"
  * dossier so it feels like the start of a review rather than a generic
- * marketing banner, while keeping the same conversion path as the site's
- * standard final CTA.
+ * marketing banner. The right side carries PODIE's live CubeWave scene as a
+ * quiet visual metaphor for a signal resolving into a clear path, while the
+ * conversion path stays the same as the site's standard final CTA.
  */
 export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
   return (
     <section
       id="cyber-security-cta"
-      className="section relative px-6 pt-4 pb-20 md:pt-16 md:pb-32"
+      className="section relative py-20 md:py-28"
       aria-label="Free security gap review"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="container-maven">
         <Reveal>
           <div
             className="relative rounded-[2rem] p-px shadow-[0_40px_120px_-40px_rgba(97,44,139,0.7)]"
@@ -45,7 +47,7 @@ export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
                 <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(218,202,255,0.55),transparent)]" />
               </div>
 
-              <div className="relative grid gap-12 p-7 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:p-16">
+              <div className="relative grid gap-12 p-8 pb-4 md:p-14 md:pb-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-10">
                 <div>
                   <h2 className="display max-w-2xl text-[clamp(2.3rem,4.6vw,4.1rem)] font-bold leading-[1.02] text-white-solid">
                     Send us the{' '}
@@ -103,68 +105,18 @@ export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
                   </div>
                 </div>
 
-                <div className="relative mx-auto w-full max-w-md lg:ml-auto">
-                  <div aria-hidden="true" className="absolute -inset-4 rounded-[2rem] bg-maven/20 blur-2xl" />
-                  <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)] backdrop-blur-xl md:p-6">
-                    <div
-                      aria-hidden="true"
-                      className="security-scan pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(218,202,255,0.9),transparent)]"
-                    />
-
-                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                      <div className="flex items-center gap-2.5">
-                        <Fingerprint size={14} className="text-[#dacaff]" />
-                        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-[#9f92b8]">
-                          Security review intake
-                        </span>
-                      </div>
-                      <span className="font-mono text-[9px] tracking-[0.2em] text-[#9f92b8]">001</span>
-                    </div>
-
-                    <div className="mt-5 flex items-start gap-3">
-                      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-[#dacaff]/20 bg-[#dacaff]/[0.08] text-[#dacaff]">
-                        <FileText size={20} />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-white-solid">Your questionnaire</p>
-                        <p className="mt-1 text-xs leading-relaxed text-[#9f92b8]">
-                          SOC 2 · PCI DSS · enterprise vendor review
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-5 divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
-                      <IntakeRow label="Framework" value="SOC 2 Type II" />
-                      <IntakeRow label="Blocking deal" value="Enterprise vendor review" />
-                      <IntakeRow label="Target" value="Fastest path to yes" accent />
-                    </div>
-
-                    <div className="mt-5 rounded-2xl border border-white/10 bg-[#0d0915]/80 p-4">
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#9f92b8]">
-                          Path to clearance
-                        </span>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#dacaff]">
-                          3 phases
-                        </span>
-                      </div>
-                      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
-                        <div className="h-full w-[78%] rounded-full bg-[linear-gradient(90deg,#8b4fbf,#b98af0_55%,#dacaff)] shadow-[0_0_18px_rgba(139,79,191,0.5)]" />
-                      </div>
-                      <div className="mt-2.5 flex items-center justify-between font-mono text-[8px] uppercase tracking-[0.12em] text-[#9f92b8]">
-                        <span className="text-[#dacaff]">Scope</span>
-                        <span className="text-[#dacaff]">Gap map</span>
-                        <span>Fixed fee</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-5 flex items-center gap-2 text-[11px] leading-relaxed text-[#b9aecf]">
-                      <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#b98af0]/10 text-[#dacaff]">
-                        <Check size={11} />
-                      </span>
-                      Independent audit coordination included
-                    </div>
-                  </div>
+                {/* Live PODIE / Threecn CubeWave — original instanced radial
+                    wave on a square stage that matches the dark CTA. */}
+                <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-3xl border border-white/10 bg-[#0d0915]/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_60px_-30px_rgba(0,0,0,0.9)] lg:ml-auto lg:max-w-none">
+                  <CubeWavePanel />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#09060f] to-transparent"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(218,202,255,0.5),transparent)]"
+                  />
                 </div>
               </div>
             </div>
@@ -172,14 +124,5 @@ export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
         </Reveal>
       </div>
     </section>
-  )
-}
-
-function IntakeRow({ label, value, accent = false }: { label: string; value: string; accent?: boolean }) {
-  return (
-    <div className="flex items-center justify-between gap-4 px-4 py-3">
-      <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#9f92b8]">{label}</span>
-      <span className={`text-right text-xs font-medium ${accent ? 'text-[#dacaff]' : 'text-white-solid'}`}>{value}</span>
-    </div>
   )
 }

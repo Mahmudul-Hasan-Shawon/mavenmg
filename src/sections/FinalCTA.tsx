@@ -1,15 +1,16 @@
 import type { ReactNode } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { MagneticButton } from '../components/ui/MagneticButton'
+import { CuriousAiOrb } from '../components/ui/CuriousAiOrb'
 import { Reveal } from '../components/ui/Reveal'
 import { cn } from '../utils/cn'
 
 /**
  * Closing CTA as a single card: content taken from
  * mavenmarketinggroup.com's closing block. The dark card carries a quiet
- * violet gradient under a soft violet floor glow and a giant outlined
- * "2027" watermark.
+ * violet gradient under a soft violet floor glow.
  * Stays dark in both themes, like the old gradient CTA did.
+ * Every page uses the live Curious AI orb on the right.
  */
 export function FinalCTA({
   onNavigate,
@@ -27,6 +28,7 @@ export function FinalCTA({
     </>
   ),
   stacked = false,
+  orb = true,
 }: {
   onNavigate: (href: string) => void
   /** Optional copy overrides so other pages can reuse the same card. */
@@ -34,7 +36,23 @@ export function FinalCTA({
   description?: ReactNode
   /** Put the description under the heading instead of beside it on wide screens. */
   stacked?: boolean
+  /** Show the interactive Curious AI orb beside the copy (on by default). */
+  orb?: boolean
 }) {
+  const showOrb = orb
+
+  const actions = (spacing: string) => (
+    <div className={cn('flex flex-wrap items-center gap-4', spacing)}>
+      <MagneticButton variant="primary" size="lg" onClick={() => onNavigate('/contact')}>
+        Start Your Project
+        <ArrowRight size={18} />
+      </MagneticButton>
+      <MagneticButton variant="deepOutline" size="lg" onClick={() => onNavigate('/contact')}>
+        Contact Us
+      </MagneticButton>
+    </div>
+  )
+
   return (
     <section id="final-cta" className="section py-20 md:py-28" aria-label="Start your project">
       <div className="container-maven">
@@ -50,60 +68,55 @@ export function FinalCTA({
                     'radial-gradient(ellipse 75% 60% at 50% 108%, rgba(139,79,191,0.5) 0%, rgba(5,3,8,0) 65%)',
                 }}
               />
-              {/* Giant outlined year watermark */}
-              <div
-                className="absolute -bottom-8 right-[1%] hidden md:block select-none leading-none text-[8rem] lg:text-[11rem] font-dm font-[1000] opacity-80"
-                style={{
-                  WebkitTextStroke: '1px rgba(218, 202, 255, 0.14)',
-                  color: 'transparent',
-                }}
-              >
-                2027
-              </div>
             </div>
 
             {/* Content */}
             <div className="relative p-8 pb-0 md:p-14 md:pb-0">
-              {/* Editorial top rule */}
-              <div className="flex items-center justify-between gap-6 border-b border-line pb-5 mb-12 md:mb-16">
-                <span className="mono-label text-maven-lighter">Let&rsquo;s grow</span>
-                <span className="mono-label hidden sm:block">Search · Web · AI · Security</span>
-              </div>
+              {showOrb ? (
+                <div className="grid items-center gap-10 md:grid-cols-12 md:gap-8">
+                  <div className="md:col-span-7">
+                    <h2 className="display text-[clamp(1.9rem,4.4vw,3.6rem)] leading-[1.06] text-white">
+                      {title}
+                    </h2>
+                    <p className="mt-5 max-w-xl text-base leading-relaxed text-mist md:text-lg">
+                      {description}
+                    </p>
+                    {actions('mt-8')}
+                  </div>
+                  <div className="relative mx-auto aspect-square w-[260px] max-w-full sm:w-[340px] md:col-span-5 md:w-full md:max-w-[380px] lg:max-w-[440px]">
+                    <CuriousAiOrb className="absolute inset-0" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className={cn(stacked ? 'flex flex-col gap-5' : 'grid gap-10 md:grid-cols-12 md:gap-8')}>
+                    <h2
+                      className={cn(
+                        'display text-[clamp(1.9rem,4.4vw,3.6rem)] leading-[1.06] text-white',
+                        stacked ? 'max-w-3xl' : 'md:col-span-7',
+                      )}
+                    >
+                      {title}
+                    </h2>
 
-              <div className={cn(stacked ? 'flex flex-col gap-5' : 'grid gap-10 md:grid-cols-12 md:gap-8')}>
-                <h2
-                  className={cn(
-                    'display text-[clamp(1.9rem,4.4vw,3.6rem)] leading-[1.06] text-white',
-                    stacked ? 'max-w-3xl' : 'md:col-span-7',
-                  )}
-                >
-                  {title}
-                </h2>
+                    <p
+                      className={cn(
+                        'text-mist text-base md:text-lg leading-relaxed',
+                        stacked
+                          ? 'max-w-xl'
+                          : 'md:col-span-5 md:pt-2 md:max-w-sm md:justify-self-end',
+                      )}
+                    >
+                      {description}
+                    </p>
+                  </div>
 
-                <p
-                  className={cn(
-                    'text-mist text-base md:text-lg leading-relaxed',
-                    stacked
-                      ? 'max-w-xl'
-                      : 'md:col-span-5 md:pt-2 md:max-w-sm md:justify-self-end',
-                  )}
-                >
-                  {description}
-                </p>
-              </div>
-
-              <div className="mt-12 md:mt-16 flex flex-wrap items-center gap-4">
-                <MagneticButton variant="primary" size="lg" onClick={() => onNavigate('/contact')}>
-                  Start Your Project
-                  <ArrowRight size={18} />
-                </MagneticButton>
-                <MagneticButton variant="deepOutline" size="lg" onClick={() => onNavigate('/contact')}>
-                  Contact Us
-                </MagneticButton>
-              </div>
+                  {actions('mt-12 md:mt-16')}
+                </>
+              )}
 
               {/* Breathing room above the horizon floor */}
-              <div className="h-24 md:h-32" aria-hidden="true" />
+              <div className={cn('h-24 md:h-32', showOrb && 'h-4 md:h-6')} aria-hidden="true" />
             </div>
           </div>
         </Reveal>
