@@ -57,7 +57,7 @@ export function FinalCTA({
     <section id="final-cta" className="section py-20 md:py-28" aria-label="Start your project">
       <div className="container-maven">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2rem] border border-line shadow-[0_28px_80px_-28px_rgba(97,44,139,0.55)]">
+          <div className="relative overflow-hidden rounded-[2rem] shadow-[0_28px_80px_-28px_rgba(97,44,139,0.55)]">
             {/* Horizon backdrop, clipped to the card */}
             <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
               <div

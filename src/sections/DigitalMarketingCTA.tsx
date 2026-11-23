@@ -76,8 +76,7 @@ export function DigitalMarketingCTA({ onNavigate }: DigitalMarketingCTAProps) {
                     <MagneticButton
                       variant="primary"
                       size="lg"
-                      shape="soft"
-                      className="w-full sm:w-auto"
+                                      className="w-full sm:w-auto"
                       onClick={() => onNavigate('/contact')}
                     >
                       Book a Free Strategy Call <ArrowRight size={18} />
@@ -85,8 +84,7 @@ export function DigitalMarketingCTA({ onNavigate }: DigitalMarketingCTAProps) {
                     <MagneticButton
                       variant="glass"
                       size="lg"
-                      shape="soft"
-                      className="w-full sm:w-auto"
+                                      className="w-full sm:w-auto"
                       onClick={() => onNavigate('/contact')}
                     >
                       Contact Us <ArrowUpRight size={18} />

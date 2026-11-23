@@ -75,8 +75,7 @@ export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
                     <MagneticButton
                       variant="primary"
                       size="lg"
-                      shape="soft"
-                      className="w-full sm:w-auto"
+                                      className="w-full sm:w-auto"
                       onClick={() => onNavigate('/contact')}
                     >
                       Book a Free Gap Review <ArrowRight size={18} />
@@ -84,8 +83,7 @@ export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
                     <MagneticButton
                       variant="glass"
                       size="lg"
-                      shape="soft"
-                      className="w-full sm:w-auto"
+                                      className="w-full sm:w-auto"
                       onClick={() => onNavigate('/contact')}
                     >
                       Contact Us <ArrowUpRight size={18} />
