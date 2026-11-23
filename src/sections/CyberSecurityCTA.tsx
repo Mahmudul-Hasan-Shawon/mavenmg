@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowUpRight, Clock, FileText, ShieldCheck } from 'lucide-react'
+import { CubeWavePanel } from '../components/ui/CubeWavePanel'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 
@@ -46,7 +47,7 @@ export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
                 <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(218,202,255,0.55),transparent)]" />
               </div>
 
-              <div className="relative p-8 pb-4 md:p-14 md:pb-6">
+              <div className="relative grid gap-12 p-8 pb-4 md:p-14 md:pb-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-10">
                 <div>
                   <h2 className="display max-w-2xl text-[clamp(2.3rem,4.6vw,4.1rem)] font-bold leading-[1.02] text-white-solid">
                     Send us the{' '}
@@ -102,6 +103,20 @@ export function CyberSecurityCTA({ onNavigate }: CyberSecurityCTAProps) {
                       <FileText size={14} className="text-[#dacaff]" /> Fixed-fee phases
                     </span>
                   </div>
+                </div>
+
+                {/* Live PODIE / Threecn CubeWave — original instanced radial
+                    wave on a square stage that matches the dark CTA. */}
+                <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-3xl bg-[#0d0915]/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_60px_-30px_rgba(0,0,0,0.9)] lg:ml-auto lg:max-w-none">
+                  <CubeWavePanel />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#09060f] to-transparent"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(218,202,255,0.5),transparent)]"
+                  />
                 </div>
               </div>
             </div>
