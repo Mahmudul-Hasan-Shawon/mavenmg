@@ -2590,3 +2590,25 @@ html:not([data-theme='light']) .marquee-badge {
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+/* ---------- Anomalous matter hero ---------- */
+
+@keyframes fade-in-long {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-long {
+  animation: fade-in-long 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-long {
+    animation: none;
+  }
+}

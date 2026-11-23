@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowUpRight, Sparkles } from 'lucide-react'
+import { GenerativeArtScene } from '../components/ui/anomalous-matter-hero'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
 
@@ -35,6 +36,13 @@ export function AIConsultingCTA({ onNavigate }: AIConsultingCTAProps) {
                 <div className="absolute left-1/2 top-1/2 h-[520px] w-[860px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-maven/25 blur-[150px]" />
                 <div className="absolute -top-24 -left-24 h-[300px] w-[300px] rounded-full bg-maven-light/10 blur-[120px]" />
                 <div className="absolute -bottom-28 -right-20 h-[320px] w-[320px] rounded-full bg-[#b98af0]/10 blur-[130px]" />
+
+                {/* Live anomaly: wireframe blob breathing through a noise
+                    shader, lit by a light that follows the pointer. */}
+                <GenerativeArtScene
+                  className="pointer-events-none absolute inset-0 h-full w-full opacity-90"
+                  color="#a06fdb"
+                />
 
                 {/* Top hairline + horizon hairline */}
                 <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(218,202,255,0.55),transparent)]" />
