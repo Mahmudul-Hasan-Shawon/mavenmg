@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Sparkles } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { GenerativeArtScene } from '../components/ui/anomalous-matter-hero'
 import { MagneticButton } from '../components/ui/MagneticButton'
 import { Reveal } from '../components/ui/Reveal'
@@ -7,101 +7,64 @@ interface AIConsultingCTAProps {
   onNavigate: (href: string) => void
 }
 
-
 /**
- * AI-consulting-specific closing CTA. A dark "orbit + constellation" card:
- * a dark card with a calm ambient glow and corner washes behind the
- * headline. It reads as its own moment instead of a generic banner, while
- * keeping the same conversion path as the site's standard final CTA.
+ * AI-consulting closing CTA, sharing the homepage final CTA's card
+ * geometry: same container, card, padding and 12-column split with the copy
+ * on the left and the anomalous matter wireframe (pointer-following light,
+ * noise-displaced blob) sitting in the orb's slot on the right.
  */
 export function AIConsultingCTA({ onNavigate }: AIConsultingCTAProps) {
   return (
     <section
       id="ai-consulting-cta"
-      className="section relative px-6 pt-4 pb-20 md:pt-16 md:pb-32"
+      className="section py-20 md:py-28"
       aria-label="Free AI discovery call"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="container-maven">
         <Reveal>
-          <div
-            className="relative rounded-[2rem] p-px shadow-[0_40px_120px_-40px_rgba(97,44,139,0.7)]"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(218,202,255,0.45) 0%, rgba(139,79,191,0.16) 45%, rgba(185,138,240,0.35) 100%)',
-            }}
-          >
-            <div className="relative overflow-hidden rounded-[calc(2rem-1px)] bg-[#09060f]">
-              <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-                {/* Ambient center glow + soft corner washes, no network overlay */}
-                <div className="absolute left-1/2 top-1/2 h-[520px] w-[860px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-maven/25 blur-[150px]" />
-                <div className="absolute -top-24 -left-24 h-[300px] w-[300px] rounded-full bg-maven-light/10 blur-[120px]" />
-                <div className="absolute -bottom-28 -right-20 h-[320px] w-[320px] rounded-full bg-[#b98af0]/10 blur-[130px]" />
+          <div className="relative overflow-hidden rounded-[2rem] border border-line shadow-[0_28px_80px_-28px_rgba(97,44,139,0.55)]">
+            {/* Horizon backdrop, clipped to the card */}
+            <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundColor: '#050308',
+                  backgroundImage:
+                    'radial-gradient(ellipse 75% 60% at 50% 108%, rgba(139,79,191,0.5) 0%, rgba(5,3,8,0) 65%)',
+                }}
+              />
+            </div>
 
-                {/* Live anomaly: wireframe blob breathing through a noise
-                    shader, lit by a light that follows the pointer. */}
-                <GenerativeArtScene
-                  className="pointer-events-none absolute inset-0 h-full w-full opacity-90"
-                  color="#a06fdb"
-                />
-
-                {/* Top hairline + horizon hairline */}
-                <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(218,202,255,0.55),transparent)]" />
-                <div className="absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,rgba(185,138,240,0.5),transparent)]" />
-              </div>
-
-              <div className="relative mx-auto max-w-3xl px-6 py-16 text-center sm:px-10 md:py-24">
-                <Reveal>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#b98af0]/30 bg-[#b98af0]/[0.08] px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#dacaff]">
-                    <Sparkles size={12} aria-hidden="true" /> AI Consulting
-                  </span>
-                </Reveal>
-
-                <Reveal delay={0.05}>
-                  <h2 className="display mt-7 text-[clamp(2.4rem,5vw,4.2rem)] font-bold leading-[1.04] text-white-solid">
+            {/* Content */}
+            <div className="relative p-8 pb-0 md:p-14 md:pb-0">
+              <div className="grid items-center gap-10 md:grid-cols-12 md:gap-8">
+                <div className="md:col-span-7">
+                  <h2 className="display text-[clamp(1.9rem,4.4vw,3.6rem)] leading-[1.06] text-white">
                     Ready to build your{' '}
-                    <span
-                      style={{
-                        backgroundImage: 'linear-gradient(100deg, #f2ecff 0%, #c9a6f5 50%, #8b4fbf 100%)',
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        color: 'transparent',
-                      }}
-                    >
-                      AI advantage?
-                    </span>
+                    <span className="grad-text whitespace-nowrap">AI advantage?</span>
                   </h2>
-                </Reveal>
-
-                <Reveal delay={0.1}>
-                  <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#b9aecf] md:text-lg">
-                    Book a free discovery call. We&apos;ll map your highest-impact AI opportunities and outline a path
-                    to production in 90 days or less.
+                  <p className="mt-5 max-w-xl text-base leading-relaxed text-mist md:text-lg">
+                    Book a free discovery call. We&apos;ll map your highest-impact AI opportunities and
+                    outline a path to production in 90 days or less.
                   </p>
-                </Reveal>
-
-                <Reveal delay={0.15}>
-                  <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <MagneticButton
-                      variant="primary"
-                      size="lg"
-                      shape="soft"
-                      className="w-full sm:w-auto"
-                      onClick={() => onNavigate('/contact')}
-                    >
-                      Book Your Discovery Call <ArrowRight size={18} />
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <MagneticButton variant="primary" size="lg" onClick={() => onNavigate('/contact')}>
+                      Book Your Discovery Call
+                      <ArrowRight size={18} />
                     </MagneticButton>
-                    <MagneticButton
-                      variant="glass"
-                      size="lg"
-                      shape="soft"
-                      className="w-full sm:w-auto"
-                      onClick={() => onNavigate('/services')}
-                    >
-                      All Services <ArrowUpRight size={18} />
+                    <MagneticButton variant="deepOutline" size="lg" onClick={() => onNavigate('/services')}>
+                      All Services
+                      <ArrowUpRight size={18} />
                     </MagneticButton>
                   </div>
-                </Reveal>
+                </div>
+                <div className="relative mx-auto aspect-square w-[260px] max-w-full sm:w-[340px] md:col-span-5 md:w-full md:max-w-[380px] lg:max-w-[440px]">
+                  <GenerativeArtScene className="pointer-events-none absolute inset-0" color="#a06fdb" />
+                </div>
               </div>
+
+              {/* Breathing room above the horizon floor */}
+              <div className="h-4 md:h-6" aria-hidden="true" />
             </div>
           </div>
         </Reveal>
